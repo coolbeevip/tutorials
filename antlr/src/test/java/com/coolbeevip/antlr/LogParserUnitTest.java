@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 
 public class LogParserUnitTest {

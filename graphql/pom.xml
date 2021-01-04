@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>graphql</artifactId>
+  <name>graphql</name>
+
+  <parent>
+    <groupId>com.coolbeevip</groupId>
+    <artifactId>parent-spring-boot-2</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <relativePath>../parent-spring-boot-2</relativePath>
+  </parent>
+
+  <properties>
+    <graphql-java-kickstart.version>8.1.1</graphql-java-kickstart.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-undertow</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <!-- graphql -->
+    <dependency>
+      <groupId>com.graphql-java-kickstart</groupId>
+      <artifactId>graphql-spring-boot-starter</artifactId>
+      <version>${graphql-java-kickstart.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.graphql-java-kickstart</groupId>
+      <artifactId>graphiql-spring-boot-starter</artifactId>
+      <version>${graphql-java-kickstart.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.graphql-java-kickstart</groupId>
+      <artifactId>voyager-spring-boot-starter</artifactId>
+      <version>${graphql-java-kickstart.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.graphql-java-kickstart</groupId>
+      <artifactId>graphql-spring-boot-starter-test</artifactId>
+      <version>${graphql-java-kickstart.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+</project>
