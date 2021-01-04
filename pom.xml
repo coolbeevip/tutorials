@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.coolbeevip</groupId>
+  <artifactId>parent-modules</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>parent-modules</name>
+  <packaging>pom</packaging>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <gib.referenceBranch>refs/remotes/origin/master</gib.referenceBranch>
+    <gib.skipTestsForUpstreamModules>true</gib.skipTestsForUpstreamModules>
+    <gib.buildUpstream>false</gib.buildUpstream>
+    <gib.failOnMissingGitDir>false</gib.failOnMissingGitDir>
+    <gib.failOnError>false</gib.failOnError>
+    <gib.enabled>false</gib.enabled>
+
+    <junit.version>4.12</junit.version>
+    <hamcrest.version>2.2</hamcrest.version>
+    <hamcrest-all.version>1.3</hamcrest-all.version>
+    <mockito.version>3.3.0</mockito.version>
+    <byte-buddy.version>1.10.5</byte-buddy.version>
+
+    <!-- logging -->
+    <org.slf4j.version>1.7.30</org.slf4j.version>
+    <logback.version>1.2.3</logback.version>
+
+    <!-- plugins -->
+    <!-- can't upgrade the plugin yet; as there is an issue with 2.22 no longer running all the tests-->
+    <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+    <java.version>1.8</java.version>
+    <log4j.version>1.2.17</log4j.version>
+    <esapi.version>2.1.0.1</esapi.version>
+    <jmh-core.version>1.19</jmh-core.version>
+    <jmh-generator.version>1.19</jmh-generator.version>
+    <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+    <maven-failsafe-plugin.version>2.21.0</maven-failsafe-plugin.version>
+    <commons-io.version>2.5</commons-io.version>
+    <commons-lang.version>2.6</commons-lang.version>
+    <commons-lang3.version>3.5</commons-lang3.version>
+    <commons-cli.version>1.4</commons-cli.version>
+    <maven-war-plugin.version>3.0.0</maven-war-plugin.version>
+    <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+    <jstl-api.version>1.2</jstl-api.version>
+    <javax.servlet.jsp-api.version>2.3.1</javax.servlet.jsp-api.version>
+    <jstl.version>1.2</jstl.version>
+    <jackson.version>2.11.1</jackson.version>
+    <commons-fileupload.version>1.3</commons-fileupload.version>
+    <junit-platform.version>1.2.0</junit-platform.version>
+    <junit-jupiter.version>5.2.0</junit-jupiter.version>
+    <directory-maven-plugin.version>0.3.1</directory-maven-plugin.version>
+    <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
+    <custom-pmd.version>0.0.1</custom-pmd.version>
+    <gitflow-incremental-builder.version>3.8</gitflow-incremental-builder.version>
+    <maven-jxr-plugin.version>3.0.0</maven-jxr-plugin.version>
+    <!-- <maven-pmd-plugin.version>3.9.0</maven-pmd-plugin.version> -->
+    <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
+    <lombok.version>1.16.12</lombok.version>
+    <h2.version>1.4.197</h2.version>
+  </properties>
+
+  <dependencies>
+    <!-- logging -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${org.slf4j.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>${logback.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${org.slf4j.version}</version>
+    </dependency>
+
+    <!-- test -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest</artifactId>
+      <version>${hamcrest.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-all</artifactId>
+      <version>${hamcrest-all.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${mockito.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.maven.surefire</groupId>
+      <artifactId>surefire-logger-api</artifactId>
+      <version>${maven-surefire-plugin.version}</version>
+      <!-- to get around bug https://github.com/junit-team/junit5/issues/801 -->
+      <scope>test</scope>
+      <optional>true</optional>
+    </dependency>
+  </dependencies>
+
+  <modules>
+    <module>antlr</module>
+  </modules>
+</project>
