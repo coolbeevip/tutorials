@@ -1,0 +1,43 @@
+server:
+  port: 8080
+
+# graphiql
+graphiql:
+  cdn:
+    enabled: false
+    version: 0.13.0
+  enabled: true
+  endpoint:
+    graphql: /graphql
+    subscriptions: /subscriptions
+  mapping: /graphiql
+  pageTitle: GraphiQL
+  props:
+    variables:
+      editorTheme: solarized light
+  static:
+    basePath: /
+  subscriptions:
+    reconnect: false
+    timeout: 30
+
+# graphql
+graphql:
+  servlet:
+    contextSetting: PER_REQUEST_WITH_INSTRUMENTATION
+    corsEnabled: true
+    enabled: true
+    exception-handlers-enabled: true
+    tracing-enabled: false # 返回结果中包含 tracing 信息
+    actuator-metrics: true # 开启 actuator 指标度量
+    mapping: /graphql
+  tools:
+    schema-location-pattern: schema/*.graphqls
+    introspection-enabled: true
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
