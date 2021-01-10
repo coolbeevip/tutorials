@@ -4,3 +4,4 @@ target/
 *.ipr
 *.iws
 /antlr/target/
+/ratis/ratis-distributed-sequence/data/
