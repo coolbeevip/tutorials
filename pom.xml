@@ -148,5 +148,6 @@
     <module>antlr</module>
     <module>graphql</module>
     <module>ratis</module>
+    <module>spring-boot-jpa</module>
   </modules>
 </project>
