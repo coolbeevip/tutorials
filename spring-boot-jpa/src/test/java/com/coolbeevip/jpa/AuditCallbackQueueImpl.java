@@ -19,25 +19,25 @@ public class AuditCallbackQueueImpl implements AuditEntityCallback {
   @Override
   public void afterPersist(AuditEventType type, Object o) {
     auditRecords.add(AuditEvent.builder().type(type).data(o).build());
-    log.info("[AUDIT-{}] : {}", type, o);
+    log.trace("[AUDIT-{}] : {}", type, o);
   }
 
   @Override
   public void afterUpdate(AuditEventType type, Object o) {
     auditRecords.add(AuditEvent.builder().type(type).data(o).build());
-    log.info("[AUDIT-{}] : {}", type, o);
+    log.trace("[AUDIT-{}] : {}", type, o);
   }
 
   @Override
   public void afterRemove(AuditEventType type, Object o) {
     auditRecords.add(AuditEvent.builder().type(type).data(o).build());
-    log.info("[AUDIT-{}] : {}", type, o);
+    log.trace("[AUDIT-{}] : {}", type, o);
   }
 
   @Override
   public void afterLoad(AuditEventType type, Object o) {
     auditRecords.add(AuditEvent.builder().type(type).data(o).build());
-    log.info("[AUDIT-{}] : {}", type, o);
+    log.trace("[AUDIT-{}] : {}", type, o);
   }
 
   public LinkedList<AuditEvent> getAuditRecords() {

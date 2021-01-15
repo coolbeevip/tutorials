@@ -50,17 +50,17 @@
   </dependencies>
 
   <build>
+
     <resources>
       <resource>
         <directory>${basedir}/src/main/resources</directory>
         <filtering>true</filtering>
         <includes>
           <include>**/application*.yml</include>
-          <include>**/application*.yaml</include>
-          <include>**/application*.properties</include>
         </includes>
       </resource>
     </resources>
+
     <pluginManagement>
       <plugins>
         <plugin>
@@ -78,11 +78,36 @@
     </pluginManagement>
   </build>
   <profiles>
+    <!-- h2 database -->
     <profile>
-      <id>mysql</id>
+      <id>h2</id>
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
+      <properties>
+        <spring.config.activate.on-profile>h2</spring.config.activate.on-profile>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- mysql database -->
+    <profile>
+      <id>mysql</id>
       <properties>
         <spring.config.activate.on-profile>mysql</spring.config.activate.on-profile>
         <docker.external.mysql.port>3306</docker.external.mysql.port>
@@ -149,6 +174,7 @@
       </build>
     </profile>
 
+    <!-- h2 postgresql -->
     <profile>
       <id>postgresql</id>
       <properties>

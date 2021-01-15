@@ -5,8 +5,9 @@
 
 ## 快速开始
 
+验证 h2
 ```
-mvn clean package
+mvn verify -P h2
 ```
 
 验证 mysql
