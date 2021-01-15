@@ -13,6 +13,10 @@ spring:
       ddl-auto: create-drop
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
   h2:
     console:
       # http://localhost:8080/h2-console/.

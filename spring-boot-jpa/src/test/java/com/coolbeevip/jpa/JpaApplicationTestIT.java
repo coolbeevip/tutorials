@@ -3,7 +3,6 @@ package com.coolbeevip.jpa;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
-import com.coolbeevip.jpa.persistence.audit.AuditEntityCallback;
 import com.coolbeevip.jpa.persistence.audit.AuditEventType;
 import com.coolbeevip.jpa.persistence.model.Customer;
 import com.coolbeevip.jpa.persistence.repository.CustomerRepository;
@@ -12,8 +11,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.jupiter.api.AfterEach;
@@ -22,19 +23,24 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @SpringBootTest(classes = {JpaApplication.class, JpaConfiguration.class})
-public class JpaApplicationTest {
+public class JpaApplicationTestIT {
 
   @Autowired
   CustomerRepository repository;
 
   @Autowired
   AuditCallbackQueueImpl auditEntityCallback;
+
+  @Autowired
+  private Environment environment;
 
   @BeforeEach
   public void setup() {
@@ -44,6 +50,7 @@ public class JpaApplicationTest {
   }
 
   @AfterEach
+  @Transactional
   public void tearDown() {
     repository.deleteAll();
   }
@@ -123,7 +130,9 @@ public class JpaApplicationTest {
   }
 
   @Test
+  @SneakyThrows
   public void testDateBetween() {
+    TimeUnit.SECONDS.sleep(1);
     Date beginDate = new Date();
     Customer insertCustomer = repository
       .save(Customer.builder().firstName("You'Ran").lastName("Zhang").build());
@@ -164,13 +173,13 @@ public class JpaApplicationTest {
 
   @Test
   public void testPageable() {
-    Page<Customer> pageCustomers = repository.findAll(PageRequest.of(0, 2));
+    Page<Customer> pageCustomers = repository.findAll(PageRequest.of(0, 2, Sort.by("firstName")));
     Assertions.assertEquals(pageCustomers.getSize(), 2);
     Assertions.assertEquals(pageCustomers.getTotalElements(), 3l);
     Assertions.assertEquals(pageCustomers.getTotalPages(), 2);
     Assertions.assertEquals(pageCustomers.getContent().size(), 2);
-    Assertions.assertEquals(pageCustomers.getContent().get(0).getFirstName(), "Lei");
-    Assertions.assertEquals(pageCustomers.getContent().get(1).getFirstName(), "Bo'Ran");
+    Assertions.assertEquals(pageCustomers.getContent().get(0).getFirstName(), "Bo'Ran");
+    Assertions.assertEquals(pageCustomers.getContent().get(1).getFirstName(), "Lei");
   }
 
   @Test
@@ -192,11 +201,14 @@ public class JpaApplicationTest {
 
     List<String> firstNames = IntStream.range(0, 100).mapToObj(i -> "Lei" + i)
       .collect(Collectors.toList());
+    AtomicInteger age = new AtomicInteger();
     firstNames.stream().forEach(firstName -> {
-      repository.save(Customer.builder().firstName(firstName).lastName("Zhang").build());
+      repository.save(Customer.builder().firstName(firstName).lastName("Zhang").age(
+        age.getAndIncrement()).build());
     });
 
-    Page<Customer> pageCustomers = repository.findByLastName("Zhang", PageRequest.of(0, 50));
+    Page<Customer> pageCustomers = repository
+      .findByLastName("Zhang", PageRequest.of(0, 50, Sort.by("age")));
     Assertions.assertEquals(pageCustomers.getSize(), 50);
     Assertions.assertEquals(pageCustomers.getTotalElements(), firstNames.size());
     Assertions.assertEquals(pageCustomers.getTotalPages(), firstNames.size() / 50);
@@ -212,13 +224,16 @@ public class JpaApplicationTest {
     auditEntityCallback.getAuditRecords().clear();
     Customer customer = repository
       .save(Customer.builder().firstName("Tom").lastName("Zhang").build());
-    Assertions.assertEquals(auditEntityCallback.getAuditRecords().getLast().getType(), AuditEventType.CREATED);
+    Assertions.assertEquals(auditEntityCallback.getAuditRecords().getLast().getType(),
+      AuditEventType.CREATED);
 
     customer.setAge(50);
     repository.save(customer);
-    Assertions.assertEquals(auditEntityCallback.getAuditRecords().getLast().getType(), AuditEventType.UPDATED);
+    Assertions.assertEquals(auditEntityCallback.getAuditRecords().getLast().getType(),
+      AuditEventType.UPDATED);
 
     repository.delete(customer);
-    Assertions.assertEquals(auditEntityCallback.getAuditRecords().getLast().getType(), AuditEventType.DELETED);
+    Assertions.assertEquals(auditEntityCallback.getAuditRecords().getLast().getType(),
+      AuditEventType.DELETED);
   }
 }

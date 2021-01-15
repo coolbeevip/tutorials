@@ -1,3 +1,3 @@
-mvn -N -Ptest-mysql-docker docker:start
+mvn verify -P mysql -Dspring.config.activate.on-profile=mysql
 
-mvn -N -Ptest-postgresql-docker docker:start
+mvn verify -P postgresql -Dspring.config.activate.on-profile=postgresql

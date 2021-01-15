@@ -13,7 +13,7 @@
   <artifactId>spring-boot-jpa</artifactId>
 
   <properties>
-    <mysql.connector.version>5.1.47</mysql.connector.version>
+    <mysql.connector.version>8.0.19</mysql.connector.version>
     <mariadb.connector.version>2.2.0</mariadb.connector.version>
     <postgresql.connector.version>42.2.5</postgresql.connector.version>
   </properties>
@@ -27,34 +27,62 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
-
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-    </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgresql.connector.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>${mysql.connector.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
+  <build>
+    <resources>
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/application*.yml</include>
+          <include>**/application*.yaml</include>
+          <include>**/application*.properties</include>
+        </includes>
+      </resource>
+    </resources>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>2.7</version>
+          <configuration>
+            <delimiters>
+              <delimiter>@</delimiter>
+            </delimiters>
+            <useDefaultDelimiters>false</useDefaultDelimiters>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
   <profiles>
     <profile>
-      <id>test-mysql-docker</id>
+      <id>mysql</id>
       <activation>
-        <property>
-          <name>test-mysql-docker</name>
-        </property>
+        <activeByDefault>true</activeByDefault>
       </activation>
-      <dependencies>
-        <dependency>
-          <groupId>mysql</groupId>
-          <artifactId>mysql-connector-java</artifactId>
-          <version>${mysql.connector.version}</version>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
       <properties>
         <activatedProperties>mysql</activatedProperties>
         <docker.external.mysql.port>3306</docker.external.mysql.port>
@@ -65,46 +93,65 @@
       </properties>
       <build>
         <plugins>
+          <!-- integration test-->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
           <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
-            <configuration>
-              <images>
-                <image>
-                  <name>mysql/mysql-server:${mysql.server.version}</name>
-                  <run>
-                    <env>
-                      <MYSQL_DATABASE>${docker.external.mysql.dbname}</MYSQL_DATABASE>
-                      <MYSQL_USER>${docker.external.mysql.username}</MYSQL_USER>
-                      <MYSQL_PASSWORD>${docker.external.mysql.password}</MYSQL_PASSWORD>
-                    </env>
-                    <ports>
-                      <port>${docker.external.mysql.port}</port>
-                    </ports>
-                  </run>
-                </image>
-              </images>
-            </configuration>
+            <executions>
+              <execution>
+                <id>prepare-it-database-mysql</id>
+                <goals>
+                  <goal>start</goal>
+                </goals>
+                <configuration>
+                  <showLogs>true</showLogs>
+                  <images>
+                    <image>
+                      <name>mysql/mysql-server:${mysql.server.version}</name>
+                      <run>
+                        <env>
+                          <MYSQL_DATABASE>${docker.external.mysql.dbname}</MYSQL_DATABASE>
+                          <MYSQL_USER>${docker.external.mysql.username}</MYSQL_USER>
+                          <MYSQL_PASSWORD>${docker.external.mysql.password}</MYSQL_PASSWORD>
+                        </env>
+                        <ports>
+                          <port>${docker.external.mysql.port}:3306</port>
+                        </ports>
+                        <wait>
+                          <log>MySQL init process done. Ready for start up.</log>
+                          <time>60000</time>
+                        </wait>
+                      </run>
+                    </image>
+                  </images>
+                </configuration>
+              </execution>
+              <execution>
+                <id>remove-it-database-mysql</id>
+                <goals>
+                  <goal>stop</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>
     </profile>
 
     <profile>
-      <id>test-postgresql-docker</id>
-      <activation>
-        <property>
-          <name>test-postgresql-docker</name>
-        </property>
-      </activation>
-      <dependencies>
-        <dependency>
-          <groupId>org.postgresql</groupId>
-          <artifactId>postgresql</artifactId>
-          <version>${postgresql.connector.version}</version>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
+      <id>postgresql</id>
       <properties>
         <activatedProperties>postgresql</activatedProperties>
         <docker.external.postgresql.port>5432</docker.external.postgresql.port>
@@ -118,24 +165,43 @@
           <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
-            <configuration>
-              <images>
-                <image>
-                  <name>postgres:${postgresql.server.version}</name>
-                  <run>
-                    <env>
-                      <PGDATA>/pg</PGDATA>
-                      <POSTGRES_DB>${docker.external.postgresql.dbname}</POSTGRES_DB>
-                      <POSTGRES_USER>${docker.external.postgresql.username}</POSTGRES_USER>
-                      <POSTGRES_PASSWORD>${docker.external.postgresql.password}</POSTGRES_PASSWORD>
-                    </env>
-                    <ports>
-                      <port>${docker.external.postgresql.port}</port>
-                    </ports>
-                  </run>
-                </image>
-              </images>
-            </configuration>
+            <executions>
+              <execution>
+                <id>prepare-it-database-postgresql</id>
+                <goals>
+                  <goal>start</goal>
+                </goals>
+                <configuration>
+                  <showLogs>true</showLogs>
+                  <images>
+                    <image>
+                      <name>postgres:${postgresql.server.version}</name>
+                      <run>
+                        <env>
+                          <PGDATA>/pg</PGDATA>
+                          <POSTGRES_DB>${docker.external.postgresql.dbname}</POSTGRES_DB>
+                          <POSTGRES_USER>${docker.external.postgresql.username}</POSTGRES_USER>
+                          <POSTGRES_PASSWORD>${docker.external.postgresql.password}</POSTGRES_PASSWORD>
+                        </env>
+                        <ports>
+                          <port>${docker.external.postgresql.port}:5432</port>
+                        </ports>
+                        <wait>
+                          <log>MySQL init process done. Ready for start up.</log>
+                          <time>60000</time>
+                        </wait>
+                      </run>
+                    </image>
+                  </images>
+                </configuration>
+              </execution>
+              <execution>
+                <id>remove-it-database-postgresql</id>
+                <goals>
+                  <goal>stop</goal>
+                </goals>
+              </execution>
+            </executions>
           </plugin>
         </plugins>
       </build>
