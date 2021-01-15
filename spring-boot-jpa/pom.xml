@@ -16,6 +16,8 @@
     <mysql.connector.version>8.0.19</mysql.connector.version>
     <mariadb.connector.version>2.2.0</mariadb.connector.version>
     <postgresql.connector.version>42.2.5</postgresql.connector.version>
+
+    <docker.external.show-sql>false</docker.external.show-sql>
   </properties>
 
   <dependencies>
@@ -76,7 +78,9 @@
         </plugin>
       </plugins>
     </pluginManagement>
+
   </build>
+
   <profiles>
     <!-- h2 database -->
     <profile>
@@ -140,7 +144,7 @@
                   <goal>start</goal>
                 </goals>
                 <configuration>
-                  <showLogs>true</showLogs>
+                  <showLogs>${docker.external.show-sql}</showLogs>
                   <images>
                     <image>
                       <name>mysql/mysql-server:${mysql.server.version}</name>
@@ -209,7 +213,7 @@
                   <goal>start</goal>
                 </goals>
                 <configuration>
-                  <showLogs>true</showLogs>
+                  <showLogs>${docker.external.show-sql}</showLogs>
                   <images>
                     <image>
                       <name>postgres:${postgresql.server.version}</name>
