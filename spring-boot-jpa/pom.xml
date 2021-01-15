@@ -84,7 +84,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <properties>
-        <activatedProperties>mysql</activatedProperties>
+        <spring.config.activate.on-profile>mysql</spring.config.activate.on-profile>
         <docker.external.mysql.port>3306</docker.external.mysql.port>
         <docker.external.mysql.dbname>jpatestdb</docker.external.mysql.dbname>
         <docker.external.mysql.username>test</docker.external.mysql.username>
@@ -93,7 +93,6 @@
       </properties>
       <build>
         <plugins>
-          <!-- integration test-->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-failsafe-plugin</artifactId>
@@ -153,7 +152,7 @@
     <profile>
       <id>postgresql</id>
       <properties>
-        <activatedProperties>postgresql</activatedProperties>
+        <spring.config.activate.on-profile>postgresql</spring.config.activate.on-profile>
         <docker.external.postgresql.port>5432</docker.external.postgresql.port>
         <docker.external.postgresql.dbname>jpatestdb</docker.external.postgresql.dbname>
         <docker.external.postgresql.username>test</docker.external.postgresql.username>
@@ -162,6 +161,18 @@
       </properties>
       <build>
         <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
           <plugin>
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
@@ -187,7 +198,7 @@
                           <port>${docker.external.postgresql.port}:5432</port>
                         </ports>
                         <wait>
-                          <log>MySQL init process done. Ready for start up.</log>
+                          <log>database system is ready to accept connections</log>
                           <time>60000</time>
                         </wait>
                       </run>

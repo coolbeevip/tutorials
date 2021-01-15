@@ -41,9 +41,9 @@ public class Customer implements Serializable {
 
   @Id
   @GeneratedValue(generator = "uuid2")
-  @GenericGenerator(name = "uuid2", strategy = "uuid2")
-  @Column(columnDefinition = "BINARY(16)")
-  private UUID id;
+  @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+  @Column(columnDefinition = "VARCHAR(255)") // 兼容 mysql,pgsql
+  private String id;
 
   @Column(length = 50, nullable = false)
   private String firstName;

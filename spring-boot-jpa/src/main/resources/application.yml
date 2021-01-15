@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  profiles:
+    active: @spring.config.activate.on-profile@
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
@@ -21,3 +23,29 @@ spring:
     console:
       # http://localhost:8080/h2-console/.
       enabled: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  datasource:
+    url: jdbc:mysql://localhost:3306/jpatestdb?createDatabaseIfNotExist=true
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: test
+    password: test
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+---
+spring:
+  config:
+    activate:
+      on-profile: postgresql
+  datasource:
+    url: jdbc:postgresql://localhost:5432/jpatestdb
+    driverClassName: org.postgresql.Driver
+    username: test
+    password: test
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect

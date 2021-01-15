@@ -4,7 +4,6 @@ import com.coolbeevip.jpa.persistence.model.Customer;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author zhanglei
  */
-public interface CustomerRepository extends JpaRepository<Customer, UUID> {
+public interface CustomerRepository extends JpaRepository<Customer, String> {
 
   List<Customer> findByLastName(String lastName);
 
@@ -32,7 +31,7 @@ public interface CustomerRepository extends JpaRepository<Customer, UUID> {
   @Modifying
   @Query("update CUSTOMER u set u.firstName = :firstName, u.lastName = :lastName where id = :id")
   int updateFullNameById(@Param("firstName") String firstName, @Param("lastName") String lastName,
-    @Param("id") UUID id);
+    @Param("id") String id);
 
   @Transactional
   @Modifying
