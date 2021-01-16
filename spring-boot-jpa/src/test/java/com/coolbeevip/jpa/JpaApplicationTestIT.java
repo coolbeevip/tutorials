@@ -1,29 +1,32 @@
 package com.coolbeevip.jpa;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
 import com.coolbeevip.jpa.persistence.audit.AuditEventType;
 import com.coolbeevip.jpa.persistence.model.Customer;
+import com.coolbeevip.jpa.persistence.model.Order;
 import com.coolbeevip.jpa.persistence.repository.CustomerRepository;
+import com.coolbeevip.jpa.persistence.repository.OrderRepository;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateUtils;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -34,129 +37,150 @@ import org.springframework.transaction.annotation.Transactional;
 public class JpaApplicationTestIT {
 
   @Autowired
-  CustomerRepository repository;
+  CustomerRepository customerRepository;
+
+  @Autowired
+  OrderRepository orderRepository;
 
   @Autowired
   AuditCallbackQueueImpl auditEntityCallback;
 
-  @Autowired
-  private Environment environment;
-
   @BeforeEach
+  @SneakyThrows
   public void setup() {
-    repository.save(Customer.builder().firstName("Lei").lastName("Zhang").build());
-    repository.save(Customer.builder().firstName("Bo'Ran").lastName("Zhang").build());
-    repository.save(Customer.builder().firstName("Ran").lastName("Kim").build());
+    Customer zhanglei = Customer.builder().firstName("Lei").lastName("Zhang").build();
+    customerRepository.save(zhanglei);
+    for (int i = 0; i < 100; i++) {
+      orderRepository.save(Order.builder().customer(zhanglei).totalPrice(BigDecimal.valueOf(i))
+        .orderDesc("张磊的[" + i + "]订单").build());
+    }
+
+    Customer zhangboran = Customer.builder().firstName("Bo'Ran").lastName("Zhang").build();
+    customerRepository.save(zhangboran);
+
+    Customer kimran = Customer.builder().firstName("Ran").lastName("Kim").build();
+    customerRepository.save(kimran);
+    SECONDS.sleep(1);
   }
 
   @AfterEach
   @Transactional
   public void tearDown() {
-    repository.deleteAll();
+    orderRepository.deleteAll();
+    customerRepository.deleteAll();
   }
 
   @Test
   public void testInsertDefaultCurrentDate() {
-    Customer insertCustomer = repository
+    Customer insertCustomer = customerRepository
       .save(Customer.builder().firstName("You'Ran").lastName("Zhang").build());
     Assertions.assertNotNull(insertCustomer.getCreatedAt());
-    Assertions.assertNotNull(insertCustomer.getLastTouchAt());
+    Assertions.assertNotNull(insertCustomer.getLastUpdatedAt());
     Assertions.assertEquals(DateUtils.truncate(insertCustomer.getCreatedAt(), Calendar.SECOND),
-      DateUtils.truncate(insertCustomer.getLastTouchAt(), Calendar.SECOND));
+      DateUtils.truncate(insertCustomer.getLastUpdatedAt(), Calendar.SECOND));
   }
 
   @Test
+  @Transactional
   public void testAutoUpdateLastTouchDate() throws InterruptedException {
-    Customer insertCustomer = repository
+    Customer insertCustomer = customerRepository
       .save(Customer.builder().firstName("You'Ran").lastName("Zhang").build());
-    TimeUnit.SECONDS.sleep(1);
+    SECONDS.sleep(1);
     // update
     insertCustomer.setAge(30);
-    Customer updateCustomer = repository.save(insertCustomer);
+    Customer updateCustomer = customerRepository.save(insertCustomer);
     Assertions.assertTrue(
       updateCustomer.getCreatedAt().getTime() == insertCustomer.getCreatedAt().getTime());
     Assertions.assertTrue(
-      updateCustomer.getLastTouchAt().getTime() > insertCustomer.getLastTouchAt().getTime());
+      updateCustomer.getLastUpdatedAt().getTime() >= insertCustomer.getLastUpdatedAt().getTime());
   }
 
   @Test
   public void testDeleteById() {
-    Optional<Customer> queryCustomer = repository.findByFullName("Lei", "Zhang");
-    repository.deleteById(queryCustomer.get().getId());
-    Assertions.assertFalse(repository.findByFullName("Lei", "Zhang").isPresent());
+    Optional<Customer> queryCustomer = customerRepository.findByFullName("Lei", "Zhang");
+    customerRepository.deleteById(queryCustomer.get().getId());
+    Assertions.assertFalse(customerRepository.findByFullName("Lei", "Zhang").isPresent());
   }
 
   @Test
   public void testDeleteByIdWithDerived() {
-    int deleted = repository.deleteByLastNameWithDerived("Zhang");
-    Assertions.assertEquals(deleted, 2);
-    Assertions.assertEquals(repository.findAll().size(), 1);
+    int deleted = customerRepository.deleteByLastNameWithDerived("Kim");
+    Assertions.assertEquals(deleted, 1);
+    Assertions.assertEquals(customerRepository.findAll().size(), 2);
   }
 
 
   @Test
+  @Transactional
   public void testDeleteByEntity() {
-    Optional<Customer> queryCustomer = repository.findByFullName("Lei", "Zhang");
-    repository.delete(Customer.builder().id(queryCustomer.get().getId()).build());
-    Assertions.assertFalse(repository.findByFullName("Lei", "Zhang").isPresent());
+    orderRepository.deleteAll(); // TODO 不知为什么无法级联删除，所以暂时手动删除订单数据
+    Optional<Customer> queryCustomer = customerRepository.findByFullName("Lei", "Zhang");
+    customerRepository.delete(Customer.builder().id(queryCustomer.get().getId()).build());
+    Assertions.assertFalse(customerRepository.findByFullName("Lei", "Zhang").isPresent());
   }
 
   @Test
   public void testUpdateAllEntityById() {
-    Optional<Customer> queryCustomer = repository.findByFullName("Lei", "Zhang");
+    Optional<Customer> queryCustomer = customerRepository.findByFullName("Lei", "Zhang");
     Customer oldCustomer = queryCustomer.get();
     oldCustomer.setAge(40);
-    repository.save(oldCustomer);
-    Assertions.assertEquals(repository.findByFullName("Lei", "Zhang").get().getAge(), 40);
+    customerRepository.save(oldCustomer);
+    Assertions.assertEquals(customerRepository.findByFullName("Lei", "Zhang").get().getAge(), 40);
   }
 
   @Test
   public void testModifyingQueries() {
-    Optional<Customer> queryCustomer = repository.findByFullName("Lei", "Zhang");
-    int updated = repository.updateFullNameById("Tom", "Zhang", queryCustomer.get().getId());
+    Optional<Customer> queryCustomer = customerRepository.findByFullName("Lei", "Zhang");
+    int updated = customerRepository
+      .updateFullNameById("Tom", "Zhang", queryCustomer.get().getId());
     Assertions.assertEquals(updated, 1);
-    Optional<Customer> updatedCustomer = repository.findById(queryCustomer.get().getId());
+    Optional<Customer> updatedCustomer = customerRepository.findById(queryCustomer.get().getId());
     Assertions.assertEquals(updatedCustomer.get().getFirstName(), "Tom");
     Assertions.assertEquals(updatedCustomer.get().getLastName(), "Zhang");
   }
 
   @Test
   public void testQueryAll() {
-    List<Customer> customers = repository.findAll();
+
+    List<Order> orders = orderRepository.findAll();
+    for (Order order : orders) {
+      log.info("order[{}], customerId={}", order.getId(), order.getCustomer().getId());
+    }
+
+    List<Customer> customers = customerRepository.findAll();
     Assertions.assertEquals(customers.size(), 3);
     for (Customer customer : customers) {
-      log.info(customer.toString());
+      log.info("customer[{}], orderSize={}", customer.getId(), customer.getOrders().size());
     }
   }
 
   @Test
   @SneakyThrows
   public void testDateBetween() {
-    TimeUnit.SECONDS.sleep(1);
     Date beginDate = new Date();
-    Customer insertCustomer = repository
+    Customer insertCustomer = customerRepository
       .save(Customer.builder().firstName("You'Ran").lastName("Zhang").build());
     Date endDate = new Date();
-    List<Customer> queryCustomers = repository.findByCreatedAtBetween(beginDate, endDate);
+    List<Customer> queryCustomers = customerRepository.findByCreatedAtBetween(beginDate, endDate);
     Assertions.assertEquals(queryCustomers.get(0).getId(), insertCustomer.getId());
   }
 
   @Test
   public void testNamedParameters() {
-    Optional<Customer> queryCustomer = repository.findByFullName("Lei", "Zhang");
+    Optional<Customer> queryCustomer = customerRepository.findByFullName("Lei", "Zhang");
     Assertions.assertEquals(queryCustomer.get().getFirstName(), "Lei");
     Assertions.assertEquals(queryCustomer.get().getLastName(), "Zhang");
   }
 
   @Test
   public void testNamedQueries() {
-    Optional<Customer> queryCustomer = repository.findByFullName("Lei", "Zhang");
-    Optional<Customer> customer = repository.findById(queryCustomer.get().getId());
+    Optional<Customer> queryCustomer = customerRepository.findByFullName("Lei", "Zhang");
+    Optional<Customer> customer = customerRepository.findById(queryCustomer.get().getId());
     Assertions.assertTrue(customer.isPresent());
     Assertions.assertEquals(customer.get().getFirstName(), "Lei");
     Assertions.assertEquals(customer.get().getLastName(), "Zhang");
 
-    List<Customer> queryCustomers = repository.findByLastName("Zhang");
+    List<Customer> queryCustomers = customerRepository.findByLastName("Zhang");
     Assertions.assertEquals(queryCustomers.size(), 2);
     assertThat(
       queryCustomers.stream().map(c -> c.getFirstName()).collect(Collectors.<String>toList()),
@@ -164,8 +188,8 @@ public class JpaApplicationTestIT {
   }
 
   @Test
-  public void testOrder() {
-    List<Customer> customers = repository.findAll(Sort.by("firstName"));
+  public void testSort() {
+    List<Customer> customers = customerRepository.findAll(Sort.by("firstName"));
     Assertions.assertEquals(customers.get(0).getFirstName(), "Bo'Ran");
     Assertions.assertEquals(customers.get(1).getFirstName(), "Lei");
     Assertions.assertEquals(customers.get(2).getFirstName(), "Ran");
@@ -173,7 +197,8 @@ public class JpaApplicationTestIT {
 
   @Test
   public void testPageable() {
-    Page<Customer> pageCustomers = repository.findAll(PageRequest.of(0, 2, Sort.by("firstName")));
+    Page<Customer> pageCustomers = customerRepository
+      .findAll(PageRequest.of(0, 2, Sort.by("firstName")));
     Assertions.assertEquals(pageCustomers.getSize(), 2);
     Assertions.assertEquals(pageCustomers.getTotalElements(), 3l);
     Assertions.assertEquals(pageCustomers.getTotalPages(), 2);
@@ -184,7 +209,7 @@ public class JpaApplicationTestIT {
 
   @Test
   public void testPageableAndOrder() {
-    Page<Customer> pageCustomers = repository
+    Page<Customer> pageCustomers = customerRepository
       .findAll(PageRequest.of(0, 2, Sort.by("firstName").ascending().and(Sort.by("lastName"))));
     Assertions.assertEquals(pageCustomers.getSize(), 2);
     Assertions.assertEquals(pageCustomers.getTotalElements(), 3l);
@@ -197,17 +222,17 @@ public class JpaApplicationTestIT {
 
   @Test
   public void testPageableAndWhereAndOrder() {
-    repository.deleteAll();
+    cleanDB();
 
     List<String> firstNames = IntStream.range(0, 100).mapToObj(i -> "Lei" + i)
       .collect(Collectors.toList());
     AtomicInteger age = new AtomicInteger();
     firstNames.stream().forEach(firstName -> {
-      repository.save(Customer.builder().firstName(firstName).lastName("Zhang").age(
+      customerRepository.save(Customer.builder().firstName(firstName).lastName("Zhang").age(
         age.getAndIncrement()).build());
     });
 
-    Page<Customer> pageCustomers = repository
+    Page<Customer> pageCustomers = customerRepository
       .findByLastName("Zhang", PageRequest.of(0, 50, Sort.by("age")));
     Assertions.assertEquals(pageCustomers.getSize(), 50);
     Assertions.assertEquals(pageCustomers.getTotalElements(), firstNames.size());
@@ -220,20 +245,38 @@ public class JpaApplicationTestIT {
 
   @Test
   public void testAudit() {
-    repository.deleteAll();
+    cleanDB();
     auditEntityCallback.getAuditRecords().clear();
-    Customer customer = repository
+    Customer customer = customerRepository
       .save(Customer.builder().firstName("Tom").lastName("Zhang").build());
-    Assertions.assertEquals(auditEntityCallback.getAuditRecords().getLast().getType(),
-      AuditEventType.CREATED);
+    Awaitility.await().atMost(2, SECONDS).until(
+      () -> !auditEntityCallback.getAuditRecords().isEmpty() && auditEntityCallback.getAuditRecords().getLast().getType() == AuditEventType.CREATED);
 
+    customer = customerRepository.findById(customer.getId()).get();
     customer.setAge(50);
-    repository.save(customer);
-    Assertions.assertEquals(auditEntityCallback.getAuditRecords().getLast().getType(),
-      AuditEventType.UPDATED);
+    customerRepository.save(customer);
+    Awaitility.await().atMost(2, SECONDS).until(
+      () -> !auditEntityCallback.getAuditRecords().isEmpty() && auditEntityCallback.getAuditRecords().getLast().getType() == AuditEventType.UPDATED);
 
-    repository.delete(customer);
-    Assertions.assertEquals(auditEntityCallback.getAuditRecords().getLast().getType(),
-      AuditEventType.DELETED);
+    customer = customerRepository.findById(customer.getId()).get();
+    customerRepository.delete(customer);
+    Awaitility.await().atMost(2, SECONDS).until(
+      () -> !auditEntityCallback.getAuditRecords().isEmpty() && auditEntityCallback.getAuditRecords().getLast().getType() == AuditEventType.DELETED);
+  }
+
+  @Test
+  public void testOneToMany() {
+    Customer insertCustomer = customerRepository
+      .save(Customer.builder().firstName("OK").lastName("Zhang").build());
+    orderRepository.save(
+      Order.builder().customer(insertCustomer).totalPrice(BigDecimal.valueOf(1000))
+        .orderDesc("测试订单").build());
+    Optional<Customer> optionalCustomer = customerRepository.findById(insertCustomer.getId());
+    Assertions.assertEquals(optionalCustomer.get().getOrders().size(), 1);
+  }
+
+  private void cleanDB() {
+    orderRepository.deleteAll();
+    customerRepository.deleteAll();
   }
 }

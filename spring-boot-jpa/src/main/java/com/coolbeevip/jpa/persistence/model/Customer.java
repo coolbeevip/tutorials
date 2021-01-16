@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -20,9 +21,9 @@ import javax.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Builder.Default;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -31,44 +32,66 @@ import org.hibernate.annotations.GenericGenerator;
  * @author zhanglei
  */
 @Slf4j
-@EntityListeners(AuditEntityListener.class)
 @Builder
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Entity(name = "CUSTOMERS")
+@EntityListeners(AuditEntityListener.class)
 public class Customer implements Serializable {
 
   @Id
   @GeneratedValue(generator = "uuid2")
   @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
-  @Column(name="ID", columnDefinition = "VARCHAR(255)") // 兼容 mysql,pgsql
+  @Column(name = "ID", columnDefinition = "VARCHAR(255)") // 兼容 mysql,pgsql
   private String id;
 
-  @Column(name="FIRST_NAME",length = 50, nullable = false)
+  @Column(name = "FIRST_NAME", length = 50, nullable = false)
   private String firstName;
 
-  @Column(name="LAST_NAME",length = 50, nullable = false)
+  @Column(name = "LAST_NAME", length = 50, nullable = false)
   private String lastName;
 
-  @Column(name="AGE",nullable = false)
+  @Column(name = "AGE", nullable = false)
   @Default
   private Integer age = 0;
 
-  @OneToMany(mappedBy = "customer", targetEntity = Order.class, fetch = FetchType.EAGER)
+  /**
+   * 一对多关系
+   * 一个客户有多个订单
+   *
+   * 关联对象加载模式 fetch
+   * FetchType.LAZY: 懒加载
+   * FetchType.EAGER:急加载
+   *
+   * 级联操作 cascade
+   * CascadeType.PERSIST: 级联持久化（保存）操作
+   * CascadeType.REMOVE: 级联删除
+   * CascadeType.MERGE: 级联更新
+   * CascadeType.DETACH: 级联脱离(脱离级联关系)
+   * CascadeType.REFRESH: 级联刷新
+   * CascadeType.ALL: 以上所有
+   */
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
   private Collection<Order> orders;
 
+  /**
+   * 自动设置创建时间
+   */
   @Basic(optional = false)
-  @Column(name="CREATE_AT",updatable = false)
+  @Column(name = "CREATE_AT", updatable = false)
   @Temporal(TemporalType.TIMESTAMP)
   @CreationTimestamp
   private Date createdAt;
 
+  /**
+   * 自动设置更新时间
+   */
   @Basic(optional = false)
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name="LAST_TOUCH_AT")
-  private Date lastTouchAt;
+  @Column(name = "LAST_UPDATED_AT")
+  private Date lastUpdatedAt;
 
   /**
    * 更新前/持久化前处理
@@ -76,7 +99,7 @@ public class Customer implements Serializable {
   @PreUpdate
   @PrePersist
   public void autoUpdateField() {
-    lastTouchAt = new Date();
+    lastUpdatedAt = new Date();
     if (createdAt == null) {
       createdAt = new Date();
     }

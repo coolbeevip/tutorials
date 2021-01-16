@@ -207,7 +207,7 @@
       </build>
     </profile>
 
-    <!-- h2 postgresql -->
+    <!-- postgresql database -->
     <profile>
       <id>postgresql</id>
       <properties>
