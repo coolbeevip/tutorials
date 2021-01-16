@@ -29,12 +29,12 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
 
   @Transactional
   @Modifying
-  @Query("update CUSTOMER u set u.firstName = :firstName, u.lastName = :lastName where id = :id")
+  @Query("update CUSTOMERS u set u.firstName = :firstName, u.lastName = :lastName where id = :id")
   int updateFullNameById(@Param("firstName") String firstName, @Param("lastName") String lastName,
     @Param("id") String id);
 
   @Transactional
   @Modifying
-  @Query("delete from CUSTOMER u where u.lastName = :lastName")
+  @Query("delete from CUSTOMERS u where u.lastName = :lastName")
   int deleteByLastNameWithDerived(@Param("lastName") String lastName);
 }

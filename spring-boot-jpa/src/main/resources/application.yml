@@ -30,7 +30,7 @@ spring:
     activate:
       on-profile: h2
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:testdb;DATABASE_TO_UPPER=false
     driverClassName: org.h2.Driver
     username: sa
     password: password

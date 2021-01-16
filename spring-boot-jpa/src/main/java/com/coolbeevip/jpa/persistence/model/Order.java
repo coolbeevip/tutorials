@@ -2,16 +2,15 @@ package com.coolbeevip.jpa.persistence.model;
 
 import com.coolbeevip.jpa.persistence.audit.AuditEntityListener;
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.PreRemove;
 import javax.persistence.PreUpdate;
@@ -37,8 +36,8 @@ import org.hibernate.annotations.GenericGenerator;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Entity(name = "CUSTOMERS")
-public class Customer implements Serializable {
+@Entity(name = "ORDERS")
+public class Order implements Serializable {
 
   @Id
   @GeneratedValue(generator = "uuid2")
@@ -46,18 +45,9 @@ public class Customer implements Serializable {
   @Column(name="ID", columnDefinition = "VARCHAR(255)") // 兼容 mysql,pgsql
   private String id;
 
-  @Column(name="FIRST_NAME",length = 50, nullable = false)
-  private String firstName;
-
-  @Column(name="LAST_NAME",length = 50, nullable = false)
-  private String lastName;
-
-  @Column(name="AGE",nullable = false)
-  @Default
-  private Integer age = 0;
-
-  @OneToMany(mappedBy = "customer", targetEntity = Order.class, fetch = FetchType.EAGER)
-  private Collection<Order> orders;
+  @ManyToOne(optional=false)
+  @JoinColumn(name="CUSTOMER_ID", referencedColumnName="ID")
+  private Customer customer;
 
   @Basic(optional = false)
   @Column(name="CREATE_AT",updatable = false)
