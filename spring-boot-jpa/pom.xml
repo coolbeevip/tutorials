@@ -34,20 +34,32 @@
       <artifactId>lombok</artifactId>
       <scope>provided</scope>
     </dependency>
+    <!-- h2 -->
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
     </dependency>
+    <!-- postgresql -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>${postgresql.connector.version}</version>
     </dependency>
+    <!-- mysql -->
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>${mysql.connector.version}</version>
       <scope>test</scope>
+    </dependency>
+    <!-- oracle -->
+    <dependency>
+      <groupId>com.oracle.database.jdbc</groupId>
+      <artifactId>ojdbc8</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.oracle.database.nls</groupId>
+      <artifactId>orai18n</artifactId>
     </dependency>
   </dependencies>
 
@@ -238,6 +250,71 @@
               </execution>
               <execution>
                 <id>remove-it-database-postgresql</id>
+                <goals>
+                  <goal>stop</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- oracle database -->
+    <profile>
+      <id>oracle</id>
+      <properties>
+        <spring.config.activate.on-profile>oracle</spring.config.activate.on-profile>
+        <docker.external.oracle.port>1521</docker.external.oracle.port>
+        <oracle.docker.version>1.0.0</oracle.docker.version>
+      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-failsafe-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>integration-test</goal>
+                  <goal>verify</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>io.fabric8</groupId>
+            <artifactId>docker-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>prepare-it-database-oracle</id>
+                <goals>
+                  <goal>start</goal>
+                </goals>
+                <configuration>
+<!--                  <showLogs>${docker.external.show-sql}</showLogs>-->
+                  <showLogs>true</showLogs>
+                  <images>
+                    <image>
+                      <name>oracleinanutshell/oracle-xe-11g:${oracle.docker.version}</name>
+                      <run>
+                        <env>
+                          <ORACLE_ALLOW_REMOTE>true</ORACLE_ALLOW_REMOTE>
+                        </env>
+                        <ports>
+                          <port>${docker.external.oracle.port}:1521</port>
+                        </ports>
+                        <wait>
+                          <log>System altered.</log>
+                          <time>60000</time>
+                        </wait>
+                      </run>
+                    </image>
+                  </images>
+                </configuration>
+              </execution>
+              <execution>
+                <id>remove-it-database-oracle</id>
                 <goals>
                   <goal>stop</goal>
                 </goals>

@@ -6,6 +6,16 @@ spring:
     active: @spring.config.activate.on-profile@
   jpa:
     hibernate:
+      # 允许 DDL，生产环境建议关闭，否则准备删库跑路
+      generate-ddl: true
+
+      # ddl-auto 很重要，使用不慎非常危险
+      # none: 关闭 DDL
+      # validate: 每次启动时验证数据库结构
+      # create: 每次启动时重新创建表结构（删除表->创建表）
+      # create-drop: 每次启动时重新创建表结构，推出时删除表（删除表->创建表->删除表）
+      # update: 每次启动时都比较更新表结构(如果想自动维护表结构-推荐使用此方式)
+
       ddl-auto: create-drop
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -59,3 +69,19 @@ spring:
   jpa:
     show-sql: false
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+---
+spring:
+  config:
+    activate:
+      on-profile: oracle
+  datasource:
+    url: jdbc:oracle:thin:@127.0.0.1:1521:xe
+    driverClassName: oracle.jdbc.driver.OracleDriver
+    username: system
+    password: oracle
+  jpa:
+    show-sql: false
+    # org.hibernate.dialect.Oracle10gDialect
+    # org.hibernate.dialect.Oracle12cDialect
+    database-platform: org.hibernate.dialect.Oracle10gDialect
