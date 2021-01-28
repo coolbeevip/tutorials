@@ -1,6 +1,6 @@
 package com.coolbeevip.jpa.persistence.audit;
 
-import com.coolbeevip.jpa.persistence.model.Customer;
+import com.coolbeevip.jpa.persistence.entities.Customer;
 import javax.persistence.PostLoad;
 import javax.persistence.PostPersist;
 import javax.persistence.PostRemove;

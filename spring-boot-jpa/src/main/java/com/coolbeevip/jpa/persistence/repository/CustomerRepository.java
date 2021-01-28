@@ -1,6 +1,6 @@
 package com.coolbeevip.jpa.persistence.repository;
 
-import com.coolbeevip.jpa.persistence.model.Customer;
+import com.coolbeevip.jpa.persistence.entities.Customer;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

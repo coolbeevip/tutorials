@@ -1,4 +1,4 @@
-package com.coolbeevip.jpa.persistence.model;
+package com.coolbeevip.jpa.persistence.entities;
 
 import com.coolbeevip.jpa.persistence.audit.AuditEntityListener;
 import java.io.Serializable;

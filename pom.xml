@@ -149,5 +149,6 @@
     <module>graphql</module>
     <module>ratis</module>
     <module>spring-boot-jpa</module>
+    <module>domain-driven-design</module>
   </modules>
 </project>

@@ -5,8 +5,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
 import com.coolbeevip.jpa.persistence.audit.AuditEventType;
-import com.coolbeevip.jpa.persistence.model.Customer;
-import com.coolbeevip.jpa.persistence.model.Order;
+import com.coolbeevip.jpa.persistence.entities.Customer;
+import com.coolbeevip.jpa.persistence.entities.Order;
 import com.coolbeevip.jpa.persistence.repository.CustomerRepository;
 import com.coolbeevip.jpa.persistence.repository.OrderRepository;
 import java.math.BigDecimal;
@@ -82,7 +82,7 @@ public class JpaApplicationTestIT {
 
   @Test
   @Transactional
-  public void testAutoUpdateLastTouchDate() throws InterruptedException {
+  public void testAutoUpdateLastUpdatedDate() throws InterruptedException {
     Customer insertCustomer = customerRepository
       .save(Customer.builder().firstName("You'Ran").lastName("Zhang").build());
     SECONDS.sleep(1);
