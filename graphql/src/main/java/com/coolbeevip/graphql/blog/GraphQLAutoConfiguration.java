@@ -8,7 +8,6 @@ import com.coolbeevip.graphql.blog.storage.AuthorDao;
 import com.coolbeevip.graphql.blog.storage.PostDao;
 import com.coolbeevip.graphql.blog.storage.StorageLoader;
 import graphql.kickstart.tools.boot.GraphQLJavaToolsAutoConfiguration;
-import javafx.geometry.Pos;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
