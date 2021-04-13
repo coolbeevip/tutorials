@@ -13,16 +13,10 @@
   <artifactId>antlr</artifactId>
   <name>antlr</name>
 
-  <properties>
-    <antlr.version>4.7.1</antlr.version>
-    <mojo.version>3.0.0</mojo.version>
-  </properties>
-
   <dependencies>
     <dependency>
       <groupId>org.antlr</groupId>
       <artifactId>antlr4-runtime</artifactId>
-      <version>${antlr.version}</version>
     </dependency>
   </dependencies>
 
@@ -31,7 +25,6 @@
       <plugin>
         <groupId>org.antlr</groupId>
         <artifactId>antlr4-maven-plugin</artifactId>
-        <version>${antlr.version}</version>
         <executions>
           <execution>
             <goals>
@@ -43,7 +36,6 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>build-helper-maven-plugin</artifactId>
-        <version>${mojo.version}</version>
         <executions>
           <execution>
             <phase>generate-sources</phase>

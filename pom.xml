@@ -31,11 +31,23 @@
     <org.slf4j.version>1.7.30</org.slf4j.version>
     <logback.version>1.2.3</logback.version>
 
+    <!-- akka -->
+    <scala.binary.version>2.13</scala.binary.version>
+    <akka.version>2.6.14</akka.version>
+
+    <!-- antlr -->
+    <antlr.version>4.7.1</antlr.version>
+
+    <!-- ratis -->
+    <ratis.version>1.1.0-SNAPSHOT</ratis.version>
+    <ratis.thirdparty.version>0.6.0-SNAPSHOT</ratis.thirdparty.version>
+
     <!-- plugins -->
     <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
     <maven-failsafe-plugin.version>2.22.0</maven-failsafe-plugin.version>
     <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
     <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+    <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
     <java.version>1.8</java.version>
     <log4j.version>1.2.17</log4j.version>
     <esapi.version>2.1.0.1</esapi.version>
@@ -61,11 +73,97 @@
     <custom-pmd.version>0.0.1</custom-pmd.version>
     <gitflow-incremental-builder.version>3.8</gitflow-incremental-builder.version>
     <maven-jxr-plugin.version>3.0.0</maven-jxr-plugin.version>
-    <!-- <maven-pmd-plugin.version>3.9.0</maven-pmd-plugin.version> -->
     <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
-    <lombok.version>1.16.12</lombok.version>
+    <lombok.version>1.18.16</lombok.version>
     <h2.version>1.4.197</h2.version>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+
+      <!-- akka -->
+      <dependency>
+        <groupId>com.typesafe.akka</groupId>
+        <artifactId>akka-bom_${scala.binary.version}</artifactId>
+        <version>${akka.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- antlr -->
+      <dependency>
+        <groupId>org.antlr</groupId>
+        <artifactId>antlr4-runtime</artifactId>
+        <version>${antlr.version}</version>
+      </dependency>
+
+      <!-- ratis -->
+      <dependency>
+        <groupId>org.apache.ratis</groupId>
+        <artifactId>ratis-thirdparty-misc</artifactId>
+        <version>${ratis.thirdparty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.ratis</groupId>
+        <artifactId>ratis-proto</artifactId>
+        <version>${ratis.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.ratis</groupId>
+        <artifactId>ratis-tools</artifactId>
+        <version>${ratis.version}</version>
+      </dependency>
+      <dependency>
+        <artifactId>ratis-common</artifactId>
+        <groupId>org.apache.ratis</groupId>
+        <version>${ratis.version}</version>
+      </dependency>
+      <dependency>
+        <artifactId>ratis-client</artifactId>
+        <groupId>org.apache.ratis</groupId>
+        <version>${ratis.version}</version>
+      </dependency>
+      <dependency>
+        <artifactId>ratis-server</artifactId>
+        <groupId>org.apache.ratis</groupId>
+        <version>${ratis.version}</version>
+      </dependency>
+      <dependency>
+        <artifactId>ratis-grpc</artifactId>
+        <groupId>org.apache.ratis</groupId>
+        <version>${ratis.version}</version>
+      </dependency>
+      <dependency>
+        <artifactId>ratis-netty</artifactId>
+        <groupId>org.apache.ratis</groupId>
+        <version>${ratis.version}</version>
+      </dependency>
+
+      <!-- lombok -->
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.antlr</groupId>
+          <artifactId>antlr4-maven-plugin</artifactId>
+          <version>${antlr.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>build-helper-maven-plugin</artifactId>
+          <version>${build-helper-maven-plugin.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
   <dependencies>
     <!-- logging -->
@@ -143,6 +241,20 @@
     </dependency>
   </dependencies>
 
+  <repositories>
+    <repository>
+      <id>apache.snapshots</id>
+      <name>Apache Development Snapshot Repository</name>
+      <url>https://repository.apache.org/content/repositories/snapshots/</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
   <modules>
     <module>parent-spring-boot-2</module>
     <module>antlr</module>
@@ -150,5 +262,6 @@
     <module>ratis</module>
     <module>spring-boot-jpa</module>
     <module>domain-driven-design</module>
+    <module>akka</module>
   </modules>
 </project>
