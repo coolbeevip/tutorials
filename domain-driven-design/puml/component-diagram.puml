@@ -1,0 +1,26 @@
+@startuml
+
+package "Interface" {
+  HTTP - [REST]
+}
+
+package "Application" {
+  [REST] --> [Use Case Service]
+  [Use Case Service]
+}
+
+package "Domain" {
+  [Use Case Service] --> [Domain Event]
+  [Domain Event] -> [Domain Entity]
+}
+
+package "SPI" {
+  [Domain Entity] --> Provider
+}
+
+package "Infrastructure" {
+  Provider --> [Kafka]
+  Provider --> [Database]
+  Provider --> [JPA]
+}
+@enduml
