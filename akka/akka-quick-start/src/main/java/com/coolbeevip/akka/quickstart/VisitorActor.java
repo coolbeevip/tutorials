@@ -6,8 +6,11 @@ import akka.actor.typed.javadsl.*;
 
 import java.util.Objects;
 
-// #greeter
-public class Greeter extends AbstractBehavior<Greeter.Greet> {
+/**
+ * 访客
+ * @author zhanglei
+ */
+public class VisitorActor extends AbstractBehavior<VisitorActor.Greet> {
 
   public static final class Greet {
     public final String whom;
@@ -54,10 +57,10 @@ public class Greeter extends AbstractBehavior<Greeter.Greet> {
   }
 
   public static Behavior<Greet> create() {
-    return Behaviors.setup(Greeter::new);
+    return Behaviors.setup(VisitorActor::new);
   }
 
-  private Greeter(ActorContext<Greet> context) {
+  private VisitorActor(ActorContext<Greet> context) {
     super(context);
   }
 
