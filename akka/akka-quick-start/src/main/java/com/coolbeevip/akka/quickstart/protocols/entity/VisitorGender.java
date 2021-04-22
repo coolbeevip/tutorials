@@ -1,4 +1,4 @@
-package com.coolbeevip.akka.quickstart.protocols;
+package com.coolbeevip.akka.quickstart.protocols.entity;
 
 /**
  * 访客性别
