@@ -27,6 +27,12 @@
     <mockito.version>3.3.0</mockito.version>
     <byte-buddy.version>1.10.5</byte-buddy.version>
 
+    <!-- flyway -->
+    <flyway.version>7.8.1</flyway.version>
+
+    <!-- mysql -->
+    <mysql-connector-java.version>8.0.20</mysql-connector-java.version>
+
     <!-- logging -->
     <org.slf4j.version>1.7.30</org.slf4j.version>
     <logback.version>1.2.3</logback.version>
@@ -81,6 +87,20 @@
 
   <dependencyManagement>
     <dependencies>
+
+      <!-- flyway -->
+      <dependency>
+        <artifactId>flyway-core</artifactId>
+        <groupId>org.flywaydb</groupId>
+        <version>${flyway.version}</version>
+      </dependency>
+
+      <!-- mysql -->
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql-connector-java.version}</version>
+      </dependency>
 
       <!-- akka -->
       <dependency>
@@ -292,5 +312,6 @@
     <module>spring-boot-jpa</module>
     <module>domain-driven-design</module>
     <module>akka</module>
+    <module>flyway</module>
   </modules>
 </project>
