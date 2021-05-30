@@ -50,6 +50,8 @@
     <!-- arrow -->
     <arrow.version>0.15.0</arrow.version>
 
+    <rocksdb.version>6.20.3</rocksdb.version>
+
     <!-- grpc -->
     <grpc.version>1.25.0</grpc.version>
     <protobuf.version>3.10.0</protobuf.version>
@@ -206,6 +208,13 @@
         <groupId>org.apache.spark</groupId>
         <artifactId>spark-sql_${scala.version}</artifactId>
         <version>${spark.version}</version>
+      </dependency>
+
+      <!-- rocksdb -->
+      <dependency>
+        <groupId>org.rocksdb</groupId>
+        <artifactId>rocksdbjni</artifactId>
+        <version>${rocksdb.version}</version>
       </dependency>
 
       <!-- lombok -->
@@ -406,5 +415,6 @@
     <module>flyway</module>
     <module>grpc</module>
     <module>netty</module>
+    <module>rocksdb</module>
   </modules>
 </project>
