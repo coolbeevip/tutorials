@@ -45,7 +45,7 @@
     <antlr.version>4.7.1</antlr.version>
 
     <!-- ratis -->
-    <ratis.version>1.1.0-SNAPSHOT</ratis.version>
+    <ratis.version>2.0.0</ratis.version>
     <ratis.thirdparty.version>0.6.0-SNAPSHOT</ratis.thirdparty.version>
 
     <!-- plugins -->
