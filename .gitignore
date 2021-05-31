@@ -3,5 +3,6 @@ target/
 *.iml
 *.ipr
 *.iws
-/antlr/target/
-/ratis/ratis-distributed-sequence/data/
+
+rocksdb-data/
+jmh-*.json

@@ -62,7 +62,7 @@
     <spark.version>2.4.4</spark.version>
     <scala.version>2.12</scala.version>
 
-    <guava.version>28.1-android</guava.version>
+    <guava.version>30.0-jre</guava.version>
 
     <!-- plugins -->
     <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
@@ -73,8 +73,7 @@
     <java.version>1.8</java.version>
     <log4j.version>1.2.17</log4j.version>
     <esapi.version>2.1.0.1</esapi.version>
-    <jmh-core.version>1.19</jmh-core.version>
-    <jmh-generator.version>1.19</jmh-generator.version>
+    <jmh.version>1.32</jmh.version>
     <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
 
     <commons-io.version>2.5</commons-io.version>
@@ -222,6 +221,18 @@
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
         <version>${lombok.version}</version>
+      </dependency>
+
+      <!-- jmh -->
+      <dependency>
+        <groupId>org.openjdk.jmh</groupId>
+        <artifactId>jmh-core</artifactId>
+        <version>1.28</version>
+      </dependency>
+      <dependency>
+        <groupId>org.openjdk.jmh</groupId>
+        <artifactId>jmh-generator-annprocess</artifactId>
+        <version>1.28</version>
       </dependency>
 
       <!-- gRPC -->
