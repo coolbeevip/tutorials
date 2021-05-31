@@ -62,7 +62,7 @@
     <spark.version>2.4.4</spark.version>
     <scala.version>2.12</scala.version>
 
-    <guava.version>28.1-android</guava.version>
+    <guava.version>29.0-android</guava.version>
 
     <!-- plugins -->
     <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
