@@ -15,17 +15,21 @@ import lombok.extern.slf4j.Slf4j;
 import org.rocksdb.RocksDBException;
 import org.rocksdb.RocksIterator;
 
+/**
+ * @author zhanglei
+ */
+
 @Slf4j
 class RocksDbIterator<TKey, TValue> implements Iterator<ColumnEntry<TKey, TValue>>, AutoCloseable {
 
-  private final RocksDbVariable<TKey, TValue> column;
+  private final RocksDbColumnFamily<TKey, TValue> column;
   private final RocksIterator rocksIterator;
   private final AtomicBoolean closed = new AtomicBoolean(false);
   private final Predicate<TKey> continueTest;
   private final Supplier<Boolean> isDatabaseClosed;
 
   private RocksDbIterator(
-      final RocksDbVariable<TKey, TValue> column,
+      final RocksDbColumnFamily<TKey, TValue> column,
       final RocksIterator rocksIterator,
       final Predicate<TKey> continueTest,
       final Supplier<Boolean> isDatabaseClosed) {
@@ -37,7 +41,7 @@ class RocksDbIterator<TKey, TValue> implements Iterator<ColumnEntry<TKey, TValue
 
   @MustBeClosed
   public static <K, V> RocksDbIterator<K, V> create(
-      final RocksDbVariable<K, V> column,
+      final RocksDbColumnFamily<K, V> column,
       final RocksIterator rocksIt,
       final Predicate<K> continueTest,
       final Supplier<Boolean> isDatabaseClosed) {

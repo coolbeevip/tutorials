@@ -3,6 +3,9 @@ package com.coolbeevip.rocksdb;
 import java.nio.file.Path;
 import org.rocksdb.CompressionType;
 
+/**
+ * @author zhanglei
+ */
 
 public class RocksDbConfiguration {
 

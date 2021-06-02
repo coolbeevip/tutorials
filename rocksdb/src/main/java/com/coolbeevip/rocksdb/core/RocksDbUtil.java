@@ -3,6 +3,10 @@ package com.coolbeevip.rocksdb.core;
 import lombok.extern.slf4j.Slf4j;
 import org.rocksdb.RocksDB;
 
+/**
+ * @author zhanglei
+ */
+
 @Slf4j
 class RocksDbUtil {
 

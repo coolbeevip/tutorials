@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RecordRow {
+public class Message {
 
   private String uuid;
   private Timestamp time;

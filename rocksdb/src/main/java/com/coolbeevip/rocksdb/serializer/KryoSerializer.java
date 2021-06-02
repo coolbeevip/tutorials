@@ -1,5 +1,6 @@
-package com.coolbeevip.rocksdb.serialization;
+package com.coolbeevip.rocksdb.serializer;
 
+import com.coolbeevip.rocksdb.core.RocksDbSerializer;
 import com.esotericsoftware.kryo.kryo5.Kryo;
 import com.esotericsoftware.kryo.kryo5.io.Input;
 import com.esotericsoftware.kryo.kryo5.io.Output;
@@ -55,8 +56,8 @@ public class KryoSerializer<T> implements RocksDbSerializer<T> {
     return bos.toByteArray();
   }
 
-  @Override
-  public Class<T> getClz() {
-    return this.clz;
-  }
+//  @Override
+//  public Class<T> getClz() {
+//    return this.clz;
+//  }
 }

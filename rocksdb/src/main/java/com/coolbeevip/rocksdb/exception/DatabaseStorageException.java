@@ -1,5 +1,9 @@
 package com.coolbeevip.rocksdb.exception;
 
+/**
+ * @author zhanglei
+ */
+
 public class DatabaseStorageException extends RuntimeException {
 
   public DatabaseStorageException(final String s) {

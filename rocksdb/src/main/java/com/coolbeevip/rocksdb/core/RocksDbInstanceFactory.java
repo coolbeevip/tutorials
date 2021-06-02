@@ -25,6 +25,9 @@ import org.rocksdb.Statistics;
 import org.rocksdb.TransactionDB;
 import org.rocksdb.TransactionDBOptions;
 
+/**
+ * @author zhanglei
+ */
 public class RocksDbInstanceFactory {
 
   static {
@@ -33,13 +36,13 @@ public class RocksDbInstanceFactory {
 
   public static RocksDbAccessor create(
       final RocksDbConfiguration configuration,
-      final Collection<RocksDbVariable<?, ?>> columns)
+      final Collection<RocksDbColumnFamily<?, ?>> columns)
       throws Exception {
 
     // 跟踪需要关闭的资源
 
     checkArgument(
-        columns.stream().map(RocksDbVariable::getCfId).distinct().count() == columns.size(),
+        columns.stream().map(RocksDbColumnFamily::getCfId).distinct().count() == columns.size(),
         "Column IDs are not distinct");
 
     // Create options
@@ -51,13 +54,15 @@ public class RocksDbInstanceFactory {
         createColumnFamilyOptions(configuration, blockCache);
     final List<AutoCloseable> resources =
         new ArrayList<>(
-            Arrays.asList(transactionDBOptions, dbOptions, columnFamilyOptions, rocksDbStats, blockCache));
+            Arrays.asList(transactionDBOptions, dbOptions, columnFamilyOptions, rocksDbStats,
+                blockCache));
 
     List<ColumnFamilyDescriptor> columnDescriptors =
         createColumnFamilyDescriptors(columns, columnFamilyOptions);
 
-    Map<BytesKey, RocksDbVariable<?, ?>> columnsById =
-        columns.stream().collect(Collectors.toMap(RocksDbVariable::getCfId, Function.identity()));
+    Map<BytesKey, RocksDbColumnFamily<?, ?>> columnsById =
+        columns.stream()
+            .collect(Collectors.toMap(RocksDbColumnFamily::getCfId, Function.identity()));
 
     try {
       // columnHandles will be filled when the db is opened
@@ -70,19 +75,19 @@ public class RocksDbInstanceFactory {
               columnDescriptors,
               columnHandles);
 
-      final ImmutableMap.Builder<RocksDbVariable<?, ?>, ColumnFamilyHandle> builder =
+      final ImmutableMap.Builder<RocksDbColumnFamily<?, ?>, ColumnFamilyHandle> builder =
           ImmutableMap.builder();
       for (ColumnFamilyHandle columnHandle : columnHandles) {
         //final byte[] columnId = columnHandle.getName();
         final BytesKey columnId = new BytesKey(columnHandle.getName());
-        final RocksDbVariable<?, ?> rocksDbColumn = columnsById.get(columnId);
+        final RocksDbColumnFamily<?, ?> rocksDbColumn = columnsById.get(columnId);
         if (rocksDbColumn != null) {
           // We need to check for null because the default column will not match a RocksDbColumn
           builder.put(rocksDbColumn, columnHandle);
         }
         resources.add(columnHandle);
       }
-      final ImmutableMap<RocksDbVariable<?, ?>, ColumnFamilyHandle> columnHandlesMap =
+      final ImmutableMap<RocksDbColumnFamily<?, ?>, ColumnFamilyHandle> columnHandlesMap =
           builder.build();
       final ColumnFamilyHandle defaultHandle = getDefaultHandle(columnHandles);
       resources.add(db);
@@ -101,7 +106,7 @@ public class RocksDbInstanceFactory {
         .filter(
             handle -> {
               try {
-                return Arrays.equals(handle.getName(),Schema.DEFAULT_COLUMN_ID);
+                return Arrays.equals(handle.getName(), Schema.DEFAULT_COLUMN_ID);
               } catch (RocksDBException e) {
                 throw new DatabaseStorageException("Unable to retrieve default column handle", e);
               }
@@ -139,7 +144,7 @@ public class RocksDbInstanceFactory {
   }
 
   private static List<ColumnFamilyDescriptor> createColumnFamilyDescriptors(
-      final Collection<RocksDbVariable<?, ?>> columns,
+      final Collection<RocksDbColumnFamily<?, ?>> columns,
       final ColumnFamilyOptions columnFamilyOptions) {
     List<ColumnFamilyDescriptor> columnDescriptors =
         columns.stream()

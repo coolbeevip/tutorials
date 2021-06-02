@@ -1,14 +1,14 @@
 package com.coolbeevip.rocksdb;
 
-import static com.coolbeevip.rocksdb.schema.MySchemaImpl.HOT_MESSAGE;
+import static com.coolbeevip.rocksdb.schema.MessageSchema.HOT_MESSAGE;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.coolbeevip.rocksdb.core.RocksDbAccessor;
 import com.coolbeevip.rocksdb.core.RocksDbAccessor.RocksDbTransaction;
 import com.coolbeevip.rocksdb.core.RocksDbInstanceFactory;
 import com.coolbeevip.rocksdb.exception.DatabaseStorageException;
-import com.coolbeevip.rocksdb.schema.MySchemaImpl;
-import com.coolbeevip.rocksdb.schema.RecordRow;
+import com.coolbeevip.rocksdb.schema.MessageSchema;
+import com.coolbeevip.rocksdb.schema.Message;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
@@ -23,6 +23,10 @@ import org.rocksdb.Snapshot;
 import org.rocksdb.Status;
 import org.rocksdb.TransactionOptions;
 
+/**
+ * @author zhanglei
+ */
+
 public class RocksDbTransactionTest {
 
   static RocksDbAccessor dbAccessor;
@@ -32,7 +36,7 @@ public class RocksDbTransactionTest {
     Path databaseDir = Paths.get("rocksdb-data");
     RocksDbConfiguration configuration = RocksDbConfiguration.hotDefaults(databaseDir);
     dbAccessor = RocksDbInstanceFactory
-        .create(configuration, MySchemaImpl.INSTANCE.getAllColumns());
+        .create(configuration, MessageSchema.INSTANCE.getAllColumns());
   }
 
   @AfterClass
@@ -42,7 +46,7 @@ public class RocksDbTransactionTest {
 
   @Test
   public void readCommittedTest() throws Exception {
-    RecordRow record = RecordRow.builder()
+    Message record = Message.builder()
         .uuid(UUID.randomUUID().toString())
         .f1(UUID.randomUUID().toString())
         .build();
@@ -68,7 +72,7 @@ public class RocksDbTransactionTest {
 
   @Test(expected = DatabaseStorageException.class)
   public void changeSameKeyFailOutsideTransactionTest() throws Exception {
-    RecordRow record = RecordRow.builder()
+    Message record = Message.builder()
         .uuid(UUID.randomUUID().toString())
         .f1(UUID.randomUUID().toString())
         .build();
@@ -90,7 +94,7 @@ public class RocksDbTransactionTest {
 
   @Test
   public void repeatableReadTest() throws Exception {
-    RecordRow record = RecordRow.builder()
+    Message record = Message.builder()
         .uuid(UUID.randomUUID().toString())
         .f1(UUID.randomUUID().toString()).build();
 
@@ -118,12 +122,12 @@ public class RocksDbTransactionTest {
 
   @Test
   public void readCommittedSnapshotMultipleTest() throws Exception {
-    RecordRow recordX = RecordRow.builder()
+    Message recordX = Message.builder()
         .uuid(UUID.randomUUID().toString())
         .f1(UUID.randomUUID().toString())
         .build();
 
-    RecordRow recordY = RecordRow.builder()
+    Message recordY = Message.builder()
         .uuid(UUID.randomUUID().toString())
         .f1(UUID.randomUUID().toString())
         .build();
@@ -146,7 +150,7 @@ public class RocksDbTransactionTest {
       snapshot = transaction.getSnapshot();
       readOptions.setSnapshot(snapshot);
 
-      Optional<RecordRow> optional = transaction
+      Optional<Message> optional = transaction
           .getForUpdate(readOptions, HOT_MESSAGE, recordY.getUuid(), true);
       transaction.put(HOT_MESSAGE, recordY.getUuid(), recordY);
 

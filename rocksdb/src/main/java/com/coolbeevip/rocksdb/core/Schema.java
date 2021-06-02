@@ -10,5 +10,5 @@ public interface Schema {
 
   byte[] DEFAULT_COLUMN_ID = "default".getBytes(StandardCharsets.UTF_8);
 
-  List<RocksDbVariable<?, ?>> getAllColumns();
+  List<RocksDbColumnFamily<?, ?>> getAllColumns();
 }
