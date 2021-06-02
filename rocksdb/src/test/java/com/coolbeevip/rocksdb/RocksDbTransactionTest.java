@@ -5,7 +5,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.coolbeevip.rocksdb.core.RocksDbAccessor;
 import com.coolbeevip.rocksdb.core.RocksDbAccessor.RocksDbTransaction;
-import com.coolbeevip.rocksdb.core.RocksDbInstanceFactory;
+import com.coolbeevip.rocksdb.core.RocksDbFactory;
 import com.coolbeevip.rocksdb.exception.DatabaseStorageException;
 import com.coolbeevip.rocksdb.schema.MessageSchema;
 import com.coolbeevip.rocksdb.schema.Message;
@@ -35,7 +35,7 @@ public class RocksDbTransactionTest {
   public static void setup() throws Exception {
     Path databaseDir = Paths.get("rocksdb-data");
     RocksDbConfiguration configuration = RocksDbConfiguration.hotDefaults(databaseDir);
-    dbAccessor = RocksDbInstanceFactory
+    dbAccessor = RocksDbFactory
         .create(configuration, MessageSchema.INSTANCE.getAllColumns());
   }
 

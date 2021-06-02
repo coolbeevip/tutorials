@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.rocksdb.BlockBasedTableConfig;
 import org.rocksdb.Cache;
 import org.rocksdb.ColumnFamilyDescriptor;
@@ -20,6 +21,7 @@ import org.rocksdb.ColumnFamilyOptions;
 import org.rocksdb.DBOptions;
 import org.rocksdb.Env;
 import org.rocksdb.LRUCache;
+import org.rocksdb.RocksDB;
 import org.rocksdb.RocksDBException;
 import org.rocksdb.Statistics;
 import org.rocksdb.TransactionDB;
@@ -28,10 +30,23 @@ import org.rocksdb.TransactionDBOptions;
 /**
  * @author zhanglei
  */
-public class RocksDbInstanceFactory {
+
+@Slf4j
+public class RocksDbFactory {
 
   static {
-    RocksDbUtil.loadNativeLibrary();
+    try {
+      RocksDB.loadLibrary();
+      log.info("Load RocksDB library");
+    } catch (final ExceptionInInitializerError e) {
+      if (e.getCause() instanceof UnsupportedOperationException) {
+        log.error("Unable to load RocksDB library", e);
+        throw new IllegalStateException(
+            "Unsupported platform detected. On Windows, ensure you have 64bit Java installed.");
+      } else {
+        throw e;
+      }
+    }
   }
 
   public static RocksDbAccessor create(
