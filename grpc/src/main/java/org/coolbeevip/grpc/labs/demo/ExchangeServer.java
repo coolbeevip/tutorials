@@ -1,7 +1,6 @@
 package org.coolbeevip.grpc.labs.demo;
 
 import io.grpc.Server;
-
 import io.grpc.netty.NettyServerBuilder;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.ServerChannel;
@@ -11,8 +10,9 @@ import io.netty.channel.kqueue.KQueueEventLoopGroup;
 import io.netty.channel.kqueue.KQueueServerSocketChannel;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,10 +36,19 @@ public class ExchangeServer {
         .build();
   }
 
-  public void start() throws IOException, InterruptedException {
-    server.start();
-    LOG.info("Server started, Listening on " + port);
-    server.awaitTermination();
+  public Future<Void> start() {
+    CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+      try {
+        server.start();
+        LOG.info("Server started, Listening on " + port);
+        server.awaitTermination();
+      } catch (Exception e) {
+
+      }
+    });
+    return future;
+
+
   }
 
   public void stop() {

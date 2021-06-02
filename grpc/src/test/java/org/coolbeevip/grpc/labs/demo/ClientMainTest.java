@@ -1,15 +1,19 @@
 package org.coolbeevip.grpc.labs.demo;
 
 import io.grpc.stub.StreamObserver;
+import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.Iterator;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.coolbeevip.grpc.labs.demo.grpc.RequestMessage;
 import org.coolbeevip.grpc.labs.demo.grpc.ResponseMessage;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,20 +21,12 @@ import org.slf4j.LoggerFactory;
 public class ClientMainTest {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+  private static ExchangeServer server;
+  private static int port=8084;
   private AtomicInteger i = new AtomicInteger(0);
   ExchangeClient client;
   StreamObserver<RequestMessage> requestStreamObserver;
   int counter = 1;
-
-  @Before
-  public void setup() {
-    client = new ExchangeClient("0.0.0.0", 8081);
-  }
-
-  @After
-  public void clean() throws InterruptedException {
-    client.shutdown();
-  }
 
   @Test
   public void sendMessageTest() {
@@ -126,4 +122,24 @@ public class ClientMainTest {
     }
   }
 
+  @BeforeClass
+  public static void before() {
+    server = new ExchangeServer(port);
+    server.start();
+  }
+
+  @AfterClass
+  public static void after() {
+    server.stop();
+  }
+
+  @Before
+  public void setup() {
+    client = new ExchangeClient("0.0.0.0", port);
+  }
+
+  @After
+  public void clean() throws InterruptedException {
+    client.shutdown();
+  }
 }
