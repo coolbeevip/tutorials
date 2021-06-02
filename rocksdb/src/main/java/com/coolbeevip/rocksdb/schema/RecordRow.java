@@ -1,6 +1,5 @@
-package com.coolbeevip.rocksdb;
+package com.coolbeevip.rocksdb.schema;
 
-import java.io.Serializable;
 import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +13,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RecordRow implements Serializable {
+public class RecordRow {
+
   private String uuid;
   private Timestamp time;
   private String f1;
