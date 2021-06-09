@@ -135,7 +135,7 @@ public class ClientMainTest {
 
   @Before
   public void setup() {
-    client = new ExchangeClient("0.0.0.0", port);
+    client = new ExchangeClient("127.0.0.1", port);
   }
 
   @After
