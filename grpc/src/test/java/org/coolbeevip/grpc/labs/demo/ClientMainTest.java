@@ -22,7 +22,7 @@ public class ClientMainTest {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private static ExchangeServer server;
-  private static int port=8084;
+  private static int port = 58084;
   private AtomicInteger i = new AtomicInteger(0);
   ExchangeClient client;
   StreamObserver<RequestMessage> requestStreamObserver;
