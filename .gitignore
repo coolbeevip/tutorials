@@ -1,8 +1,14 @@
+## IDEA
 .idea/
-target/
 *.iml
 *.ipr
 *.iws
 
+## Maven
+target/
+
+## macOS
+.DS_Store
+
+##
 rocksdb-data/
-jmh-*.json
