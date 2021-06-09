@@ -7,34 +7,34 @@ type Mutation {
 }
 
 type Post {
-  id: ID!
-  title: String!
-  text: String!
-  category: String
-  author: Author
-}
-
-type Author {
-  id: ID!
-  name: String!
-  thumbnail: String
-  posts: [Post]!
-}
-
-extend type Query {
-  recentPosts(count: Int, offset: Int): [Post]!
-  getAuthor(authorId: String): Author!
-  getAllAuthor: [Author]!
-}
-
-extend type Mutation {
-  writePost(
+    id: ID!
     title: String!
     text: String!
     category: String
-    authorId: String!
-  ): Post!
+    author: Author
+}
 
-  # 增加作者
-  addAuthor(id: String! ,name: String!): Author
+type Author {
+    id: ID!
+    name: String!
+    thumbnail: String
+    posts: [Post]!
+}
+
+extend type Query {
+    recentPosts(count: Int, offset: Int): [Post]!
+    getAuthor(authorId: String): Author!
+    getAllAuthor: [Author]!
+}
+
+extend type Mutation {
+    writePost(
+        title: String!
+        text: String!
+        category: String
+        authorId: String!
+    ): Post!
+
+    # 增加作者
+    addAuthor(id: String! ,name: String!): Author
 }
