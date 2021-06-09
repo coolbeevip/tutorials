@@ -29,6 +29,11 @@ public class ExampleFlightServerTest {
   private ExampleFlightServer server;
   private FlightClient client;
 
+  static {
+    // compatible JDK 11
+    System.setProperty("io.netty.tryReflectionSetAccessible","true");
+  }
+
   @Before
   public void start() throws IOException {
     allocator = new RootAllocator(Long.MAX_VALUE);

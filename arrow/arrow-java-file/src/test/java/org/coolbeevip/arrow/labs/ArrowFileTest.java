@@ -8,6 +8,11 @@ import org.junit.Test;
 
 public class ArrowFileTest {
 
+  static {
+    // compatible JDK 11
+    System.setProperty("io.netty.tryReflectionSetAccessible","true");
+  }
+
   @Test
   public void writerTest() throws Exception {
     String filename = "example.arrow";
