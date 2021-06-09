@@ -10,5 +10,6 @@ target/
 ## macOS
 .DS_Store
 
-##
+## tutorials temp file
 rocksdb-data/
+*.arrow
