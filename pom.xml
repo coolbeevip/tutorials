@@ -45,7 +45,7 @@
 
     <!-- ratis -->
     <ratis.version>2.0.0</ratis.version>
-    <ratis.thirdparty.version>0.6.0-SNAPSHOT</ratis.thirdparty.version>
+    <ratis.thirdparty.version>0.6.0</ratis.thirdparty.version>
 
     <!-- arrow -->
     <arrow.version>0.15.0</arrow.version>
