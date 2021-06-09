@@ -14,10 +14,10 @@ import java.util.List;
 public class MessageSchema implements Schema {
 
   public static final MessageSchema INSTANCE = new MessageSchema();
-  private static final List<RocksDbColumnFamily<?, ?>> ALL_SCHEMA = Arrays
-      .asList(HOT_MESSAGE, ARCHIVES_MESSAGE);
+
   static RocksDbSerializer<String> keySerializer = new KryoSerializer(String.class);
   static RocksDbSerializer<Message> valueSerializer = new KryoSerializer(Message.class);
+
   public static final RocksDbColumnFamily<String, Message> HOT_MESSAGE = RocksDbColumnFamily
       .builder()
       .cfId("cf_hot")
@@ -28,6 +28,9 @@ public class MessageSchema implements Schema {
       .cfId("cf_archives")
       .keySerializer(keySerializer)
       .valueSerializer(valueSerializer).build();
+
+  private static final List<RocksDbColumnFamily<?, ?>> ALL_SCHEMA = Arrays
+      .asList(HOT_MESSAGE, ARCHIVES_MESSAGE);
 
   @Override
   public List<RocksDbColumnFamily<?, ?>> getAllColumns() {

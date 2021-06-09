@@ -34,7 +34,7 @@ public class SequenceServer {
   private static final UUID CLUSTER_GROUP_ID = UUID
       .fromString("02511d47-d67c-49a3-9011-abb3109a44c1");
   private final String address;
-  private final Path storagePath = Paths.get("data");
+  private final Path storagePath = Paths.get("ratis-data");
   private final List<String> peerAddress;
   private RaftProperties properties;
   private RaftServer server;
