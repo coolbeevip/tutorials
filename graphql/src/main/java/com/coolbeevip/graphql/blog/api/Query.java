@@ -16,7 +16,7 @@ public class Query implements GraphQLQueryResolver {
 
   private AuthorDao authorDao;
 
-  public Query(PostDao postDao,AuthorDao authorDao) {
+  public Query(PostDao postDao, AuthorDao authorDao) {
     this.authorDao = authorDao;
     this.postDao = postDao;
   }
@@ -25,11 +25,11 @@ public class Query implements GraphQLQueryResolver {
     return postDao.getRecentPosts(count, offset);
   }
 
-  public Author getAuthor(String authorId){
+  public Author getAuthor(String authorId) {
     return authorDao.getAuthor(authorId).get();
   }
 
-  public List<Author> getAllAuthor(){
+  public List<Author> getAllAuthor() {
     return authorDao.getAllAuthor();
   }
 }

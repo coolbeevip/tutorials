@@ -34,7 +34,7 @@ public class EchoServer {
     EventLoopGroup workergroup = new NioEventLoopGroup();
     try {
       ServerBootstrap bootstrap = new ServerBootstrap();
-      bootstrap.group(bossgroup,workergroup)
+      bootstrap.group(bossgroup, workergroup)
           .channel(NioServerSocketChannel.class)
           .option(ChannelOption.SO_BACKLOG, 100)
           .childOption(ChannelOption.SO_KEEPALIVE, true)

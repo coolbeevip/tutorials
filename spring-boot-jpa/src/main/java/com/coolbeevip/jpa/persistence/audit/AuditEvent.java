@@ -11,6 +11,7 @@ import lombok.ToString;
 @ToString
 @Getter
 public class AuditEvent<T> {
+
   AuditEventType type;
   T data;
 }

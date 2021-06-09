@@ -14,7 +14,7 @@ import java.util.Locale;
 public class LogListener extends LogBaseListener {
 
   private static final DateTimeFormatter DEFAULT_DATETIME_FORMATTER
-    = DateTimeFormatter.ofPattern("yyyy-MMM-dd HH:mm:ss", Locale.ENGLISH);
+      = DateTimeFormatter.ofPattern("yyyy-MMM-dd HH:mm:ss", Locale.ENGLISH);
 
   private List<LogEntry> entries = new ArrayList<>();
   private LogEntry currentLogEntry;

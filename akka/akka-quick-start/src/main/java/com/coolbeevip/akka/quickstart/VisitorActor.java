@@ -14,22 +14,22 @@ import com.coolbeevip.akka.quickstart.protocols.VisitorMessage;
  */
 public class VisitorActor extends AbstractBehavior<VisitorMessage> {
 
-  public static Behavior<VisitorMessage> create() {
-    return Behaviors.setup(VisitorActor::new);
-  }
-
   private VisitorActor(ActorContext<VisitorMessage> context) {
     super(context);
+  }
+
+  public static Behavior<VisitorMessage> create() {
+    return Behaviors.setup(VisitorActor::new);
   }
 
   @Override
   public Receive<VisitorMessage> createReceive() {
     return newReceiveBuilder()
-      .onMessage(VisitorMessage.Ask.class, this::onAsk)
-      .onMessage(VisitorMessage.Answer.class, this::onAnswer)
-      .onMessage(VisitorMessage.Say.class, this::onSay)
-      .onMessage(VisitorMessage.LoginResponse.class, this::onLoginResponse)
-      .build();
+        .onMessage(VisitorMessage.Ask.class, this::onAsk)
+        .onMessage(VisitorMessage.Answer.class, this::onAnswer)
+        .onMessage(VisitorMessage.Say.class, this::onSay)
+        .onMessage(VisitorMessage.LoginResponse.class, this::onLoginResponse)
+        .build();
   }
 
   private Behavior<VisitorMessage> onAsk(VisitorMessage.Ask ask) {
@@ -52,7 +52,7 @@ public class VisitorActor extends AbstractBehavior<VisitorMessage> {
     if (loginResponse.result == 0) {
       // 登录成功后跟房间所有人打招呼
       loginResponse.room
-        .tell(new VisitorSay(loginResponse.visitor, "Hi, I'm " + loginResponse.visitor.name));
+          .tell(new VisitorSay(loginResponse.visitor, "Hi, I'm " + loginResponse.visitor.name));
     } else {
       getContext().getLog().error("Receive Login Fail result {}", loginResponse.result);
     }

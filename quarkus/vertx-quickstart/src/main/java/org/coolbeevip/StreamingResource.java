@@ -20,7 +20,7 @@ public class StreamingResource {
   @GET
   @Produces(MediaType.SERVER_SENT_EVENTS)
   @Path("{name}/streaming")
-  public Publisher<String> greeting(@PathParam(value="name") String name) {
+  public Publisher<String> greeting(@PathParam(value = "name") String name) {
     return vertx.periodicStream(2000).toFlowable()
         .map(l -> String.format("Hello %s! (%s)%n", name, new Date()));
   }

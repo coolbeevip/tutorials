@@ -13,6 +13,14 @@ public class Item {
   private Integer quantity;
   private Double subTotal;
 
+  public Item(String itemId, String itemName, Double price, Integer quantity, Order ordder) {
+    this.itemId = itemId;
+    this.itemName = itemName;
+    this.price = price;
+    this.quantity = quantity;
+    this.order = ordder;
+  }
+
   public String getItemId() {
     return itemId;
   }
@@ -31,13 +39,5 @@ public class Item {
 
   public Double getSubTotal() {
     return subTotal;
-  }
-
-  public Item(String itemId, String itemName, Double price, Integer quantity, Order ordder) {
-    this.itemId = itemId;
-    this.itemName = itemName;
-    this.price = price;
-    this.quantity = quantity;
-    this.order = ordder;
   }
 }

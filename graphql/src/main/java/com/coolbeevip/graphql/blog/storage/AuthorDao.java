@@ -20,7 +20,7 @@ public class AuthorDao {
     authors.add(0, author);
   }
 
-  public List<Author> getAllAuthor(){
+  public List<Author> getAllAuthor() {
     return new ArrayList<>(authors);
   }
 }

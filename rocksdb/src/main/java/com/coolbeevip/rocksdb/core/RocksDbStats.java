@@ -153,9 +153,8 @@ public class RocksDbStats implements AutoCloseable {
       HistogramType.DECOMPRESSION_TIMES_NANOS,
       HistogramType.READ_NUM_MERGE_OPERANDS,
   };
-
-  private boolean closed = false;
   private final Statistics stats;
+  private boolean closed = false;
 
   public RocksDbStats() {
     this.stats = new Statistics();

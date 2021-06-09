@@ -58,7 +58,7 @@ public class Order {
   }
 
   public void addItem(String itemId, String itemName, Double price, Integer quantity)
-    throws InvalidDataException {
+      throws InvalidDataException {
     Item item = new Item(itemId, itemName, price, quantity, this);
     this.items.add(item);
     this.moneytoryValue();
@@ -69,8 +69,9 @@ public class Order {
     for (Iterator iterator = items.iterator(); iterator.hasNext(); ) {
       Item item = (Item) iterator.next();
       System.out.println(
-        "---" + item.getItemId() + "--" + item.getItemName() + "--" + item.getPrice() + "--" + item
-          .getQuantity());
+          "---" + item.getItemId() + "--" + item.getItemName() + "--" + item.getPrice() + "--"
+              + item
+              .getQuantity());
       total = total + item.getSubTotal();
     }
     return total;

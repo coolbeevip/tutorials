@@ -68,14 +68,14 @@ public class RocksDbTest {
 
   @Test
   public void batchPutTest() {
-    Map<String,Message> data = new HashMap<>();
+    Map<String, Message> data = new HashMap<>();
     for (int i = 0; i < 100; i++) {
       Message message = Message.builder()
           .uuid(String.valueOf(i))
           .build();
-      data.put(message.getUuid(),message);
+      data.put(message.getUuid(), message);
     }
-    dbAccessor.put(HOT_MESSAGE,data);
+    dbAccessor.put(HOT_MESSAGE, data);
     assertThat(dbAccessor.getAll(HOT_MESSAGE).size(), Matchers.is(100));
   }
 

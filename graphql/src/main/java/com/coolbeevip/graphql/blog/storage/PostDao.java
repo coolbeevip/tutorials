@@ -21,7 +21,7 @@ public class PostDao {
     posts.add(0, post);
   }
 
-  public List<Post> getAllPosts(){
+  public List<Post> getAllPosts() {
     return posts;
   }
 }

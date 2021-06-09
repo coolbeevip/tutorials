@@ -1,12 +1,13 @@
 package org.coolbeevip.arrow.labs.flight;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
-
 import org.apache.arrow.flight.FlightDescriptor;
 import org.apache.arrow.flight.FlightEndpoint;
 import org.apache.arrow.flight.FlightInfo;
@@ -17,9 +18,6 @@ import org.apache.arrow.util.Preconditions;
 import org.apache.arrow.vector.dictionary.DictionaryProvider;
 import org.apache.arrow.vector.types.pojo.Schema;
 import org.apache.arrow.vector.util.DictionaryUtility;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
 
 /**
  * A logical collection of streams sharing the same schema.
@@ -62,7 +60,8 @@ public class FlightHolder implements AutoCloseable {
    * Adds a new streams which clients can populate via the returned object.
    */
   public Stream.StreamCreator addStream(Schema schema) {
-    Preconditions.checkArgument(this.schema.equals(schema), "Stream schema inconsistent with existing schema.");
+    Preconditions.checkArgument(this.schema.equals(schema),
+        "Stream schema inconsistent with existing schema.");
     return new Stream.StreamCreator(schema, dictionaryProvider, allocator, t -> {
       synchronized (streams) {
         streams.add(t);
@@ -87,14 +86,15 @@ public class FlightHolder implements AutoCloseable {
               l));
       i++;
     }
-    return new FlightInfo(schema,  descriptor, endpoints, bytes, records);
+    return new FlightInfo(schema, descriptor, endpoints, bytes, records);
   }
 
   @Override
   public void close() throws Exception {
     // Close dictionaries
     final Set<Long> dictionaryIds = new HashSet<>();
-    schema.getFields().forEach(field -> DictionaryUtility.toMessageFormat(field, dictionaryProvider, dictionaryIds));
+    schema.getFields().forEach(
+        field -> DictionaryUtility.toMessageFormat(field, dictionaryProvider, dictionaryIds));
 
     final Iterable<AutoCloseable> dictionaries = dictionaryIds.stream()
         .map(id -> (AutoCloseable) dictionaryProvider.lookup(id).getVector())::iterator;

@@ -10,6 +10,7 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
  */
 @RegisterForReflection // Lets Quarkus register this class for reflection during the native build
 public class Legume {
+
   private String name;
   private String description;
 

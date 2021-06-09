@@ -9,7 +9,8 @@ import static org.hamcrest.CoreMatchers.startsWith;
 @QuarkusTest
 public class EventResourceTest {
 
-  @Test void testEventBusGreeter() {
+  @Test
+  void testEventBusGreeter() {
     given()
         .when().get("/async/Quarkus")
         .then()

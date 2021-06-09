@@ -25,13 +25,13 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
 
   @Query("select u from #{#entityName} u where u.firstName = :firstName and u.lastName = :lastName")
   Optional<Customer> findByFullName(@Param("firstName") String firstName,
-    @Param("lastName") String lastName);
+      @Param("lastName") String lastName);
 
   @Transactional
   @Modifying
   @Query("update CUSTOMERS u set u.firstName = :firstName, u.lastName = :lastName where id = :id")
   int updateFullNameById(@Param("firstName") String firstName, @Param("lastName") String lastName,
-    @Param("id") String id);
+      @Param("id") String id);
 
   @Transactional
   @Modifying

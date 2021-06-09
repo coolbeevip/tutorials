@@ -18,7 +18,7 @@ public class LogParserUnitTest {
   @Test
   public void whenLogContainsOneErrorLogEntry_thenOneErrorIsReturned() throws Exception {
     String logLines = "2018-May-05 14:20:21 DEBUG entering awesome method\r\n" +
-      "2018-May-05 14:20:24 ERROR Bad thing happened\r\n";
+        "2018-May-05 14:20:24 ERROR Bad thing happened\r\n";
     LogLexer serverLogLexer = new LogLexer(CharStreams.fromString(logLines));
     CommonTokenStream tokens = new CommonTokenStream(serverLogLexer);
     LogParser logParser = new LogParser(tokens);

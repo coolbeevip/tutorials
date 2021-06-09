@@ -14,31 +14,32 @@ import org.slf4j.LoggerFactory;
 
 @Path("/hello")
 public class GreetingResource {
-    private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    @Inject
-    GreetingService service;
+  private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("/greeting/{name}")
-    public String greeting(@PathParam("name") String name) {
-        return service.greeting(name);
-    }
+  @Inject
+  GreetingService service;
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        LOG.info("request hello");
-        return "hello\n";
-    }
+  @GET
+  @Produces(MediaType.TEXT_PLAIN)
+  @Path("/greeting/{name}")
+  public String greeting(@PathParam("name") String name) {
+    return service.greeting(name);
+  }
 
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("/async")
-    public CompletionStage<String> asyncHello() {
-        return CompletableFuture.supplyAsync(() -> {
-            return "hello\n";
-        });
-    }
+  @GET
+  @Produces(MediaType.TEXT_PLAIN)
+  public String hello() {
+    LOG.info("request hello");
+    return "hello\n";
+  }
+
+  @GET
+  @Produces(MediaType.TEXT_PLAIN)
+  @Path("/async")
+  public CompletionStage<String> asyncHello() {
+    return CompletableFuture.supplyAsync(() -> {
+      return "hello\n";
+    });
+  }
 }

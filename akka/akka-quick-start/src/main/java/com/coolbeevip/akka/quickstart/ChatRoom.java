@@ -27,28 +27,28 @@ public class ChatRoom extends AbstractBehavior<RoomMessage> {
    */
   private Map<UUID, ActorRef<VisitorMessage>> visitors = new HashMap();
 
-  public static Behavior<RoomMessage> create() {
-    return Behaviors.setup(ChatRoom::new);
-  }
-
   private ChatRoom(ActorContext<RoomMessage> context) {
     super(context);
+  }
+
+  public static Behavior<RoomMessage> create() {
+    return Behaviors.setup(ChatRoom::new);
   }
 
   @Override
   public Receive<RoomMessage> createReceive() {
     return newReceiveBuilder()
-      .onMessage(VisitorLogin.class, this::onLogin)
-      .onMessage(VisitorLogout.class, this::onLogout)
-      .onMessage(VisitorSay.class, this::onSay)
-      .build();
+        .onMessage(VisitorLogin.class, this::onLogin)
+        .onMessage(VisitorLogout.class, this::onLogout)
+        .onMessage(VisitorSay.class, this::onSay)
+        .build();
   }
 
   private Behavior<RoomMessage> onLogin(VisitorLogin login) {
     getContext().getLog().info("{} join",
-      login.visitor.getTitle());
+        login.visitor.getTitle());
     ActorRef<VisitorMessage> actorRef = getContext()
-      .spawn(VisitorActor.create(), login.visitor.name);
+        .spawn(VisitorActor.create(), login.visitor.name);
 
     // 给访问者发送登录响应消息
     actorRef.tell(new VisitorMessage.LoginResponse(login.visitor, 0, getContext().getSelf()));
@@ -58,16 +58,16 @@ public class ChatRoom extends AbstractBehavior<RoomMessage> {
 
     // 通知所有访客有新访客上线
     visitors.entrySet().stream().filter(entry -> !entry.getKey().equals(login.visitor.id))
-      .forEach(entry -> {
-        entry.getValue().tell(new Say(login.visitor.getTitle() + " online"));
-      });
+        .forEach(entry -> {
+          entry.getValue().tell(new Say(login.visitor.getTitle() + " online"));
+        });
 
     return Behaviors.same();
   }
 
   private Behavior<RoomMessage> onLogout(VisitorLogout logout) {
     getContext().getLog().info("{} leave",
-      logout.visitor.getTitle());
+        logout.visitor.getTitle());
 
     // 移除访客缓存
     visitors.remove(logout.visitor.id);
@@ -84,10 +84,10 @@ public class ChatRoom extends AbstractBehavior<RoomMessage> {
    */
   private Behavior<RoomMessage> onSay(VisitorSay say) {
     visitors.entrySet().stream()
-      .filter(entry -> !entry.getKey().equals(say.visitor.id))
-      .forEach(entry -> {
-        entry.getValue().tell(new Say(say.visitor.name + ": " + say.msg));
-      });
+        .filter(entry -> !entry.getKey().equals(say.visitor.id))
+        .forEach(entry -> {
+          entry.getValue().tell(new Say(say.visitor.name + ": " + say.msg));
+        });
     return this;
   }
 

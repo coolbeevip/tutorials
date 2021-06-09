@@ -30,12 +30,12 @@ import org.apache.ratis.util.JavaUtils;
 public class SequenceStateMachine extends BaseStateMachine {
 
   private final SimpleStateMachineStorage storage =
-    new SimpleStateMachineStorage();
+      new SimpleStateMachineStorage();
   private AtomicInteger counter = new AtomicInteger(0);
 
   @Override
   public void initialize(RaftServer server, RaftGroupId groupId,
-    RaftStorage raftStorage) throws IOException {
+      RaftStorage raftStorage) throws IOException {
     super.initialize(server, groupId, raftStorage);
     this.storage.init(raftStorage);
     load(storage.getLatestSnapshot());
@@ -53,15 +53,15 @@ public class SequenceStateMachine extends BaseStateMachine {
 
     //create a file with a proper name to store the snapshot
     final File snapshotFile =
-      storage.getSnapshotFile(last.getTerm(), last.getIndex());
+        storage.getSnapshotFile(last.getTerm(), last.getIndex());
 
     //serialize the counter object and write it into the snapshot file
     try (ObjectOutputStream out = new ObjectOutputStream(
-      new BufferedOutputStream(new FileOutputStream(snapshotFile)))) {
+        new BufferedOutputStream(new FileOutputStream(snapshotFile)))) {
       out.writeObject(counter);
     } catch (IOException ioe) {
       LOG.warn("Failed to write snapshot file \"" + snapshotFile
-        + "\", last applied index=" + last);
+          + "\", last applied index=" + last);
     }
 
     //return the index of the stored snapshot (which is the last applied one)
@@ -79,18 +79,18 @@ public class SequenceStateMachine extends BaseStateMachine {
     final File snapshotFile = snapshot.getFile().getPath().toFile();
     if (!snapshotFile.exists()) {
       LOG.warn("The snapshot file {} does not exist for snapshot {}",
-        snapshotFile, snapshot);
+          snapshotFile, snapshot);
       return RaftLog.INVALID_LOG_INDEX;
     }
 
     //load the TermIndex object for the snapshot using the file name pattern of
     // the snapshot
     final TermIndex last =
-      SimpleStateMachineStorage.getTermIndexFromSnapshotFile(snapshotFile);
+        SimpleStateMachineStorage.getTermIndexFromSnapshotFile(snapshotFile);
 
     //read the file and cast it to the AtomicInteger and set the counter
     try (ObjectInputStream in = new ObjectInputStream(
-      new BufferedInputStream(new FileInputStream(snapshotFile)))) {
+        new BufferedInputStream(new FileInputStream(snapshotFile)))) {
       //set the last applied termIndex to the termIndex of the snapshot
       setLastAppliedTermIndex(last);
 
@@ -108,10 +108,10 @@ public class SequenceStateMachine extends BaseStateMachine {
     String msg = request.getContent().toString(Charset.defaultCharset());
     if (!msg.equals("GET")) {
       return CompletableFuture.completedFuture(
-        Message.valueOf("Invalid Command"));
+          Message.valueOf("Invalid Command"));
     }
     return CompletableFuture.completedFuture(
-      Message.valueOf(counter.toString()));
+        Message.valueOf(counter.toString()));
   }
 
   // 事件
@@ -121,10 +121,10 @@ public class SequenceStateMachine extends BaseStateMachine {
 
     //check if the command is valid
     String logData = entry.getStateMachineLogEntry().getLogData()
-      .toString(Charset.defaultCharset());
+        .toString(Charset.defaultCharset());
     if (!logData.equals("INCREMENT")) {
       return CompletableFuture.completedFuture(
-        Message.valueOf("Invalid Command"));
+          Message.valueOf("Invalid Command"));
     }
     //update the last applied term and index
     final long index = entry.getIndex();
@@ -135,7 +135,7 @@ public class SequenceStateMachine extends BaseStateMachine {
 
     //return the new value of the counter to the client
     final CompletableFuture<Message> f =
-      CompletableFuture.completedFuture(Message.valueOf(counter.toString()));
+        CompletableFuture.completedFuture(Message.valueOf(counter.toString()));
 
     //if leader, log the incremented value and it's log index
     if (trx.getServerRole() == RaftProtos.RaftPeerRole.LEADER) {

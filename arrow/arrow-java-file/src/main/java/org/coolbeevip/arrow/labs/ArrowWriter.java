@@ -13,10 +13,10 @@ import org.apache.arrow.vector.BufferLayout.BufferType;
 import org.apache.arrow.vector.FieldVector;
 import org.apache.arrow.vector.Float4Vector;
 import org.apache.arrow.vector.Float8Vector;
-import org.apache.arrow.vector.VarCharVector;
 import org.apache.arrow.vector.IntVector;
 import org.apache.arrow.vector.TypeLayout;
 import org.apache.arrow.vector.VarBinaryVector;
+import org.apache.arrow.vector.VarCharVector;
 import org.apache.arrow.vector.VectorSchemaRoot;
 import org.apache.arrow.vector.dictionary.DictionaryProvider;
 import org.apache.arrow.vector.ipc.ArrowFileWriter;
@@ -37,7 +37,24 @@ public class ArrowWriter {
   private RootAllocator rootAllocator;
   private ArrowFileWriter arrowFileWriter;
 
-  private Schema schema(){
+  public ArrowWriter(FileOutputStream outputStream, int batchSize, boolean useNullValues,
+      long allocatorLimit) {
+    this.batchSize = batchSize;
+    this.useNullValues = useNullValues;
+    // 定义内存分配
+    this.rootAllocator = new RootAllocator(allocatorLimit);
+    // 创建数据操作入口
+    this.root = VectorSchemaRoot.create(schema(), this.rootAllocator);
+    // 创建一个编码器
+    DictionaryProvider.MapDictionaryProvider provider = new DictionaryProvider.MapDictionaryProvider();
+    // 创建写文件对象
+    this.arrowFileWriter = new ArrowFileWriter(root, provider, outputStream.getChannel());
+    showSchema();
+  }
+
+  ;
+
+  private Schema schema() {
     // 定义数据结构
     ImmutableList.Builder<Field> childrenBuilder = ImmutableList.builder();
     // 32位有符号整数
@@ -55,24 +72,10 @@ public class ArrowWriter {
     // 字符串
     childrenBuilder.add(new Field("string", FieldType.nullable(new ArrowType.Binary()), null));
     return new Schema(childrenBuilder.build(), null);
-  };
-
-  public ArrowWriter(FileOutputStream outputStream, int batchSize, boolean useNullValues, long allocatorLimit) {
-    this.batchSize = batchSize;
-    this.useNullValues = useNullValues;
-    // 定义内存分配
-    this.rootAllocator = new RootAllocator(allocatorLimit);
-    // 创建数据操作入口
-    this.root = VectorSchemaRoot.create(schema(), this.rootAllocator);
-    // 创建一个编码器
-    DictionaryProvider.MapDictionaryProvider provider = new DictionaryProvider.MapDictionaryProvider();
-    // 创建写文件对象
-    this.arrowFileWriter = new ArrowFileWriter(root, provider, outputStream.getChannel());
-    showSchema();
   }
 
   private void showSchema() {
-    System.out.println("schema is "  + root.getSchema().toString());
+    System.out.println("schema is " + root.getSchema().toString());
     for (Field field : root.getSchema().getFields()) {
       FieldVector vector = root.getVector(field.getName());
       showFieldLayout(field, vector);
@@ -86,7 +89,7 @@ public class ArrowWriter {
         int toProcessItems = Math.min(this.batchSize, data.length - i);
         root.setRowCount(toProcessItems);
         for (Field field : root.getSchema().getFields()) {
-          System.out.println("写入列["+field.getName()+"] "+i+".."+(i+toProcessItems-1));
+          System.out.println("写入列[" + field.getName() + "] " + i + ".." + (i + toProcessItems - 1));
           FieldVector vector = root.getVector(field.getName());
           switch (vector.getMinorType()) {
             case INT:
@@ -119,7 +122,7 @@ public class ArrowWriter {
     }
   }
 
-  protected void closeArrow(){
+  protected void closeArrow() {
     arrowFileWriter.close();
   }
 
@@ -207,8 +210,9 @@ public class ArrowWriter {
           "vector types and vector buffers are not the same size: " + vectorTypes.size() + " != "
               + vectorBuffers.length);
     }
-    System.out.println("[" + field.toString() + "] : "+fieldVector.getClass().getCanonicalName());
-    System.out.println(" \t TypeLayout is " + typeLayout.toString() + " vectorSize is " + vectorTypes.size());
+    System.out.println("[" + field.toString() + "] : " + fieldVector.getClass().getCanonicalName());
+    System.out.println(
+        " \t TypeLayout is " + typeLayout.toString() + " vectorSize is " + vectorTypes.size());
     for (int i = 0; i < vectorTypes.size(); i++) {
       System.out.println(" \t vector type entries [" + i + "] " + vectorTypes.get(i).toString());
     }

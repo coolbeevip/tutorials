@@ -5,5 +5,5 @@ package com.coolbeevip.jpa.persistence.audit;
  */
 
 public enum AuditEventType {
-  CREATED,UPDATED,DELETED,LOAD
+  CREATED, UPDATED, DELETED, LOAD
 }

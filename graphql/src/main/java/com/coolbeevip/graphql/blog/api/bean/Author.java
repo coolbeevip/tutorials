@@ -16,8 +16,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Author {
-	private String id;
-	private String name;
-	private String thumbnail;
-	private List<Post> posts;
+
+  private String id;
+  private String name;
+  private String thumbnail;
+  private List<Post> posts;
 }

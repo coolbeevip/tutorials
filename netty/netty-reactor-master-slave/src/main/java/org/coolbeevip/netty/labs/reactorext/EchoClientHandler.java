@@ -23,6 +23,6 @@ public class EchoClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
   @Override
   protected void channelRead0(ChannelHandlerContext channelHandlerContext, ByteBuf in)
       throws Exception {
-    System.out.println("Client received: "+in.toString(CharsetUtil.UTF_8));
+    System.out.println("Client received: " + in.toString(CharsetUtil.UTF_8));
   }
 }

@@ -14,6 +14,7 @@ public interface VisitorMessage {
    * 登录响应
    */
   class LoginResponse implements VisitorMessage {
+
     public final ActorRef<RoomMessage> room;
     public final Visitor visitor;
     public final int result;
@@ -44,7 +45,7 @@ public interface VisitorMessage {
     public final String msg;
 
     public Ask(Visitor visitor,
-      ActorRef<Answer> replyTo, String msg) {
+        ActorRef<Answer> replyTo, String msg) {
       this.visitor = visitor;
       this.replyTo = replyTo;
       this.msg = msg;
@@ -66,8 +67,8 @@ public interface VisitorMessage {
     public final String msg;
 
     public Answer(Visitor visitor,
-      ActorRef<Ask> from,
-      String msg) {
+        ActorRef<Ask> from,
+        String msg) {
       this.visitor = visitor;
       this.from = from;
       this.msg = msg;
@@ -83,8 +84,8 @@ public interface VisitorMessage {
       }
       Answer answer = (Answer) o;
       return Objects.equals(visitor, answer.visitor) &&
-        Objects.equals(from, answer.from) &&
-        Objects.equals(msg, answer.msg);
+          Objects.equals(from, answer.from) &&
+          Objects.equals(msg, answer.msg);
     }
 
     @Override
@@ -95,10 +96,10 @@ public interface VisitorMessage {
     @Override
     public String toString() {
       return "Answer{" +
-        "visitor=" + visitor +
-        ", from=" + from +
-        ", msg=" + msg +
-        '}';
+          "visitor=" + visitor +
+          ", from=" + from +
+          ", msg=" + msg +
+          '}';
     }
   }
 }

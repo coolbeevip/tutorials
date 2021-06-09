@@ -2,7 +2,6 @@ package org.coolbeevip.arrow.labs.flight;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
-
 import org.apache.arrow.flight.Action;
 import org.apache.arrow.flight.ActionType;
 import org.apache.arrow.flight.CallStatus;
@@ -15,7 +14,6 @@ import org.apache.arrow.flight.Location;
 import org.apache.arrow.flight.PutResult;
 import org.apache.arrow.flight.Result;
 import org.apache.arrow.flight.Ticket;
-
 import org.apache.arrow.memory.BufferAllocator;
 import org.apache.arrow.util.AutoCloseables;
 import org.apache.arrow.vector.VectorSchemaRoot;
@@ -64,7 +62,8 @@ public class InMemoryStore implements FlightProducer, AutoCloseable {
   }
 
   @Override
-  public void listFlights(CallContext context, Criteria criteria, StreamListener<FlightInfo> listener) {
+  public void listFlights(CallContext context, Criteria criteria,
+      StreamListener<FlightInfo> listener) {
     try {
       for (FlightHolder h : holders.values()) {
         listener.onNext(h.getFlightInfo(location));
@@ -94,7 +93,8 @@ public class InMemoryStore implements FlightProducer, AutoCloseable {
       try (VectorSchemaRoot root = flightStream.getRoot()) {
         final FlightHolder h = holders.computeIfAbsent(
             flightStream.getDescriptor(),
-            t -> new FlightHolder(allocator, t, flightStream.getSchema(), flightStream.getDictionaryProvider()));
+            t -> new FlightHolder(allocator, t, flightStream.getSchema(),
+                flightStream.getDictionaryProvider()));
 
         creator = h.addStream(flightStream.getSchema());
 
@@ -136,8 +136,10 @@ public class InMemoryStore implements FlightProducer, AutoCloseable {
   @Override
   public void listActions(CallContext context,
       StreamListener<ActionType> listener) {
-    listener.onNext(new ActionType("get", "pull a stream. Action must be done via standard get mechanism"));
-    listener.onNext(new ActionType("put", "push a stream. Action must be done via standard put mechanism"));
+    listener.onNext(
+        new ActionType("get", "pull a stream. Action must be done via standard get mechanism"));
+    listener.onNext(
+        new ActionType("put", "push a stream. Action must be done via standard put mechanism"));
     listener.onNext(new ActionType("drop", "delete a flight. Action body is a JSON encoded path."));
     listener.onCompleted();
   }

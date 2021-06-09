@@ -10,7 +10,7 @@ public class ArrowFileTest {
 
   static {
     // compatible JDK 11
-    System.setProperty("io.netty.tryReflectionSetAccessible","true");
+    System.setProperty("io.netty.tryReflectionSetAccessible", "true");
   }
 
   @Test
@@ -19,7 +19,7 @@ public class ArrowFileTest {
     int batchSize = 10;
     int entries = 20;
     FileOutputStream outputStream = new FileOutputStream(new File(filename));
-    ArrowWriter writer = new ArrowWriter(outputStream, batchSize, true,Integer.MAX_VALUE);
+    ArrowWriter writer = new ArrowWriter(outputStream, batchSize, true, Integer.MAX_VALUE);
 
     //模拟一批数据
     Random random = new Random(System.nanoTime());
@@ -40,6 +40,6 @@ public class ArrowFileTest {
   public void readerTest() throws Exception {
     String filename = "example.arrow";
     FileInputStream inputStream = new FileInputStream(new File(filename));
-    ArrowReader reader = new ArrowReader(inputStream,Integer.MAX_VALUE);
+    ArrowReader reader = new ArrowReader(inputStream, Integer.MAX_VALUE);
   }
 }

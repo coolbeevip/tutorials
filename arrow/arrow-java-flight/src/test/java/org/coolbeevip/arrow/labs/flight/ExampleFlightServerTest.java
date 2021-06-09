@@ -1,7 +1,6 @@
 package org.coolbeevip.arrow.labs.flight;
 
 import java.io.IOException;
-
 import java.util.List;
 import org.apache.arrow.flight.AsyncPutListener;
 import org.apache.arrow.flight.FlightClient;
@@ -24,15 +23,15 @@ import org.junit.Test;
 
 public class ExampleFlightServerTest {
 
+  static {
+    // compatible JDK 11
+    System.setProperty("io.netty.tryReflectionSetAccessible", "true");
+  }
+
   private BufferAllocator allocator;
   private BufferAllocator caseAllocator;
   private ExampleFlightServer server;
   private FlightClient client;
-
-  static {
-    // compatible JDK 11
-    System.setProperty("io.netty.tryReflectionSetAccessible","true");
-  }
 
   @Before
   public void start() throws IOException {
@@ -89,15 +88,19 @@ public class ExampleFlightServerTest {
     try (final FlightStream stream = client.getStream(info.getEndpoints().get(0).getTicket())) {
       VectorSchemaRoot newRoot = stream.getRoot();
       Schema schema = newRoot.getSchema();
-      System.out.println("schema is "  + schema.toString());
+      System.out.println("schema is " + schema.toString());
       while (stream.next()) {
         List<FieldVector> fieldVector = newRoot.getFieldVectors();
-        System.out.println("number of fieldVectors (corresponding to columns) : " + fieldVector.size());
-        for(int j = 0; j < fieldVector.size(); j++){
+        System.out
+            .println("number of fieldVectors (corresponding to columns) : " + fieldVector.size());
+        for (int j = 0; j < fieldVector.size(); j++) {
           Types.MinorType mt = fieldVector.get(j).getMinorType();
-          switch(mt){
-            case INT: showIntAccessor(fieldVector.get(j)); break;
-            default: throw new Exception(" MinorType " + mt);
+          switch (mt) {
+            case INT:
+              showIntAccessor(fieldVector.get(j));
+              break;
+            default:
+              throw new Exception(" MinorType " + mt);
           }
         }
         newRoot.clear();
@@ -107,14 +110,14 @@ public class ExampleFlightServerTest {
     }
   }
 
-  private void showIntAccessor(FieldVector fx){
+  private void showIntAccessor(FieldVector fx) {
     IntVector intVector = ((IntVector) fx);
-    for(int j = 0; j < intVector.getValueCount(); j++){
-      if(!intVector.isNull(j)){
+    for (int j = 0; j < intVector.getValueCount(); j++) {
+      if (!intVector.isNull(j)) {
         int value = intVector.get(j);
-        System.out.println("\t\t intAccessor[" + j +"] " + value);
+        System.out.println("\t\t intAccessor[" + j + "] " + value);
       } else {
-        System.out.println("\t\t intAccessor[" + j +"] : NULL ");
+        System.out.println("\t\t intAccessor[" + j + "] : NULL ");
       }
     }
   }

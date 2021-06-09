@@ -5,5 +5,5 @@ package com.coolbeevip.akka.quickstart.protocols.entity;
  * @author zhanglei
  */
 public enum VisitorGender {
-  male,female
+  male, female
 }

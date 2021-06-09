@@ -15,7 +15,7 @@ public class RocksDbConfiguration {
   public static final long DEFAULT_CACHE_CAPACITY = 8 << 20;
   public static final long DEFAULT_WRITE_BUFFER_CAPACITY = 128 << 20;
   private static final boolean DEFAULT_OPTIMISE_FOR_SMALL_DB = false;
-
+  final private Path databaseDir;
   private int maxOpenFiles = DEFAULT_MAX_OPEN_FILES;
   private int maxBackgroundJobs = DEFAULT_MAX_BACKGROUND_JOBS;
   private int backgroundThreadCount = DEFAULT_BACKGROUND_THREAD_COUNT;
@@ -24,8 +24,6 @@ public class RocksDbConfiguration {
   private boolean optimizeForSmallDb = DEFAULT_OPTIMISE_FOR_SMALL_DB;
   private CompressionType compressionType = CompressionType.NO_COMPRESSION;
   private CompressionType bottomMostCompressionType = CompressionType.NO_COMPRESSION;
-
-  final private Path databaseDir;
 
   public RocksDbConfiguration(final Path databaseDir) {
     this.databaseDir = databaseDir;

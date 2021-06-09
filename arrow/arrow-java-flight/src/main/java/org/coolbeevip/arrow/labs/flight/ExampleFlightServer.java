@@ -1,7 +1,6 @@
 package org.coolbeevip.arrow.labs.flight;
 
 import java.io.IOException;
-
 import java.lang.invoke.MethodHandles;
 import org.apache.arrow.flight.FlightServer;
 import org.apache.arrow.flight.Location;
@@ -26,7 +25,7 @@ public class ExampleFlightServer implements AutoCloseable {
     this.location = location;
     this.mem = new InMemoryStore(this.allocator, location);
     this.flightServer = FlightServer.builder(allocator, location, mem).build();
-    LOG.info(String.format("%s Started!!!",location));
+    LOG.info(String.format("%s Started!!!", location));
   }
 
   public Location getLocation() {

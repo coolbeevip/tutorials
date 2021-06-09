@@ -12,9 +12,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
-	private String id;
-	private String title;
-	private String text;
-	private String category;
-	private String authorId;
+
+  private String id;
+  private String title;
+  private String text;
+  private String category;
+  private String authorId;
 }

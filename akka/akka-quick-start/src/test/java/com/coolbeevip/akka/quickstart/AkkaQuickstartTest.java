@@ -20,6 +20,11 @@ public class AkkaQuickstartTest {
   //@ClassRule
   //public static final TestKitJunitResource testKit = new TestKitJunitResource();
 
+  @AfterClass
+  public static void cleanup() {
+    testKit.shutdownTestKit();
+  }
+
   @Test
   public void testLoginChatRoom() {
 
@@ -36,10 +41,5 @@ public class AkkaQuickstartTest {
     //visitorProbe.expectMessage(new VisitorMessage.LoginResponse(thomas.id, 0));
 
     //visitorProbe.expectMessage(new VisitorMessage.Say("Welcome " + thomas.getTitle() + " -- Admin"));
-  }
-
-  @AfterClass
-  public static void cleanup() {
-    testKit.shutdownTestKit();
   }
 }

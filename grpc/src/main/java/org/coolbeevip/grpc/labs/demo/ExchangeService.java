@@ -82,10 +82,10 @@ public class ExchangeService extends ExchangeServiceImplBase {
       public void onNext(RequestMessage requestMessage) {
         int counter = 0;
         String text = requestMessage.getText();
-        if("end".equals(text)){
+        if ("end".equals(text)) {
           LOG.info(String.format("Client say: %s", text));
           responseObserver.onCompleted();
-        }else{
+        } else {
           if ("begin".equals(text)) {
             LOG.info(String.format("Client say: %s", text));
           } else {

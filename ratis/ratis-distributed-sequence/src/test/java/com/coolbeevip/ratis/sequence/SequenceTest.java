@@ -21,20 +21,6 @@ public class SequenceTest {
   static String peerAddress = "127.0.0.1:9001,127.0.0.1:9002,127.0.0.1:9003";
   static List<SequenceServer> servers = new ArrayList<>();
 
-  @Test
-  @SneakyThrows
-  public void test() {
-    Sequence sequence = Sequence.builder().peerAddress(Arrays.asList(peerAddress.split(",")))
-      .build();
-    CompletableFuture<Void> future = sequence.start();
-    future.join();
-    //Thread.sleep(600000);
-    for (int i = 0; i < 100; i++) {
-      System.out.println(">>>>>>>>>>" + sequence.genericId());
-    }
-
-  }
-
   @BeforeAll
   public static void setup() throws ExecutionException, InterruptedException {
 
@@ -43,9 +29,9 @@ public class SequenceTest {
 
     Arrays.stream(peerAddress.split(",")).forEach(addr -> {
       servers.add(SequenceServer.builder()
-        .address(addr)
-        .peerAddress(Arrays.asList(peerAddress.split(",")))
-        .build());
+          .address(addr)
+          .peerAddress(Arrays.asList(peerAddress.split(",")))
+          .build());
     });
 
     List<CompletableFuture<Void>> futures = new ArrayList<>();
@@ -58,7 +44,7 @@ public class SequenceTest {
     });
 
     CompletableFuture<Void> combinedFuture = CompletableFuture
-      .allOf(futures.toArray(new CompletableFuture[futures.size()]));
+        .allOf(futures.toArray(new CompletableFuture[futures.size()]));
     combinedFuture.get();
 
   }
@@ -73,5 +59,19 @@ public class SequenceTest {
         //
       }
     });
+  }
+
+  @Test
+  @SneakyThrows
+  public void test() {
+    Sequence sequence = Sequence.builder().peerAddress(Arrays.asList(peerAddress.split(",")))
+        .build();
+    CompletableFuture<Void> future = sequence.start();
+    future.join();
+    //Thread.sleep(600000);
+    for (int i = 0; i < 100; i++) {
+      System.out.println(">>>>>>>>>>" + sequence.genericId());
+    }
+
   }
 }

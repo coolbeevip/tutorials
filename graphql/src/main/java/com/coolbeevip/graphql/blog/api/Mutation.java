@@ -16,20 +16,20 @@ public class Mutation implements GraphQLMutationResolver {
 
   private AuthorDao authorDao;
 
-  public Mutation(PostDao postDao,AuthorDao authorDao) {
+  public Mutation(PostDao postDao, AuthorDao authorDao) {
     this.postDao = postDao;
     this.authorDao = authorDao;
   }
 
   public Post writePost(String title, String text, String category,
-    String authorId) {
+      String authorId) {
     Post post = Post.builder()
-      .id(UUID.randomUUID().toString())
-      .title(title)
-      .text(text)
-      .category(category)
-      .authorId(authorId)
-      .build();
+        .id(UUID.randomUUID().toString())
+        .title(title)
+        .text(text)
+        .category(category)
+        .authorId(authorId)
+        .build();
     postDao.savePost(post);
 
     return post;
@@ -37,9 +37,9 @@ public class Mutation implements GraphQLMutationResolver {
 
   public Author addAuthor(String id, String name) {
     Author author = Author.builder()
-      .id(id)
-      .name(name)
-      .build();
+        .id(id)
+        .name(name)
+        .build();
     authorDao.saveAuthor(author);
     return author;
   }

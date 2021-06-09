@@ -1,12 +1,14 @@
 package org.coolbeevip.arrow.labs.flight;
 
+import com.google.common.base.Throwables;
+import com.google.common.collect.ImmutableList;
+import io.netty.buffer.ArrowBuf;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
-
 import org.apache.arrow.flight.FlightProducer.ServerStreamListener;
 import org.apache.arrow.memory.BufferAllocator;
 import org.apache.arrow.util.AutoCloseables;
@@ -15,11 +17,6 @@ import org.apache.arrow.vector.VectorSchemaRoot;
 import org.apache.arrow.vector.dictionary.DictionaryProvider;
 import org.apache.arrow.vector.ipc.message.ArrowRecordBatch;
 import org.apache.arrow.vector.types.pojo.Schema;
-
-import com.google.common.base.Throwables;
-import com.google.common.collect.ImmutableList;
-
-import io.netty.buffer.ArrowBuf;
 
 /**
  * A collection of Arrow record batches.

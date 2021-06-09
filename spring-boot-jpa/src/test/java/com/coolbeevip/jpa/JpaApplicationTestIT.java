@@ -52,7 +52,7 @@ public class JpaApplicationTestIT {
     customerRepository.save(zhanglei);
     for (int i = 0; i < 100; i++) {
       orderRepository.save(Order.builder().customer(zhanglei).totalPrice(BigDecimal.valueOf(i))
-        .orderDesc("张磊的[" + i + "]订单").build());
+          .orderDesc("张磊的[" + i + "]订单").build());
     }
 
     Customer zhangboran = Customer.builder().firstName("Bo'Ran").lastName("Zhang").build();
@@ -73,26 +73,26 @@ public class JpaApplicationTestIT {
   @Test
   public void testInsertDefaultCurrentDate() {
     Customer insertCustomer = customerRepository
-      .save(Customer.builder().firstName("You'Ran").lastName("Zhang").build());
+        .save(Customer.builder().firstName("You'Ran").lastName("Zhang").build());
     Assertions.assertNotNull(insertCustomer.getCreatedAt());
     Assertions.assertNotNull(insertCustomer.getLastUpdatedAt());
     Assertions.assertEquals(DateUtils.truncate(insertCustomer.getCreatedAt(), Calendar.SECOND),
-      DateUtils.truncate(insertCustomer.getLastUpdatedAt(), Calendar.SECOND));
+        DateUtils.truncate(insertCustomer.getLastUpdatedAt(), Calendar.SECOND));
   }
 
   @Test
   @Transactional
   public void testAutoUpdateLastUpdatedDate() throws InterruptedException {
     Customer insertCustomer = customerRepository
-      .save(Customer.builder().firstName("You'Ran").lastName("Zhang").build());
+        .save(Customer.builder().firstName("You'Ran").lastName("Zhang").build());
     SECONDS.sleep(1);
     // update
     insertCustomer.setAge(30);
     Customer updateCustomer = customerRepository.save(insertCustomer);
     Assertions.assertTrue(
-      updateCustomer.getCreatedAt().getTime() == insertCustomer.getCreatedAt().getTime());
+        updateCustomer.getCreatedAt().getTime() == insertCustomer.getCreatedAt().getTime());
     Assertions.assertTrue(
-      updateCustomer.getLastUpdatedAt().getTime() >= insertCustomer.getLastUpdatedAt().getTime());
+        updateCustomer.getLastUpdatedAt().getTime() >= insertCustomer.getLastUpdatedAt().getTime());
   }
 
   @Test
@@ -132,7 +132,7 @@ public class JpaApplicationTestIT {
   public void testModifyingQueries() {
     Optional<Customer> queryCustomer = customerRepository.findByFullName("Lei", "Zhang");
     int updated = customerRepository
-      .updateFullNameById("Tom", "Zhang", queryCustomer.get().getId());
+        .updateFullNameById("Tom", "Zhang", queryCustomer.get().getId());
     Assertions.assertEquals(updated, 1);
     Optional<Customer> updatedCustomer = customerRepository.findById(queryCustomer.get().getId());
     Assertions.assertEquals(updatedCustomer.get().getFirstName(), "Tom");
@@ -159,7 +159,7 @@ public class JpaApplicationTestIT {
   public void testDateBetween() {
     Date beginDate = new Date();
     Customer insertCustomer = customerRepository
-      .save(Customer.builder().firstName("You'Ran").lastName("Zhang").build());
+        .save(Customer.builder().firstName("You'Ran").lastName("Zhang").build());
     Date endDate = new Date();
     List<Customer> queryCustomers = customerRepository.findByCreatedAtBetween(beginDate, endDate);
     Assertions.assertEquals(queryCustomers.get(0).getId(), insertCustomer.getId());
@@ -183,8 +183,8 @@ public class JpaApplicationTestIT {
     List<Customer> queryCustomers = customerRepository.findByLastName("Zhang");
     Assertions.assertEquals(queryCustomers.size(), 2);
     assertThat(
-      queryCustomers.stream().map(c -> c.getFirstName()).collect(Collectors.<String>toList()),
-      containsInAnyOrder("Lei", "Bo'Ran"));
+        queryCustomers.stream().map(c -> c.getFirstName()).collect(Collectors.<String>toList()),
+        containsInAnyOrder("Lei", "Bo'Ran"));
   }
 
   @Test
@@ -198,7 +198,7 @@ public class JpaApplicationTestIT {
   @Test
   public void testPageable() {
     Page<Customer> pageCustomers = customerRepository
-      .findAll(PageRequest.of(0, 2, Sort.by("firstName")));
+        .findAll(PageRequest.of(0, 2, Sort.by("firstName")));
     Assertions.assertEquals(pageCustomers.getSize(), 2);
     Assertions.assertEquals(pageCustomers.getTotalElements(), 3l);
     Assertions.assertEquals(pageCustomers.getTotalPages(), 2);
@@ -210,7 +210,7 @@ public class JpaApplicationTestIT {
   @Test
   public void testPageableAndOrder() {
     Page<Customer> pageCustomers = customerRepository
-      .findAll(PageRequest.of(0, 2, Sort.by("firstName").ascending().and(Sort.by("lastName"))));
+        .findAll(PageRequest.of(0, 2, Sort.by("firstName").ascending().and(Sort.by("lastName"))));
     Assertions.assertEquals(pageCustomers.getSize(), 2);
     Assertions.assertEquals(pageCustomers.getTotalElements(), 3l);
     Assertions.assertEquals(pageCustomers.getTotalPages(), 2);
@@ -225,22 +225,22 @@ public class JpaApplicationTestIT {
     cleanDB();
 
     List<String> firstNames = IntStream.range(0, 100).mapToObj(i -> "Lei" + i)
-      .collect(Collectors.toList());
+        .collect(Collectors.toList());
     AtomicInteger age = new AtomicInteger();
     firstNames.stream().forEach(firstName -> {
       customerRepository.save(Customer.builder().firstName(firstName).lastName("Zhang").age(
-        age.getAndIncrement()).build());
+          age.getAndIncrement()).build());
     });
 
     Page<Customer> pageCustomers = customerRepository
-      .findByLastName("Zhang", PageRequest.of(0, 50, Sort.by("age")));
+        .findByLastName("Zhang", PageRequest.of(0, 50, Sort.by("age")));
     Assertions.assertEquals(pageCustomers.getSize(), 50);
     Assertions.assertEquals(pageCustomers.getTotalElements(), firstNames.size());
     Assertions.assertEquals(pageCustomers.getTotalPages(), firstNames.size() / 50);
     Assertions.assertEquals(pageCustomers.getContent().size(), 50);
     Assertions.assertEquals(
-      pageCustomers.getContent().stream().map(c -> c.getFirstName()).collect(Collectors.toList()),
-      firstNames.subList(0, 50));
+        pageCustomers.getContent().stream().map(c -> c.getFirstName()).collect(Collectors.toList()),
+        firstNames.subList(0, 50));
   }
 
   @Test
@@ -248,29 +248,32 @@ public class JpaApplicationTestIT {
     cleanDB();
     auditEntityCallback.getAuditRecords().clear();
     Customer customer = customerRepository
-      .save(Customer.builder().firstName("Tom").lastName("Zhang").build());
+        .save(Customer.builder().firstName("Tom").lastName("Zhang").build());
     Awaitility.await().atMost(2, SECONDS).until(
-      () -> !auditEntityCallback.getAuditRecords().isEmpty() && auditEntityCallback.getAuditRecords().getLast().getType() == AuditEventType.CREATED);
+        () -> !auditEntityCallback.getAuditRecords().isEmpty()
+            && auditEntityCallback.getAuditRecords().getLast().getType() == AuditEventType.CREATED);
 
     customer = customerRepository.findById(customer.getId()).get();
     customer.setAge(50);
     customerRepository.save(customer);
     Awaitility.await().atMost(2, SECONDS).until(
-      () -> !auditEntityCallback.getAuditRecords().isEmpty() && auditEntityCallback.getAuditRecords().getLast().getType() == AuditEventType.UPDATED);
+        () -> !auditEntityCallback.getAuditRecords().isEmpty()
+            && auditEntityCallback.getAuditRecords().getLast().getType() == AuditEventType.UPDATED);
 
     customer = customerRepository.findById(customer.getId()).get();
     customerRepository.delete(customer);
     Awaitility.await().atMost(2, SECONDS).until(
-      () -> !auditEntityCallback.getAuditRecords().isEmpty() && auditEntityCallback.getAuditRecords().getLast().getType() == AuditEventType.DELETED);
+        () -> !auditEntityCallback.getAuditRecords().isEmpty()
+            && auditEntityCallback.getAuditRecords().getLast().getType() == AuditEventType.DELETED);
   }
 
   @Test
   public void testOneToMany() {
     Customer insertCustomer = customerRepository
-      .save(Customer.builder().firstName("OK").lastName("Zhang").build());
+        .save(Customer.builder().firstName("OK").lastName("Zhang").build());
     orderRepository.save(
-      Order.builder().customer(insertCustomer).totalPrice(BigDecimal.valueOf(1000))
-        .orderDesc("测试订单").build());
+        Order.builder().customer(insertCustomer).totalPrice(BigDecimal.valueOf(1000))
+            .orderDesc("测试订单").build());
     Optional<Customer> optionalCustomer = customerRepository.findById(insertCustomer.getId());
     Assertions.assertEquals(optionalCustomer.get().getOrders().size(), 1);
   }

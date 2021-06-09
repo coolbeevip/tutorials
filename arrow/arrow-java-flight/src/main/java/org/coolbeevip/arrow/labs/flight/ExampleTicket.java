@@ -1,17 +1,15 @@
 package org.coolbeevip.arrow.labs.flight;
 
-import java.io.IOException;
-import java.util.List;
-
-import org.apache.arrow.flight.Ticket;
-import org.apache.arrow.util.Preconditions;
-
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Throwables;
+import java.io.IOException;
+import java.util.List;
+import org.apache.arrow.flight.Ticket;
+import org.apache.arrow.util.Preconditions;
 
 /**
  * POJO object used to demonstrate how an opaque ticket can be generated.
@@ -45,6 +43,17 @@ public class ExampleTicket {
     this.uuid = uuid;
   }
 
+  /**
+   * Deserializes a new instance from the protocol buffer ticket.
+   */
+  public static ExampleTicket from(Ticket ticket) {
+    try {
+      return MAPPER.readValue(ticket.getBytes(), ExampleTicket.class);
+    } catch (IOException e) {
+      throw Throwables.propagate(e);
+    }
+  }
+
   public List<String> getPath() {
     return path;
   }
@@ -55,17 +64,6 @@ public class ExampleTicket {
 
   public String getUuid() {
     return uuid;
-  }
-
-  /**
-   * Deserializes a new instance from the protocol buffer ticket.
-   */
-  public static ExampleTicket from(Ticket ticket) {
-    try {
-      return MAPPER.readValue(ticket.getBytes(), ExampleTicket.class);
-    } catch (IOException e) {
-      throw Throwables.propagate(e);
-    }
   }
 
   /**

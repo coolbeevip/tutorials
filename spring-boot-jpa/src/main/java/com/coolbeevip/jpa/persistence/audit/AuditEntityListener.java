@@ -21,29 +21,29 @@ public class AuditEntityListener {
 
   @PostPersist
   private void afterPersist(Customer customer) {
-    if(auditCallback!=null){
-      auditCallback.afterPersist(AuditEventType.CREATED,customer);
+    if (auditCallback != null) {
+      auditCallback.afterPersist(AuditEventType.CREATED, customer);
     }
   }
 
   @PostUpdate
   private void afterUpdate(Customer customer) {
-    if(auditCallback!=null){
-      auditCallback.afterUpdate(AuditEventType.UPDATED,customer);
+    if (auditCallback != null) {
+      auditCallback.afterUpdate(AuditEventType.UPDATED, customer);
     }
   }
 
   @PostRemove
   private void afterRemove(Customer customer) {
-    if(auditCallback!=null){
-      auditCallback.afterRemove(AuditEventType.DELETED,customer);
+    if (auditCallback != null) {
+      auditCallback.afterRemove(AuditEventType.DELETED, customer);
     }
   }
 
   @PostLoad
   private void afterLoad(Customer customer) {
-    if(auditCallback!=null){
-      auditCallback.afterLoad(AuditEventType.LOAD,customer);
+    if (auditCallback != null) {
+      auditCallback.afterLoad(AuditEventType.LOAD, customer);
     }
   }
 }

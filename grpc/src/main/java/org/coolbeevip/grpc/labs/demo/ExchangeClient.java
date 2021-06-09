@@ -49,7 +49,8 @@ public class ExchangeClient {
   }
 
   //客户端流数据
-  public void sendClientStream(StreamObserver<ResponseMessage> responseStreamObserver, String text) {
+  public void sendClientStream(StreamObserver<ResponseMessage> responseStreamObserver,
+      String text) {
     StreamObserver<RequestMessage> requestStreamObserver = asyncStub
         .sendClientStream(responseStreamObserver);
     requestStreamObserver
@@ -58,7 +59,8 @@ public class ExchangeClient {
   }
 
   //双向流数据
-  public StreamObserver<RequestMessage> sendBidirectionStream(StreamObserver<ResponseMessage> responseStreamObserver) {
+  public StreamObserver<RequestMessage> sendBidirectionStream(
+      StreamObserver<ResponseMessage> responseStreamObserver) {
     StreamObserver<RequestMessage> requestStreamObserver = asyncStub
         .sendBidirectionStream(responseStreamObserver);
     return requestStreamObserver;

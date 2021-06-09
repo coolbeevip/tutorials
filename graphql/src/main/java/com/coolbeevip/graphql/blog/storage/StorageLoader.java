@@ -8,6 +8,7 @@ import java.util.UUID;
  * @author zhanglei
  */
 public class StorageLoader {
+
   final PostDao postDao;
   final AuthorDao authorDao;
 
@@ -18,12 +19,12 @@ public class StorageLoader {
     authorDao.saveAuthor(author);
 
     Post post = Post.builder()
-      .id(UUID.randomUUID().toString())
-      .title("title-1")
-      .text("text-1")
-      .category("c-1")
-      .authorId(author.getId())
-      .build();
+        .id(UUID.randomUUID().toString())
+        .title("title-1")
+        .text("text-1")
+        .category("c-1")
+        .authorId(author.getId())
+        .build();
     postDao.savePost(post);
   }
 }

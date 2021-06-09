@@ -1,10 +1,8 @@
 package org.coolbeevip.grpc.labs.demo;
 
 import io.grpc.stub.StreamObserver;
-import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.util.Iterator;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -23,10 +21,21 @@ public class ClientMainTest {
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private static ExchangeServer server;
   private static int port = 58084;
-  private AtomicInteger i = new AtomicInteger(0);
   ExchangeClient client;
   StreamObserver<RequestMessage> requestStreamObserver;
   int counter = 1;
+  private AtomicInteger i = new AtomicInteger(0);
+
+  @BeforeClass
+  public static void before() {
+    server = new ExchangeServer(port);
+    server.start();
+  }
+
+  @AfterClass
+  public static void after() {
+    server.stop();
+  }
 
   @Test
   public void sendMessageTest() {
@@ -120,17 +129,6 @@ public class ClientMainTest {
     if (!latch.await(1, TimeUnit.MINUTES)) {
       LOG.error("方法在1分钟内没有完成");
     }
-  }
-
-  @BeforeClass
-  public static void before() {
-    server = new ExchangeServer(port);
-    server.start();
-  }
-
-  @AfterClass
-  public static void after() {
-    server.stop();
   }
 
   @Before

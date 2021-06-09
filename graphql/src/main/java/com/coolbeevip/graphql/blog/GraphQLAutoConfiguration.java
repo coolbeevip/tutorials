@@ -45,7 +45,7 @@ public class GraphQLAutoConfiguration {
   }
 
   @Bean
-  AuthorResolver authorResolver(PostDao postDao){
+  AuthorResolver authorResolver(PostDao postDao) {
     return new AuthorResolver(postDao);
   }
 

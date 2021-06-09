@@ -17,6 +17,10 @@ public class RocksDbColumnFamily<K, V> {
     this.valueSerializer = valueSerializer;
   }
 
+  public static RocksDbVariableBuilder builder() {
+    return new RocksDbVariableBuilder();
+  }
+
   public BytesKey getCfId() {
     return cfId;
   }
@@ -39,10 +43,6 @@ public class RocksDbColumnFamily<K, V> {
 
   public V getValue(byte[] bytes) {
     return this.valueSerializer.deserialize(bytes);
-  }
-
-  public static RocksDbVariableBuilder builder() {
-    return new RocksDbVariableBuilder();
   }
 
   public static class RocksDbVariableBuilder<K, V> {
