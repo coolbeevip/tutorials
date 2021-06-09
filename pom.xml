@@ -63,6 +63,7 @@
     <scala.version>2.12</scala.version>
 
     <guava.version>30.0-jre</guava.version>
+    <javax.annotation.version>1.3.2</javax.annotation.version>
 
     <!-- plugins -->
     <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
@@ -310,6 +311,13 @@
         <artifactId>netty-transport-native-epoll</artifactId>
         <version>${netty.version}</version>
         <classifier>linux-x86_64</classifier>
+      </dependency>
+
+      <!-- javax annotation-->
+      <dependency>
+        <groupId>javax.annotation</groupId>
+        <artifactId>javax.annotation-api</artifactId>
+        <version>${javax.annotation.version}</version>
       </dependency>
 
       <!-- guava -->

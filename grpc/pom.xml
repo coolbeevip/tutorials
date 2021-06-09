@@ -43,6 +43,12 @@
       <classifier>linux-x86_64</classifier>
     </dependency>
 
+    <!-- compatible grpc with JDK 11 -->
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+    </dependency>
+
     <!-- log -->
     <dependency>
       <groupId>org.slf4j</groupId>
