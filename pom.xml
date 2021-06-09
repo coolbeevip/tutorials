@@ -427,5 +427,6 @@
     <module>grpc</module>
     <module>netty</module>
     <module>rocksdb</module>
+    <module>arrow</module>
   </modules>
 </project>
