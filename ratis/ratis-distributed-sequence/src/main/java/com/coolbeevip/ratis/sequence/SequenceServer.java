@@ -96,17 +96,23 @@ public class SequenceServer {
     return CompletableFuture.runAsync(() -> {
       while (server.getLifeCycleState() != State.RUNNING) {
         try {
+          log.info("Server state {}",server.getLifeCycleState().name());
           TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
-          e.printStackTrace();
+          log.error("{} was interrupted: {}", this, e);
+          Thread.currentThread().interrupt();
         }
       }
     });
   }
 
-  public void stop() throws IOException {
+  public void stop() {
     if (server.getLifeCycleState() == State.RUNNING) {
-      server.close();
+      try {
+        server.close();
+      } catch (IOException e) {
+        log.error(e.getMessage(), e);
+      }
     }
   }
 

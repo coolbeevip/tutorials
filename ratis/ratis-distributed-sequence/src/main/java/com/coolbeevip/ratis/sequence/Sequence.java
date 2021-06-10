@@ -48,14 +48,18 @@ public class Sequence {
     raftClient = builder.build();
 
     return CompletableFuture.runAsync(() -> {
+      String peerAddressInfo = this.peerAddress.stream().collect(Collectors.joining(","));
       while (raftClient.getLeaderId() == null) {
         try {
+          log.info("Connect to {}...", peerAddressInfo);
           TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
-          e.printStackTrace();
+          log.error("{} was interrupted: {}", this, e);
+          log.error("Connect fails", e);
+          Thread.currentThread().interrupt();
         }
       }
-      log.info("leader is {}", raftClient.getLeaderId());
+      log.info("Connect to {} successful, leader is {}", peerAddressInfo, raftClient.getLeaderId());
     });
   }
 
