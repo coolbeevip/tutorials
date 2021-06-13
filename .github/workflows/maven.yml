@@ -43,4 +43,4 @@ jobs:
 
       - name: Build with Maven
         if: ${{ success() }}
-        run: mvn -B package verify --file pom.xml
+        run: mvn -T 1.5C -B package verify --file pom.xml
