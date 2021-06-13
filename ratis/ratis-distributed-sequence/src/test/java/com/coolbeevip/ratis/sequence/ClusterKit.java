@@ -10,18 +10,15 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.slf4j.LoggerFactory;
 
 @Slf4j
-public abstract class TestKit {
+public abstract class ClusterKit {
 
   public static String peerAddress = "127.0.0.1:9001,127.0.0.1:9002,127.0.0.1:9003";
   public static List<SequenceServer> servers = new ArrayList<>();
 
-  @BeforeAll
-  public static void setup() throws ExecutionException, InterruptedException {
+  public static void startClusters() throws ExecutionException, InterruptedException {
 
     Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
     rootLogger.setLevel(Level.INFO);
@@ -48,9 +45,8 @@ public abstract class TestKit {
 
   }
 
-  @AfterAll
   @SneakyThrows
-  public static void tearDown() {
+  public static void stopClusters() {
     servers.stream().forEach(SequenceServer::stop);
   }
 }

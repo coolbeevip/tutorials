@@ -65,8 +65,8 @@ public class Sequence {
 
   public String genericId() throws IOException {
     if (raftClient != null && raftClient.getLeaderId() != null) {
-      raftClient.io().send(Message.valueOf("INCREMENT"));
-      RaftClientReply count = raftClient.io().sendReadOnly(Message.valueOf("GET"));
+      RaftClientReply count = raftClient.io().send(Message.valueOf("INCREMENT"));
+      //RaftClientReply count = raftClient.io().sendReadOnly(Message.valueOf("GET"));
       String response = count.getMessage().getContent().toString(Charset.defaultCharset());
       return response;
     } else {

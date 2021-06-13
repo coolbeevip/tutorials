@@ -6,7 +6,7 @@
   </appender>
 
   <logger name="com.coolbeevip" level="INFO" />
-  <logger name="org.apache.ratis" level="ERROR" />
+  <logger name="org.apache.ratis" level="INFO" />
 
   <root level="info">
     <appender-ref ref="STDOUT" />

@@ -13,4 +13,5 @@ target/
 ## tutorials temp file
 rocksdb-data/
 ratis-data/
+jmh-*.json
 *.arrow

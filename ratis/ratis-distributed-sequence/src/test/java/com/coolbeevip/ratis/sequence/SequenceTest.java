@@ -1,13 +1,31 @@
 package com.coolbeevip.ratis.sequence;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Test;
+import org.hamcrest.Matchers;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 @Slf4j
-public class SequenceTest extends TestKit {
+public class SequenceTest extends ClusterKit {
+
+  @BeforeClass
+  public static void setup() throws ExecutionException, InterruptedException {
+    startClusters();
+  }
+
+  @AfterClass
+  public static void tearDown() {
+    stopClusters();
+  }
 
   @Test
   @SneakyThrows
@@ -17,8 +35,13 @@ public class SequenceTest extends TestKit {
     CompletableFuture<Void> future = sequence.start();
     future.join();
 
+    String prevValue = null;
     for (int i = 0; i < 100; i++) {
-      System.out.println(">>>>>>>>>>" + sequence.genericId());
+      String value = sequence.genericId();
+      if (prevValue != null) {
+        assertThat(Integer.parseInt(value) - Integer.parseInt(prevValue), Matchers.is(1));
+        prevValue = value;
+      }
     }
 
   }
