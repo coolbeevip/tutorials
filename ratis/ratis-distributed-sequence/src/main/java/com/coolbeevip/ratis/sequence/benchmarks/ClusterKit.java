@@ -1,7 +1,9 @@
-package com.coolbeevip.ratis.sequence;
+package com.coolbeevip.ratis.sequence.benchmarks;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
+import com.coolbeevip.ratis.sequence.SequenceServer;
+import com.coolbeevip.test.TutorialsTestSuite;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,7 +17,11 @@ import org.slf4j.LoggerFactory;
 @Slf4j
 public abstract class ClusterKit {
 
-  public static String peerAddress = "127.0.0.1:9001,127.0.0.1:9002,127.0.0.1:9003";
+  public static List<String> peerAddress = Arrays.asList(
+      "127.0.0.1:" + TutorialsTestSuite.getInstance().findAvailableTcpPort(),
+      "127.0.0.1:" + TutorialsTestSuite.getInstance().findAvailableTcpPort(),
+      "127.0.0.1:" + TutorialsTestSuite.getInstance().findAvailableTcpPort());
+
   public static List<SequenceServer> servers = new ArrayList<>();
 
   public static void startClusters() throws ExecutionException, InterruptedException {
@@ -23,10 +29,10 @@ public abstract class ClusterKit {
     Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
     rootLogger.setLevel(Level.INFO);
 
-    Arrays.stream(peerAddress.split(",")).forEach(addr -> {
+    peerAddress.stream().forEach(addr -> {
       servers.add(SequenceServer.builder()
           .address(addr)
-          .peerAddress(Arrays.asList(peerAddress.split(",")))
+          .peerAddress(peerAddress)
           .build());
     });
 

@@ -2,9 +2,8 @@ package com.coolbeevip.ratis.sequence;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import java.util.ArrayList;
+import com.coolbeevip.ratis.sequence.benchmarks.ClusterKit;
 import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import lombok.SneakyThrows;
@@ -30,7 +29,7 @@ public class SequenceTest extends ClusterKit {
   @Test
   @SneakyThrows
   public void test() {
-    Sequence sequence = Sequence.builder().peerAddress(Arrays.asList(peerAddress.split(",")))
+    Sequence sequence = Sequence.builder().peerAddress(peerAddress)
         .build();
     CompletableFuture<Void> future = sequence.start();
     future.join();
