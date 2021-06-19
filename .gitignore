@@ -15,3 +15,4 @@ rocksdb-data/
 ratis-data/
 jmh-*.json
 *.arrow
+logs/
