@@ -19,7 +19,7 @@ public class TutorialsTestSuite {
     if (unusedPorts.isEmpty()) {
       unusedPorts.addAll(SocketUtils.findAvailableTcpPorts(cacheSize, 40000, 65535));
       log.info("生成测试用随机端口 {} 个", unusedPorts.size());
-      unusedPorts.forEach(p -> log.info("unuserd port: {}", p));
+      unusedPorts.forEach(p -> log.debug("unuserd port: {}", p));
     }
   }
 

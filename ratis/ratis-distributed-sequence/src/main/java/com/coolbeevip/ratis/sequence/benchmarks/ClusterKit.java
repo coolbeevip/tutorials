@@ -26,9 +26,7 @@ public abstract class ClusterKit {
 
   public static void startClusters() throws ExecutionException, InterruptedException {
 
-    Logger rootLogger = (Logger) LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-    rootLogger.setLevel(Level.INFO);
-
+    log.info("开始启动集群");
     peerAddress.stream().forEach(addr -> {
       servers.add(SequenceServer.builder()
           .address(addr)

@@ -40,6 +40,7 @@ public class SequenceServer {
   private RaftServer server;
 
   public CompletableFuture<Void> start() throws IOException {
+    log.info("Start {}",address);
     initRaftProperties();
     initRaftStorageDir();
     return initRaftCurrentPeer();
@@ -48,7 +49,7 @@ public class SequenceServer {
   private void initRaftProperties() {
     this.properties = new RaftProperties();
     RaftServerConfigKeys.Rpc
-        .setTimeoutMin(properties, TimeDuration.valueOf(300, TimeUnit.MILLISECONDS));
+        .setTimeoutMin(properties, TimeDuration.valueOf(100, TimeUnit.MILLISECONDS));
     RaftServerConfigKeys.Rpc
         .setTimeoutMax(properties, TimeDuration.valueOf(600, TimeUnit.MILLISECONDS));
 
@@ -58,27 +59,30 @@ public class SequenceServer {
   }
 
   private void initRaftStorageDir() throws IOException {
+
     if (Files.notExists(storagePath)) {
-      Files.createDirectory(storagePath);
-      log.info("Initialize the data directory {}", storagePath.toAbsolutePath());
+      Files.createDirectories(storagePath);
+        log.info("Initialize the raft storage directory {}", storagePath.toAbsolutePath());
+    }else{
+      log.info("Raft storage directory {} exist", storagePath.toAbsolutePath());
     }
   }
 
   private CompletableFuture<Void> initRaftCurrentPeer() throws IOException {
-    // 创建当前节点
+    log.debug("创建当前节点");
     RaftPeer currentPeer = RaftPeer.newBuilder().setId(addressToId(this.address))
         .setAddress(this.address).build();
 
-    // 设置存储目录
+    log.debug("设置存储目录");
     File raftStorageDir = Paths.get(storagePath.toString(), currentPeer.getId().toString())
         .toFile();
     RaftServerConfigKeys.setStorageDir(properties, Collections.singletonList(raftStorageDir));
 
-    // 设置监听端口
+    log.debug("设置监听端口");
     final int port = NetUtils.createSocketAddr(currentPeer.getAddress()).getPort();
     GrpcConfigKeys.Server.setPort(properties, port);
 
-    // 创建计数器状态机
+    log.debug("创建计数器状态机");
     List<RaftPeer> raftPeers = peerAddress.stream()
         .map(addr -> RaftPeer.newBuilder().setId(addressToId(addr)).setAddress(addr).build())
         .collect(Collectors.toList());
@@ -92,6 +96,7 @@ public class SequenceServer {
         .setStateMachine(sequenceStateMachine)
         .build();
     server.start();
+    log.debug("启动序列服务状态机");
 
     return CompletableFuture.runAsync(() -> {
       while (server.getLifeCycleState() != State.RUNNING) {

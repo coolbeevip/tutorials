@@ -1,6 +1,6 @@
 package com.coolbeevip.ratis.sequence.benchmarks;
 
-import com.coolbeevip.ratis.sequence.Sequence;
+import com.coolbeevip.ratis.sequence.SequenceClient;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
@@ -62,12 +62,12 @@ public class SequenceBenchmark extends ClusterKit {
   @State(Scope.Benchmark)
   public static class BenchmarkState {
 
-    Sequence sequence;
+    SequenceClient sequence;
     AtomicLong counter = new AtomicLong();
 
     @Setup(Level.Trial)
     public void initialize() {
-      sequence = Sequence.builder().peerAddress(peerAddress)
+      sequence = SequenceClient.builder().peerAddress(peerAddress)
           .build();
       CompletableFuture<Void> future = sequence.start();
       future.join();

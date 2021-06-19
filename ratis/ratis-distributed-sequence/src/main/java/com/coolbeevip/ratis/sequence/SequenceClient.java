@@ -25,7 +25,7 @@ import org.apache.ratis.protocol.RaftPeer;
  */
 @Slf4j
 @Builder
-public class Sequence {
+public class SequenceClient {
 
   private static final UUID CLUSTER_GROUP_ID = UUID
       .fromString("02511d47-d67c-49a3-9011-abb3109a44c1");
