@@ -2,7 +2,6 @@ package com.coolbeevip.kafka.exactlyonce;
 
 import java.lang.invoke.MethodHandles;
 import java.util.Collections;
-import java.util.Optional;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 import org.apache.kafka.clients.admin.Admin;

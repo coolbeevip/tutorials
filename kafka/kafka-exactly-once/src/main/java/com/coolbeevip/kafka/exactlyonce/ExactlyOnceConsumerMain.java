@@ -1,11 +1,7 @@
 package com.coolbeevip.kafka.exactlyonce;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-
 import java.lang.invoke.MethodHandles;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
-import org.awaitility.Awaitility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
