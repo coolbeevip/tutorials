@@ -52,6 +52,8 @@
 
     <rocksdb.version>6.20.3</rocksdb.version>
 
+    <debezium.version>1.6.1.Final</debezium.version>
+
     <!-- kafka -->
     <kafka.version>2.8.0</kafka.version>
 
@@ -348,6 +350,29 @@
         <version>${kafka.version}</version>
       </dependency>
 
+      <!-- debezium -->
+      <dependency>
+        <groupId>io.debezium</groupId>
+        <artifactId>debezium-api</artifactId>
+        <version>${debezium.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.debezium</groupId>
+        <artifactId>debezium-embedded</artifactId>
+        <version>${debezium.version}</version>
+        <exclusions>
+          <exclusion>
+            <artifactId>slf4j-log4j12</artifactId>
+            <groupId>org.slf4j</groupId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>io.debezium</groupId>
+        <artifactId>debezium-connector-mysql</artifactId>
+        <version>${debezium.version}</version>
+      </dependency>
+
       <!-- logging -->
       <dependency>
         <groupId>org.slf4j</groupId>
@@ -495,5 +520,6 @@
     <module>rocksdb</module>
     <module>arrow</module>
     <module>kafka</module>
+    <module>debezium</module>
   </modules>
 </project>

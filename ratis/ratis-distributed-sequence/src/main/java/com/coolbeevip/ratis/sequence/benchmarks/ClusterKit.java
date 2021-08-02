@@ -1,7 +1,5 @@
 package com.coolbeevip.ratis.sequence.benchmarks;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
 import com.coolbeevip.ratis.sequence.SequenceServer;
 import com.coolbeevip.test.TutorialsTestSuite;
 import java.io.IOException;
@@ -12,7 +10,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.LoggerFactory;
 
 @Slf4j
 public abstract class ClusterKit {
