@@ -48,7 +48,7 @@
     <ratis.thirdparty.version>0.6.0</ratis.thirdparty.version>
 
     <!-- arrow -->
-    <arrow.version>0.15.0</arrow.version>
+    <arrow.version>5.0.0</arrow.version>
 
     <rocksdb.version>6.20.3</rocksdb.version>
 
@@ -146,7 +146,17 @@
       <!-- arrow -->
       <dependency>
         <groupId>org.apache.arrow</groupId>
-        <artifactId>arrow-memory</artifactId>
+        <artifactId>arrow-memory-core</artifactId>
+        <version>${arrow.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.arrow</groupId>
+        <artifactId>arrow-memory-netty</artifactId>
+        <version>${arrow.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.arrow</groupId>
+        <artifactId>arrow-memory-unsafe</artifactId>
         <version>${arrow.version}</version>
       </dependency>
       <dependency>
@@ -156,7 +166,12 @@
       </dependency>
       <dependency>
         <groupId>org.apache.arrow</groupId>
-        <artifactId>arrow-flight</artifactId>
+        <artifactId>flight-grpc</artifactId>
+        <version>${arrow.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.arrow</groupId>
+        <artifactId>arrow-format</artifactId>
         <version>${arrow.version}</version>
       </dependency>
 

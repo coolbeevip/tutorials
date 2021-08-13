@@ -19,13 +19,14 @@ public class ArrowFileTest {
     int batchSize = 10;
     int entries = 20;
     FileOutputStream outputStream = new FileOutputStream(new File(filename));
-    ArrowWriter writer = new ArrowWriter(outputStream, batchSize, true, Integer.MAX_VALUE);
+    ArrowWriter<SampleData> writer = new ArrowWriter(SampleData.class, outputStream, batchSize,
+        true, Integer.MAX_VALUE);
 
     //模拟一批数据
     Random random = new Random(System.nanoTime());
-    Data data[] = new Data[entries];
+    SampleData data[] = new SampleData[entries];
     for (int i = 0; i < data.length; i++) {
-      data[i] = new Data(random, i);
+      data[i] = new SampleData(random, i);
       long csum = data[i].getSumHash();
     }
 
@@ -41,5 +42,6 @@ public class ArrowFileTest {
     String filename = "example.arrow";
     FileInputStream inputStream = new FileInputStream(new File(filename));
     ArrowReader reader = new ArrowReader(inputStream, Integer.MAX_VALUE);
+    reader.getData();
   }
 }

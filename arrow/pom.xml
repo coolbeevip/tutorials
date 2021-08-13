@@ -15,7 +15,7 @@
 
   <modules>
     <module>arrow-java-file</module>
-    <module>arrow-java-flight</module>
+<!--    <module>arrow-java-flight</module>-->
   </modules>
 
 </project>

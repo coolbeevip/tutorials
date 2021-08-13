@@ -2,6 +2,7 @@ package org.coolbeevip.arrow.labs;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import org.apache.arrow.memory.RootAllocator;
 import org.apache.arrow.vector.BigIntVector;
@@ -18,11 +19,15 @@ import org.apache.arrow.vector.ipc.SeekableReadChannel;
 import org.apache.arrow.vector.ipc.message.ArrowBlock;
 import org.apache.arrow.vector.types.Types;
 import org.apache.arrow.vector.util.Text;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author zhanglei
  */
 public class ArrowReader {
+
+  private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private VectorSchemaRoot root;
   private RootAllocator rootAllocator;
@@ -35,20 +40,25 @@ public class ArrowReader {
   private long nullEntries;
 
 
-  public ArrowReader(FileInputStream inputStream, long allocatorLimit)
-      throws Exception {
+  public ArrowReader(FileInputStream inputStream, long allocatorLimit) {
     // 定义内存分配
     this.rootAllocator = new RootAllocator(allocatorLimit);
     // 创建写文件对象
     this.arrowFileReader = new ArrowFileReader(new SeekableReadChannel(inputStream.getChannel()),
         this.rootAllocator);
+
+  }
+
+  public SampleData[] getData() throws Exception {
+    SampleData[] data = new SampleData[0];
     // 创建数据操作入口
     this.root = arrowFileReader.getVectorSchemaRoot();
-    System.out.println("schema is " + root.getSchema().toString());
+    // Schema
+    log.debug(root.getSchema().toString());
 
     // 因为数据是分批写入，所以先读取块数据
     List<ArrowBlock> arrowBlocks = arrowFileReader.getRecordBlocks();
-    System.out.println("Number of arrow blocks are " + arrowBlocks.size());
+    log.info("Number of arrow blocks are " + arrowBlocks.size());
 
     // 读取每个块的数据
     for (int i = 0; i < arrowBlocks.size(); i++) {
@@ -58,36 +68,37 @@ public class ArrowReader {
       }
 
       // 打印块信息
-      System.out.println("\t[" + i + "] ArrowBlock, offset: " + rbBlock.getOffset() +
+      log.info("\t[" + i + "] ArrowBlock, offset: " + rbBlock.getOffset() +
           ", metadataLength: " + rbBlock.getMetadataLength() +
           ", bodyLength " + rbBlock.getBodyLength());
+      log.info("\t[" + i + "] row count for this block is " + root.getRowCount());
 
-      /* we can now process this block, it is now loaded */
-      System.out.println("\t[" + i + "] row count for this block is " + root.getRowCount());
       List<FieldVector> fieldVector = root.getFieldVectors();
-      System.out.println(
-          "\t[" + i + "] number of fieldVectors (corresponding to columns) : " + fieldVector
-              .size());
+      log.info("\t[" + i + "] number of fieldVectors (corresponding to columns) : " + fieldVector
+          .size());
+
+      SampleData[] dataBlock = new SampleData[root.getRowCount()];
+
       for (int j = 0; j < fieldVector.size(); j++) {
         Types.MinorType mt = fieldVector.get(j).getMinorType();
         switch (mt) {
           case INT:
-            showIntAccessor(fieldVector.get(j));
+            showIntAccessor(dataBlock, fieldVector.get(j));
             break;
           case BIGINT:
-            showBigIntAccessor(fieldVector.get(j));
+            showBigIntAccessor(dataBlock, fieldVector.get(j));
             break;
           case VARBINARY:
-            showVarBinaryAccessor(fieldVector.get(j));
+            showVarBinaryAccessor(dataBlock, fieldVector.get(j));
             break;
           case FLOAT4:
-            showFloat4Accessor(fieldVector.get(j));
+            showFloat4Accessor(dataBlock, fieldVector.get(j));
             break;
           case FLOAT8:
-            showFloat8Accessor(fieldVector.get(j));
+            showFloat8Accessor(dataBlock, fieldVector.get(j));
             break;
           case VARCHAR:
-            showVarCharAccessor(fieldVector.get(j));
+            showVarCharAccessor(dataBlock, fieldVector.get(j));
             break;
           default:
             throw new Exception(" MinorType " + mt);
@@ -95,16 +106,16 @@ public class ArrowReader {
       }
     }
 
-    System.out.println("Done processing the file");
+    log.info("Done processing the file");
     arrowFileReader.close();
     long s1 = this.intCsum + this.longCsum + this.arrCsum + this.floatCsum;
-    System.out.println(
+    log.info(
         "intSum " + intCsum + " longSum " + longCsum + " arrSum " + arrCsum + " floatSum "
             + floatCsum + " = " + s1);
     System.err
         .println("Colsum Checksum > " + this.checkSumx + " , difference " + (s1 - this.checkSumx));
+    return data;
   }
-
 
   private String getAccessorString(ValueVector accessor) {
     return "accessorType: " + accessor.getClass().getCanonicalName()
@@ -115,103 +126,103 @@ public class ArrowReader {
   private void showAccessor(ValueVector accessor) {
     for (int j = 0; j < accessor.getValueCount(); j++) {
       if (!accessor.isNull(j)) {
-        System.out.println("\t\t accessorType:  " + accessor.getClass().getCanonicalName()
+        log.info("\t\t accessorType:  " + accessor.getClass().getCanonicalName()
             + " value[" + j + "] " + accessor.getObject(j));
       } else {
         this.nullEntries++;
-        System.out.println(
+        log.info(
             "\t\t accessorType:  " + accessor.getClass().getCanonicalName() + " NULL at " + j);
       }
     }
   }
 
-  private void showIntAccessor(FieldVector fx) {
+  private void showIntAccessor(SampleData[] data, FieldVector fx) {
     IntVector intVector = ((IntVector) fx);
     for (int j = 0; j < intVector.getValueCount(); j++) {
       if (!intVector.isNull(j)) {
         int value = intVector.get(j);
-        System.out.println("\t\t intAccessor[" + j + "] " + value);
+        log.info("\t\t intAccessor[" + j + "] " + value);
         intCsum += value;
         this.checkSumx += value;
       } else {
         this.nullEntries++;
-        System.out.println("\t\t intAccessor[" + j + "] : NULL ");
+        log.info("\t\t intAccessor[" + j + "] : NULL ");
       }
     }
   }
 
-  private void showBigIntAccessor(FieldVector fx) {
+  private void showBigIntAccessor(SampleData[] data, FieldVector fx) {
     BigIntVector bigIntVector = ((BigIntVector) fx);
     for (int j = 0; j < bigIntVector.getValueCount(); j++) {
       if (!bigIntVector.isNull(j)) {
         long value = bigIntVector.get(j);
-        System.out.println("\t\t bigIntAccessor[" + j + "] " + value);
+        log.info("\t\t bigIntAccessor[" + j + "] " + value);
         longCsum += value;
         this.checkSumx += value;
       } else {
         this.nullEntries++;
-        System.out.println("\t\t bigIntAccessor[" + j + "] : NULL ");
+        log.info("\t\t bigIntAccessor[" + j + "] : NULL ");
       }
     }
   }
 
-  private void showVarBinaryAccessor(FieldVector fx) {
+  private void showVarBinaryAccessor(SampleData[] data, FieldVector fx) {
     VarBinaryVector varBinaryVector = ((VarBinaryVector) fx);
     for (int j = 0; j < varBinaryVector.getValueCount(); j++) {
       if (!varBinaryVector.isNull(j)) {
         byte[] value = varBinaryVector.get(j);
-        long valHash = Data.hashArray(value);
-        System.out.println("\t\t varBinaryAccessor[" + j + "] " + Data.firstX(value, 5));
+        long valHash = SampleData.hashArray(value);
+        log.info("\t\t varBinaryAccessor[" + j + "] " + SampleData.firstX(value, 5));
         arrCsum += valHash;
         this.checkSumx += valHash;
       } else {
         this.nullEntries++;
-        System.out.println("\t\t varBinaryAccessor[" + j + "] : NULL ");
+        log.info("\t\t varBinaryAccessor[" + j + "] : NULL ");
       }
     }
   }
 
-  private void showFloat4Accessor(FieldVector fx) {
+  private void showFloat4Accessor(SampleData[] data, FieldVector fx) {
     Float4Vector float4Vector = ((Float4Vector) fx);
     for (int j = 0; j < float4Vector.getValueCount(); j++) {
       if (!float4Vector.isNull(j)) {
         float value = float4Vector.get(j);
-        System.out.println("\t\t float4[" + j + "] " + value);
+        log.info("\t\t float4[" + j + "] " + value);
         floatCsum += value;
         this.checkSumx += value;
       } else {
         this.nullEntries++;
-        System.out.println("\t\t float4[" + j + "] : NULL ");
+        log.info("\t\t float4[" + j + "] : NULL ");
       }
     }
   }
 
-  private void showFloat8Accessor(FieldVector fx) {
+  private void showFloat8Accessor(SampleData[] data, FieldVector fx) {
     Float8Vector float8Vector = ((Float8Vector) fx);
     for (int j = 0; j < float8Vector.getValueCount(); j++) {
       if (!float8Vector.isNull(j)) {
         double value = float8Vector.get(j);
-        System.out.println("\t\t float8[" + j + "] " + value);
+        log.info("\t\t float8[" + j + "] " + value);
         floatCsum += value;
         this.checkSumx += value;
       } else {
         this.nullEntries++;
-        System.out.println("\t\t float8[" + j + "] : NULL ");
+        log.info("\t\t float8[" + j + "] : NULL ");
       }
     }
   }
 
-  private void showVarCharAccessor(FieldVector fx) {
+  private void showVarCharAccessor(SampleData[] data, FieldVector fx) {
     VarCharVector varCharVector = ((VarCharVector) fx);
     for (int j = 0; j < varCharVector.getValueCount(); j++) {
       if (!varCharVector.isNull(j)) {
         byte[] value = varCharVector.get(j);
-        System.out.println("\t\t varchar[" + j + "] " + new Text(value));
+        log.info("\t\t varchar[" + j + "] " + new Text(value));
         floatCsum += value.hashCode();
         this.checkSumx += value.hashCode();
       } else {
         this.nullEntries++;
-        System.out.println("\t\t varchar[" + j + "] : NULL ");
+        log.info("\t\t varchar[" + j + "] : NULL ");
       }
     }
   }

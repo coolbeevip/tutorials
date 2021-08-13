@@ -15,7 +15,7 @@
   <dependencies>
     <dependency>
       <groupId>org.apache.arrow</groupId>
-      <artifactId>arrow-memory</artifactId>
+      <artifactId>arrow-memory-netty</artifactId>
     </dependency>
     <dependency>
       <groupId>org.apache.arrow</groupId>
@@ -23,7 +23,7 @@
     </dependency>
     <dependency>
       <groupId>org.apache.arrow</groupId>
-      <artifactId>arrow-flight</artifactId>
+      <artifactId>flight-grpc</artifactId>
     </dependency>
 
     <!-- log -->
