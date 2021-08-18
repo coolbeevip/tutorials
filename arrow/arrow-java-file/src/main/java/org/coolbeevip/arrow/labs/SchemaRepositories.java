@@ -1,4 +1,4 @@
-package org.coolbeevip.arrow.schema;
+package org.coolbeevip.arrow.labs;
 
 import static org.apache.arrow.vector.types.FloatingPointPrecision.DOUBLE;
 import static org.apache.arrow.vector.types.FloatingPointPrecision.SINGLE;
@@ -20,13 +20,13 @@ import org.coolbeevip.arrow.exception.FieldTypeNotSupportedException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public abstract class SchemaRepository<T> {
+public class SchemaRepositories {
 
   private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   private static final Map<String, Schema> schemas = new ConcurrentHashMap<>();
 
-  public SchemaRepository(Class<T> dataClass) {
+  public void load(Class dataClass){
     if (!schemas.containsKey(dataClass.getName())) {
       List<Field> fields = Arrays.stream(dataClass.getDeclaredFields())
           .filter(f -> f.getAnnotation(ArrowField.class) != null)
@@ -65,6 +65,9 @@ public abstract class SchemaRepository<T> {
           // 字节数组
           schemaBuilder.add(new org.apache.arrow.vector.types.pojo.Field(field.getName(),
               FieldType.nullable(Binary.INSTANCE), null));
+        } else if(schemas.containsKey(field.getType().getName())) {
+          schemaBuilder.add(new org.apache.arrow.vector.types.pojo.Field(field.getName(),
+              FieldType.nullable(ArrowType.Struct.INSTANCE), schemas.get(field.getType().getName()).getFields()));
         } else {
           throw new FieldTypeNotSupportedException(
               "field " + field.getName() + " type " + field.getType() + " Not Supported");
@@ -76,7 +79,7 @@ public abstract class SchemaRepository<T> {
     }
   }
 
-  public Schema getSchema(Class<T> dataClass) {
+  public Schema getSchema(Class dataClass) {
     return schemas.get(dataClass.getName());
   }
 }

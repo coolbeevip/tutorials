@@ -1,0 +1,1 @@
+https://git.sr.ht/~jgillis/apache-arrow-reading-writing/tree/master/item/src/main/java/org/example/arrow/io/ProcessDataApplication.java
