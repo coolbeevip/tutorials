@@ -54,22 +54,22 @@ public class DataProcessApplication {
     app.filterMultiColumn();
     stopWatch.stop();
     log.info("Timing: {}", stopWatch.getTime());
-
   }
 
   /**
    * 生成随机数据
    */
   private void generateRandomData() throws IOException {
-    int numberOfPeople = 10_000_000;
+    int numberOfPeople = 1_000_000;
+    int chunkSize = 10_000;
+
     Person[] people = new Person[numberOfPeople];
     for (int i = 0; i < numberOfPeople; i++) {
       people[i] = randomPerson();
     }
     Schema personSchema = schemaRepositories.getSchema(Person.class);
     PersonVectorized personVectorized = new PersonVectorized(schemaRepositories);
-    int CHUNK_SIZE = 100_000;
-    ChunkedWriter<Person> writer = new ChunkedWriter<>(personSchema, CHUNK_SIZE,
+    ChunkedWriter<Person> writer = new ChunkedWriter<>(personSchema, chunkSize,
         personVectorized::vectorized);
     writer.write(new File("people.arrow"), people);
   }
