@@ -536,5 +536,6 @@
     <module>arrow</module>
     <module>kafka</module>
     <module>debezium</module>
+    <module>algorithm</module>
   </modules>
 </project>
