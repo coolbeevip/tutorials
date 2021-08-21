@@ -52,7 +52,7 @@ public class MorrisApproximateCounter {
     MorrisApproximateCounter mc = new MorrisApproximateCounter();
 
     // 定义实际数量
-    int realCount = 10_000;
+    int realCount = 2_000;
 
     double[][] real_graph_data = new double[realCount][2];
     double[][] approximate_graph_data = new double[realCount][2];
