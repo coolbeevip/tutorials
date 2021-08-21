@@ -16,4 +16,11 @@
     <module>morris-approximate-counter</module>
   </modules>
 
+  <dependencies>
+    <dependency>
+      <groupId>org.jfree</groupId>
+      <artifactId>jfreechart</artifactId>
+    </dependency>
+  </dependencies>
+
 </project>

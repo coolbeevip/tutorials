@@ -17,45 +17,65 @@ public class MorrisApproximateCounter {
   private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   /**
+   * 底数使用欧拉常数或者2
+   */
+  double radix = 2.718;
+
+  /**
    * 定义一个计数器变量
    */
   byte counter = 0;
 
   /**
-   * 使用随机模拟概率
+   * 模拟抛硬币概率
    */
   Random random = new Random();
 
   /**
-   * 计算计数器表示的近似值
+   * 返回计数值
    */
   public double get() {
-    return Math.exp(counter);
+    return Math.pow(radix, counter);
   }
 
   /**
-   * 计数器累加
+   * 计数值累加
    */
-  public void increment() {
-    double probability = 1.0 / this.get();
-    // 使用伪随机数增加概率
-    if (random.nextDouble() < probability) {
+  public byte increment() {
+    if (this.counter < 255 && random.nextDouble() < Math.pow(this.radix, -this.counter)) {
       this.counter++;
     }
+    return this.counter;
   }
 
   public static void main(String[] args) {
     MorrisApproximateCounter mc = new MorrisApproximateCounter();
 
     // 定义实际数量
-    int realCount = 20_000_000;
+    int realCount = 10_000;
+
+    double[][] real_graph_data = new double[realCount][2];
+    double[][] approximate_graph_data = new double[realCount][2];
 
     for (int n = 0; n < realCount; n++) {
       // 累加计数
       mc.increment();
+
+      real_graph_data[n][0] = n;
+      real_graph_data[n][1] = n;
+
+      approximate_graph_data[n][0] = n;
+      approximate_graph_data[n][1] = mc.get();
     }
 
     // 输出实际计数 和 近似计数
     log.info("实际计数 {}, 近似计数 {}", realCount, (int) mc.get());
+
+    // 绘制图形
+    LineChartFrame chart = new LineChartFrame("Algorithm", "Morris Approximate Counting Algorithm", "n","counter");
+    chart.addXYSeries("real count",real_graph_data);
+    chart.addXYSeries("approximate count",approximate_graph_data);
+    chart.pack();
+    chart.setVisible(true);
   }
 }
