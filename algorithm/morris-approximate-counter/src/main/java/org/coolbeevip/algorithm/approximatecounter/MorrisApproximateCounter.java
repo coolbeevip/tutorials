@@ -17,11 +17,6 @@ public class MorrisApproximateCounter {
   private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   /**
-   * 底数使用欧拉常数或者2
-   */
-  double radix = 2.718;
-
-  /**
    * 定义一个计数器变量
    */
   byte counter = 0;
@@ -35,14 +30,17 @@ public class MorrisApproximateCounter {
    * 返回计数值
    */
   public double get() {
-    return Math.pow(radix, counter);
+    return Math.pow(Math.E, Math.log(2) * counter) - 1;
   }
 
   /**
    * 计数值累加
    */
   public byte increment() {
-    if (this.counter < 255 && random.nextDouble() < Math.pow(this.radix, -this.counter)) {
+    double n_next = Math.pow(Math.E, Math.log(2) * counter+1) - 1;
+    double n = Math.pow(Math.E, Math.log(2) * counter) - 1;
+    double d = 1 / (n_next - n);
+    if(random.nextDouble() < d){
       this.counter++;
     }
     return this.counter;
@@ -52,7 +50,7 @@ public class MorrisApproximateCounter {
     MorrisApproximateCounter mc = new MorrisApproximateCounter();
 
     // 定义实际数量
-    int realCount = 2_000;
+    int realCount = 1000_000;
 
     double[][] real_graph_data = new double[realCount][2];
     double[][] approximate_graph_data = new double[realCount][2];
@@ -72,9 +70,10 @@ public class MorrisApproximateCounter {
     log.info("实际计数 {}, 近似计数 {}", realCount, (int) mc.get());
 
     // 绘制图形
-    LineChartFrame chart = new LineChartFrame("Algorithm", "Morris Approximate Counting Algorithm", "n","counter");
-    chart.addXYSeries("real count",real_graph_data);
-    chart.addXYSeries("approximate count",approximate_graph_data);
+    LineChartFrame chart = new LineChartFrame("Algorithm", "Morris Approximate Counting Algorithm",
+        "n", "计数");
+    chart.addXYSeries("实际", real_graph_data);
+    chart.addXYSeries("估算", approximate_graph_data);
     chart.pack();
     chart.setVisible(true);
   }
