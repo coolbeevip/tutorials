@@ -1,0 +1,14 @@
+version: '3.2'
+services:
+  mysql:
+    image: coolbeevip/mysql:8.0.25
+    hostname: mysql
+    container_name: mysql
+    ports:
+      - 3306:3306
+    environment:
+      - TZ=Asia/Shanghai
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=db0,db1
+      - MYSQL_USER=dbuser0,dbuser1
+      - MYSQL_PASSWORD=dbpwd0,dbpwd1

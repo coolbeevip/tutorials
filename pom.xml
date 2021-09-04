@@ -73,6 +73,11 @@
     <guava.version>30.0-jre</guava.version>
     <javax.annotation.version>1.3.2</javax.annotation.version>
 
+    <mybatis.version>3.5.7</mybatis.version>
+    <mybatis-spring.version>2.0.6</mybatis-spring.version>
+
+    <shardingsphere.version>5.0.0-beta</shardingsphere.version>
+
     <!-- plugins -->
     <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
     <maven-failsafe-plugin.version>2.22.0</maven-failsafe-plugin.version>
@@ -130,6 +135,25 @@
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
         <version>${mysql-connector-java.version}</version>
+      </dependency>
+
+      <!--sharding sphere-->
+      <dependency>
+        <groupId>org.apache.shardingsphere</groupId>
+        <artifactId>shardingsphere-jdbc-core</artifactId>
+        <version>${shardingsphere.version}</version>
+      </dependency>
+
+      <!-- mybatis -->
+      <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+        <version>${mybatis.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis-spring</artifactId>
+        <version>${mybatis-spring.version}</version>
       </dependency>
 
       <!-- akka -->
@@ -547,5 +571,6 @@
     <module>kafka</module>
     <module>debezium</module>
     <module>algorithm</module>
+    <module>sharding-sphere</module>
   </modules>
 </project>
