@@ -21,3 +21,4 @@ logging:
     org.hibernate: INFO
     org.apache.ibatis: DEBUG
     org.apache.shardingsphere: DEBUG
+    com.mysql: DEBUG

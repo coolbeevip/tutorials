@@ -8,10 +8,8 @@ import java.util.Map;
 import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,6 +23,8 @@ public class DataSourceConfiguration {
     HikariDataSource dataSource1 = new HikariDataSource();
     dataSource1.setDriverClassName("com.mysql.cj.jdbc.Driver");
     dataSource1.setJdbcUrl("jdbc:mysql://localhost:3306/db0");
+//    dataSource1.setUsername("root");
+//    dataSource1.setPassword("root");
     dataSource1.setUsername("dbuser0");
     dataSource1.setPassword("dbpwd0");
     atomDataSourceMap.put("ds0", dataSource1);
@@ -32,6 +32,8 @@ public class DataSourceConfiguration {
     HikariDataSource dataSource2 = new HikariDataSource();
     dataSource2.setDriverClassName("com.mysql.cj.jdbc.Driver");
     dataSource2.setJdbcUrl("jdbc:mysql://localhost:3306/db1");
+//    dataSource2.setUsername("root");
+//    dataSource2.setPassword("root");
     dataSource2.setUsername("dbuser1");
     dataSource2.setPassword("dbpwd1");
     atomDataSourceMap.put("ds1", dataSource2);
