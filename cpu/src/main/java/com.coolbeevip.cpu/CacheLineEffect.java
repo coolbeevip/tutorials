@@ -1,5 +1,8 @@
 package com.coolbeevip.cpu;
 
+/**
+ * 根据二维数组在内存中的存储结构特性，演示 CPU L1 对于连续内存访问的优化特性
+ */
 public class CacheLineEffect {
 
   static int ARRAY_X = 1024 * 1024;
