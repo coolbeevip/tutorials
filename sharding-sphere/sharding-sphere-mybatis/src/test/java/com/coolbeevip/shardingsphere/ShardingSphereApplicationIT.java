@@ -1,5 +1,8 @@
 package com.coolbeevip.shardingsphere;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
+
 import com.coolbeevip.shardingsphere.configuration.MybatisConfiguration;
 import com.coolbeevip.shardingsphere.configuration.DataSourceConfiguration;
 import com.coolbeevip.shardingsphere.mybatis.entities.CustomerDO;
@@ -7,9 +10,13 @@ import com.coolbeevip.shardingsphere.mybatis.entities.OrderDO;
 import com.coolbeevip.shardingsphere.mybatis.repository.MybatisCustomerRepository;
 import com.coolbeevip.shardingsphere.mybatis.repository.MybatisOrderRepository;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.cursor.Cursor;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -74,32 +81,45 @@ public class ShardingSphereApplicationIT {
    * t_customers 广播表，多个库中保持数据一致
    */
   @Test
-  public void insertBroadcastCustomerTest() {
+  public void shardingDBAndTableTest() {
+    List<CustomerDO> customerDOList = new ArrayList<>();
+
     for (int c = 0; c < 2; c++) {
       CustomerDO customer = CustomerDO.builder()
           .id(UUID.randomUUID().toString())
           .firstName("Lei " + c)
           .lastName("Zhang")
-          .age(40)
+          .age(40+c)
           .createdAt(new Date())
           .lastUpdatedAt(new Date())
           .build();
-      int num = customerRepository.insert(customer);
-      log.info("insert {} row", num);
+      assertThat(customerRepository.insert(customer), is(1));
+      customerDOList.add(customer);
 
-      for (int i = 0; i < 10; i++) {
+      for (int i = 0; i < 100; i++) {
         OrderDO order = OrderDO.builder()
             .id(UUID.randomUUID().toString())
             .orderDesc("test order")
             .customerId(customer.getId())
-            .totalPrice(BigDecimal.valueOf(100))
+            .totalPrice(BigDecimal.valueOf(100+i))
             .createdAt(new Date())
             .lastUpdatedAt(new Date())
             .build();
-        num = orderRepository.insert(order);
-        log.info("insert {} row", num);
+        assertThat(orderRepository.insert(order), is(1));
       }
     }
+
+    List<OrderDO> orders = orderRepository.getAll();
+    assertThat(orders.size(), is(200));
+
+    customerDOList.stream().forEach(c -> {
+      List<OrderDO> ordersOfCustomer = orderRepository.getOrdersOfCustomerOrderByTotalPrice(c.getId());
+      ordersOfCustomer.stream().forEach(o -> {
+        System.out.println(o.getTotalPrice());
+      });
+
+      assertThat(ordersOfCustomer.size(), is(100));
+    });
   }
 }
 

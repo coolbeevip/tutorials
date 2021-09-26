@@ -1,0 +1,61 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: @spring.config.activate.on-profile@
+  jpa:
+    hibernate:
+      # 允许 DDL，生产环境建议关闭，否则准备跑路
+      generate-ddl: true
+
+      # ddl-auto 很重要，使用不慎非常危险
+      # none: 关闭 DDL
+      # validate: 每次启动时验证数据库结构
+      # create: 每次启动时重新创建表结构（删除表->创建表）
+      # create-drop: 每次启动时重新创建表结构，推出时删除表（删除表->创建表->删除表）
+      # update: 每次启动时都比较更新表结构(如果想自动维护表结构-推荐使用此方式)
+
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: false
+
+logging:
+  level:
+    org:
+      hibernate: debug
+---
+spring:
+  config:
+    activate:
+      on-profile: h2
+#  datasource:
+#    url: jdbc:h2:mem:testdb;DATABASE_TO_UPPER=false;DB_CLOSE_DELAY=-1
+#    driverClassName: org.h2.Driver
+#    username: sa
+#    password: password
+  jpa:
+    show-sql: false
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      # http://localhost:8080/h2-console/
+      enabled: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: mysql
+  datasource:
+    url: jdbc:mysql://localhost:3306/jpatestdb?createDatabaseIfNotExist=true
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: test
+    password: test
+  jpa:
+    show-sql: false
+    database-platform: org.hibernate.dialect.MySQL8Dialect
