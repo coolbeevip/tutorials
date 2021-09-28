@@ -23,7 +23,7 @@ import org.openjdk.jmh.annotations.Warmup;
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 public class FalseCacheShardingJMH {
 
-  static long ITERATIONS = 500_000_000L;//500L * 1000L * 1000L;
+  static long ITERATIONS = 500_000_000L;
   static int NUM_THREADS = 4;
 
   @Benchmark

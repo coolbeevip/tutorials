@@ -89,7 +89,7 @@ public class ShardingSphereApplicationIT {
           .id(UUID.randomUUID().toString())
           .firstName("Lei " + c)
           .lastName("Zhang")
-          .age(40+c)
+          .age(40 + c)
           .createdAt(new Date())
           .lastUpdatedAt(new Date())
           .build();
@@ -101,7 +101,7 @@ public class ShardingSphereApplicationIT {
             .id(UUID.randomUUID().toString())
             .orderDesc("test order")
             .customerId(customer.getId())
-            .totalPrice(BigDecimal.valueOf(100+i))
+            .totalPrice(BigDecimal.valueOf(100 + i))
             .createdAt(new Date())
             .lastUpdatedAt(new Date())
             .build();
@@ -113,7 +113,8 @@ public class ShardingSphereApplicationIT {
     assertThat(orders.size(), is(200));
 
     customerDOList.stream().forEach(c -> {
-      List<OrderDO> ordersOfCustomer = orderRepository.getOrdersOfCustomerOrderByTotalPrice(c.getId());
+      List<OrderDO> ordersOfCustomer = orderRepository
+          .getOrdersOfCustomerOrderByTotalPrice(c.getId());
       ordersOfCustomer.stream().forEach(o -> {
         System.out.println(o.getTotalPrice());
       });
