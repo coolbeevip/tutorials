@@ -6,7 +6,7 @@ package com.coolbeevip.java.lock.pessimistic;
  */
 public class SynchronizedCounter {
 
-  static long counter;
+  private volatile long counter;
 
   public synchronized long incrementAndGet() {
     return counter++;

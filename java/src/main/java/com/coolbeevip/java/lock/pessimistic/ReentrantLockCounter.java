@@ -9,7 +9,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class ReentrantLockCounter {
 
   private ReentrantLock lock = new ReentrantLock();
-  static long counter;
+  private volatile long counter;
 
   public long incrementAndGet() {
     lock.lock();
