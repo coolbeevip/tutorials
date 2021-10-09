@@ -573,5 +573,6 @@
     <module>algorithm</module>
     <module>sharding-sphere</module>
     <module>cpu</module>
+    <module>java</module>
   </modules>
 </project>
