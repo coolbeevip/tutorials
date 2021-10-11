@@ -7,6 +7,8 @@ import java.util.concurrent.atomic.AtomicStampedReference;
 /**
  * 乐观锁
  * 解决 Atomic 原子操作中存在的 ABA 问题
+ * 这里仅仅演示使用方法，本身并无实际意义，通常 ABA 问题都反映在一个堆栈或者队列中
+ * https://www.baeldung.com/java-atomicstampedreference
  */
 public class AtomicStampedReferenceCounter implements Counter {
 
