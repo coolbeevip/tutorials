@@ -16,6 +16,7 @@ public class ReentrantLockCounter implements Counter {
     lock.lock();
     try{
       counter++;
+      mockTime();
     }finally {
       lock.unlock();
     }
@@ -24,6 +25,7 @@ public class ReentrantLockCounter implements Counter {
   public long get() {
     lock.lock();
     try{
+      mockTime();
       return counter;
     }finally {
       lock.unlock();

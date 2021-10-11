@@ -17,10 +17,12 @@ public class SynchronizedCounter implements Counter {
   private volatile long counter;
 
   public synchronized void increment() {
+    mockTime();
     counter++;
   }
 
   public synchronized long get() {
+    mockTime();
     return counter;
   }
 }

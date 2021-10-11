@@ -12,10 +12,12 @@ public class AtomicCounter implements Counter {
   private AtomicLong counter = new AtomicLong();
 
   public void increment() {
+    mockTime();
     counter.incrementAndGet();
   }
 
   public long get() {
+    mockTime();
     return counter.get();
   }
 }

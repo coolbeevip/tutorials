@@ -11,10 +11,12 @@ public class LongAdderCounter implements Counter {
   private LongAdder counter = new LongAdder();
 
   public void increment() {
+    mockTime();
     counter.increment();
   }
 
   public long get() {
+    mockTime();
     return counter.sum();
   }
 }

@@ -15,8 +15,8 @@ import org.junit.Test;
 
 public class LockCounterTest {
 
-  private final static int NUM_THREADS = 1000;
-  private final static long NUM_ITERATIONS = 10000;
+  private final static int NUM_THREADS = 100;
+  private final static long NUM_ITERATIONS = 1;
 
   @Test
   public void testReentrantLockCounter() throws InterruptedException {

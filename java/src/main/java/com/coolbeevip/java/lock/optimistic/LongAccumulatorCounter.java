@@ -12,10 +12,12 @@ public class LongAccumulatorCounter implements Counter {
   private LongAccumulator counter = new LongAccumulator(Long::sum,0);
 
   public void increment() {
+    mockTime();
     counter.accumulate(1);
   }
 
   public long get() {
+    mockTime();
     return counter.get();
   }
 }
