@@ -1,12 +1,15 @@
-package com.coolbeevip.java.lock.pessimistic;
+package com.coolbeevip.java.lock;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-import com.coolbeevip.java.lock.Counter;
 import com.coolbeevip.java.lock.optimistic.AtomicCounter;
 import com.coolbeevip.java.lock.optimistic.AtomicStampedReferenceCounter;
 import com.coolbeevip.java.lock.optimistic.LongAccumulatorCounter;
 import com.coolbeevip.java.lock.optimistic.LongAdderCounter;
+import com.coolbeevip.java.lock.pessimistic.ReentrantLockCounter;
+import com.coolbeevip.java.lock.pessimistic.ReentrantReadWriteLockCounter;
+import com.coolbeevip.java.lock.pessimistic.StampedReadWriteLockCounter;
+import com.coolbeevip.java.lock.pessimistic.SynchronizedCounter;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
