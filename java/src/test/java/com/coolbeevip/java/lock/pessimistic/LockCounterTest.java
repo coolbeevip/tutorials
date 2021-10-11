@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import com.coolbeevip.java.lock.Counter;
 import com.coolbeevip.java.lock.optimistic.AtomicCounter;
+import com.coolbeevip.java.lock.optimistic.AtomicStampedReferenceCounter;
 import com.coolbeevip.java.lock.optimistic.LongAccumulatorCounter;
 import com.coolbeevip.java.lock.optimistic.LongAdderCounter;
 import java.util.concurrent.ExecutorService;
@@ -51,6 +52,11 @@ public class LockCounterTest {
   @Test
   public void testStampedWriteLockCounter() throws InterruptedException {
     test(new StampedReadWriteLockCounter());
+  }
+
+  @Test
+  public void testAtomicStampedReferenceCounter() throws InterruptedException {
+    test(new AtomicStampedReferenceCounter());
   }
 
   @Test
