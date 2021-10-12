@@ -4,16 +4,26 @@ package com.coolbeevip.java.lock.optimistic.aba;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class AccountWithABAProblem {
+/**
+ * 存在 ABA 问题的账户对象
+ */
+public class ProblemAccount {
 
+  // 账户余额
   private AtomicInteger balance;
+  // 记录交易成功的次数
   private AtomicInteger transactionCount;
+  // 记录交易失败的次数
   private ThreadLocal<Integer> currentThreadCASFailureCount;
 
-  public AccountWithABAProblem() {
+  public ProblemAccount() {
     this.balance = new AtomicInteger(0);
     this.transactionCount = new AtomicInteger(0);
-    this.currentThreadCASFailureCount = new ThreadLocal<>();
+    this.currentThreadCASFailureCount = new ThreadLocal(){
+      @Override public Integer initialValue() {
+        return 0;
+      }
+    };
     this.currentThreadCASFailureCount.set(0);
   }
 
