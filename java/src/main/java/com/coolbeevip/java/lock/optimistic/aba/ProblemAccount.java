@@ -24,7 +24,6 @@ public class ProblemAccount {
         return 0;
       }
     };
-    this.currentThreadCASFailureCount.set(0);
   }
 
   public int getBalance() {
