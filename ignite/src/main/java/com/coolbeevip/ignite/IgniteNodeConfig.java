@@ -1,6 +1,7 @@
 package com.coolbeevip.ignite;
 
 import java.util.Collection;
+import java.util.UUID;
 import org.apache.ignite.configuration.IgniteConfiguration;
 import org.apache.ignite.lifecycle.LifecycleBean;
 import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi;
@@ -12,30 +13,31 @@ public class IgniteNodeConfig {
 
   IgniteConfiguration configuration = new IgniteConfiguration();
 
-  public IgniteNodeConfig(String multicastGroup, LifecycleBean... lifecycleBeans) {
+  public IgniteNodeConfig(boolean clientMode, String multicastGroup, LifecycleBean... lifecycleBeans) {
     commonConfig();
-    this.configuration.setClientMode(false);
+    this.configuration.setClientMode(clientMode);
     this.configuration.setLifecycleBeans(lifecycleBeans);
     this.configuration.setDiscoverySpi(discoveryMulticastSpi(multicastGroup));
   }
 
-  public IgniteNodeConfig(String localAddress, int localPort, int localPortRange,
-      Collection<String> addrs, LifecycleBean... lifecycleBeans) {
+  public IgniteNodeConfig(boolean clientMode, String localAddress, int localPort, int localPortRange,
+      Collection<String> addresses, LifecycleBean... lifecycleBeans) {
     commonConfig();
-    this.configuration.setClientMode(false);
+    this.configuration.setClientMode(clientMode);
     this.configuration.setLifecycleBeans(lifecycleBeans);
     this.configuration
-        .setDiscoverySpi(discoveryVmIpSpi(localAddress, localPort, localPortRange, addrs));
+        .setDiscoverySpi(discoveryVmIpSpi(localAddress, localPort, localPortRange, addresses));
   }
 
-  public IgniteNodeConfig(String localAddress, int localPort, int localPortRange,
-      Collection<String> addrs, String keystoreFile, String keystorePass,
+  public IgniteNodeConfig(boolean clientMode, String localAddress, int localPort, int localPortRange,
+      Collection<String> addresses, String keystoreFile, String keystorePass,
       String truststoreFile, String truststorePass, LifecycleBean... lifecycleBeans) {
     commonConfig();
-    this.configuration.setClientMode(false);
+    this.configuration.setIgniteInstanceName(UUID.randomUUID().toString());
+    this.configuration.setClientMode(clientMode);
     this.configuration.setLifecycleBeans(lifecycleBeans);
     this.configuration
-        .setDiscoverySpi(discoveryVmIpSpi(localAddress, localPort, localPortRange, addrs));
+        .setDiscoverySpi(discoveryVmIpSpi(localAddress, localPort, localPortRange, addresses));
     this.setSsl(keystoreFile, keystorePass, truststoreFile, truststorePass);
   }
 
