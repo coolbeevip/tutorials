@@ -78,6 +78,8 @@
 
     <shardingsphere.version>5.0.0-RC1-SNAPSHOT</shardingsphere.version>
 
+    <ignite.version>2.11.0</ignite.version>
+
     <!-- plugins -->
     <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
     <maven-failsafe-plugin.version>2.22.0</maven-failsafe-plugin.version>
@@ -142,6 +144,17 @@
         <groupId>org.apache.shardingsphere</groupId>
         <artifactId>shardingsphere-jdbc-core</artifactId>
         <version>${shardingsphere.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.apache.ignite</groupId>
+        <artifactId>ignite-core</artifactId>
+        <version>${ignite.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.ignite</groupId>
+        <artifactId>ignite-indexing</artifactId>
+        <version>${ignite.version}</version>
       </dependency>
 
       <!-- mybatis -->
@@ -580,5 +593,6 @@
     <module>sharding-sphere</module>
     <module>cpu</module>
     <module>java</module>
+    <module>ignite</module>
   </modules>
 </project>
