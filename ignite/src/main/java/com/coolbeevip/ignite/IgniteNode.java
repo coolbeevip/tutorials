@@ -3,12 +3,15 @@ package com.coolbeevip.ignite;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteAtomicLong;
 import org.apache.ignite.IgniteCache;
+import org.apache.ignite.IgniteQueue;
+import org.apache.ignite.IgniteSet;
 import org.apache.ignite.Ignition;
 import org.apache.ignite.cache.CacheAtomicityMode;
 import org.apache.ignite.cache.CacheMode;
 import org.apache.ignite.cache.CacheWriteSynchronizationMode;
 import org.apache.ignite.cluster.ClusterMetrics;
 import org.apache.ignite.configuration.CacheConfiguration;
+import org.apache.ignite.configuration.CollectionConfiguration;
 
 public class IgniteNode implements AutoCloseable {
 
@@ -46,7 +49,7 @@ public class IgniteNode implements AutoCloseable {
     ignite.close();
   }
 
-  public IgniteCache getCreateCache(String name, CacheMode cacheMode, int backups,
+  public IgniteCache createCache(String name, CacheMode cacheMode, int backups,
       CacheWriteSynchronizationMode writeSync) {
     CacheConfiguration cacheConfiguration = new CacheConfiguration();
     cacheConfiguration.setName(name);
@@ -57,9 +60,8 @@ public class IgniteNode implements AutoCloseable {
     return ignite.getOrCreateCache(cacheConfiguration);
   }
 
-
   public IgniteAtomicLong createAtomicLong(String name) {
-    return ignite.atomicLong(name, 0, true);
+    return this.createAtomicLong(name, 0);
   }
 
   public IgniteAtomicLong createAtomicLong(String name, long initialValue) {
@@ -72,5 +74,43 @@ public class IgniteNode implements AutoCloseable {
 
   public void destroyCache(String name) {
     ignite.destroyCache(name);
+  }
+
+  public IgniteQueue getOrCreateQueue(String name, String groupName, int capacity,
+      CacheMode cacheMode, int backups, boolean collocated) {
+    CollectionConfiguration collectionConfiguration = new CollectionConfiguration();
+    if(groupName!=null){
+      collectionConfiguration.setGroupName(groupName);
+    }
+    // 设置底层缓存模式
+    collectionConfiguration.setCacheMode(cacheMode);
+    // 设置并置模式
+    collectionConfiguration.setCollocated(collocated);
+    // 设置原子化模式
+    collectionConfiguration.setAtomicityMode(CacheAtomicityMode.ATOMIC);
+    // 设置堆外存储最大内存大小(0 无限制)
+    collectionConfiguration.setOffHeapMaxMemory(0);
+    // 设备备份数量
+    collectionConfiguration.setBackups(backups);
+    return ignite.queue(name, capacity, collectionConfiguration);
+  }
+
+  public IgniteSet getOrCreateSet(String name, String groupName, CacheMode cacheMode, int backups,
+      boolean collocated) {
+    CollectionConfiguration collectionConfiguration = new CollectionConfiguration();
+    if (groupName != null) {
+      collectionConfiguration.setGroupName(groupName);
+    }
+    // 设置底层缓存模式
+    collectionConfiguration.setCacheMode(cacheMode);
+    // 设置并置模式
+    collectionConfiguration.setCollocated(collocated);
+    // 设置原子化模式
+    collectionConfiguration.setAtomicityMode(CacheAtomicityMode.ATOMIC);
+    // 设置堆外存储最大内存大小(0 无限制)
+    collectionConfiguration.setOffHeapMaxMemory(0);
+    // 设备备份数量
+    collectionConfiguration.setBackups(backups);
+    return ignite.set(name, collectionConfiguration);
   }
 }
