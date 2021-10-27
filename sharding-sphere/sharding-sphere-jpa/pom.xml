@@ -12,7 +12,7 @@
   <artifactId>sharding-sphere-jpa</artifactId>
 
   <properties>
-    <mysql.connector.version>8.0.19</mysql.connector.version>
+    <mysql.connector.version>8.0.25</mysql.connector.version>
   </properties>
 
   <dependencies>
