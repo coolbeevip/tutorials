@@ -9,6 +9,9 @@ import com.coolbeevip.jpa.persistence.entities.Customer;
 import com.coolbeevip.jpa.persistence.entities.Order;
 import com.coolbeevip.jpa.persistence.repository.CustomerRepository;
 import com.coolbeevip.jpa.persistence.repository.OrderRepository;
+import com.zaxxer.hikari.HikariConfigMXBean;
+import com.zaxxer.hikari.HikariDataSource;
+import com.zaxxer.hikari.HikariPoolMXBean;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,6 +47,9 @@ public class JpaApplicationTestIT {
 
   @Autowired
   AuditCallbackQueueImpl auditEntityCallback;
+
+  @Autowired
+  HikariDataSource dataSource;
 
   @BeforeEach
   @SneakyThrows
@@ -276,6 +282,25 @@ public class JpaApplicationTestIT {
             .orderDesc("测试订单").build());
     Optional<Customer> optionalCustomer = customerRepository.findById(insertCustomer.getId());
     Assertions.assertEquals(optionalCustomer.get().getOrders().size(), 1);
+  }
+
+  @Test
+  public void testPool(){
+    HikariConfigMXBean configMXBean = dataSource.getHikariConfigMXBean();
+    HikariPoolMXBean poolMXBean = dataSource.getHikariPoolMXBean();
+    log.info("config poolName {}",configMXBean.getPoolName());
+    log.info("config maximumPoolSize {}",configMXBean.getMaximumPoolSize());
+    log.info("config minimumIdle {}",configMXBean.getMinimumIdle());
+    log.info("config connectionTimeout {}",configMXBean.getConnectionTimeout());
+    log.info("config validationTimeout {}",configMXBean.getValidationTimeout());
+    log.info("config maxLifetime {}",configMXBean.getMaxLifetime());
+    log.info("config idleTimeout {}",configMXBean.getIdleTimeout());
+
+    log.info("pool activeConnections {}",poolMXBean.getActiveConnections());
+    log.info("pool totalConnections {}",poolMXBean.getTotalConnections());
+    log.info("pool idleConnections {}",poolMXBean.getIdleConnections());
+    log.info("pool threadsAwaitingConnection {}",poolMXBean.getThreadsAwaitingConnection());
+
   }
 
   private void cleanDB() {

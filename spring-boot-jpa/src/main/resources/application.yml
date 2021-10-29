@@ -34,6 +34,10 @@ spring:
     driverClassName: org.h2.Driver
     username: sa
     password: password
+    hikari:
+      connectionTimeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 1800000
   jpa:
     show-sql: false
     database-platform: org.hibernate.dialect.H2Dialect
