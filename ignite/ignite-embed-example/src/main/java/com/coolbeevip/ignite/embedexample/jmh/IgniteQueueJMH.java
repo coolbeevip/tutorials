@@ -1,7 +1,7 @@
 package com.coolbeevip.ignite.jmh;
 
-import com.coolbeevip.ignite.IgniteNode;
-import com.coolbeevip.ignite.IgniteNodeFactory;
+import com.coolbeevip.ignite.embedexample.IgniteNode;
+import com.coolbeevip.ignite.embedexample.IgniteNodeFactory;
 import java.util.Arrays;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;

@@ -1,4 +1,4 @@
-package com.coolbeevip.ignite;
+package com.coolbeevip.ignite.embedexample;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ignite.IgniteException;
@@ -16,6 +16,6 @@ public class IgniteNodeLifecycle implements LifecycleBean {
 
   @Override
   public void onLifecycleEvent(LifecycleEventType lifecycleEventType) throws IgniteException {
-    log.info("lifecycle {}",lifecycleEventType.name());
+    log.debug("lifecycle {}",lifecycleEventType.name());
   }
 }

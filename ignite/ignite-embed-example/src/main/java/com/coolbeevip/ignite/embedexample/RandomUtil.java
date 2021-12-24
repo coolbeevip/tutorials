@@ -1,4 +1,4 @@
-package com.coolbeevip.ignite;
+package com.coolbeevip.ignite.embedexample;
 
 import com.github.javafaker.Address;
 import com.github.javafaker.Faker;

@@ -1,4 +1,4 @@
-package com.coolbeevip.ignite;
+package com.coolbeevip.ignite.embedexample;
 
 import java.util.Collection;
 import org.apache.ignite.lifecycle.LifecycleBean;

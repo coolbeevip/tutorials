@@ -1,4 +1,4 @@
-package com.coolbeevip.ignite;
+package com.coolbeevip.ignite.embedexample;
 
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteAtomicLong;
@@ -10,6 +10,7 @@ import org.apache.ignite.cache.CacheAtomicityMode;
 import org.apache.ignite.cache.CacheMode;
 import org.apache.ignite.cache.CacheWriteSynchronizationMode;
 import org.apache.ignite.cluster.ClusterMetrics;
+import org.apache.ignite.cluster.ClusterState;
 import org.apache.ignite.configuration.CacheConfiguration;
 import org.apache.ignite.configuration.CollectionConfiguration;
 
@@ -21,7 +22,7 @@ public class IgniteNode implements AutoCloseable {
 
   public IgniteNode(IgniteNodeConfig config) {
     ignite = Ignition.start(config.getConfiguration());
-
+    ignite.cluster().state(ClusterState.ACTIVE);
     Runtime.getRuntime().addShutdownHook(new Thread() {
       @Override
       public void run() {
