@@ -9,17 +9,11 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>ignite-persistence-storage-rdbms</artifactId>
+  <artifactId>ignite-common</artifactId>
 
-  <dependencies>
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.coolbeevip</groupId>
-      <artifactId>ignite-common</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-  </dependencies>
+  <properties>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+  </properties>
+
 </project>

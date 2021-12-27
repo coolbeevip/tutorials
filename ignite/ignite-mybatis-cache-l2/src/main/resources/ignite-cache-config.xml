@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
+
+  <bean id="grid.cfg" class="org.apache.ignite.configuration.IgniteConfiguration">
+    <property name="workDirectory" value="/Users/zhanglei/coolbeevip/tutorials/logs/work"/>
+    <property name="clientMode" value="true"/>
+    <property name="peerClassLoadingEnabled" value="false"/>
+    <!-- default username/password is ignite/ignite -->
+    <property name="authenticationEnabled" value="true"/>
+    <property name="communicationSpi">
+      <bean class="org.apache.ignite.spi.communication.tcp.TcpCommunicationSpi">
+        <property name="localPort" value="47100"/>
+      </bean>
+    </property>
+    <property name="connectorConfiguration">
+      <bean class="org.apache.ignite.configuration.ConnectorConfiguration">
+        <property name="port" value="11211"/>
+      </bean>
+    </property>
+    <property name="clientConnectorConfiguration">
+      <bean class="org.apache.ignite.configuration.ClientConnectorConfiguration">
+        <property name="port" value="10800"/>
+      </bean>
+    </property>
+
+    <!-- cluster -->
+    <property name="discoverySpi">
+      <bean class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+        <property name="localPort" value="48500"/>
+        <property name="localPortRange" value="20"/>
+        <property name="ipFinder">
+          <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder">
+            <property name="multicastPort" value="47400"/>
+            <property name="multicastGroup" value="228.10.10.157"/>
+            <property name="addresses">
+              <list>
+                <value>10.1.207.180:48500</value>
+                <value>10.1.207.181:48500</value>
+                <value>10.1.207.182:48500</value>
+              </list>
+            </property>
+          </bean>
+        </property>
+      </bean>
+    </property>
+
+    <!-- persistence -->
+    <property name="dataStorageConfiguration">
+      <bean class="org.apache.ignite.configuration.DataStorageConfiguration">
+        <property name="defaultDataRegionConfiguration">
+          <bean class="org.apache.ignite.configuration.DataRegionConfiguration">
+            <property name="persistenceEnabled" value="true"/>
+          </bean>
+        </property>
+      </bean>
+    </property>
+  </bean>
+
+  <bean id="templateCacheCfg" class="org.apache.ignite.configuration.CacheConfiguration">
+    <property name="name" value="myBatisCache"/>
+    <property name="cacheMode" value="PARTITIONED"/>
+    <property name="backups" value="1"/>
+    <property name="statisticsEnabled" value="true" />
+    <property name="onheapCacheEnabled" value="true"/>
+    <property name="evictionPolicyFactory">
+      <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicyFactory">
+        <constructor-arg index="0" value="1000000"/>
+        <constructor-arg index="1" value="1000"/>
+        <constructor-arg index="2" value="1000000000"/><!--1GB-->
+      </bean>
+    </property>
+  </bean>
+</beans>

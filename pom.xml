@@ -75,6 +75,7 @@
 
     <mybatis.version>3.5.7</mybatis.version>
     <mybatis-spring.version>2.0.6</mybatis-spring.version>
+    <mybatis-ignite.version>1.1.0</mybatis-ignite.version>
 
     <shardingsphere.version>5.0.0-RC1-SNAPSHOT</shardingsphere.version>
 
@@ -161,12 +162,22 @@
         <artifactId>ignite-slf4j</artifactId>
         <version>${ignite.version}</version>
       </dependency>
+      <dependency>
+        <groupId>org.apache.ignite</groupId>
+        <artifactId>ignite-spring</artifactId>
+        <version>${ignite.version}</version>
+      </dependency>
 
       <!-- mybatis -->
       <dependency>
         <groupId>org.mybatis</groupId>
         <artifactId>mybatis</artifactId>
         <version>${mybatis.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.mybatis.caches</groupId>
+        <artifactId>mybatis-ignite</artifactId>
+        <version>${mybatis-ignite.version}</version>
       </dependency>
       <dependency>
         <groupId>org.mybatis</groupId>

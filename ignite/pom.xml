@@ -26,6 +26,10 @@
       <artifactId>ignite-slf4j</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.apache.ignite</groupId>
+      <artifactId>ignite-spring</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
     </dependency>
@@ -58,7 +62,9 @@
   </dependencies>
 
   <modules>
+    <module>ignite-common</module>
     <module>ignite-persistence-storage-rdbms</module>
-<!--    <module>ignite-embed-example</module>-->
+    <module>ignite-mybatis-cache-l2</module>
+    <!--    <module>ignite-embed-example</module>-->
   </modules>
 </project>
