@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+       Copyright 2016-2018 the original author or authors.
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+          http://www.apache.org/licenses/LICENSE-2.0
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+-->
+<!-- Default cache configured as a standalone LOCAL server node. -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans.xsd">
+  <bean id="ignite.cfg" class="org.apache.ignite.configuration.IgniteConfiguration">
+  </bean>
+
+  <bean id="templateCacheCfg" class="org.apache.ignite.configuration.CacheConfiguration">
+    <!-- Set a cache name. -->
+    <property name="name" value="myBatisCache"/>
+
+    <!-- Set cache mode to LOCAL by default. -->
+    <property name="cacheMode" value="LOCAL"/>
+
+    <!-- 是否启用堆内缓存 -->
+    <property name="onheapCacheEnabled" value="false"/> <!-- 通过 XX:MaxDirectMemorySize 设置堆外内存大小 -->
+
+    <!-- 启用堆内缓存(onheapCacheEnabled=true)后的驱逐策略
+    <property name="evictionPolicyFactory">
+      <bean class="org.apache.ignite.cache.eviction.lru.LruEvictionPolicyFactory">
+        <constructor-arg index="0" value="1000000"/>
+        <constructor-arg index="1" value="100"/>
+        <constructor-arg index="2" value="1000000000"/>
+      </bean>
+    </property>
+    -->
+
+    <!-- 过期策略 -->
+    <property name="expiryPolicyFactory">
+      <bean class="javax.cache.expiry.CreatedExpiryPolicy" factory-method="factoryOf">
+        <constructor-arg>
+          <bean class="javax.cache.expiry.Duration">
+            <constructor-arg value="MINUTES"/>
+            <constructor-arg value="5"/>
+          </bean>
+        </constructor-arg>
+      </bean>
+    </property>
+  </bean>
+
+</beans>

@@ -22,7 +22,9 @@ public final class IgniteCacheAdapter implements Cache {
   private final ReadWriteLock readWriteLock = new DummyReadWriteLock();
   private static final Ignite ignite;
   private final IgniteCache<Object, Object> cache;
-  public volatile static String CFG_PATH = "/Users/zhanglei/coolbeevip/tutorials/ignite/ignite-mybatis-cache-l2/src/main/resources/ignite-cache-config.xml";
+  public static String CFG_PATH = "/Users/zhanglei/coolbeevip/tutorials/ignite/ignite-mybatis-cache-l2/src/main/resources/ignite-local-cache-config.xml";
+  //public static String CFG_PATH = "/Users/zhanglei/coolbeevip/tutorials/ignite/ignite-mybatis-cache-l2/src/main/resources/ignite-client-cache-config.xml";
+  //public static String CFG_PATH = "/Users/zhanglei/coolbeevip/tutorials/ignite/ignite-mybatis-cache-l2/src/main/resources/ignite-cluster-cache-config.xml";
 
   static {
     boolean started = false;
@@ -56,6 +58,7 @@ public final class IgniteCacheAdapter implements Cache {
       cacheCfg.setCacheLoaderFactory(null);
       cacheCfg.setCacheWriterFactory(null);
       cacheCfg.setName(id);
+      cacheCfg.setStatisticsEnabled(true);
     } catch (NoSuchBeanDefinitionException | BeanDefinitionStoreException e) {
       // initializes the default cache.
       log.warn("Initializing the default cache. Consider properly configuring '" + CFG_PATH + "' instead.");

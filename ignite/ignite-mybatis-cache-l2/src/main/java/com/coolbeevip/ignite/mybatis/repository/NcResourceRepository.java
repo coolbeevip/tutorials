@@ -1,10 +1,11 @@
 package com.coolbeevip.ignite.mybatis.repository;
 
 import com.coolbeevip.ignite.mybatis.cache.IgniteCacheAdapter;
+import com.coolbeevip.ignite.mybatis.entities.AddressDO;
 import java.util.List;
-import java.util.Map;
 import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Property;
 import org.apache.ibatis.annotations.Select;
 
@@ -15,8 +16,10 @@ import org.apache.ibatis.annotations.Select;
 public interface NcResourceRepository {
 
   @Select("select * from address")
-  List<Map> getAllAddress();
+  List<AddressDO> getAllAddress();
 
-  @Select("select * from address where name like '%美丽村%'")
-  List<Map> getMyAddress();
+  @Select("select * from address where name like '%${name}%'")
+  List<AddressDO> getMyAddressByLikeName(@Param("name") String name);
+
+
 }
