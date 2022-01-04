@@ -1,8 +1,14 @@
 package com.coolbeevip.ignite.mybatis;
 
-import com.coolbeevip.ignite.mybatis.repository.NcResourceRepository;
+import com.coolbeevip.ignite.mybatis.entities.AddressDO;
+import com.coolbeevip.ignite.mybatis.repository.AddressRepository;
+import com.github.javafaker.Address;
+import com.github.javafaker.Faker;
+import com.github.javafaker.Name;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -15,48 +21,94 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class MybatisCacheIgniteApplicationTest {
 
   @Autowired
-  NcResourceRepository ncResourceRepository;
+  AddressRepository ncResourceRepository;
 
   @Test
   public void test() {
-    new Temple() {
+    new Timer() {
       @Override
       long mapper() {
         return ncResourceRepository.getAllAddress().size();
       }
-    }.exec();
+    }.exec("首次全量读取");
 
-    new Temple() {
+    new Timer() {
       @Override
       long mapper() {
-        return ncResourceRepository.getMyAddressByLikeName("西藏").size();
+        return ncResourceRepository.getAllAddress().size();
       }
-    }.exec();
+    }.exec("再次全量读取");
 
-    new Temple() {
+    new Timer() {
       @Override
       long mapper() {
-        return ncResourceRepository.getMyAddressByLikeName("湖北").size();
+        return ncResourceRepository.getMyAddressByLikeName("北京").size();
       }
-    }.exec();
+    }.exec("首次模糊查询");
 
-    new Temple() {
+    new Timer() {
       @Override
       long mapper() {
-        return ncResourceRepository.getMyAddressByLikeName("拉萨").size();
+        return ncResourceRepository.getMyAddressByLikeName("北京").size();
       }
-    }.exec();
+    }.exec("再次模糊查询");
+
+    new Timer() {
+      @Override
+      long mapper() {
+        ncResourceRepository.insertAddress(insertAddress());
+        return 1;
+      }
+    }.exec("新增一条");
+
+
+    new Timer() {
+      @Override
+      long mapper() {
+        return ncResourceRepository.getAllAddress().size();
+      }
+    }.exec("再次全量读取");
+
+    new Timer() {
+      @Override
+      long mapper() {
+        return ncResourceRepository.getMyAddressByLikeName("北京").size();
+      }
+    }.exec("首次模糊查询");
+
+    new Timer() {
+      @Override
+      long mapper() {
+        return ncResourceRepository.getMyAddressByLikeName("北京").size();
+      }
+    }.exec("再次模糊查询");
   }
 
-  class Temple {
+  private AddressDO insertAddress(){
+    Faker faker = new Faker(new Locale("zh-CN"));
+    Address addr = faker.address();
+    Name user = faker.name();
+    AddressDO address = new AddressDO();
+    address.setUuid(UUID.randomUUID().toString());
+    address.setRemark("Faker");
+    address.setName(addr.fullAddress());
+    address.setLatitude(Double.valueOf(addr.latitude()));
+    address.setLongitude(Double.valueOf(addr.longitude()));
+    address.setPostcode(addr.zipCode());
+    address.setCountry(addr.country());
+    address.setCity(addr.city());
+    return address;
+  }
 
-    int count = 10;
+  class Timer {
+
+    int count = 1;
 
     long mapper() {
       return 0;
     }
 
-    void exec() {
+    void exec(String name) {
       List<Long> times = new ArrayList<>();
       long size = 0;
       for (int i = 0; i < count; i++) {
@@ -65,7 +117,7 @@ public class MybatisCacheIgniteApplicationTest {
         long finish = System.currentTimeMillis();
         times.add(finish - start);
       }
-      log.info("row={}, times={}", size, times.stream()
+      log.info("{} row={}, times={}", name, size, times.stream()
           .map(n -> n.toString())
           .collect(Collectors.joining(",")));
     }

@@ -5,13 +5,9 @@ import lombok.ToString;
 
 @Data
 @ToString
-public class AddressDO {
+public class CountryDO {
   String uuid;
   String name;
-  Double latitude;
-  Double longitude;
-  String country;
-  String city;
-  String postcode;
-  String remark;
+  Double capital;
+  Double code;
 }
