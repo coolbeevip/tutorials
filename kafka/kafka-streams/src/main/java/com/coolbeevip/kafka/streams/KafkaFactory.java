@@ -3,29 +3,26 @@ package com.coolbeevip.kafka.streams;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.Properties;
-import java.util.regex.Pattern;
+import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.Serdes;
+import org.apache.kafka.common.serialization.StringSerializer;
 import org.apache.kafka.streams.KafkaStreams;
-import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.Topology;
-import org.apache.kafka.streams.kstream.KStream;
-import org.apache.kafka.streams.kstream.KTable;
-import org.apache.kafka.streams.kstream.Produced;
 
-public class KafkaConfiguration {
+public class KafkaFactory {
 
+  private final String bootstrapServers;
   private final Properties streamsConfiguration;
-  private final String inputTopic;
   private final Path stateDirectory;
 
 
-  public KafkaConfiguration(String bootstrapServers, String inputTopic, String appId,
+  public KafkaFactory(String bootstrapServers, String appId,
       String stateDirectory)
       throws IOException {
-    this.inputTopic = inputTopic;
+    this.bootstrapServers = bootstrapServers;
     this.streamsConfiguration = new Properties();
     streamsConfiguration.put(
         StreamsConfig.APPLICATION_ID_CONFIG, appId);
@@ -43,27 +40,19 @@ public class KafkaConfiguration {
         StreamsConfig.STATE_DIR_CONFIG, this.stateDirectory.toAbsolutePath().toString());
   }
 
-  public void buildTopology(boolean cleanUp) {
-    StreamsBuilder builder = new StreamsBuilder();
+  public KafkaProducer getKafkaProducer() {
+    Properties properties = new Properties();
+    properties.put("bootstrap.servers", this.bootstrapServers);
+    properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+    properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+    properties.put("retries", 3);
+    properties.put("max.request.size", 1024 * 1024); // limit request size to 1MB
+    return new KafkaProducer<>(properties);
+  }
 
-    KStream<String, String> textLines = builder.stream(this.inputTopic);
-    Pattern pattern = Pattern.compile("\\W+", Pattern.UNICODE_CHARACTER_CLASS);
-    KTable<String, Long> wordCounts = textLines
-        .flatMapValues(value -> Arrays.asList(pattern.split(value.toLowerCase())))
-        .groupBy((key, word) -> word)
-        .count();
-    wordCounts.toStream()
-        .foreach((word, count) -> System.out.println("word: " + word + " -> " + count));
-    String outputTopic = "outputTopic";
-    wordCounts.toStream()
-        .to(outputTopic, Produced.with(Serdes.String(), Serdes.Long()));
-
-    Topology topology = builder.build();
-
+  public KafkaStreams startJob(Topology topology) {
     KafkaStreams streams = new KafkaStreams(topology, this.streamsConfiguration);
-    if (cleanUp) {
-      streams.cleanUp();
-    }
     streams.start();
+    return streams;
   }
 }
