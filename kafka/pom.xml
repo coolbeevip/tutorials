@@ -22,12 +22,21 @@
       <groupId>org.apache.kafka</groupId>
       <artifactId>kafka-streams</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.rocksdb</groupId>
+      <artifactId>rocksdbjni</artifactId>
+      <version>5.18.4</version> <!-- RocksDB 5.18.4 and Kafka Stream 2.8.1 Compatibility -->
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
 
     <!-- test -->
     <dependency>
       <groupId>org.testcontainers</groupId>
       <artifactId>kafka</artifactId>
-      <version>1.15.3</version>
+      <version>1.16.3</version>
       <scope>test</scope>
     </dependency>
     <dependency>
