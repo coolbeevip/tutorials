@@ -55,7 +55,7 @@
     <debezium.version>1.6.1.Final</debezium.version>
 
     <!-- kafka -->
-    <kafka.version>2.8.0</kafka.version>
+    <kafka.version>2.8.1</kafka.version>
 
     <!-- jfreechart -->
     <jfreechart.version>1.5.3</jfreechart.version>
@@ -611,5 +611,6 @@
     <module>java</module>
     <module>ignite</module>
     <module>elasticsearch</module>
+    <module>iotdb</module>
   </modules>
 </project>

@@ -58,6 +58,7 @@
 
   <modules>
     <module>kafka-exactly-once</module>
+    <module>kafka-streams</module>
   </modules>
 
 </project>
