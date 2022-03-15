@@ -590,6 +590,7 @@
   </repositories>
 
   <modules>
+    <module>faker</module>
     <module>parent-spring-boot-2</module>
     <module>test</module>
     <module>antlr</module>

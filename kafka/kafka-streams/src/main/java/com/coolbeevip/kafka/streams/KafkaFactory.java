@@ -18,9 +18,14 @@ public class KafkaFactory {
   private final Properties streamsConfiguration;
   private final Path stateDirectory;
 
-
   public KafkaFactory(String bootstrapServers, String appId,
       String stateDirectory)
+      throws IOException {
+    this(bootstrapServers, appId, stateDirectory, null);
+  }
+
+  public KafkaFactory(String bootstrapServers, String appId,
+      String stateDirectory, Properties overrideStreamsConfiguration)
       throws IOException {
     this.bootstrapServers = bootstrapServers;
     this.streamsConfiguration = new Properties();
@@ -38,6 +43,11 @@ public class KafkaFactory {
     this.stateDirectory = Files.createTempDirectory(stateDirectory);
     streamsConfiguration.put(
         StreamsConfig.STATE_DIR_CONFIG, this.stateDirectory.toAbsolutePath().toString());
+
+    // override default configuration
+    if (overrideStreamsConfiguration != null) {
+      overrideStreamsConfiguration.forEach((k, v) -> streamsConfiguration.put(k, v));
+    }
   }
 
   public KafkaProducer getKafkaProducer() {
