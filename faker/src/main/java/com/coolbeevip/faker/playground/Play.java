@@ -37,7 +37,7 @@ public class Play {
     this.processes.add(process);
   }
 
-  public void go(TimeUnit intervalUnit, int interval, TimeUnit durationUnit, int duration)
+  public Future<Void> go(TimeUnit intervalUnit, int interval, TimeUnit durationUnit, int duration)
       throws ExecutionException, InterruptedException {
     long current = System.currentTimeMillis();
 
@@ -67,7 +67,6 @@ public class Play {
       return null;
     };
 
-    Future<Void> future = executor.submit(callableTask);
-    future.get();
+    return executor.submit(callableTask);
   }
 }

@@ -66,9 +66,12 @@ public class ComplexEventProcessingTest {
     kafka.stop();
   }
 
+  /**
+   * 单事件 CPU 利用率阀值过滤
+   */
   @Test
   @SneakyThrows
-  public void singleEventSingleThresholdTopologyTest() {
+  public void singleEventCpuUsageThresholdTopologyTest() {
     // 创建 Kafka 连接
     String bootstrapServers = kafka.getBootstrapServers();
     String applicationId = "tutorials-kafka-streams";
@@ -76,8 +79,9 @@ public class ComplexEventProcessingTest {
     KafkaFactory factory = new KafkaFactory(bootstrapServers, applicationId, stateDirectory);
 
     // 启动流拓扑
+    double threshold = 0.8;
     Set<String> filterSet = new HashSet<>();
-    factory.startJob(buildSingleEventSingleThresholdTopology(filterSet));
+    factory.startJob(buildSingleEventCpuUsageThresholdTopology(filterSet, threshold));
 
     // 启动性能数据模拟
     WeightedCollection<RiskLevel> weightedCollection = new WeightedCollection();
@@ -88,21 +92,26 @@ public class ComplexEventProcessingTest {
     playStart(factory.getKafkaProducer(), weightedCollection);
 
     Awaitility.await().atMost(60, SECONDS).until(
-        () -> filterSet.size() > 0);
-    filterSet.forEach(s -> log.info(s));
+        () -> filterSet.size() > 0 && filterSet.stream().filter(s -> {
+          try {
+            return mapper.readTree(s).at("/cpu/usage").asDouble() > threshold;
+          } catch (JsonProcessingException e) {
+            return false;
+          }
+        }).count() == filterSet.size());
   }
 
 
   /**
    * 单事件-单指标阀值
    */
-  private Topology buildSingleEventSingleThresholdTopology(Set<String> filterSet) {
+  private Topology buildSingleEventCpuUsageThresholdTopology(Set<String> filterSet, double threshold) {
     StreamsBuilder builder = new StreamsBuilder();
     KStream<String, String> textLines = builder.stream(inputTopic);
     textLines.filter((k, v) -> {
       try {
         JsonNode root = mapper.readTree(v);
-        return root.at("/cpu/usage").asDouble() > 0.8;
+        return root.at("/cpu/usage").asDouble() > threshold;
       } catch (JsonProcessingException e) {
         log.error("解析原始数据错误 {}", v);
         return false;
