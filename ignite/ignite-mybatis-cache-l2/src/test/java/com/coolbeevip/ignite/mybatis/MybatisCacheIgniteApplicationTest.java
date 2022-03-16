@@ -64,8 +64,8 @@ public class MybatisCacheIgniteApplicationTest {
 
   @Test
   public void initAddressTest() {
-    int total = 100000;
-    int batchSize = 5000;
+    int total = 12000;
+    int batchSize = 1000;
     List<AddressDO> addresses = new ArrayList<>();
     while (total > 0) {
       if (addresses.size() < batchSize) {
