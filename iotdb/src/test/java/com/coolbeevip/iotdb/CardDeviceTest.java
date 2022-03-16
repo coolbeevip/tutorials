@@ -17,6 +17,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
 import org.testcontainers.utility.DockerImageName;
 
 public class CardDeviceTest {
@@ -33,7 +34,7 @@ public class CardDeviceTest {
     iotdb = new GenericContainer(DockerImageName.parse("apache/iotdb:0.12.5"));
     iotdb.withExposedPorts(IOTDB_RPC_PORT)
         .withAccessToHost(true)
-        //.waitingFor(new LogMessageWaitStrategy().withRegEx("IoTDB has started"))
+        .waitingFor(new LogMessageWaitStrategy().withRegEx(".*IoTDB has started.*"))
         .start();
     session = new Session.Builder()
         .host("127.0.0.1")
