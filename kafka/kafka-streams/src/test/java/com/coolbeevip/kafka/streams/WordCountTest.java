@@ -18,6 +18,9 @@ import org.apache.kafka.streams.kstream.KTable;
 import org.awaitility.Awaitility;
 import org.junit.Test;
 
+/**
+ * 单词计数器
+ */
 @Slf4j
 public class WordCountTest extends KafkaStreamsTestKit {
 

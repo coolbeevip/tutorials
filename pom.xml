@@ -30,7 +30,10 @@
     <flyway.version>7.8.1</flyway.version>
 
     <!-- mysql -->
-    <mysql-connector-java.version>8.0.20</mysql-connector-java.version>
+    <mysql.version>8.0.20</mysql.version>
+
+    <!-- postgresql -->
+    <postgresql.version>42.2.13</postgresql.version>
 
     <!-- logging -->
     <org.slf4j.version>1.7.30</org.slf4j.version>
@@ -138,7 +141,14 @@
       <dependency>
         <groupId>mysql</groupId>
         <artifactId>mysql-connector-java</artifactId>
-        <version>${mysql-connector-java.version}</version>
+        <version>${mysql.version}</version>
+      </dependency>
+
+      <!-- postgresql -->
+      <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>${postgresql.version}</version>
       </dependency>
 
       <!--sharding sphere-->

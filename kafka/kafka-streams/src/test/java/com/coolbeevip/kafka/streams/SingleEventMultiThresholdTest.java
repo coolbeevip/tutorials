@@ -17,6 +17,9 @@ import org.apache.kafka.streams.kstream.KStream;
 import org.awaitility.Awaitility;
 import org.junit.Test;
 
+/**
+ * 单事件多单指标阀值过滤
+ */
 @Slf4j
 public class SingleEventMultiThresholdTest extends KafkaStreamsTestKit {
 
