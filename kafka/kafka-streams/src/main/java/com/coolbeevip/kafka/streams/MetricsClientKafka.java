@@ -25,7 +25,7 @@ public class MetricsClientKafka implements MetricsClient {
             record.value(),
             ex);
       } else {
-        log.info("Sent {} to {} with offset {} at {}", json, md.partition(), md.offset(),
+        log.debug("Sent {} to {} with offset {} at {}", json, md.partition(), md.offset(),
             md.timestamp());
       }
     });

@@ -24,13 +24,18 @@ public class Play {
   private List<Host> hosts = new ArrayList<>();
   private List<Proc> processes = new ArrayList<>();
 
+  public Play(MetricsClient client) {
+    this(client, null);
+  }
+
   public Play(MetricsClient client, WeightedCollection weightedCollection) {
     this.client = client;
     this.weightedCollection = weightedCollection;
   }
 
-  public void addHost(Host host) {
+  public Host addHost(Host host) {
     this.hosts.add(host);
+    return host;
   }
 
   public void addProcess(Proc process) {
@@ -68,5 +73,9 @@ public class Play {
     };
 
     return executor.submit(callableTask);
+  }
+
+  public void push(String json) {
+    this.client.push(json);
   }
 }

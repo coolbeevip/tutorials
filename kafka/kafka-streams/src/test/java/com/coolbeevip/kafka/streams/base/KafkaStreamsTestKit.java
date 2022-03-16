@@ -21,6 +21,7 @@ import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.utility.DockerImageName;
 
 public class KafkaStreamsTestKit {
+  protected static Faker faker = new Faker();
   protected static KafkaContainer kafka;
   protected static KafkaFactory factory;
   protected static ObjectMapper mapper = new ObjectMapper();
@@ -53,7 +54,6 @@ public class KafkaStreamsTestKit {
       throws ExecutionException, InterruptedException {
     MetricsClient client = new MetricsClientKafka(producer, inputTopic);
     Play play = new Play(client, weightedCollection);
-    Faker faker = new Faker();
 
     Host host1 = faker.host("192.168.0.1", 16, 976490576, 2033396);
     play.addHost(host1);
@@ -67,5 +67,11 @@ public class KafkaStreamsTestKit {
     play.addProcess(processBackend);
 
     play.go(TimeUnit.SECONDS, 1, TimeUnit.MINUTES, 10);
+  }
+
+  protected Play getPlay(String inputTopic, KafkaProducer producer){
+    MetricsClient client = new MetricsClientKafka(producer, inputTopic);
+    Play play = new Play(client);
+    return play;
   }
 }

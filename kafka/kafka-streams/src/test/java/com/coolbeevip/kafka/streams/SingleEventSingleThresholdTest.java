@@ -42,6 +42,7 @@ public class SingleEventSingleThresholdTest extends KafkaStreamsTestKit {
     weightedCollection.add(2, RiskLevel.MID);
     weightedCollection.add(3, RiskLevel.NORMAL);
     weightedCollection.add(5, RiskLevel.HIGH);
+
     playStart(inputTopic, factory.getKafkaProducer(), weightedCollection);
 
     Awaitility.await().atMost(60, SECONDS).until(
