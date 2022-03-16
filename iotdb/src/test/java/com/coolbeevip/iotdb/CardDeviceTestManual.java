@@ -13,7 +13,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class CardDeviceTest {
+public class CardDeviceTestManual {
 
   private String storage_group = "root.zhanglei";
   private static Session session;

@@ -2,7 +2,7 @@ package com.coolbeevip.iotdb;
 
 import org.junit.Test;
 
-public class OopsTest {
+public class OopsTestManual {
 
   @Test
   public void test(){

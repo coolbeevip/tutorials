@@ -2,6 +2,7 @@ package com.coolbeevip.kafka.streams;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+import com.coolbeevip.kafka.streams.base.KafkaStreamsTestKit;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,31 +16,12 @@ import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.awaitility.Awaitility;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.testcontainers.containers.KafkaContainer;
-import org.testcontainers.utility.DockerImageName;
 
 @Slf4j
-public class WordCountTest {
+public class WordCountTest extends KafkaStreamsTestKit {
 
-  static KafkaContainer kafka;
   String inputTopic = "input-topic";
-
-  @BeforeClass
-  public static void setup() {
-    /**
-     Confluentinc Kafka:6.2.2 and Apache Kafka 2.8.1 Compatibility
-     */
-    kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:6.2.2"));
-    kafka.start();
-  }
-
-  @AfterClass
-  public static void tearDown() {
-    kafka.stop();
-  }
 
   @Test
   @SneakyThrows

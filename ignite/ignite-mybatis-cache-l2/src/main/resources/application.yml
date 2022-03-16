@@ -6,6 +6,7 @@ spring:
     username: test
     password: test
     url: "jdbc:mysql://10.19.88.60:33305/test?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true&allowPublicKeyRetrieval=true"
+    initialization-mode: always
 
 logging:
   level:
