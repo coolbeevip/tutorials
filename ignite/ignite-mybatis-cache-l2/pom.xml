@@ -12,6 +12,17 @@
 
   <artifactId>ignite-mybatis-cache-l2</artifactId>
 
+  <dependencyManagement>
+    <dependencies>
+      <!-- ignite 只与 1.4.197 版本兼容 -->
+      <dependency>
+        <groupId>com.h2database</groupId>
+        <artifactId>h2</artifactId>
+        <version>1.4.197</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
