@@ -77,7 +77,7 @@
     <mybatis-spring.version>2.0.6</mybatis-spring.version>
     <mybatis-ignite.version>1.1.0</mybatis-ignite.version>
 
-    <shardingsphere.version>5.0.0-RC1-SNAPSHOT</shardingsphere.version>
+    <shardingsphere.version>5.1.0</shardingsphere.version>
 
     <ignite.version>2.11.1</ignite.version>
 
@@ -504,6 +504,12 @@
         <version>${junit-jupiter.version}</version>
       </dependency>
 
+      <!-- testcontainers -->
+      <dependency>
+        <groupId>org.testcontainers</groupId>
+        <artifactId>testcontainers</artifactId>
+        <version>${testcontainers.version}</version>
+      </dependency>
       <dependency>
         <groupId>org.testcontainers</groupId>
         <artifactId>mysql</artifactId>
@@ -511,7 +517,7 @@
       </dependency>
       <dependency>
         <groupId>org.testcontainers</groupId>
-        <artifactId>mssqlserver</artifactId>
+        <artifactId>kafka</artifactId>
         <version>${testcontainers.version}</version>
       </dependency>
 
