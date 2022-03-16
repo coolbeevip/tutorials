@@ -1,7 +1,6 @@
 package com.coolbeevip.kafka.streams;
 
 import com.coolbeevip.faker.core.MetricsClient;
-import java.util.Arrays;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;

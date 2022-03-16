@@ -19,12 +19,12 @@ import org.apache.arrow.vector.complex.StructVector;
 import org.apache.arrow.vector.ipc.ArrowFileReader;
 import org.apache.arrow.vector.ipc.SeekableReadChannel;
 import org.apache.arrow.vector.types.pojo.Schema;
+import org.apache.commons.lang3.time.StopWatch;
 import org.coolbeevip.arrow.labs.Address;
 import org.coolbeevip.arrow.labs.ChunkedWriter;
 import org.coolbeevip.arrow.labs.Person;
 import org.coolbeevip.arrow.labs.PersonVectorized;
 import org.coolbeevip.arrow.labs.SchemaRepositories;
-import org.apache.commons.lang3.time.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

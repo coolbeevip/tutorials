@@ -2,7 +2,6 @@ package com.coolbeevip.ignite.mybatis.repository;
 
 import com.coolbeevip.ignite.mybatis.cache.IgniteCacheAdapter;
 import com.coolbeevip.ignite.mybatis.entities.AddressDO;
-import com.coolbeevip.ignite.mybatis.entities.CountryDO;
 import java.util.List;
 import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Insert;

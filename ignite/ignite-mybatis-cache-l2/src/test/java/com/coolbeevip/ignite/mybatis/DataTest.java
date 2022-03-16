@@ -7,7 +7,6 @@ import com.coolbeevip.ignite.mybatis.repository.CountryRepository;
 import com.github.javafaker.Address;
 import com.github.javafaker.Country;
 import com.github.javafaker.Faker;
-import com.github.javafaker.Name;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;

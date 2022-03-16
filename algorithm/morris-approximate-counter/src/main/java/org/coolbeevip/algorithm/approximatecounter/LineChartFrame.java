@@ -1,6 +1,5 @@
 package org.coolbeevip.algorithm.approximatecounter;
 
-import java.awt.GraphicsConfiguration;
 import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;

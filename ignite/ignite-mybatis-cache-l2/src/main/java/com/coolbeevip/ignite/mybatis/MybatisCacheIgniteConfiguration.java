@@ -1,13 +1,5 @@
 package com.coolbeevip.ignite.mybatis;
 
-import java.util.Arrays;
-import org.apache.ignite.cache.CacheMode;
-import org.apache.ignite.configuration.CacheConfiguration;
-import org.apache.ignite.configuration.IgniteConfiguration;
-import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi;
-import org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder;
-import org.springframework.context.annotation.Bean;
-
 public class MybatisCacheIgniteConfiguration {
 
 //  @Bean
