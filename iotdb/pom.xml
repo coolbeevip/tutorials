@@ -12,7 +12,7 @@
   <artifactId>iotdb</artifactId>
 
   <properties>
-    <iotdb.version>0.13.0-SNAPSHOT</iotdb.version>
+    <iotdb.version>0.13.0</iotdb.version>
     <jcommander.version>1.78</jcommander.version>
   </properties>
 

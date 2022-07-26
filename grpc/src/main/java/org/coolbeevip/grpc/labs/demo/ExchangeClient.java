@@ -25,7 +25,7 @@ public class ExchangeClient {
 
   public ExchangeClient(String host, int port) {
     channel = ManagedChannelBuilder.forAddress(host, port)
-        .usePlaintext(true).build();
+        .usePlaintext().build();
     blockingStub = ExchangeServiceGrpc.newBlockingStub(channel);
     asyncStub = ExchangeServiceGrpc.newStub(channel);
   }
