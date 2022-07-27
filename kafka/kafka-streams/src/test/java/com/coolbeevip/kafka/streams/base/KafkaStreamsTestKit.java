@@ -31,7 +31,7 @@ public class KafkaStreamsTestKit {
     /**
      Confluentinc Kafka:6.2.2 and Apache Kafka 2.8.1 Compatibility
      */
-    kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:6.2.2"));
+    kafka = new KafkaContainer(DockerImageName.parse("confluentinc/cp-kafka:7.1.0-1-ubi8"));
     kafka.start();
 
     // 创建 Kafka 连接

@@ -1,6 +1,7 @@
 package com.coolbeevip.ignite.mybatis.cache;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.concurrent.locks.ReadWriteLock;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.cache.Cache;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 
 @Slf4j
@@ -22,9 +24,9 @@ public final class IgniteCacheAdapter implements Cache {
   private final ReadWriteLock readWriteLock = new DummyReadWriteLock();
   private static final Ignite ignite;
   private final IgniteCache<Object, Object> cache;
-  public static String CFG_PATH = "/Users/zhanglei/coolbeevip/tutorials/ignite/ignite-mybatis-cache-l2/src/main/resources/ignite-local-cache-config.xml";
-  //public static String CFG_PATH = "/Users/zhanglei/coolbeevip/tutorials/ignite/ignite-mybatis-cache-l2/src/main/resources/ignite-client-cache-config.xml";
-  //public static String CFG_PATH = "/Users/zhanglei/coolbeevip/tutorials/ignite/ignite-mybatis-cache-l2/src/main/resources/ignite-cluster-cache-config.xml";
+  public static String CFG_PATH = IgniteCacheAdapter.class.getClassLoader().getResource("ignite-local-cache-config.xml").getFile();
+  //public static String CFG_PATH = IgniteCacheAdapter.class.getClassLoader().getResource("ignite-client-cache-config.xml");
+  //public static String CFG_PATH = IgniteCacheAdapter.class.getClassLoader().getResource("ignite-cluster-cache-config.xml");
 
   static {
     boolean started = false;

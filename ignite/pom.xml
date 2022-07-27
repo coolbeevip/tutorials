@@ -59,6 +59,12 @@
       <groupId>org.hamcrest</groupId>
       <artifactId>hamcrest-all</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.coolbeevip</groupId>
+      <artifactId>test</artifactId>
+      <version>${project.version}</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <modules>

@@ -195,7 +195,7 @@ public class MybatisCacheIgniteApplicationTest {
 
   @BeforeAll
   public static void setup() {
-    mssql = new MySQLContainer<>(DockerImageName.parse("mysql:5.7"))
+    mssql = new MySQLContainer<>(DockerImageName.parse("mysql:8.0.30"))
         .withUsername("test")
         .withPassword("test")
         .withDatabaseName("test");
