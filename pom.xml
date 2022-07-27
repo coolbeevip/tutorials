@@ -53,7 +53,7 @@
     <!-- arrow -->
     <arrow.version>5.0.0</arrow.version>
 
-    <rocksdb.version>6.20.3</rocksdb.version>
+    <rocksdb.version>6.29.4.1</rocksdb.version>
 
     <debezium.version>1.6.1.Final</debezium.version>
 
@@ -65,8 +65,6 @@
 
     <!-- grpc -->
     <grpc.version>1.44.1</grpc.version>
-<!--    <protobuf.version>3.19.2</protobuf.version>-->
-<!--    <protoc.version>3.10.0</protoc.version>-->
     <netty.version>4.1.77.Final</netty.version> <!-- compatible gRPC 1.25.0 -->
     <netty-tcnative-boringssl-static.version>2.0.48.Final</netty-tcnative-boringssl-static.version>
     <protobuf-java.version>3.19.2</protobuf-java.version>
@@ -257,6 +255,11 @@
         <groupId>org.apache.ratis</groupId>
         <artifactId>ratis-thirdparty-misc</artifactId>
         <version>${ratis.thirdparty.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.ratis</groupId>
+        <artifactId>ratis-metrics</artifactId>
+        <version>${ratis.version}</version>
       </dependency>
       <dependency>
         <groupId>org.apache.ratis</groupId>
@@ -668,4 +671,38 @@
     <module>elasticsearch</module>
     <module>iotdb</module>
   </modules>
+
+  <profiles>
+    <profile>
+      <!-- https://github.com/grpc/grpc-java/issues/7690 -->
+      <id>macos-m1</id>
+      <build>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.xolstice.maven.plugins</groupId>
+              <artifactId>protobuf-maven-plugin</artifactId>
+              <version>${protobuf-maven-plugin.version}</version>
+              <configuration>
+                <protocArtifact>com.google.protobuf:protoc:${protobuf-java.version}:exe:osx-x86_64
+                </protocArtifact>
+                <pluginId>grpc-java</pluginId>
+                <pluginArtifact>
+                  io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:osx-x86_64
+                </pluginArtifact>
+              </configuration>
+              <executions>
+                <execution>
+                  <goals>
+                    <goal>compile</goal>
+                    <goal>compile-custom</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+      </build>
+    </profile>
+  </profiles>
 </project>

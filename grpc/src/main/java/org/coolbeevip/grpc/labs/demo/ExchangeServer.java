@@ -30,9 +30,12 @@ public class ExchangeServer {
     this.port = port;
     this.server = NettyServerBuilder.forPort(port)
         .addService(new ExchangeService())
-        .channelType(selectorServerChannel())
-        .bossEventLoopGroup(selectorEventLoopGroup(1))
-        .workerEventLoopGroup(selectorEventLoopGroup(0))
+//        .channelType(selectorServerChannel())
+//        .bossEventLoopGroup(selectorEventLoopGroup(1))
+//        .workerEventLoopGroup(selectorEventLoopGroup(0))
+        .channelType(NioServerSocketChannel.class)
+        .bossEventLoopGroup(new NioEventLoopGroup(1))
+        .workerEventLoopGroup(new NioEventLoopGroup())
         .build();
   }
 

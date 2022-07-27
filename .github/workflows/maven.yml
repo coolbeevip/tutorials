@@ -43,5 +43,4 @@ jobs:
 
       - name: Build with Maven
         if: ${{ success() }}
-        run: ./mvnw clean package verify
-        #run: ./mvnw -T 1.5C -B package verify --file pom.xml
+        run: ./mvnw -fae clean package verify
