@@ -31,7 +31,7 @@ public class CardDeviceTest {
   @SneakyThrows
   public static void setup() throws IOException {
     //docker run --rm --name some-iotdb -p 6667:6667 -p 31999:31999 -p 8181:8181 apache/iotdb:0.12.5
-    iotdb = new GenericContainer(DockerImageName.parse("apache/iotdb:0.12.5"));
+    iotdb = new GenericContainer(DockerImageName.parse("apache/iotdb:0.12.6-node"));
     iotdb.withExposedPorts(IOTDB_RPC_PORT)
         .withAccessToHost(true)
         .waitingFor(new LogMessageWaitStrategy().withRegEx(".*IoTDB has started.*"))
