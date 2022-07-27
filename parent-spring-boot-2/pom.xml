@@ -14,7 +14,7 @@
   <properties>
     <rest-assured.version>3.3.0</rest-assured.version>
     <thin.version>1.0.22.RELEASE</thin.version>
-    <spring-boot.version>2.7.2</spring-boot.version>
+    <spring-boot.version>2.6.10</spring-boot.version>
     <aspectjweaver.version>1.9.1</aspectjweaver.version>
     <mockito.version>3.4.0</mockito.version>
   </properties>
