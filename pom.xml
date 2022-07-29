@@ -30,7 +30,7 @@
     <flyway.version>7.8.1</flyway.version>
 
     <!-- mysql -->
-    <mysql.version>8.0.20</mysql.version>
+    <mysql.version>8.0.27</mysql.version>
 
     <!-- postgresql -->
     <postgresql.version>42.2.25</postgresql.version>
@@ -122,6 +122,7 @@
     <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
     <lombok.version>1.18.16</lombok.version>
     <h2.version>2.0.206</h2.version>
+    <elasticsearch.version>7.9.2</elasticsearch.version>
     <testcontainers.version>1.17.3</testcontainers.version>
   </properties>
 
@@ -187,6 +188,23 @@
         <groupId>org.apache.ignite</groupId>
         <artifactId>ignite-spring</artifactId>
         <version>${ignite.version}</version>
+      </dependency>
+
+      <!-- elasticsearch -->
+      <dependency>
+        <groupId>org.elasticsearch</groupId>
+        <artifactId>elasticsearch</artifactId>
+        <version>${elasticsearch.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.elasticsearch.client</groupId>
+        <artifactId>elasticsearch-rest-client</artifactId>
+        <version>${elasticsearch.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.elasticsearch.client</groupId>
+        <artifactId>elasticsearch-rest-high-level-client</artifactId>
+        <version>${elasticsearch.version}</version>
       </dependency>
 
       <!-- mybatis -->
