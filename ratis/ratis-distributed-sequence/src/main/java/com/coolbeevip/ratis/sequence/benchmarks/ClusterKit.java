@@ -15,9 +15,9 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class ClusterKit {
 
   public static List<String> peerAddress = Arrays.asList(
-      "127.0.0.1:" + TutorialsTestSuite.getInstance().findAvailableTcpPort(),
-      "127.0.0.1:" + TutorialsTestSuite.getInstance().findAvailableTcpPort(),
-      "127.0.0.1:" + TutorialsTestSuite.getInstance().findAvailableTcpPort());
+      "127.0.0.1:40062",// + TutorialsTestSuite.getInstance().findAvailableTcpPort(),
+      "127.0.0.1:40750",// + TutorialsTestSuite.getInstance().findAvailableTcpPort(),
+      "127.0.0.1:40822");// + TutorialsTestSuite.getInstance().findAvailableTcpPort());
 
   public static List<SequenceServer> servers = new ArrayList<>();
 

@@ -20,6 +20,7 @@ import org.apache.ratis.protocol.RaftGroupId;
 import org.apache.ratis.protocol.RaftPeer;
 import org.apache.ratis.server.RaftServer;
 import org.apache.ratis.server.RaftServerConfigKeys;
+import org.apache.ratis.statemachine.StateMachine;
 import org.apache.ratis.util.LifeCycle.State;
 import org.apache.ratis.util.NetUtils;
 import org.apache.ratis.util.TimeDuration;
@@ -48,14 +49,17 @@ public class SequenceServer {
 
   private void initRaftProperties() {
     this.properties = new RaftProperties();
+
     RaftServerConfigKeys.Rpc
         .setTimeoutMin(properties, TimeDuration.valueOf(100, TimeUnit.MILLISECONDS));
     RaftServerConfigKeys.Rpc
         .setTimeoutMax(properties, TimeDuration.valueOf(600, TimeUnit.MILLISECONDS));
 
-    // 启动 SNAPSHOT 并设置每 200 条事件触发，目前有BUG
-    // Snapshot.setAutoTriggerEnabled(properties,true);
-    // Snapshot.setAutoTriggerThreshold(properties,400000L);
+    // 启动 SNAPSHOT 并设置每 200 条事件触发
+    properties.setClass("SequenceServer.statemachine.class",
+        SequenceStateMachine.class, StateMachine.class);
+    RaftServerConfigKeys.Snapshot.setAutoTriggerThreshold(properties, 10);
+    RaftServerConfigKeys.Snapshot.setAutoTriggerEnabled(properties, true);
   }
 
   private void initRaftStorageDir() throws IOException {

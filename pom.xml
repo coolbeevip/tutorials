@@ -43,6 +43,9 @@
     <scala.binary.version>2.13</scala.binary.version>
     <akka.version>2.6.14</akka.version>
 
+    <!-- syslog4j -->
+    <syslog4j.version>0.9.30</syslog4j.version>
+
     <!-- antlr -->
     <antlr.version>4.7.1</antlr.version>
 
@@ -670,6 +673,7 @@
     <module>ignite</module>
     <module>elasticsearch</module>
     <module>iotdb</module>
+    <module>syslog</module>
   </modules>
 
   <profiles>
