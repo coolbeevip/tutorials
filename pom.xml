@@ -123,7 +123,7 @@
     <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
     <lombok.version>1.18.16</lombok.version>
     <h2.version>2.0.206</h2.version>
-    <elasticsearch.version>7.9.2</elasticsearch.version>
+    <elasticsearch.version>7.14.0</elasticsearch.version>
     <testcontainers.version>1.17.3</testcontainers.version>
   </properties>
 
