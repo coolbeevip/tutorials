@@ -30,7 +30,7 @@
     <flyway.version>7.8.1</flyway.version>
 
     <!-- mysql -->
-    <mysql.version>8.0.27</mysql.version>
+    <mysql.version>8.0.28</mysql.version>
 
     <!-- postgresql -->
     <postgresql.version>42.3.3</postgresql.version>
