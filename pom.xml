@@ -49,6 +49,9 @@
     <!-- antlr -->
     <antlr.version>4.7.1</antlr.version>
 
+    <nacos.spring-boot.version>0.2.12</nacos.spring-boot.version>
+    <nacos.version>2.1.0</nacos.version>
+
     <!-- ratis -->
     <ratis.version>2.3.0</ratis.version>
     <ratis.thirdparty.version>1.0.0</ratis.thirdparty.version>
@@ -169,6 +172,23 @@
         <groupId>org.apache.shardingsphere</groupId>
         <artifactId>shardingsphere-jdbc-core</artifactId>
         <version>${shardingsphere.version}</version>
+      </dependency>
+
+      <!-- nacos -->
+      <dependency>
+        <groupId>com.alibaba.nacos</groupId>
+        <artifactId>nacos-client</artifactId>
+        <version>${nacos.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba.boot</groupId>
+        <artifactId>nacos-config-spring-boot-starter</artifactId>
+        <version>${nacos.spring-boot.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.alibaba.boot</groupId>
+        <artifactId>nacos-discovery-spring-boot-starter</artifactId>
+        <version>${nacos.spring-boot.version}</version>
       </dependency>
 
       <dependency>
@@ -723,6 +743,7 @@
     <module>iotdb</module>
     <module>syslog</module>
     <module>cucumber</module>
+    <module>nacos</module>
   </modules>
 
   <profiles>
