@@ -74,7 +74,7 @@
     <netty.version>4.1.77.Final</netty.version> <!-- compatible gRPC 1.25.0 -->
     <netty-tcnative-boringssl-static.version>2.0.48.Final</netty-tcnative-boringssl-static.version>
     <protobuf-java.version>3.19.2</protobuf-java.version>
-
+    <spring-boot.version>2.6.10</spring-boot.version>
     <spark.version>2.4.4</spark.version>
     <scala.version>2.12</scala.version>
 
@@ -128,7 +128,7 @@
     <h2.version>2.0.206</h2.version>
     <elasticsearch.version>7.11.2</elasticsearch.version>
     <testcontainers.version>1.17.3</testcontainers.version>
-    <cucumber-java.version>7.0.0</cucumber-java.version>
+    <cucumber.version>7.5.0</cucumber.version>
   </properties>
 
   <dependencyManagement>
@@ -370,6 +370,26 @@
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
         <version>${lombok.version}</version>
+      </dependency>
+
+      <!-- spring boot -->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+        <version>${spring-boot.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+          </exclusion>
+        </exclusions>
       </dependency>
 
       <!-- jmh -->
@@ -615,7 +635,17 @@
       <dependency>
         <groupId>io.cucumber</groupId>
         <artifactId>cucumber-java</artifactId>
-        <version>${cucumber-java.version}</version>
+        <version>${cucumber.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-java8</artifactId>
+        <version>${cucumber.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.cucumber</groupId>
+        <artifactId>cucumber-junit</artifactId>
+        <version>${cucumber.version}</version>
       </dependency>
 
       <dependency>
