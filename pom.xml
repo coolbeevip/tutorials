@@ -63,6 +63,8 @@
 
     <debezium.version>1.6.1.Final</debezium.version>
 
+    <servicecomb.pack.version>0.7.1</servicecomb.pack.version>
+
     <!-- kafka -->
     <kafka.version>2.8.1</kafka.version>
 
@@ -71,7 +73,7 @@
 
     <!-- grpc -->
     <grpc.version>1.44.1</grpc.version>
-    <netty.version>4.1.77.Final</netty.version> <!-- compatible gRPC 1.25.0 -->
+    <netty.version>4.1.79.Final</netty.version> <!-- compatible gRPC 1.25.0 -->
     <netty-tcnative-boringssl-static.version>2.0.48.Final</netty-tcnative-boringssl-static.version>
     <protobuf-java.version>3.19.2</protobuf-java.version>
     <spring-boot.version>2.6.10</spring-boot.version>
@@ -191,6 +193,7 @@
         <version>${nacos.spring-boot.version}</version>
       </dependency>
 
+      <!-- ignite -->
       <dependency>
         <groupId>org.apache.ignite</groupId>
         <artifactId>ignite-core</artifactId>
@@ -210,6 +213,23 @@
         <groupId>org.apache.ignite</groupId>
         <artifactId>ignite-spring</artifactId>
         <version>${ignite.version}</version>
+      </dependency>
+
+      <!-- servicecomb pack -->
+      <dependency>
+        <groupId>org.apache.servicecomb.pack</groupId>
+        <artifactId>omega-spring-starter</artifactId>
+        <version>${servicecomb.pack.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.servicecomb.pack</groupId>
+        <artifactId>omega-transport-resttemplate</artifactId>
+        <version>${servicecomb.pack.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.servicecomb.pack</groupId>
+        <artifactId>omega-spring-cloud-nacos-starter</artifactId>
+        <version>${servicecomb.pack.version}</version>
       </dependency>
 
       <!-- elasticsearch -->
@@ -774,6 +794,7 @@
     <module>syslog</module>
     <module>cucumber</module>
     <module>nacos</module>
+    <module>distributed-transaction</module>
   </modules>
 
   <profiles>
