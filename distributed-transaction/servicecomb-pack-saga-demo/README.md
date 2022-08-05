@@ -108,12 +108,14 @@ $ curl http://127.0.0.1:8002/bookings
 
 #### UI
 
-Visit http://127.0.0.1:8090/
-
-You can see 1 successful transaction and 1 compensated transaction in Alpha UI Dashboard 
+Visit http://127.0.0.1:8090/ you can see two transactions, one successful and the other compensated.
 
 ![img.png](images/alpha-ui-dashboard.png)
 
-You can see details transactions in Alpha UI Saga List
+You can see two transactions on the Saga list page.
 
 ![img.png](images/alpha-ui-saga-list.png)
+
+Click on an item to see the transaction details.
+
+![img.png](images/alpha-ui-saga-item.png)
