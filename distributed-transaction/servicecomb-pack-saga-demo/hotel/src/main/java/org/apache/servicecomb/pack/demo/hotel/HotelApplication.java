@@ -15,14 +15,14 @@
  * limitations under the License.
  */
 
-package org.apache.servicecomb.pack.demo.booking;
+package org.apache.servicecomb.pack.demo.hotel;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Application {
+public class HotelApplication {
   public static void main(String[] args) {
-    SpringApplication.run(Application.class, args);
+    SpringApplication.run(HotelApplication.class, args);
   }
 }

@@ -37,6 +37,10 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-undertow</artifactId>
+    </dependency>
+    <dependency>
       <groupId>org.apache.servicecomb.pack</groupId>
       <artifactId>omega-spring-starter</artifactId>
     </dependency>
@@ -44,59 +48,15 @@
        <groupId>org.apache.servicecomb.pack</groupId>
        <artifactId>omega-transport-resttemplate</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.apache.servicecomb.pack</groupId>
-      <artifactId>omega-spring-cloud-nacos-starter</artifactId>
-    </dependency>
   </dependencies>
 
   <build>
     <plugins>
-      <!-- mixin plugin configurations declared in another pom,
-      just like importing dependencies managed in another pom -->
-      <plugin>
-        <groupId>com.github.odavid.maven.plugins</groupId>
-        <artifactId>mixin-maven-plugin</artifactId>
-      </plugin>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
-
-  <profiles>
-    <profile>
-      <id>docker</id>
-      <activation>
-        <file>
-          <exists>/var/run/docker.sock</exists>
-        </file>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>io.fabric8</groupId>
-            <artifactId>docker-maven-plugin</artifactId>
-          </plugin>
-          <plugin>
-            <groupId>org.commonjava.maven.plugins</groupId>
-            <artifactId>directory-maven-plugin</artifactId>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>demo</id>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-dependency-plugin</artifactId>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
 
 </project>
