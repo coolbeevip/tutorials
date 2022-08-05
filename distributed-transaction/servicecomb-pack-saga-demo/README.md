@@ -7,15 +7,15 @@ git clone https://github.com/apache/servicecomb-pack.git
 ./mvnw clean package -DskipTests 
 ```
 
-## Start ServiceComb Pack Alpha
+## Run ServiceComb Pack Alpha
 
-Start Elasticsearch
+Run Elasticsearch
 
 ```shell
 docker run -d --rm --name elasticsearch-pack -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" elasticsearch:7.17.1
 ```
 
-Start Alpha
+Run Alpha
 
 ```shell
 java -jar alpha/alpha-server/target/saga/alpha-server-0.7.1-exec.jar \
@@ -27,9 +27,9 @@ java -jar alpha/alpha-server/target/saga/alpha-server-0.7.1-exec.jar \
   --alpha.spec.saga.akka.repository.elasticsearch.uris=http://127.0.0.1:9200
 ```
 
-## Start Demo
+## Run Demo
 
-Start Car Service
+Run Car Service
 
 ```shell
 java -jar car/target/car-1.0.0-SNAPSHOT-exec.jar \
@@ -38,7 +38,7 @@ java -jar car/target/car-1.0.0-SNAPSHOT-exec.jar \
   --alpha.cluster.address=127.0.0.1:8080
 ```
 
-Start Hotel Service
+Run Hotel Service
 
 ```shell
 java -jar hotel/target/hotel-1.0.0-SNAPSHOT-exec.jar \
@@ -47,7 +47,7 @@ java -jar hotel/target/hotel-1.0.0-SNAPSHOT-exec.jar \
   --alpha.cluster.address=127.0.0.1:8080
 ```
 
-Start Booking Service
+Run Booking Service
 
 ```shell
 java -jar booking/target/booking-1.0.0-SNAPSHOT-exec.jar \
@@ -86,7 +86,7 @@ $ curl http://127.0.0.1:8002/bookings
 ```
 
 
-#### Order-2(failed)
+#### Order-2(compensation after car booking failed)
 
 1 room and 11 cars（car limit <=10）
 
