@@ -7,9 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author zhanglei
  */
 @SpringBootApplication
-public class BookingApplication {
+public class ShoppingApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(BookingApplication.class, args);
+    SpringApplication.run(ShoppingApplication.class, args);
   }
 }

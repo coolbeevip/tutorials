@@ -131,6 +131,7 @@
     <elasticsearch.version>7.11.2</elasticsearch.version>
     <testcontainers.version>1.17.3</testcontainers.version>
     <cucumber.version>7.5.0</cucumber.version>
+    <opentelemetry.version>1.16.0</opentelemetry.version>
   </properties>
 
   <dependencyManagement>
@@ -446,6 +447,21 @@
         <version>${grpc.version}</version>
       </dependency>
       <dependency>
+        <groupId>io.grpc</groupId>
+        <artifactId>grpc-services</artifactId>
+        <version>${grpc.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.grpc</groupId>
+        <artifactId>grpc-netty-shaded</artifactId>
+        <version>${grpc.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.grpc</groupId>
+        <artifactId>grpc-testing</artifactId>
+        <version>${grpc.version}</version>
+      </dependency>
+      <dependency>
         <groupId>com.google.protobuf</groupId>
         <artifactId>protobuf-java</artifactId>
         <version>${protobuf-java.version}</version>
@@ -676,6 +692,15 @@
         <optional>true</optional>
       </dependency>
 
+      <!-- open telemetry -->
+      <dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-bom</artifactId>
+        <version>${opentelemetry.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
@@ -809,6 +834,7 @@
     <module>cucumber</module>
     <module>nacos</module>
     <module>distributed-transaction</module>
+    <module>open-telemetry</module>
   </modules>
 
   <profiles>
