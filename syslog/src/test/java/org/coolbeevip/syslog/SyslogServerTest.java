@@ -54,7 +54,7 @@ public class SyslogServerTest {
       socket.send(packet(syslogService.getHost(), syslogService.getPort(), rfc5424LongMessage));
 
     }
-    Awaitility.await().atMost(60, SECONDS).until(() -> events.size() == 3);
+    Awaitility.await().atMost(180, SECONDS).until(() -> events.size() == 3);
   }
 
   private DatagramPacket packet(String host, int port, String message) throws UnknownHostException {
