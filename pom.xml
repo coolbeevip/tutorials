@@ -104,6 +104,8 @@
     <esapi.version>2.1.0.1</esapi.version>
     <jmh.version>1.32</jmh.version>
     <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+    <jaxb2-maven-plugin.version>3.1.0</jaxb2-maven-plugin.version>
+    <jakarta.xml.bind-api.version>3.0.1</jakarta.xml.bind-api.version>
 
     <commons-io.version>2.5</commons-io.version>
     <commons-lang.version>2.6</commons-lang.version>
@@ -701,6 +703,12 @@
         <scope>import</scope>
       </dependency>
 
+      <dependency>
+        <groupId>jakarta.xml.bind</groupId>
+        <artifactId>jakarta.xml.bind-api</artifactId>
+        <version>${jakarta.xml.bind-api.version}</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
@@ -759,6 +767,11 @@
               </configuration>
             </execution>
           </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>jaxb2-maven-plugin</artifactId>
+          <version>${jaxb2-maven-plugin.version}</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -835,6 +848,7 @@
     <module>nacos</module>
     <module>distributed-transaction</module>
     <module>open-telemetry</module>
+    <module>xml</module>
   </modules>
 
   <profiles>
