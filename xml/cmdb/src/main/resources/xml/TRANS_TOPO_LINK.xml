@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="TRANS_TOPO_LINK" labelCn="IGP连接" src="TRANS_TOPO_LINK" ignoreError="Y" primaryKey="ORIG_PTP_RMUID,DEST_PTP_RMUID" cacheId="COL_TRANS_TOPO_LINK" source="dest">
+	<table useDboAllAttrs="Y">
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="START_OMC_UUID" val="#RELATED_EMS_CUID#" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="COL_TRANS_IGPTOPO" />
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="DEVICE_VENDOR" labelCn="设备厂商" src="DEVICE_VENDOR" primaryKey="LABEL_CN" cacheId="DEVICE_VENDOR" source="dest">
+	<table>
+		<attr srcColumn="CUID"/> 
+		<attr srcColumn="LABEL_CN"/>
+		<attr srcColumn="IS_PERMIT_SYS_DEL"/>
+	</table>
+	<extractInspector id="tnmsResExtractHandler"/>
+	<preInspectors>
+		<inspector id="cachePreInspector" />
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

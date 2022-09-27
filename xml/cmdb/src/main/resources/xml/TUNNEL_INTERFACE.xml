@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="TUNNEL_INTERFACE" labelCn="SR隧道" src="TUNNEL_INTERFACE" ignoreError="Y" primaryKey="ID" cacheId="COL_TUNNEL_INTERFACE" source="dest">
+	<table useDboAllAttrs="Y">
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="RELATED_EMS_CUID" val="#RELATED_EMS_CUID#" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="COL_DEL_PATH_HOP"/>
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

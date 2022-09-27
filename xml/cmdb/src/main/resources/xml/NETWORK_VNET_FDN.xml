@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="NETWORK_VNET_FDN" labelCn="网络切片FDN" src="NETWORK_VNET" ignoreError="Y" primaryKey="LABEL_CN" cacheId="COL_NETWORK_VNET_FDN" source="dest">
+	<table useDboAllAttrs="Y">
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="NETWORK_MANAGEMENT_UUID" val="#RELATED_EMS_CUID#" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors/>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

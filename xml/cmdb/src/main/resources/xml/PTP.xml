@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="PTP" labelCn="端口" src="PTP" ignoreError="Y" primaryKey="RMUID" cacheId="COL_PTP" source="dest">
+	<table useDboAllAttrs="Y">
+		<attrTemp destColumn="MSTP_PORT_TYPE_SHOW" srcColumn="MSTP_PORT_TYPE">
+			<plugin id="enumTransform" enumType="MSTP_PORT_TYPE_SHOW" enumValueClass="java.lang.String"/>
+		</attrTemp>
+		<attrTemp destColumn="PORT_TYPE_SHOW" srcColumn="PORT_TYPE">
+			<plugin id="enumTransform" enumType="PORT_TYPE_SHOW" enumValueClass="java.lang.String"/>
+		</attrTemp>
+		<attrTemp destColumn="PORT_SUB_TYPE_SHOW" srcColumn="PORT_SUB_TYPE">
+			<plugin id="enumTransform" enumType="PORT_SUB_TYPE_SHOW" enumValueClass="java.lang.String"/>
+		</attrTemp>
+		<attrTemp destColumn="TERMINATION_MODE_SHOW" srcColumn="TERMINATION_MODE">
+			<plugin id="enumTransform" enumType="TERMINATION_MODE_SHOW" enumValueClass="java.lang.String"/>
+		</attrTemp>
+		<attrTemp destColumn="DIRECTIONALITY_SHOW" srcColumn="DIRECTIONALITY">
+			<plugin id="enumTransform" enumType="DIRECTIONALITY_SHOW" enumValueClass="java.lang.String"/>
+		</attrTemp>
+		<attrTemp destColumn="INTERFACE_TYPE_SHOW" srcColumn="INTERFACE_TYPE">
+			<plugin id="enumTransform" enumType="INTERFACE_TYPE_SHOW" enumValueClass="java.lang.String"/>
+		</attrTemp>
+		<attr destColumn="BANDWIDTH" srcColumn="BANDWIDTH" dataType="string" showName="端口速率" />
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="RELATED_EMS_CUID" val="#RELATED_EMS_CUID#" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="COL_PTP_RMUID"/>
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

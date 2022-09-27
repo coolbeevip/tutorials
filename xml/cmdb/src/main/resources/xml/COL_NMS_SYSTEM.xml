@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_NMS_SYSTEM" labelCn="COL_NMS_SYSTEM" src="COL_EMS" ignoreError="Y" primaryKey="BATCH_NUMBER" deletable="Y" filterId="" cacheId="COL_NMS_SYSTEM" source="dest">
+	<table useDboAllAttrs="Y">
+
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER=#BATCH_NUMBER# or BATCH_NUMBER = #BATCH_NUMBER_1#" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" />
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

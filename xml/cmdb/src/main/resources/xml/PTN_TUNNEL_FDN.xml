@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="PTN_TUNNEL_FDN" labelCn="MTN通道FDN" src="PTN_TUNNEL" ignoreError="Y" primaryKey="FDN,ANE_RMUID,ZNE_RMUID" filterId="" cacheId="COL_PTN_TUNNEL_FDN" source="dest">
+	<table useDboAllAttrs="Y">
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="OMC_CUID = #RELATED_EMS_CUID# and STATE=1" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors/>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

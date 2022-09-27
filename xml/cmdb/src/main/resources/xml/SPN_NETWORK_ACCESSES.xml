@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="SPN_NETWORK_ACCESSES" labelCn="L3VPN接入点" src="SPN_NETWORK_ACCESSES" ignoreError="Y" primaryKey="RES_ID" deletable="Y" filterId="" cacheId="COL_SPN_NETWORK_ACCESSES" source="dest">
+	<table useDboAllAttrs="Y">
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="exists (select 1 from SPN_STATIC_L3VPN where SPN_STATIC_L3VPN.RELATED_EMS_CUID = #RELATED_EMS_CUID# and SPN_STATIC_L3VPN.RES_ID= SPN_NETWORK_ACCESSES.RELATED_L3VPN_CUID)" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="COL_DEL_SPN_NETWORK_ACCESSES"/>
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

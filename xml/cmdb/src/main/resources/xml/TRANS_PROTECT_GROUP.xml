@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="TRANS_PROTECT_GROUP" labelCn="MTN隧道保护组" src="TRANS_PROTECT_GROUP" ignoreError="Y" primaryKey="RMUID" deletable="Y" filterId="" cacheId="COL_TRANS_PROTECT_GROUP" source="dest">
+	<table useDboAllAttrs="Y">
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="OMC_UUID = #RELATED_EMS_CUID#" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="TRANS_PROTECT_UNIT"/>
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

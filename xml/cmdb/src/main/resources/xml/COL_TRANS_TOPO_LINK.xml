@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_TRANS_TOPO_LINK" labelCn="IGP连接" src="COL_TRANS_TOPO_LINK" ignoreError="Y" primaryKey="ORIG_PTP_RMUID,DEST_PTP_RMUID" cacheId="COL_TRANS_TOPO_LINK" source="source">
+	<table id="TRANS_TOPO_LINK">
+    <attrTemp destColumn="EMS_NAME" srcColumn="BATCH_NUMBER" dataType="string" cached="Y">
+      <plugin id="relationTransform" resourceId="COL_NMS_SYSTEM" resourceKey="BATCH_NUMBER" returnColumn="NATIVE_EMS_NAME" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDNHEAD" dataType = "string">
+      <plugin id="copyAttrValueTransform" defaultValue="EMS" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDN" dataType = "string">
+      <plugin id="concatColumnsTransform" concatenator="=">
+        <concatColumns>EMS_FDNHEAD</concatColumns>
+        <concatColumns>EMS_NAME</concatColumns>
+      </plugin>
+    </attrTemp>
+		<attr destColumn="ORIG_NE_RMUID" srcColumn="ORIG_NE_RMUID" dataType="string" showName="起点网元RMUID"/>
+		<attr destColumn="DEST_NE_RMUID" srcColumn="DEST_NE_RMUID" dataType="string" showName="终点网元RMUID"/>
+		<attr destColumn="TOPO_CONN_RATE" srcColumn="TOPO_CONN_RATE" dataType="string" showName="拓扑连接速率"/>
+		<attr destColumn="ORIG_PTP_RMUID" srcColumn="ORIG_PTP_RMUID" dataType="string" showName="起点端口RMUID"/>
+		<attr destColumn="DEST_PTP_RMUID" srcColumn="DEST_PTP_RMUID" dataType="string" showName="终点端口RMUID"/>
+		<attr destColumn="NATIVE_NAME" srcColumn="NATIVE_NAME" dataType="string" showName="本地名称"/>
+		<attr destColumn="RMUID" srcColumn="RMUID" dataType="string" showName="唯一标识"/>
+		<attr destColumn="IGPTOPO_UUID" srcColumn="IGPTOPO_UUID" dataType="string" showName="IGP拓扑标识"/>
+		<attr destColumn="OPERATE_STATE" srcColumn="OPERATE_STATE" dataType="string" showName="链路运行状态"/>
+		<attr destColumn="START_OMC_UUID" srcColumn="EMS_FDN" dataType="string">
+			<plugin id="relationTransform" resourceId="NMS_SYSTEM" resourceKey="FDN" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="END_OMC_UUID" srcColumn="EMS_FDN" dataType="string">
+			<plugin id="relationTransform" resourceId="NMS_SYSTEM" resourceKey="FDN" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="UUID">
+			<plugin id="createCuidTransform" prefix="TRANS_TOPO_LINK"/>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER#" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="TRANS_TOPO_LINK" writeLog="Y">
+			<compareColumn id="TOPO_CONN_RATE" /> 
+			<compareColumn id="NATIVE_NAME" /> 
+			<compareColumn id="IGPTOPO_UUID" /> 
+			<compareColumn id="OPERATE_STATE" /> 
+			<compareColumn id="RMUID" /> 
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="Y" updateable="Y" deletable="Y" autocreate ="Y" autoupdate="Y" autodelete ="Y" writeLog="Y" deleteLimit="101"/>
+	</postInspectors>
+</resource>

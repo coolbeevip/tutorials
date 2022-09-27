@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="PTN_VIRTUAL_LINE_QOS" labelCn="伪线QOS" src="PTN_VIRTUAL_LINE_QOS" ignoreError="Y" primaryKey="RELATED_VIRTUAL_LINE_CUID" cacheId="COL_PTN_VIRTUAL_LINE_QOS" source="dest">
+	<table useDboAllAttrs="Y">
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="exists (select 1 from PTN_VIRTUAL_LINE where RELATED_EMS_CUID = #RELATED_EMS_CUID# and CUID = PTN_VIRTUAL_LINE_QOS.RELATED_VIRTUAL_LINE_CUID)" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" />
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_TRANS_PROTECT_UNIT" labelCn="MTN隧道保护单元" src="COL_TRANS_PROTECT_UNIT" ignoreError="Y"  primaryKey="PROTECT_GROUP_UUID,PROTECT_UNIT_UUID" cacheId="COL_TRANS_PROTECT_UNIT" source="source">
+	<table id="TRANS_PROTECT_UNIT">
+		<attr destColumn="PROTECT_UNIT_UUID" srcColumn="PROTECT_UNIT_UUID" dataType="string" showName="隧道RMUID"/>
+		<attr destColumn="PROTECT_GROUP_UUID" srcColumn="PROTECT_GROUP_UUID" dataType="string" showName="保护组RMUID"/>
+		<attr destColumn="DEVICE_UNIT_TYPE" srcColumn="DEVICE_UNIT_TYPE" dataType="string" showName="角色"/>
+		<attr destColumn="UUID">
+			<plugin id="createCuidTransform" prefix="TRANS_PROTECT_UNIT"/>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER#" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="TRANS_PROTECT_UNIT" writeLog="Y">
+			<compareColumn id="DEVICE_UNIT_TYPE" />
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="Y" updateable="Y" deletable="N" autocreate ="Y" autoupdate="Y" autodelete ="N" writeLog="Y" deleteLimit="101"/>
+	</postInspectors>
+</resource>

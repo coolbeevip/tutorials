@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_TUNNEL_TRAIL" labelCn="SR隧道业务" src="COL_TUNNEL_TRAIL" ignoreError="Y" primaryKey="ID" cacheId="COL_TUNNEL_TRAIL" source="source">
+	<table id="TUNNEL_TRAIL">
+    <attrTemp destColumn="NOTNULL_NAME" dataType="string" nullable="N">
+      <plugin id="selectNotNullTransform" >
+        <selectColumns>NAME</selectColumns>
+        <selectColumns>LABEL_CN</selectColumns>
+      </plugin>
+    </attrTemp>
+    <attrTemp destColumn="EMS_NAME" srcColumn="BATCH_NUMBER" dataType="string" cached="Y">
+      <plugin id="relationTransform" resourceId="COL_NMS_SYSTEM" resourceKey="BATCH_NUMBER" returnColumn="NATIVE_EMS_NAME" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDNHEAD" dataType = "string">
+      <plugin id="copyAttrValueTransform" defaultValue="EMS" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDN" dataType = "string">
+      <plugin id="concatColumnsTransform" concatenator="=">
+        <concatColumns>EMS_FDNHEAD</concatColumns>
+        <concatColumns>EMS_NAME</concatColumns>
+      </plugin>
+    </attrTemp>
+
+		<attr destColumn="ID" srcColumn="ID" dataType="string" showName="唯一标识" />
+		<attr destColumn="NAME" srcColumn="LABEL_CN" dataType="string" showName="本地名称" />
+		<attr destColumn="LABEL_CN" srcColumn="LABEL_CN" dataType="string"/>
+		<attr destColumn="ACTIVE_STATE" srcColumn="ACTIVE_STATE" dataType="string" showName="隧道业务状态" />
+		<attr destColumn="SOURCE_IP" srcColumn="SOURCE_IP" dataType="string" showName="源节点IP" />
+		<attr destColumn="DESTINATION_IP" srcColumn="DESTINATION_IP" dataType="string" showName="宿节点IP" />
+		<attr destColumn="APS_ENABLE" srcColumn="APS_ENABLE" dataType="string" showName="自动保护倒换是否使能" />
+		<attr destColumn="REVERT_MODE" srcColumn="REVERT_MODE" dataType="string" showName="隧道保护恢复方式" />
+		<attr destColumn="PROTECTION_TYPE" srcColumn="PROTECTION_TYPE" dataType="string" showName="隧道保护类型" />
+		<attr destColumn="V_NET_RMUID" srcColumn="V_NET_RMUID" dataType="string" showName="网络切片rmUID" />
+		<attr destColumn="SOURCE_NE_ID" srcColumn="SOURCE_NE_ID" dataType="string" nullable="N">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="DESTINATION_NE_ID" srcColumn="DESTINATION_NE_ID" dataType="string" nullable="N">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="FDN">
+			<plugin id="concatColumnsTransform" concatenator=":">
+				<concatColumns>EMS_FDN</concatColumns>
+				<concatColumns>NOTNULL_NAME</concatColumns>
+			</plugin>
+		</attr>
+		<attr destColumn="RELATED_EMS_CUID" srcColumn="EMS_FDN" dataType="string">
+			<plugin id="relationTransform" resourceId="NMS_SYSTEM" resourceKey="FDN" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="CUID">
+			<plugin id="createCuidTransform" prefix="TUNNEL_TRAIL"/>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER#" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="TUNNEL_TRAIL" writeLog="Y">
+			<compareColumn id="NAME"/>
+			<compareColumn id="LABEL_CN" /> 
+			<compareColumn id="FDN" /> 
+			<compareColumn id="ACTIVE_STATE" /> 
+			<compareColumn id="SOURCE_IP"/> 
+			<compareColumn id="DESTINATION_IP"/> 
+			<compareColumn id="APS_ENABLE"/>
+			<compareColumn id="REVERT_MODE"/>
+			<compareColumn id="PROTECTION_TYPE"/>
+			<compareColumn id="V_NET_RMUID"/>
+			<compareColumn id="SOURCE_NE_ID"/>
+			<compareColumn id="DESTINATION_NE_ID" />
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="Y" updateable="Y" deletable="Y" autocreate ="Y" autoupdate="Y" autodelete ="Y" writeLog="Y" deleteLimit="101"/>
+	</postInspectors>
+</resource>

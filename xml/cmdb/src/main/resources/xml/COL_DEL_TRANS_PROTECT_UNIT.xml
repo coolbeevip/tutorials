@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_DEL_TRANS_PROTECT_UNIT" labelCn="MTN保护单元删除" src="COL_TRANS_PROTECT_UNIT" ignoreError="Y" primaryKey="PROTECT_GROUP_UUID,PROTECT_UNIT_UUID" cacheId="COL_DEL_TRANS_PROTECT_UNIT" source="source">
+	<table id="TRANS_PROTECT_UNIT">
+		<attr destColumn="PROTECT_GROUP_UUID" srcColumn="PROTECT_GROUP_UUID" dataType="string" showName="MTN保护组唯一标识"/>
+		<attr destColumn="PROTECT_UNIT_UUID" srcColumn="PROTECT_GROUP_UUID" dataType="string" showName="MTN保护单元唯一标识"/>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER#" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="DEL_TRANS_PROTECT_UNIT" writeLog="Y">
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="N" updateable="N" deletable="Y" autocreate ="N" autoupdate="N" autodelete ="Y" writeLog="Y" deleteLimit="101"/>
+	</postInspectors>
+</resource>

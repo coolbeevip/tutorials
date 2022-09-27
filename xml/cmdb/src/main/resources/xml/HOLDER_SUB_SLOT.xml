@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="HOLDER_SUB_SLOT" labelCn="PTN子槽" src="EQUIPMENT_HOLDER" ignoreError="Y" primaryKey="RMUID" deletable="Y" filterId="" cacheId="COL_HOLDER_SUB_SLOT"  source="dest">
+	<table useDboAllAttrs="Y">
+		<attrTemp destColumn="SERVICE_STATE_SHOW" srcColumn="SERVICE_STATE">
+			<plugin id="enumTransform" enumType="CARD_SERVICE_STATE_SHOW" enumValueClass="java.lang.String"/>
+		</attrTemp>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="exists (select 1 from TRANS_ELEMENT where TRANS_ELEMENT.RELATED_EMS_CUID = #RELATED_EMS_CUID# and TRANS_ELEMENT.CUID = EQUIPMENT_HOLDER.RELATED_DEVICE_CUID) and HOLDER_TYPE=6" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="COL_HOLDER_SLOT" createable="N" updateable="N" deletable="N"/>
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

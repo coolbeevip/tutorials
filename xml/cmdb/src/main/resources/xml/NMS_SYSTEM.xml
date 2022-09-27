@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="NMS_SYSTEM" labelCn="EMS" src="NMS_SYSTEM" ignoreError="Y" primaryKey="FDN" cacheId="NMS_SYSTEM" filterId="" source="dest">
+	<table>	
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="CUID" val="#RELATED_EMS_CUID#" />
+		</extractFilter>
+	</extractInspector>
+  <preInspectors>
+    <inspector id="cachePreInspector"/>
+  </preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector"/>
+	</postInspectors>
+</resource>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="CARD_KIND" labelCn="板卡类型" src="CARD_KIND" primaryKey="REPORTCARDTYPE_NAME,RELATED_VENDOR_CUID" cacheId="CARD_KIND" source="dest">
+	<table>
+		<attr srcColumn="CUID"/> 
+		<attr srcColumn="PUBLIC_NAME"/>
+		<attr srcColumn="REPORTCARDTYPE_NAME"/>
+		<attr srcColumn="RELATED_VENDOR_CUID"/>
+		<attr destColumn="FDN" srcColumn="REPORTCARDTYPE_NAME" unionColumn="RELATED_VENDOR_CUID" dataType="string">
+      		<plugin id="unionTwoValuesTransform" unionColumn="RELATED_VENDOR_CUID" stage="processing"/>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="REPORTCARDTYPE_NAME IS NOT NULL" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" />
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="PTN_TUNNEL" labelCn="MTN通道" src="PTN_TUNNEL" ignoreError="Y" primaryKey="RMUID" filterId="" cacheId="COL_PTN_TUNNEL" source="dest">
+	<table useDboAllAttrs="Y">
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="OMC_CUID = #RELATED_EMS_CUID# and STATE=1" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="COL_DEL_PTN_PATH_ROUTE_POINT"/>
+		<inspector id="cachePreInspector" resourceId="TRANS_PROTECT_UNIT"/>
+		<inspector id="cachePreInspector" resourceId="COL_PTN_TUNNEL_FDN"/>
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

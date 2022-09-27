@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_NETWORK_VNET" labelCn="网络切片" src="COL_NETWORK_VNET" ignoreError="Y"
+          primaryKey="RMUID" cacheId="COL_NETWORK_VNET" source="source">
+  <table id="NETWORK_VNET">
+    <attrTemp destColumn="EMS_NAME" srcColumn="BATCH_NUMBER" dataType="string" cached="Y">
+      <plugin id="relationTransform" resourceId="COL_NMS_SYSTEM" resourceKey="BATCH_NUMBER"
+              returnColumn="NATIVE_EMS_NAME" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDNHEAD" dataType="string">
+      <plugin id="copyAttrValueTransform" defaultValue="EMS" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDN" dataType="string">
+      <plugin id="concatColumnsTransform" concatenator="=">
+        <concatColumns>EMS_FDNHEAD</concatColumns>
+        <concatColumns>EMS_NAME</concatColumns>
+      </plugin>
+    </attrTemp>
+
+    <attr destColumn="RMUID" srcColumn="RMUID" dataType="string" showName="唯一标识RMUID"/>
+    <attr destColumn="NAME" srcColumn="LABEL_CN" dataType="string" showName="本地名称"/>
+    <attr destColumn="LABEL_CN" srcColumn="LABEL_CN" dataType="string" showName="中文名称"/>
+    <attr destColumn="NETWORK_MANAGEMENT_UUID" srcColumn="EMS_FDN" dataType="string">
+      <plugin id="relationTransform" resourceId="NMS_SYSTEM" resourceKey="FDN" returnColumn="CUID" stage="processing"/>
+    </attr>
+    <attr destColumn="VNET_TYPE" srcColumn="VNET_TYPE" dataType="string" showName="切片网络类型"/>
+    <attr destColumn="FDN">
+      <plugin id="concatColumnsTransform" concatenator="">
+        <concatColumns>EMS_FDN</concatColumns>
+        <concatColumns>LABEL_CN</concatColumns>
+      </plugin>
+    </attr>
+    <attr destColumn="UUID">
+      <plugin id="createCuidTransform" prefix="NETWORK_VNET"/>
+    </attr>
+    <attr destColumn="CUID">
+      <plugin id="createCuidTransform" prefix="NETWORK_VNET"/>
+    </attr>
+  </table>
+  <extractInspector id="tnmsResExtractHandler">
+    <extractFilter>
+      <filterColumn name="#SQL#" val="BATCH_NUMBER=#BATCH_NUMBER#"/>
+    </extractFilter>
+  </extractInspector>
+  <postInspectors>
+    <recordInspector id="cacheRecordInspector"/>
+    <inspector id="compareInspector" resourceId="NETWORK_VNET" writeLog="Y">
+      <compareColumn id="LABEL_CN"/>
+      <compareColumn id="VNET_TYPE"/>
+    </inspector>
+    <inspector id="defaultPersistenceHandler" batchcreate="N" createable="Y" updateable="Y" deletable="N" autocreate="Y"
+               autoupdate="Y" autodelete="N" writeLog="Y" deleteLimit="101"/>
+  </postInspectors>
+</resource>

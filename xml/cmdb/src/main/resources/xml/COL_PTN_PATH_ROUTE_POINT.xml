@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_PTN_PATH_ROUTE_POINT" labelCn="MTN通道路由" src="COL_PTN_PATH_ROUTE_POINT" ignoreError="Y" primaryKey="RMUID" cacheId="COL_PTN_PATH_ROUTE_POINT" source="source">
+	<table id="PTN_PATH_ROUTE_POINT">
+		<attr destColumn="RMUID" srcColumn="RMUID" dataType="string" showName="唯一标识"/>
+		<attr destColumn="CHANNEL_RMUID" srcColumn="CHANNEL_RMUID" dataType="string" showName="Mtn通道rmUID"/>
+		<attr destColumn="ROUTING_NO" srcColumn="ROUTING_NO" dataType="string" showName="交叉路由序号"/>
+		<attr destColumn="IN_PORT_RMUID" srcColumn="IN_PORT_RMUID" dataType="string" showName="进MtnClient口rmUID"/>
+		<attr destColumn="OUT_PORT_RMUID" srcColumn="OUT_PORT_RMUID" dataType="string" showName="出Mtnclient口rmUID"/>
+		<attr destColumn="NE_RMUID" srcColumn="NE_RMUID" dataType="string"/>
+		<attr destColumn="RELATED_CHANNEL_CUID" srcColumn="CHANNEL_RMUID" dataType="string" nullable="N">
+			<plugin id="relationTransform" resourceId="COL_PTN_TUNNEL" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="CUID">
+			<plugin id="createCuidTransform" prefix="PTN_PATH_ROUTE_POINT"/>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER#" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="PTN_PATH_ROUTE_POINT" writeLog="Y">
+					<compareColumn id="CHANNEL_RMUID"/>
+					<compareColumn id="NE_RMUID"/>
+					<compareColumn id="ROUTING_NO"/>
+					<compareColumn id="IN_PORT_RMUID"/>
+					<compareColumn id="OUT_PORT_RMUID"/>
+					<compareColumn id="RELATED_CHANNEL_CUID"/>
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="Y" updateable="Y" deletable="Y" autocreate ="Y" autoupdate="Y" autodelete ="Y" writeLog="Y" deleteLimit="100"/>
+	</postInspectors>
+</resource>

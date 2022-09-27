@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="MTN_GROUP" labelCn="MTN群组" src="MTN_GROUP" ignoreError="Y" primaryKey="RMUID" deletable="N" filterId="" cacheId="COL_MTN_GROUP" source="dest">
+	<table useDboAllAttrs="Y">
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="OMC_CUID = #RELATED_EMS_CUID# " />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="COL_DEL_MTN_GROUP_NUMBER"/>
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_PTN_TUNNEL" labelCn="MTN通道" src="COL_PTN_TUNNEL" ignoreError="Y" primaryKey="RMUID" cacheId="COL_PTN_TUNNEL" source="source">
+	<table id="PTN_TUNNEL">
+    <attrTemp destColumn="EMS_NAME" srcColumn="BATCH_NUMBER" dataType="string" cached="Y">
+      <plugin id="relationTransform" resourceId="COL_NMS_SYSTEM" resourceKey="BATCH_NUMBER" returnColumn="NATIVE_EMS_NAME" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDNHEAD" dataType = "string">
+      <plugin id="copyAttrValueTransform" defaultValue="EMS" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDN" dataType = "string">
+      <plugin id="concatColumnsTransform" concatenator="=">
+        <concatColumns>EMS_FDNHEAD</concatColumns>
+        <concatColumns>EMS_NAME</concatColumns>
+      </plugin>
+    </attrTemp>
+		<attr destColumn="RMUID" srcColumn="RMUID" dataType="string" showName="唯一标识"/>
+		<attr destColumn="VNET_RMUID" srcColumn="VNET_RMUID" dataType="string" showName="网络分片rmUID"/>
+		<attr destColumn="NATIVE_NAME" srcColumn="NATIVE_NAME" dataType="string" showName="本地名称"/>
+		<attr destColumn="ACTIVE_STATE" srcColumn="ACTIVE_STATE" dataType="string" showName="激活标识"/>
+		<attr destColumn="ANE_RMUID" srcColumn="ANE_RMUID" dataType="string" showName="源端网元rmUID"/>
+		<attr destColumn="APORT_RMUID" srcColumn="APORT_RMUID" dataType="string" showName="源端client口rmUID"/>
+		<attr destColumn="ZNE_RMUID" srcColumn="ZNE_RMUID" dataType="string" showName="宿端网元rmUID"/>
+		<attr destColumn="ZPORT_RMUID" srcColumn="ZPORT_RMUID" dataType="string" showName="宿端client口rmUID"/>
+		<attr destColumn="A_NE_CUID" srcColumn="ANE_RMUID" dataType="string" nullable="Y">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="Z_NE_CUID" srcColumn="ZNE_RMUID" dataType="string" nullable="Y">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="A_PORT_CUID" srcColumn="APORT_RMUID" dataType="string" nullable="Y">
+			<plugin id="relationTransform" resourceId="COL_PTP" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="Z_PORT_CUID" srcColumn="ZPORT_RMUID" dataType="string" nullable="Y">
+			<plugin id="relationTransform" resourceId="COL_PTP" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+
+		<attr destColumn="BAND_WIDTH" srcColumn="BAND_WIDTH" dataType="string" showName="带宽"/>
+		<attr destColumn="VNET_CUID" srcColumn="VNET_RMUID" dataType="string" nullable="Y">
+			<plugin id="relationTransform" resourceId="COL_NETWORK_VNET" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="FDN">
+			<plugin id="concatColumnsTransform" concatenator="">
+				<concatColumns>EMS_NAME</concatColumns>
+				<concatColumns>NATIVE_NAME</concatColumns>
+			</plugin>
+		</attr>
+		<attr destColumn="OMC_CUID" srcColumn="EMS_FDN" dataType="string">
+			<plugin id="relationTransform" resourceId="NMS_SYSTEM" resourceKey="FDN" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="STATE" dataType="integer">
+			<plugin id="copyAttrValueTransform" defaultValue="1" valueClass="java.lang.Integer"/>
+		</attr>
+		<attr destColumn="CUID">
+			<plugin id="createCuidTransform" prefix="PTN_TUNNEL"/>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER# and not exists (select 1 from PTN_TUNNEL where PTN_TUNNEL.RMUID=COL_PTN_TUNNEL.RMUID and PTN_TUNNEL.STATE=2 and PTN_TUNNEL.OMC_CUID = #RELATED_EMS_CUID#) AND COL_PTN_TUNNEL.ANE_RMUID in (select RMUID from COL_TRANS_ELEMENT where ((BATCH_NUMBER=#BATCH_NUMBER# or BATCH_NUMBER = #BATCH_NUMBER_1#) AND MODEL IN ('OptiX PTN 7900E-32','OptiX PTN 7900E-24','OptiX PTN 990','OptiX PTN 980') and ME_REALITY !='virtual')) AND COL_PTN_TUNNEL.ZNE_RMUID in (select RMUID from COL_TRANS_ELEMENT where ((BATCH_NUMBER=#BATCH_NUMBER# or BATCH_NUMBER = #BATCH_NUMBER_1#) AND MODEL IN ('OptiX PTN 7900E-32','OptiX PTN 7900E-24','OptiX PTN 990','OptiX PTN 980') and ME_REALITY !='virtual')) " />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="PTN_TUNNEL" writeLog="Y">
+							<compareColumn id="VNET_RMUID"/>
+							<compareColumn id="FDN"/>
+							<compareColumn id="NATIVE_NAME"/>
+							<compareColumn id="ACTIVE_STATE"/>
+							<compareColumn id="ANE_RMUID"/>
+							<compareColumn id="APORT_RMUID"/>
+							<compareColumn id="ZNE_RMUID"/>
+							<compareColumn id="ZPORT_RMUID"/>
+							<compareColumn id="BAND_WIDTH"/>
+							<compareColumn id="A_NE_CUID"/>
+							<compareColumn id="Z_NE_CUID"/>
+							<compareColumn id="A_PORT_CUID"/>
+							<compareColumn id="Z_PORT_CUID"/>
+							<compareColumn id="VNET_CUID"/>
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="Y" updateable="Y" deletable="Y" autocreate ="Y" autoupdate="Y" autodelete ="Y" writeLog="Y" deleteLimit="100"/>
+	</postInspectors>
+</resource>

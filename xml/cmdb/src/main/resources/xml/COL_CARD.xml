@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_CARD" labelCn="板卡" src="COL_CARD" ignoreError="Y" primaryKey="RMUID" cacheId="COL_CARD" source="source">
+	<table id="CARD">
+    <attrTemp destColumn="REL_NE_RMUID" srcColumn="RELATED_NE_NAME" >
+      <plugin id="copyAttrValueTransform" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="EQUIP_HEAD">
+      <plugin id="copyAttrValueTransform" defaultValue="Equipment=1" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="UPPERHOLDER_FDN" srcColumn="RELATED_UPPER_COMPONENT_NAME" dataType="string" showName="slot-fdn">
+      <plugin id="relationTransform" resourceId="COL_EQUIPMENT_HOLDER" resourceKey="RMUID" returnColumn="FDN" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="NE_SIGNAL_TYPE" srcColumn="RELATED_NE_NAME" dataType="string" >
+      <plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="SIGNAL_TYPE" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="CARD_VENDOR" srcColumn="RELATED_NE_NAME" dataType="string" >
+      <plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="RELATED_VENDOR_CUID" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="TMP_CARD_NAME" srcColumn="MODEL" dataType="string">
+      <plugin id="copyAttrValueTransform" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="TMP_ME_NAME" srcColumn="RELATED_NE_NAME" dataType="string">
+      <plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="LABEL_CN" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="TMP_MODEL_NAME" srcColumn="TMP_CARD_NAME" unionColumn="CARD_VENDOR" dataType="string" cached="N">
+      <plugin id="unionTwoValuesTransform" unionColumn="CARD_VENDOR" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="CARD_KIND" srcColumn="TMP_MODEL_NAME" dataType="string">
+      <plugin id="relationTransform" resourceId="CARD_KIND" resourceKey="FDN" returnColumn="PUBLIC_NAME" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="SERVICE_STATE_SHOW" srcColumn="SERVICE_STATE" showName="服务状态">
+      <plugin  id="enumTransform" enumType="CARD_SERVICE_STATE_SHOW" enumValueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="NE_MODEL" srcColumn="RELATED_NE_NAME" cached="N">
+      <plugin  id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="MODEL"/>
+    </attrTemp>
+
+    <attr destColumn="RMUID" srcColumn="RMUID" dataType="string" showName="唯一标识"/>
+		<attr destColumn="RELATED_DEVICE_CUID" srcColumn="RELATED_NE_NAME" dataType="string" nullable="N">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="RELATED_UPPER_COMPONENT_CUID" srcColumn="RELATED_UPPER_COMPONENT_NAME" dataType="string" nullable="Y">
+			<plugin id="relationTransform" resourceId="COL_EQUIPMENT_HOLDER" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="FDN">
+			<plugin id="concatColumnsTransform" concatenator=":">
+				<concatColumns>UPPERHOLDER_FDN</concatColumns>
+				<concatColumns>EQUIP_HEAD</concatColumns>
+			</plugin>
+		</attr>
+		<attr destColumn="USERLABEL" srcColumn="USERLABEL" dataType="string"  showName="用户标识"/>
+		<attr destColumn="NATIVE_NAME" srcColumn="NATIVE_EMS_NAME" dataType="string" showName="本地名称"/>
+		<attr destColumn="LABEL_CN" srcColumn="NATIVE_EMS_NAME" dataType="string"/>
+		<attr destColumn="PORTS_NUM" srcColumn="PORTS_NUM" dataType="number"  showName="端口数"/>
+		<attr destColumn="VENDOR" srcColumn="RELATED_NE_NAME" dataType="string" >
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="RELATED_VENDOR_CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="PROTECT_TYPE" srcColumn="PROTECT_TYPE" dataType="string"/>
+		<attr destColumn="COMPONENT_NAME" srcColumn="MODEL" dataType="string"  showName="单元盘类型"/>
+		<attr destColumn="MODEL" srcColumn="TMP_MODEL_NAME" dataType="string">
+			<plugin id="relationTransform" resourceId="CARD_KIND" resourceKey="FDN" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="VERSION" srcColumn="VERSION" dataType="string"  showName="版本"/>
+		<attr destColumn="HEADWARE_VERSION" srcColumn="HEADWARE_VERSION" dataType="string" />
+		<attr destColumn="SERIAL" srcColumn="SERIAL" dataType="string"  showName="序列号"/>
+		<attr destColumn="SERVICE_STATE" srcColumn="SERVICE_STATE" dataType="number">
+			<plugin id="enumTransform" enumType="CARD_SERVICE_STATE" defaultValue="1" enumValueClass="java.lang.Long"/>
+		</attr>
+		<attr destColumn="CARD_SUB_KIND" srcColumn="CARD_SUB_KIND" dataType="string"/>
+		<attr destColumn="REMARK" srcColumn="REMARK" dataType="string"  showName="说明"/>
+		<attr destColumn="IS_PERMIT_SYS_DEL" dataType="boolean">
+			<plugin id="copyAttrValueTransform" defaultValue="true" valueClass="java.lang.Boolean"/>
+		</attr>
+		
+		<attr destColumn="PROTECTION_ROLE" srcColumn="CARD_ROLE" dataType="string"  showName="板卡角色"/>
+		<attr destColumn="CUID">
+			<plugin id="createCuidTransform" prefix="CARD"/>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER# AND RELATED_NE_NAME in (select RMUID from COL_TRANS_ELEMENT where (BATCH_NUMBER=#BATCH_NUMBER# or BATCH_NUMBER = #BATCH_NUMBER_1#) AND MODEL IN ('OptiX PTN 7900E-32','OptiX PTN 7900E-24','OptiX PTN 990','OptiX PTN 980') and ME_REALITY !='virtual')" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="cardCompareInspector" resourceId="CARD" writeLog="Y">
+			<compareColumn id="USERLABEL" /> 
+			<compareColumn id="RELATED_UPPER_COMPONENT_CUID" />
+			<compareColumn id="FDN" />
+			<compareColumn id="RELATED_DEVICE_CUID" />
+			<compareColumn id="VENDOR" />
+			<!--<compareColumn id="LABEL_CN" />-->
+			<compareColumn id="PROTECT_TYPE" />
+			<compareColumn id="PORTS_NUM" /> 
+			<compareColumn id="SERVICE_STATE"/> 
+			<compareColumn id="COMPONENT_NAME"/> 
+			<compareColumn id="VERSION"/>
+			<compareColumn id="SERIAL"/>
+			<compareColumn id="NATIVE_NAME"/>
+			<compareColumn id="REMARK"/>
+			<compareColumn id="CARD_SUB_KIND"/>
+			<compareColumn id="MODEL"/>
+			<compareColumn id="CARD_KIND"/>
+			<!--<compareColumn id="IS_PERMIT_SYS_DEL"/> -->
+		</inspector>
+		<inspector id="cardPerHandler" batchcreate="N" createable="Y" updateable="Y" deletable="Y" autocreate ="Y" autoupdate="Y" autodelete ="Y" writeLog="Y"/>
+	</postInspectors>
+</resource>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="PTP_RMUID" labelCn="端口_RMUID" src="PTP" ignoreError="Y" primaryKey="FDN" cacheId="COL_PTP_RMUID" source="dest">
+	<table useDboAllAttrs="N">
+		<attr destColumn="CUID" srcColumn="CUID" dataType="string"/>
+		<attr destColumn="RMUID" srcColumn="RMUID" dataType="string"/>
+		<attr destColumn="FDN" srcColumn="FDN" dataType="string"/>
+ 		<attr destColumn="OBJECTID" srcColumn="OBJECTID"/>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="RELATED_EMS_CUID" val="#RELATED_EMS_CUID#" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="COL_CARD"/>
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

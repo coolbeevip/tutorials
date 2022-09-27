@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_TUNNEL_INTERFACE" labelCn="SR隧道" src="COL_TUNNEL_INTERFACE" ignoreError="Y" primaryKey="ID" cacheId="COL_TUNNEL_INTERFACE" source="source">
+	<table id="TUNNEL_INTERFACE">
+    <attrTemp destColumn="EMS_NAME" srcColumn="BATCH_NUMBER" dataType="string" cached="Y">
+      <plugin id="relationTransform" resourceId="COL_NMS_SYSTEM" resourceKey="BATCH_NUMBER" returnColumn="NATIVE_EMS_NAME" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDNHEAD" dataType = "string">
+      <plugin id="copyAttrValueTransform" defaultValue="EMS" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDN" dataType = "string">
+      <plugin id="concatColumnsTransform" concatenator="=">
+        <concatColumns>EMS_FDNHEAD</concatColumns>
+        <concatColumns>EMS_NAME</concatColumns>
+      </plugin>
+    </attrTemp>
+
+		<attr destColumn="ID" srcColumn="ID" dataType="string" showName="唯一标识" />
+		<attr destColumn="TUNNEL_NAME" srcColumn="TUNNEL_NAME" dataType="string" showName="本地名称" />
+		<attr destColumn="LABEL_CN" srcColumn="LABEL_CN" dataType="string" showName="隧道名称" />
+		<attr destColumn="TUNNEL_ID" srcColumn="TUNNEL_ID" dataType="string" showName="TUNNEL_ID" />
+		<attr destColumn="DIRECTION" srcColumn="DIRECTION" dataType="string" showName="隧道方向" />
+		<attr destColumn="OPER_STATUS" srcColumn="OPER_STATUS" dataType="string" showName="隧道状态" />
+		<attr destColumn="SOURCE_IP" srcColumn="SOURCE_IP" dataType="string" showName="源节点IP" />
+		<attr destColumn="DESTINATION_IP" srcColumn="DESTINATION_IP" dataType="string" showName="宿节点IP" />
+		<attr destColumn="BANDWIDTH" srcColumn="BANDWIDTH" dataType="string" showName="承诺带宽" />
+		<attr destColumn="LATENCY" srcColumn="LATENCY" dataType="string" showName="承诺路径时延" />
+		<attr destColumn="SIGNAL_TYPE" srcColumn="SIGNAL_TYPE" dataType="string" showName="信令类型" />
+		<attr destColumn="LSP_ROLE" srcColumn="LSP_ROLE" dataType="string" showName="角色" />
+		<attr destColumn="PROTECTION_ROLE" srcColumn="PROTECTION_ROLE" dataType="string" showName="保护角色" />
+		<attr destColumn="ROUTING_PINNING_TYPE" srcColumn="ROUTING_PINNING_TYPE" dataType="string" showName="路由锁定类型" />
+		<attr destColumn="SOURCE_NE_ID" srcColumn="SOURCE_NE_ID" dataType="string" nullable="N">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="DESTINATION_NE_ID" srcColumn="DESTINATION_NE_ID" dataType="string" nullable="N">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="RELATED_TUNNEL_TRAIL_CUID" srcColumn="RELATED_TUNNEL_TRAIL_UUID" dataType="string" nullable="N">
+			<plugin id="relationTransform" resourceId="COL_TUNNEL_TRAIL" resourceKey="ID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="FDN">
+			<plugin id="concatColumnsTransform" concatenator=":">
+				<concatColumns>EMS_FDN</concatColumns>
+				<concatColumns>TUNNEL_NAME</concatColumns>
+			</plugin>
+		</attr>
+		<attr destColumn="RELATED_EMS_CUID" srcColumn="EMS_FDN" dataType="string">
+			<plugin id="relationTransform" resourceId="NMS_SYSTEM" resourceKey="FDN" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="CUID">
+			<plugin id="createCuidTransform" prefix="TUNNEL_INTERFACE"/>
+		</attr>
+		<attr destColumn="RELATED_TUNNEL_TRAIL_UUID" srcColumn="RELATED_TUNNEL_TRAIL_UUID" dataType="string"  />
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER#" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="TUNNEL_INTERFACE" writeLog="Y">
+			<compareColumn id="TUNNEL_NAME"/>
+			<compareColumn id="LABEL_CN"/>
+			<compareColumn id="TUNNEL_ID"/>
+			<compareColumn id="PROTECTION_ROLE"/>
+			<compareColumn id="OPER_STATUS" /> 
+			<compareColumn id="SOURCE_IP"/> 
+			<compareColumn id="DESTINATION_IP"/> 
+			<compareColumn id="BANDWIDTH"/>
+			<compareColumn id="LATENCY"/>
+			<compareColumn id="LSP_ROLE"/>
+			<compareColumn id="ROUTING_PINNING_TYPE"/>
+			<compareColumn id="SOURCE_NE_ID"/>
+			<compareColumn id="DESTINATION_NE_ID" />
+			<compareColumn id="RELATED_TUNNEL_TRAIL_UUID" />
+			<compareColumn id="RELATED_TUNNEL_TRAIL_CUID" />
+			<compareColumn id="FDN" />
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="Y" updateable="Y" deletable="Y" autocreate ="Y" autoupdate="Y" autodelete ="Y" writeLog="Y" deleteLimit="101"/>
+	</postInspectors>
+</resource>

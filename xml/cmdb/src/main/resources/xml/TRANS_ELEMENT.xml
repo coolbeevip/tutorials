@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="TRANS_ELEMENT" labelCn="网元" src="TRANS_ELEMENT" ignoreError="Y" primaryKey="RMUID" cacheId="COL_TRANS_ELEMENT" source="dest">
+	<table useDboAllAttrs="Y">
+		<attrTemp destColumn="MODEL_NAME" srcColumn="MODEL">
+			<plugin id="relationTransform" resourceId="NE_MODEL_CFG_TYPE_DEST" resourceKey="CUID" returnColumn="PRODUCT_MODEL"/>
+		</attrTemp>
+		<attrTemp destColumn="SERVICE_LEVEL_SHOW" srcColumn="SERVICE_LEVEL">
+			<plugin id="enumTransform" enumType="SERVICE_LEVEL_SHOW" enumValueClass="java.lang.String"/>
+		</attrTemp>
+		<attrTemp destColumn="CTP_SHOW_MODEL_SHOW" srcColumn="CTP_SHOW_MODEL">
+			<plugin id="enumTransform" enumType="CTP_SHOW_MODEL_SHOW" enumValueClass="java.lang.String"/>
+		</attrTemp>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="RELATED_EMS_CUID" val="#RELATED_EMS_CUID#" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="COL_TRANS_ELEMENT_RMUID" />
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

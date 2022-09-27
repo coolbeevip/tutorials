@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="MTN_GROUP_NUMBER" labelCn="MTN群组成员" src="MTN_GROUP_NUMBER" ignoreError="Y" primaryKey="GROUP_RMUID,PORT_RMUID" filterId="" cacheId="COL_MTN_GROUP_NUMBER" source="dest">
+	<table useDboAllAttrs="Y">
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="exists (select 1 from MTN_GROUP where MTN_GROUP.OMC_CUID = #RELATED_EMS_CUID# and MTN_GROUP.RMUID= MTN_GROUP_NUMBER.GROUP_RMUID)" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="COL_DEL_MTN_GROUP_NUMBER"/>
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_SYSTEM_PARA" labelCn="采集批次号" src="SYSTEM_PARA" ignoreError="Y" primaryKey="PARA_NAME" cacheId="COL_SYSTEM_PARA" source="source">
+	<table id="SYSTEM_PARA">
+    <attrTemp destColumn="PARA_NAME" dataType = "string">
+      <plugin id="copyAttrValueTransform" defaultValue="BATCH_NUMBER" valueClass="java.lang.String"/>
+    </attrTemp>
+		<attr destColumn="PARA_VALUE" srcColumn="PARA_VALUE" dataType="string"/>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="PARA_NAME = 'COL_BATCH_NUMBER'"/>
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="SYSTEM_PARA" writeLog="Y">
+			<compareColumn id="PARA_VALUE" /> 
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="Y" updateable="Y" deletable="N" autocreate ="Y" autoupdate="Y" autodelete ="N" writeLog="Y"/>
+	</postInspectors>
+</resource>

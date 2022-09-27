@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="LAYER_RATE" labelCn="层速率" src="LAYER_RATE" primaryKey="KEY_NUM" cacheId="LAYER_RATE" source="dest">
+	<table>
+		<attr srcColumn="KEY_NUM"/> 
+		<attr srcColumn="KEY_VALUE"/>
+		<attr srcColumn="RATE_NUM"/>
+	</table>
+	<extractInspector id="tnmsResExtractHandler"/>
+	<preInspectors>
+		<inspector id="cachePreInspector" />
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

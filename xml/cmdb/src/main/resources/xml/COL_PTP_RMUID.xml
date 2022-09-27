@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_PTP_RMUID" labelCn="端口_RMUID" src="COL_PTP" ignoreError="Y" primaryKey="FDN" cacheId="COL_PTP_RMUID" source="source">
+	<table id="PTP">
+		<attrTemp destColumn="REL_NE_RMUID" srcColumn="RELATED_NE_NAME" >
+			<plugin id="copyAttrValueTransform" valueClass="java.lang.String"/>
+		</attrTemp>
+		<attrTemp destColumn="REL_CARD_RMUID" srcColumn="RELATED_UPPER_COMPONENT_NAME" >
+			<plugin id="copyAttrValueTransform" valueClass="java.lang.String"/>
+		</attrTemp>
+		<attrTemp destColumn="REL_HOLDER_RMUID" srcColumn="HOLDER_RMUID" >
+			<plugin id="copyAttrValueTransform" valueClass="java.lang.String"/>
+		</attrTemp>
+		<attrTemp destColumn="RELATED_NE_FDN" srcColumn="RELATED_NE_NAME" dataType="string" nullable="N">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="FDN" stage="processing"/>
+		</attrTemp>
+		<attrTemp destColumn="PORT_SUBTYPE_NAME_C" srcColumn="PORT_SUBTYPE">
+			<plugin id="copyAttrValueTransform" valueClass="java.lang.String"/>
+		</attrTemp>
+    <attrTemp destColumn="RELATED_CARD_FDN" srcColumn="RELATED_UPPER_COMPONENT_NAME" dataType="string" >
+      <plugin id="relationTransform" resourceId="COL_CARD" resourceKey="RMUID" returnColumn="FDN" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="PORT_TYPE_NAME" dataType="string" nullable="N">
+      <plugin id="selectNotNullTransform" >
+        <selectColumns>PORT_SUBTYPE_NAME_C</selectColumns>
+        <selectColumns>PORT_TYPE</selectColumns>
+      </plugin>
+    </attrTemp>
+    <!--type=porttype/port=portnum-->
+    <attrTemp destColumn="PTP_TYPE_HEAD" dataType="string">
+      <plugin id="copyAttrValueTransform" defaultValue="type" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="PTP_TYPE_FDN">
+      <plugin id="concatColumnsTransform" concatenator="=">
+        <concatColumns>PTP_TYPE_HEAD</concatColumns>
+        <concatColumns>PORT_TYPE_NAME</concatColumns>
+      </plugin>
+    </attrTemp>
+    <attrTemp destColumn="PTP_NO_HEAD" dataType="string">
+      <plugin id="copyAttrValueTransform" defaultValue="port" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="PTP_NO_FDN">
+      <plugin id="concatColumnsTransform" concatenator="=">
+        <concatColumns>PTP_NO_HEAD</concatColumns>
+        <concatColumns>PORT_NO</concatColumns>
+      </plugin>
+    </attrTemp>
+
+    <attrTemp destColumn="PTP_FDN_PART" dataType="string">
+      <plugin id="concatColumnsTransform" concatenator="/">
+        <concatColumns>PTP_TYPE_FDN</concatColumns>
+        <concatColumns>PTP_NO_FDN</concatColumns>
+      </plugin>
+    </attrTemp>
+    <attrTemp destColumn="UPPER_FDN" dataType="string">
+      <plugin id="selectNotNullTransform" >
+        <selectColumns>RELATED_CARD_FDN</selectColumns>
+        <selectColumns>RELATED_NE_FDN</selectColumns>
+      </plugin>
+    </attrTemp>
+    <attrTemp destColumn="PTP_FDN_TMP" dataType="string">
+      <plugin id="concatColumnsTransform" concatenator="/">
+        <concatColumns>UPPER_FDN</concatColumns>
+        <concatColumns>PTP_FDN_PART</concatColumns>
+      </plugin>
+    </attrTemp>
+
+    <attr destColumn="RMUID" srcColumn="RMUID" dataType="string"/>
+		<attr destColumn="PORT_SUBTYPE_NAME" srcColumn="PORT_SUBTYPE">
+			<plugin id="enumTransform" enumType="RMUID_PTN_SUBTYPENAME" defaultValue="" enumValueClass="java.lang.String"/>
+		</attr>
+		<attr destColumn="PORT_NO" srcColumn="PORT_NO" showName="端口号" dataType="number"/>
+		<attr destColumn="PORT_SUB_TYPE" srcColumn="PORT_TYPE" dataType="numeber">
+			<plugin id="enumTransform" enumType="RMUID_PTN_SUBPORT_TYPE" enumValueClass="java.lang.Long"/>
+		</attr>
+		<attr destColumn="FDN" srcColumn="PTP_FDN_TMP" dataType="String">
+			<plugin id="rmuidPtpFdnTransform"/>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER# AND RELATED_NE_NAME in (select RMUID from COL_TRANS_ELEMENT where (BATCH_NUMBER=#BATCH_NUMBER# or BATCH_NUMBER = #BATCH_NUMBER_1#) AND MODEL IN ('OptiX PTN 7900E-32','OptiX PTN 7900E-24','OptiX PTN 990','OptiX PTN 980') and ME_REALITY !='virtual')" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="PTP_RMUID" writeLog="Y">
+			<compareColumn id="RMUID"/>
+		</inspector>
+		<inspector id="defaultPersistenceHandler" createable="N" updateable="Y" deletable="N" autocreate ="N" autoupdate="Y" autodelete ="N" writeLog="N"/>
+	</postInspectors>
+</resource>

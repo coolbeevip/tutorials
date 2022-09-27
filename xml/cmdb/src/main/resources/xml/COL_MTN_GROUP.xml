@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_MTN_GROUP" labelCn="MTN群组" src="COL_MTN_GROUP" ignoreError="Y" primaryKey="RMUID" cacheId="COL_MTN_GROUP" source="source">
+	<table id="MTN_GROUP">
+    <attrTemp destColumn="EMS_NAME" srcColumn="BATCH_NUMBER" dataType="string" cached="Y">
+      <plugin id="relationTransform" resourceId="COL_NMS_SYSTEM" resourceKey="BATCH_NUMBER" returnColumn="NATIVE_EMS_NAME" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDNHEAD" dataType = "string">
+      <plugin id="copyAttrValueTransform" defaultValue="EMS" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDN" dataType = "string">
+      <plugin id="concatColumnsTransform" concatenator="=">
+        <concatColumns>EMS_FDNHEAD</concatColumns>
+        <concatColumns>EMS_NAME</concatColumns>
+      </plugin>
+    </attrTemp>
+
+		<attr destColumn="RMUID" srcColumn="RMUID" dataType="string" showName="唯一标识"/>
+		<attr destColumn="NE_RMUID" srcColumn="NE_RMUID" dataType="string" showName="所属网元RMUID"/>
+		<attr destColumn="ORDER_NUM" srcColumn="ORDER_NUM" dataType="string" showName="序号"/>
+		<attr destColumn="BANDWIDTH" srcColumn="BANDWIDTH" dataType="string" showName="带宽"/>
+		<attr destColumn="NATIVE_NAME" srcColumn="NATIVE_NAME" dataType="string" showName="名称"/>
+		<attr destColumn="LABEL_CN" srcColumn="NATIVE_NAME" dataType="string"/>
+		<attr destColumn="RELATED_NE_CUID" srcColumn="NE_RMUID" dataType="string" nullable="N">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="OMC_CUID" srcColumn="EMS_FDN" dataType="string">
+			<plugin id="relationTransform" resourceId="NMS_SYSTEM" resourceKey="FDN" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="CUID">
+			<plugin id="createCuidTransform" prefix="MTN_GROUP"/>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER#" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="MTN_GROUP" writeLog="Y">
+			<compareColumn id="NE_RMUID"/> 
+			<compareColumn id="ORDER_NUM"/> 
+			<compareColumn id="BANDWIDTH"/> 
+			<compareColumn id="NATIVE_NAME"/> 
+			<compareColumn id="RELATED_NE_CUID"/> 
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="Y" updateable="Y" deletable="Y" autocreate ="Y" autoupdate="Y" autodelete ="Y" writeLog="Y"  deleteLimit="101"/>
+	</postInspectors>
+</resource>

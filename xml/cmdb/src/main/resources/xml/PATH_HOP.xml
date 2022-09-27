@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="PATH_HOP" labelCn="SR隧道路由" src="PATH_HOP" ignoreError="Y" primaryKey="RELATED_LSP_CUID,HOP_INDEX" cacheId="COL_PATH_HOP" source="dest">
+	<table useDboAllAttrs="Y">
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="exists (select 1 from TUNNEL_INTERFACE where TUNNEL_INTERFACE.RELATED_EMS_CUID = #RELATED_EMS_CUID# and TUNNEL_INTERFACE.ID = PATH_HOP.RELATED_LSP_CUID)" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="COL_DEL_PATH_HOP"/>
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

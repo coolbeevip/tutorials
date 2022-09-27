@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tpl>
+	<enum code="CHANNEL_TYPE_SHOW" name="通道类型">
+		<value name="1" val="NA" />
+		<value name="2" val="E_LSP" />
+		<value name="3" val="L_LSP" />
+	</enum>
+	<enum code="PORT_TYPE_SHOW" name="端口类型显示名称">
+		<value name="1" val="电口" />
+		<value name="2" val="光口" />
+		<value name="4" val="逻辑口" />
+	</enum>
+	<enum code="PORT_SUB_TYPE_SHOW" name="端口子类型显示名称">
+		<value name="0" val="未知" />
+		<value name="3" val="MSTP口" />
+		<value name="5" val="中频口" />
+		<value name="6" val="射频口" />
+		<value name="7" val="IMA口" />
+		<value name="8" val="LAG口" />
+		<value name="9" val="GPON口" />
+		<value name="10" val="EPON口" />
+		<value name="11" val="OLT上联口" />
+		<value name="12" val="分光器上联口" />
+		<value name="13" val="分光器下联口" />
+		<value name="14" val="ONU上联口" />
+		<value name="15" val="FE" />
+		<value name="16" val="POTS" />
+		<value name="21" val="SDH口" />
+		<value name="22" val="PDH" />
+		<value name="23" val="ADSL" />
+		<value name="24" val="ADSL2_PLUS" />
+		<value name="25" val="POS" />
+		<value name="26" val="SHDSL" />
+		<value name="27" val="VDSL2" />
+		<value name="28" val="ATM" />
+		<value name="29" val="ETH" />
+		<value name="30" val="PSTN" />
+		<value name="31" val="波分口" />
+		<value name="32" val="PTN口" />
+		<value name="33" val="光GE口" />
+		<value name="36" val="电GE口" />
+		<value name="37" val="电FE口" />
+		<value name="38" val="光FE口" />
+		<value name="39" val="虚端口" />
+		<value name="41" val="2层虚端口" />
+		<value name="42" val="3层虚端口" />
+	</enum>
+	<enum code="TERMINATION_MODE_SHOW" name="终结模式名称">
+		<value name="1" val="TM_NA" />
+		<value name="3" val="TM_TERMINATED_AND_AVAILABLE_FOR_MAPPING" />
+		<value name="2" val="TM_NEITHER_TERMINATED_NOR_AVAILABLE_FOR_MAPPING" />
+	</enum>
+	<enum code="MSTP_PORT_TYPE_SHOW" name="MSTP端口类型名称">
+		<value name="1" val="PE" />
+		<value name="2" val="P" />
+	</enum>
+	<enum code="DIRECTIONALITY_SHOW" name="方向名称">
+		<value name="1" val="NA" />
+		<value name="2" val="BI" />
+		<value name="3" val="SOURCE" />
+		<value name="4" val="SINK" />
+	</enum>
+	<enum code="PORT_DIRECTIONALITY_SHOW" name="端口方向名称">
+		<value name="1" val="未知" />
+		<value name="2" val="双向" />
+		<value name="3" val="源" />
+		<value name="4" val="宿" />
+	</enum>
+	<enum code="INTERFACE_TYPE_SHOW" name="接口类型名称">
+		<value name="1" val="C_ODD_BAND" />
+		<value name="2" val="C_EVEN_BAND" />
+	</enum>
+	<enum code="CARD_SERVICE_STATE_SHOW" name="板卡状态名称">
+		<value name="1" val="服务" />
+		<value name="2" val="未服务" />
+		<value name="3" val="维护中" />
+		<value name="4" val="测试" />
+	</enum>
+	<enum code="SERVICE_LEVEL_SHOW" name="业务级别名称">
+		<value name="1" val="省际" />
+		<value name="2" val="省内" />
+		<value name="3" val="省内+本地" />
+		<value name="4" val="本地骨干" />
+		<value name="5" val="本地汇聚" />
+		<value name="6" val="本地接入" />
+	</enum>
+	<enum code="CTP_SHOW_MODEL_SHOW" name="时隙显示模式名称">
+		<value name="1" val="顺序" />
+		<value name="2" val="间插"  />
+	</enum>
+	<enum code="TOPO_DIRECTION_SHOW" name="拓扑方向名称">
+		<value name="1" val="单向" />
+		<value name="2" val="双向" />
+	</enum>
+	<enum code="PTN_PG_TYPE_SHOW" name="PTN保护组类型">
+		<value name="1" val="1+1" />
+		<value name="2" val="1:1" />
+	</enum>
+	<enum code="PTN_PG_RECOVER_MODEL_SHOW" name="PTN保护组恢复模式">
+		<value  name="0" val="RM_UNKNOWN"/>
+		<value  name="1" val="RM_REVERTIVE"/>
+		<value  name="2" val="RM_NON_REVERTIVE"/>
+	</enum>
+	<enum code="PTN_PG_STATE_SHOW" name="PTN保护组状态">
+		<value  name="0" val="UNKNOWN"/>
+		<value  name="1" val="AUTOMATIC"/>
+		<value  name="2" val="FORCED_OR_LOCKED_OUT"/>
+	</enum>
+	
+	<enum code="ONU_TYPE_SHOW" name="ONU类型名称">
+		<value name="0" val="UNKNOW" />
+		<value name="1" val="MDU" />
+		<value name="2" val="ONT" />
+		<value name="3" val="HGU" />
+		<value name="4" val="SFU" />
+		<value name="5" val="SBU" />
+		<value name="6" val="MTU" />
+	</enum>
+	<enum code="COL_TOPO_DIRECTION_SHOW" name="拓扑的方向">
+		<value name="CD_BI" val="双向" />
+		<value name="CD_UNI" val="单向" />
+	</enum>
+	<enum code="TOPO_RATE_SHOW" name="拓扑的速率">
+		<value name="0" val="NA" />
+		<value name="1" val="2M" />
+		<value name="25" val="4M" /> 
+		<value name="22" val="6M" /> 
+		<value name="3" val="10M" /> 
+		<value name="23" val="12M" /> 
+		<value name="24" val="16M" /> 
+		<value name="33" val="32M" /> 
+		<value name="4" val="34M" />
+		<value name="5" val="45M" /> 
+		<value name="7" val="100M" /> 
+		<value name="9" val="155M" /> 
+		<value name="13" val="622M" /> 
+		<value name="34" val="FE" />
+		<value name="35" val="GE" /> 
+		<value name="36" val="10GE" /> 
+		<value name="41" val="40GE" /> 
+		<value name="44" val="100GE" /> 
+		<value name="16" val="2.5G" /> 
+		<value name="17" val="10G" /> 
+		<value name="18" val="20G" /> 
+		<value name="19" val="40G" /> 
+		<value name="47" val="100G" /> 
+		<value name="42" val="4G" /> 
+		<value name="30" val="400G" /> 
+		<value name="49" val="200GE" /> 
+		<value name="50" val="50GE" /> 
+		<value name="51" val="45G" /> 
+		<value name="52" val="180G" /> 
+		<value name="53" val="200G" /> 
+		<value name="20" val="80G" /> 
+		<value name="55" val="160G" /> 
+		<value name="56" val="5G" /> 
+    <value name="57" val="90G" /> 
+		<value name="54" val="25G" />
+		<value name="59" val="2G" /> 
+	</enum>
+	
+	
+</tpl>

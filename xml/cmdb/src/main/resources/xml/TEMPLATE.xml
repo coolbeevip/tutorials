@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="TEMPLATE" labelCn="配置模板" src="TEMPLATE" primaryKey="MODEL" cacheId="TEMPLATE" source="dest">
+	<table>
+		<attr srcColumn="CUID" /> 
+		<attr srcColumn="NAME" />
+		<attr srcColumn="MODEL" />
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="MODEL IS NOT NULl" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" />
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

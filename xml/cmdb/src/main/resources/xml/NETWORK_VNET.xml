@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="NETWORK_VNET" labelCn="网络切片" src="NETWORK_VNET" ignoreError="Y" primaryKey="RMUID" cacheId="COL_NETWORK_VNET" source="dest">
+	<table useDboAllAttrs="Y">
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="NETWORK_MANAGEMENT_UUID" val="#RELATED_EMS_CUID#" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="COL_DEL_TRANS_IGPTOPO" />
+		<inspector id="cachePreInspector" resourceId="COL_NETWORK_VNET_FDN" />
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

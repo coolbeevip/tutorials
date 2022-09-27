@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="TRANS_IGPTOPO" labelCn="IGP拓扑" src="TRANS_IGPTOPO" ignoreError="Y" primaryKey="RMUID" cacheId="COL_TRANS_IGPTOPO" source="dest">
+	<table useDboAllAttrs="Y">
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val=" NETWORK_MANAGEMENT_UUID=#RELATED_EMS_CUID# " />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

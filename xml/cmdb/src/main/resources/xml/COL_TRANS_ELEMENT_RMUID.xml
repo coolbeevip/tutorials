@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_TRANS_ELEMENT_RMUID" labelCn="网元_RMUID" src="COL_TRANS_ELEMENT" ignoreError="Y" primaryKey="NATIVE_EMS_NAME" cacheId="COL_TRANS_ELEMENT_RMUID" source="source">
+	<table id="TRANS_ELEMENT">
+		<attr destColumn="RMUID" srcColumn="RMUID" dataType="string" showName="唯一标识RMUID"/>
+		<attr destColumn="NATIVE_EMS_NAME" srcColumn="NATIVE_EMS_NAME" dataType="string" showName="EMS上显示的网元名称"/>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="(BATCH_NUMBER=#BATCH_NUMBER# or BATCH_NUMBER = #BATCH_NUMBER_1#) AND MODEL IN ('OptiX PTN 7900E-32','OptiX PTN 7900E-24','OptiX PTN 990','OptiX PTN 980') and ME_REALITY !='virtual'" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="fillNeDefaultValueHandler" />
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="TRANS_ELEMENT_RMUID" writeLog="Y">
+			<compareColumn id="RMUID" /> 
+		</inspector>
+		<inspector id="defaultPersistenceHandler" supportbatch="N" createable="N" updateable="Y" deletable="N" autocreate="N" autoupdate="Y"  autodelete="N" writeLog="N"/>
+	</postInspectors>
+</resource>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_CARD_RMUID" labelCn="板卡_RMUID" src="COL_CARD" ignoreError="Y" primaryKey="FDN" cacheId="COL_CARD_RMUID" source="source">
+	<table id="CARD">
+    <attrTemp destColumn="REL_NE_RMUID" srcColumn="RELATED_NE_NAME" >
+      <plugin id="copyAttrValueTransform" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="EQUIP_HEAD">
+      <plugin id="copyAttrValueTransform" defaultValue="Equipment=1" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="UPPERHOLDER_FDN" srcColumn="RELATED_UPPER_COMPONENT_NAME" dataType="string" showName="slot-fdn">
+      <plugin id="relationTransform" resourceId="COL_EQUIPMENT_HOLDER" resourceKey="RMUID" returnColumn="FDN" stage="processing"/>
+    </attrTemp>
+
+    <attr destColumn="RMUID" srcColumn="RMUID" dataType="string" showName="唯一标识"/>
+		<attr destColumn="RELATED_DEVICE_CUID" srcColumn="RELATED_NE_NAME" dataType="string" nullable="N">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="RELATED_UPPER_COMPONENT_CUID" srcColumn="RELATED_UPPER_COMPONENT_NAME" dataType="string" nullable="Y">
+			<plugin id="relationTransform" resourceId="COL_EQUIPMENT_HOLDER" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="FDN">
+			<plugin id="concatColumnsTransform" concatenator=":">
+				<concatColumns>UPPERHOLDER_FDN</concatColumns>
+				<concatColumns>EQUIP_HEAD</concatColumns>
+			</plugin>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER# AND RELATED_NE_NAME in (select RMUID from COL_TRANS_ELEMENT where (BATCH_NUMBER=#BATCH_NUMBER# or BATCH_NUMBER = #BATCH_NUMBER_1#) AND MODEL IN ('OptiX PTN 7900E-32','OptiX PTN 7900E-24','OptiX PTN 990','OptiX PTN 980') and ME_REALITY !='virtual')"/>
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="CARD_RMUID" writeLog="Y">
+			<compareColumn id="RMUID" /> 
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="N" updateable="Y" deletable="N" autocreate ="N" autoupdate="Y" autodelete ="N" writeLog="Y"/>
+	</postInspectors>
+</resource>

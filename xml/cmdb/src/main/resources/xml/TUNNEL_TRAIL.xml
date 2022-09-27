@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="TUNNEL_TRAIL" labelCn="SR隧道业务" src="TUNNEL_TRAIL" ignoreError="Y" primaryKey="ID" cacheId="COL_TUNNEL_TRAIL" source="dest">
+	<table useDboAllAttrs="Y">
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="RELATED_EMS_CUID" val="#RELATED_EMS_CUID#" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="COL_DEL_PATH_HOP" />
+		<inspector id="cachePreInspector" resourceId="COL_TUNNEL_TRAIL_FDN" />
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

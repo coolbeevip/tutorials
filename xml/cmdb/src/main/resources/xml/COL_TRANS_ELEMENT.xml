@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_TRANS_ELEMENT" labelCn="网元" src="COL_TRANS_ELEMENT" ignoreError="Y" primaryKey="RMUID" cacheId="COL_TRANS_ELEMENT" source="source">
+	<table id="TRANS_ELEMENT">
+    <attrTemp destColumn="EMS_NAME" srcColumn="BATCH_NUMBER" dataType="string" cached="Y">
+      <plugin id="relationTransform" resourceId="COL_NMS_SYSTEM" resourceKey="BATCH_NUMBER" returnColumn="NATIVE_EMS_NAME" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDNHEAD" dataType = "string">
+      <plugin id="copyAttrValueTransform" defaultValue="EMS" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDN" dataType = "string">
+      <plugin id="concatColumnsTransform" concatenator="=">
+        <concatColumns>EMS_FDNHEAD</concatColumns>
+        <concatColumns>EMS_NAME</concatColumns>
+      </plugin>
+    </attrTemp>
+    <attrTemp destColumn="NE_HEAD" dataType = "string">
+      <plugin id="copyAttrValueTransform" defaultValue="ManagedElement" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="NE_NAME_PART" dataType = "string">
+      <plugin id="concatColumnsTransform" concatenator="=">
+        <concatColumns>NE_HEAD</concatColumns>
+        <concatColumns>NATIVE_EMS_NAME</concatColumns>
+      </plugin>
+    </attrTemp>
+    <attrTemp destColumn="IS_SUPERVISE_STR" srcColumn="STATE_C">
+      <plugin id="mapTransform" typeColumn="STATE_C">
+        <type>
+          <item mapRegex="available" val="true" />
+          <item mapRegex="unavailable" val="false" />
+        </type>
+      </plugin>
+    </attrTemp>
+    <attrTemp destColumn="LOC_DISTRICT_CUID" srcColumn="LOCATION" dataType="string" showName="所属区域">
+      <plugin id="relationTransform" resourceId="DISTRICT" resourceKey="LABEL_CN" returnColumn="CUID" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_DISTRICT_CUID" srcColumn="EMS_FDN" dataType="string">
+      <plugin id="relationTransform" resourceId="NMS_SYSTEM" resourceKey="FDN" returnColumn="RELATED_SPACE_CUID" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="SYSTEM_LEVEL" srcColumn="EMS_FDN" showName="系统级别">
+      <plugin id="relationTransform" resourceId="NMS_SYSTEM" resourceKey="FDN" returnColumn="SYSTEM_LEVEL" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="SERVICE_LEVEL" srcColumn="SYSTEM_LEVEL" dataType="string">
+      <plugin id="sysLevelTransform" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="SERVICE_LEVEL_SHOW" srcColumn="SERVICE_LEVEL" showName="级别">
+      <plugin id="enumTransform" enumType="SERVICE_LEVEL_SHOW" enumValueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="CTP_SHOW_MODEL" srcColumn="EMS_FDN" dataType="string">
+      <plugin id="relationTransform" resourceId="NMS_SYSTEM" resourceKey="FDN" returnColumn="CTP_SHOW_MODEL" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="CTP_SHOW_MODEL_SHOW" srcColumn="CTP_SHOW_MODEL" showName="时隙显示模式">
+      <plugin id="enumTransform" enumType="CTP_SHOW_MODEL_SHOW" enumValueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="MODEL_NAME" srcColumn="MODEL" dataType="string" showName="型号">
+      <plugin id="copyAttrValueTransform" />
+    </attrTemp>
+    <attrTemp destColumn="IS_PERMIT_SYS_DEL" dataType="boolean">
+      <plugin id="copyAttrValueTransform" defaultValue="true" valueClass="java.lang.Boolean"/>
+    </attrTemp>
+    <attrTemp destColumn="BATCH_NUMBER_STR" dataType = "string">
+      <plugin id="copyAttrValueTransform" defaultValue="COL_BATCH_NUMBER" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="BATCH_NUMBER_TEMP" srcColumn="BATCH_NUMBER_STR" dataType="boolean">
+      <plugin id="relationTransform" resourceId="COL_SYSTEM_PARA" resourceKey="PARA_NAME" returnColumn="PARA_VALUE" stage="processing"/>
+    </attrTemp>
+
+		<attr destColumn="RMUID" srcColumn="RMUID" dataType="string" showName="唯一标识RMUID"/>
+		<attr destColumn="USERLABEL" srcColumn="NATIVE_EMS_NAME" dataType="string" showName="友好名称"/>
+		<attr destColumn="RELATED_EMS_CUID" srcColumn="EMS_FDN" dataType="string">
+			<plugin id="relationTransform" resourceId="NMS_SYSTEM" resourceKey="FDN" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="NATIVE_EMS_NAME" srcColumn="NATIVE_EMS_NAME" dataType="string" showName="EMS上显示的网元名称"/>
+		<attr destColumn="LABEL_CN" srcColumn="NATIVE_EMS_NAME" dataType="string" showName="网元名称"/>
+		<attr destColumn="SOFT_VERSION" srcColumn="SOFT_VERSION" dataType="string" showName="软件版本号"/>
+		<attr destColumn="HARD_VERSION" srcColumn="HARD_VERSION" dataType="string" showName="硬件版本号"/>
+		<attr destColumn="FDN" dataType = "string">
+			<plugin id="concatColumnsTransform" concatenator=":">
+				<concatColumns>EMS_FDN</concatColumns>
+				<concatColumns>NE_NAME_PART</concatColumns>
+			</plugin>
+		</attr>
+		<attr destColumn="LOCATION" srcColumn="LOCATION" dataType="string" showName="位置"/>
+		<attr destColumn="IS_SUPERVISE"  srcColumn="IS_SUPERVISE_STR" dataType="boolean" showName="IS_SUPERVISE">
+			<plugin id="enumTransform" enumType="BOOLEAN_TYPE" defaultValue="false" enumValueClass="java.lang.Boolean"/>
+		</attr>
+		
+		<attr destColumn="IN_CONTRAL" srcColumn="IS_SUPERVISE" dataType="boolean" destDataType="boolean" showName="IS_SUPERVISE">
+			<plugin id="copyAttrValueTransform" />
+		</attr>
+		<attr destColumn="IS_USAGE_STATE" srcColumn="IS_USAGE_STATE" dataType="boolean"/>
+		<attr destColumn="SUPPORT_RATE" srcColumn="SUPPORT_RATE" dataType="string" showName="网元支持的子网连接速率">
+			<plugin id="rateTransform" stage="processing"/>
+		</attr>
+		<attr destColumn="DEV_IP" srcColumn="DEV_IP" dataType="string" showName="设备IP"/>
+		<attr destColumn="SEQNO" srcColumn="SEQNO" dataType="string"  showName="设备序列号"/>
+		<attr destColumn="ADDITION_STATE" srcColumn="ADDITION_STATE" showName="本地远程">
+			<plugin id="enumTransform" enumType="ADDITION_STATE" defaultValue="1" enumValueClass="java.lang.Long"/>
+		</attr>
+		<attr destColumn="ROUTE_IP" srcColumn="ROUTE_IP" dataType="string" showName="路由IP"/>
+		<attr destColumn="REMARK" srcColumn="REMARK" dataType="string"/>
+		<attr destColumn="MAC_SN" srcColumn="MAC_SN" dataType="string" showName="认证MAC/SN"/>
+		<attr destColumn="RELATED_DISTRICT_CUID" dataType="string">
+			<plugin id="selectNotNullTransform" >
+				<selectColumns>LOC_DISTRICT_CUID</selectColumns>
+				<selectColumns>EMS_DISTRICT_CUID</selectColumns>
+			</plugin>
+		</attr>
+
+		<attr destColumn="RELATED_VENDOR_CUID" srcColumn="EMS_FDN" dataType="string">
+			<plugin id="relationTransform" resourceId="NMS_SYSTEM" resourceKey="FDN" returnColumn="RELATED_VENDOR_CUID" stage="processing"/>
+		</attr>
+
+		<attr destColumn="CONFIG_TYPE" srcColumn="MODEL" dataType="string" showName="网元配置类型">
+			<plugin id="relationTransform" resourceId="NE_MODEL_CFG_TYPE" resourceKey="PRODUCT_MODEL" returnColumn="CFG_TYPE" stage="processing"/>
+		</attr>
+		<!--<attr destColumn="SIGNAL_TYPE" srcColumn="MODEL" dataType="string">
+			<plugin id="relationTransform" resourceId="NE_MODEL_CFG_TYPE" resourceKey="PRODUCT_MODEL" returnColumn="SIGNAL_TYPE" stage="processing"/>
+		</attr>-->
+		<attr destColumn="SIGNAL_TYPE" dataType="integer">
+			<plugin id="copyAttrValueTransform" defaultValue="12" valueClass="java.lang.Integer"/>
+		</attr>
+		<attr destColumn="LIVE_CYCLE" dataType="integer">
+			<plugin id="copyAttrValueTransform" defaultValue="2" valueClass="java.lang.Integer"/>
+		</attr>
+		<attr destColumn="CAPACITY" srcColumn="MODEL" dataType="string" showName="设备容量">
+			<plugin id="relationTransform" resourceId="NE_MODEL_CFG_TYPE" resourceKey="PRODUCT_MODEL" returnColumn="MAX_RATE" stage="processing"/>
+		</attr>
+
+		<attr destColumn="MODEL" srcColumn="MODEL" dataType="string">
+			<plugin id="relationTransform" resourceId="NE_MODEL_CFG_TYPE" resourceKey="PRODUCT_MODEL" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="RELATED_TEMPLATE_NAME" srcColumn="MODEL" dataType="string" showName="模板名称">
+			<plugin id="relationTransform" resourceId="TEMPLATE" resourceKey="CUID" returnColumn="NAME" stage="processing"/>
+		</attr>
+		<attr destColumn="IS_VIRTUAL" dataType="integer">
+			<plugin id="copyAttrValueTransform" defaultValue="1" valueClass="java.lang.Integer"/>
+		</attr>
+		<attr destColumn="CUID">
+			<plugin id="createCuidTransform" prefix="TRANS_ELEMENT"/>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="(BATCH_NUMBER=#BATCH_NUMBER# or BATCH_NUMBER = #BATCH_NUMBER_1#) AND MODEL IN ('OptiX PTN 7900E-32','OptiX PTN 7900E-24','OptiX PTN 990','OptiX PTN 980') and ME_REALITY !='virtual'" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="fillNeDefaultValueHandler" />
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="neCompareInspector" resourceId="TRANS_ELEMENT" writeLog="Y">
+			<compareColumn id="DEV_IP" /> 
+			<compareColumn id="MODEL"/> 
+			<compareColumn id="NATIVE_EMS_NAME"/> 
+			<compareColumn id="FDN"/> 
+			<compareColumn id="USERLABEL"/> 
+			<compareColumn id="SOFT_VERSION"/>	
+			<compareColumn id="LOCATION"/>
+			<compareColumn id="ROUTE_IP"/>
+			<compareColumn id="ADDITION_STATE"/>
+			<compareColumn id="IS_SUPERVISE"/>
+			<compareColumn id="IN_CONTRAL"/>
+			<compareColumn id="CONFIG_TYPE"/>
+			<compareColumn id="RELATED_TEMPLATE_NAME"/>
+			<compareColumn id="CAPACITY"/>
+			<!--<compareColumn id="IS_PERMIT_SYS_DEL"/>  -->
+		</inspector>
+		<inspector id="transElementPerHandler" batchcreate="N" createable="Y" updateable="Y" deletable="Y" autocreate="Y" autoupdate="Y" writeLog="Y"/>
+	</postInspectors>
+</resource>

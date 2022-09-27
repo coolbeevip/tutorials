@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_TUNNEL_TRAIL_BINDING" labelCn="L3VPN隧道关系" src="COL_TUNNEL_TRAIL_BINDING" ignoreError="Y" primaryKey="RELATED_L3VPN_CUID,RELATED_TUNNNEL_TRAIL_CUID" cacheId="COL_TUNNEL_TRAIL_BINDING" source="source">
+	<table id="TUNNEL_TRAIL_BINDING">
+		<attrTemp destColumn="TUNNEL_TRAIL_CUID" srcColumn="RELATED_TUNNNEL_TRAIL_CUID" dataType="string" nullable="Y">
+			<plugin id="relationTransform" resourceId="COL_TUNNEL_TRAIL" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attrTemp>	
+		<attrTemp destColumn="TUNNEL_INTERFACE_CUID" srcColumn="RELATED_TUNNNEL_TRAIL_CUID" dataType="string" nullable="Y">
+			<plugin id="relationTransform" resourceId="COL_TUNNEL_INTERFACE" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attrTemp>	
+		<attrTemp destColumn="EMS_NAME" srcColumn="BATCH_NUMBER" dataType="string" cached="Y">
+			<plugin id="relationTransform" resourceId="COL_NMS_SYSTEM" resourceKey="BATCH_NUMBER" returnColumn="NATIVE_EMS_NAME" stage="processing"/>
+		</attrTemp>
+    	<attrTemp destColumn="EMS_FDNHEAD" dataType = "string">
+			<plugin id="copyAttrValueTransform" defaultValue="EMS" valueClass="java.lang.String"/>
+		</attrTemp>
+    	<attrTemp destColumn="EMS_FDN" dataType = "string">
+			<plugin id="concatColumnsTransform" concatenator="=">
+				<concatColumns>EMS_FDNHEAD</concatColumns>
+				<concatColumns>EMS_NAME</concatColumns>
+			</plugin>
+		</attrTemp>
+    <attr destColumn="RELATED_L3VPN_CUID" srcColumn="RELATED_L3VPN_CUID" dataType="string" nullable="N">
+      <plugin id="relationTransform" resourceId="COL_SPN_STATIC_L3VPN" resourceKey="RES_ID" returnColumn="CUID" stage="processing"/>
+    </attr>
+    <attr destColumn="RELATED_VONDER_CUID" srcColumn="EMS_FDN" dataType="string">
+			<plugin id="relationTransform" resourceId="NMS_SYSTEM" resourceKey="FDN" returnColumn="RELATED_VENDOR_CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="IS_TUNNEL_GROUP" srcColumn="IS_TUNNEL_GROUP" dataType="string" showName="是否隧道组" />
+		<attr destColumn="RELATED_TUNNNEL_TRAIL_CUID" dataType="string" nullable="N">
+			<plugin id="selectNotNullTransform" >
+				<selectColumns>TUNNEL_TRAIL_CUID</selectColumns>
+				<selectColumns>TUNNEL_INTERFACE_CUID</selectColumns>
+			</plugin>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER#" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="TUNNEL_TRAIL_BINDING" writeLog="Y">
+			<compareColumn id="IS_TUNNEL_GROUP"/>
+			<compareColumn id="RELATED_VONDER_CUID"/>
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="Y" createable="Y" updateable="Y" deletable="Y" autocreate ="Y" autoupdate="Y" autodelete ="Y" writeLog="Y" deleteLimit="101"/>
+	</postInspectors>
+</resource>

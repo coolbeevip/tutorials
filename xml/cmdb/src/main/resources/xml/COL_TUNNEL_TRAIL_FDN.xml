@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_TUNNEL_TRAIL_FDN" labelCn="SR隧道业务FDN" src="COL_TUNNEL_TRAIL" ignoreError="Y"
+          primaryKey="FDN,SOURCE_NE_ID,DESTINATION_NE_ID" cacheId="COL_TUNNEL_TRAIL_FDN" source="source">
+  <table id="TUNNEL_TRAIL">
+    <attrTemp destColumn="NOTNULL_NAME" dataType="string" nullable="N">
+      <plugin id="selectNotNullTransform">
+        <selectColumns>NAME</selectColumns>
+        <selectColumns>LABEL_CN</selectColumns>
+      </plugin>
+    </attrTemp>
+    <attrTemp destColumn="EMS_NAME" srcColumn="BATCH_NUMBER" dataType="string" cached="Y">
+      <plugin id="relationTransform" resourceId="COL_NMS_SYSTEM" resourceKey="BATCH_NUMBER"
+              returnColumn="NATIVE_EMS_NAME" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDNHEAD" dataType="string">
+      <plugin id="copyAttrValueTransform" defaultValue="EMS" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDN" dataType="string">
+      <plugin id="concatColumnsTransform" concatenator="=">
+        <concatColumns>EMS_FDNHEAD</concatColumns>
+        <concatColumns>EMS_NAME</concatColumns>
+      </plugin>
+    </attrTemp>
+    <attr destColumn="ID" srcColumn="ID" dataType="string" showName="唯一标识"/>
+    <attr destColumn="NAME" srcColumn="NAME" dataType="string" showName="本地名称"/>
+    <attr destColumn="LABEL_CN" srcColumn="LABEL_CN" dataType="string"/>
+    <attr destColumn="SOURCE_NE_ID" srcColumn="SOURCE_NE_ID" dataType="string" nullable="N">
+      <plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="CUID"
+              stage="processing"/>
+    </attr>
+    <attr destColumn="DESTINATION_NE_ID" srcColumn="DESTINATION_NE_ID" dataType="string" nullable="N">
+      <plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="CUID"
+              stage="processing"/>
+    </attr>
+    <attr destColumn="FDN">
+      <plugin id="concatColumnsTransform" concatenator=":">
+        <concatColumns>EMS_FDN</concatColumns>
+        <concatColumns>NOTNULL_NAME</concatColumns>
+      </plugin>
+    </attr>
+  </table>
+  <extractInspector id="tnmsResExtractHandler">
+    <extractFilter>
+      <filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER#"/>
+    </extractFilter>
+  </extractInspector>
+  <postInspectors>
+    <recordInspector id="cacheRecordInspector"/>
+    <inspector id="compareInspector" resourceId="TUNNEL_TRAIL_FDN" writeLog="Y">
+      <compareColumn id="ID"/>
+    </inspector>
+    <inspector id="defaultPersistenceHandler" batchcreate="N" createable="N" updateable="Y" deletable="N" autocreate="N"
+               autoupdate="Y" autodelete="N" writeLog="Y" deleteLimit="101"/>
+  </postInspectors>
+</resource>

@@ -1,0 +1,1514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tpl>
+	<enum code="LEVEL_NUM" name="菜单级别" default="一级菜单">
+		<value name="一级菜单" val="一级菜单" />
+		<value name="二级菜单" val="二级菜单" />
+		<value name="三级菜单" val="三级菜单" />
+		<value name="四级菜单" val="四级菜单" />
+		<value name="五级菜单" val="五级菜单" />
+	</enum>
+	<enum code="LIFECYCFLOWTYPE" name="开通类型" >
+		<value name="新建" val="xinjian" />
+		<value name="扩容" val="kuorong" />
+		<value name="搬迁" val="banqian" />
+		<value name="平滑升级" val="pinghuashengji" />
+	</enum>
+	<enum code="COVER_TYPE" name="覆盖类型">
+		<value name="宏站" val="hongzhan" />
+		<value name="室分" val="shifen" />
+	</enum>
+	<enum code="NETWORKSTANDARD" name="网络制式">
+		<value name="2G" val="2G" />
+		<value name="3G" val="3G" />
+		<value name="LTE" val="LTE" />
+	</enum>
+	<enum code="WRITE_RESULT" name="回写状态">
+		<value name="未回写" val="未回写" />
+		<value name="成功" val="成功" />
+		<value name="失败" val="失败" />
+		<value name="释放" val="释放" />
+	</enum>
+	<enum code="NET_TYPE" name="网络类型">
+		<value name="二干" val="1" />
+		<value name="一干" val="2" />
+		<value name="本地" val="3" />
+	</enum>
+	<enum code="OPTICAL_ROUTE_TYPE" name="光路路由类型">
+		<value name="光纤路由" val="1" />
+		<value name="跳纤路由" val="2" />
+	</enum>
+	<enum code="ROOM_KEY_TYPE" name="钥匙类型">
+		<value name="电子钥匙" val="2" />
+		<value name="普通钥匙" val="1" />
+	</enum>
+	<enum code="SERVICE_STATE" name="运行状态">
+		<value name="服务" val="1" />
+		<value name="未服务" val="2" />
+		<value name="维护中" val="3" />
+		<value name="测试" val="4" />
+		<value name="损坏项" val="5" />
+	</enum>
+	<enum code="SITE_OWNERSHIP" name="产权">
+		<value name="未知" val="0" />
+		<value name="置换" val="6" />
+		<value name="自建" val="1" />
+		<value name="租用" val="4" />
+		<value name="购买" val="5" />
+		<value name="共建" val="2" />
+		<value name="合建" val="3" />
+	</enum>
+	<enum code="URGENCY_LEVEL" name="调单缓急">
+		<value name="普通" val="1" />
+		<value name="加急" val="2" />
+	</enum>
+	<enum code="OPTICAL_LEVEL" name="光路级别">
+		<value name="际中" val="1" />
+		<value name="港澳" val="2" />
+		<value name="际专" val="3" />
+		<value name="省际一级" val="4" />
+		<value name="省际二级" val="5" />
+		<value name="省内二级" val="6" />
+		<value name="本地区间" val="7" />
+		<value name="本地区内" val="8" />
+		<value name="楼内" val="9" />
+	</enum>
+	<enum code="ROOM_LEVEL" name="机房级别">
+		<value name="省际" val="1" />
+		<value name="省内" val="2" />
+		<value name="省内+本地" val="3" />
+		<value name="本地骨干" val="4" />
+		<value name="本地汇聚" val="5" />
+		<value name="本地接入" val="6" />
+		<value name="其他" val="6" />
+	</enum>
+	<enum code="VP_PROPERTY" name="客户属性">
+		<value name="国营企业" val="1" />
+		<value name="民营企业" val="2" />
+		<value name="私营企业" val="3" />
+		<value name="事业单位" val="4" />
+	</enum>
+	<enum code="REJECT_TYPE" name="明细驳回类型">
+		<value name="正常流转" val="0" />
+		<value name="端口驳回" val="1" />
+		<value name="电路驳回" val="2" />
+	</enum>
+	<enum code="DISTRICT_LEVEL" name="区域级别">
+		<value name="全国" val="0" />
+		<value name="省级" val="1" />
+		<value name="市级" val="2" />
+		<value name="县级" val="3" />
+		<value name="乡镇" val="4" />
+		<value name="其它" val="5" />
+	</enum>
+	<enum code="DIRECTION_TYPE" name="角色类型">
+		<value name="2" val="4" />
+		<value name="流程角色" val="RESOURCE" />
+	</enum>
+	<enum code="DIRECTIONALITY" name="方向">
+		<value name="NA" val="1" />
+		<value name="双向" val="2" />
+		<value name="源" val="3" />
+		<value name="宿" val="4" />
+	</enum>
+	<enum code="URGENT_GRADE" name="调单等级">
+		<value name="蓝色" val="1" />
+		<value name="黄色" val="2" />
+		<value name="红色" val="3" />
+	</enum>
+	<enum code="IMPORT_LEVEL" name="电路重要级别">
+		<value name="未知" val="0" />
+		<value name="一级" val="1" />
+		<value name="二级" val="2" />
+		<value name="三级" val="3" />
+	</enum>
+	<enum code="FLOW-SHEET_TYPE" name="流程-工单类型">
+		<value name="线下协调" val="NORMAL" parentValue="DATA_CHECK" />
+		<value name="其它" val="NORMAL" parentValue="QUESTION" />
+		<value name="新增" val="1" parentValue="ORDER" />
+		<value name="传输" val="TRANS" parentValue="QUESTION" />
+		<value name="集客-互联网专线" val="JK_INTERNET" parentValue="DATA_CHECK" />
+		<value name="新增" val="1" parentValue="TRAPH" />
+		<value name="无线" val="WIRELESS" parentValue="QUESTION" />
+		<value name="集客-传输专线" val="JK_TRANS" parentValue="DATA_CHECK" />
+		<value name="停闭" val="2" parentValue="TRAPH" />
+		<value name="停闭" val="2" parentValue="ORDER" />
+		<value name="核心" val="CORNET" parentValue="QUESTION" />
+		<value name="调整" val="3" parentValue="TRAPH" />
+		<value name="调整" val="3" parentValue="ORDER" />
+		<value name="城域网" val="IPMAN" parentValue="QUESTION" />
+	</enum>
+	<enum code="OVERRULE_CODE" name="驳回原因">
+		<value name="业务资源不具备" val="1" />
+		<value name="传输资源不具备" val="2" />
+		<value name="光调错用电调" val="3" />
+	</enum>
+	<enum code="VP_SVC_CLASS" name="客户业务类型">
+		<value name="VPN业务" val="1" />
+		<value name="互联网业务" val="2" />
+		<value name="语音业务" val="3" />
+		<value name="综合业务" val="4" />
+		<value name="其它" val="5" />
+	</enum>
+	<enum code="SITE_SERVER_LEVEL" name="站点级别">
+		<value name="省级" val="1" />
+		<value name="省内" val="2" />
+		<value name="省内+本地" val="3" />
+		<value name="本地骨干" val="4" />
+		<value name="本地汇聚" val="5" />
+		<value name="本地接入" val="6" />
+	</enum>
+	<enum code="ATTEMP_TYPE" name="调度方式">
+		<value name="新增" val="1" />
+		<value name="停闭" val="2" />
+		<value name="调整" val="3" />
+	</enum>
+	<enum code="SIGNAL_TYPE" name="信号类型">
+		<value name="SDH" val="1" />
+		<value name="PDH" val="2" />
+		<value name="WDM" val="3" />
+		<value name="微波" val="4" />
+		<value name="混合" val="5" />
+		<value name="未知" val="6" />
+		<value name="PDH微波" val="7" />
+		<value name="PTN" val="8" />
+		<value name="PON" val="9" />
+		<value name="OLP" val="10" />
+	</enum>
+	<enum code="VP_SERVICE_LEVEL" name="客户级别">
+		<value name="钻石（A+提升）" val="1" />
+		<value name="金牌（A+）" val="2" />
+		<value name="银牌（A）" val="3" />
+		<value name="铜牌（B）" val="4" />
+		<value name="标准（C）" val="5" />
+	</enum>
+	<enum code="ATTEMPT_RESULT_NEW" name="调度结果">
+		<value name="未处理" val="1" />
+		<value name="未开通" val="11" />
+		<value name="已开通" val="12" />
+	</enum>
+	<enum code="BOOLEAN" name="全局布尔">
+		<value name="否" val="0" />
+		<value name="是" val="1" />
+	</enum>
+	<enum code="MAINT_MODE" name="维护方式">
+		<value name="自维" val="1" />
+		<value name="代维" val="2" />
+	</enum>
+	<enum code="RECOVERY_TYPE" name="恢复方式">
+		<value name="自动恢复" val="1" />
+		<value name="人工恢复" val="2" />
+	</enum>
+	<enum code="DEFER_TYPE" name="延时原因">
+		<value name="客户原因" val="1" remark="客户原因" />
+		<value name="工程原因" val="2" remark="工程原因" />
+		<value name="业务部门原因" val="3" remark="业务部门原因" />
+		<value name="系统原因" val="4" remark="系统原因" />
+		<value name="对端原因（含对端运营商）" val="5" remark="对端原因（含对端运营商）" />
+		<value name="海外PoP" val="6" remark="海外PoP" />
+		<value name="运维原因" val="7" remark="运维原因" />
+		<value name="其他原因" val="8" remark="其他原因" />
+	</enum>
+	<enum code="JIKE_TYPE" name="集客类型">
+		<value name="无" val="0" />
+		<value name="电路出租" val="1" />
+		<value name="语音专线" val="2" />
+		<value name="GPRS行业应用" val="3" />
+		<value name="集团短信" val="4" />
+		<value name="互联网专线" val="5" />
+	</enum>
+	<enum code="CHECK_FLAG" name="核查状态">
+		<value name="失败" val="3" />
+		<value name="成功" val="2" />
+		<value name="部分成功" val="4" />
+		<value name="待核查" val="1" />
+	</enum>
+	<enum code="U_BANDWIDTH" name="带宽">
+		<value name="1.2K" val="0" remark="联通带宽" />
+		<value name="1.6K" val="1" remark="联通带宽" />
+		<value name="2.4K" val="2" remark="联通带宽" />
+		<value name="8K" val="3" remark="联通带宽" />
+		<value name="9.6K" val="4" remark="联通带宽" />
+		<value name="16K" val="5" remark="联通带宽" />
+		<value name="19.2K" val="6" remark="联通带宽" />
+		<value name="32K" val="7" remark="联通带宽" />
+		<value name="48K" val="8" remark="联通带宽" />
+		<value name="64K" val="9" remark="联通带宽" />
+		<value name="96K" val="10" remark="联通带宽" />
+		<value name="128K" val="11" remark="联通带宽" />
+		<value name="192K" val="12" remark="联通带宽" />
+		<value name="256K" val="13" remark="联通带宽" />
+		<value name="384K" val="14" remark="联通带宽" />
+		<value name="512K" val="15" remark="联通带宽" />
+		<value name="768K" val="16" remark="联通带宽" />
+		<value name="960K" val="17" remark="联通带宽" />
+		<value name="1M" val="18" remark="联通带宽" />
+		<value name="1.5M" val="19" remark="联通带宽" />
+		<value name="1536K" val="20" remark="联通带宽" />
+		<value name="1920K" val="21" remark="联通带宽" />
+		<value name="1984K" val="22" remark="联通带宽" />
+		<value name="2M" val="23" remark="联通带宽" />
+		<value name="3M" val="24" remark="联通带宽" />
+		<value name="4M" val="25" remark="联通带宽" />
+		<value name="5M" val="26" remark="联通带宽" />
+		<value name="6M" val="27" remark="联通带宽" />
+		<value name="8M" val="28" remark="联通带宽" />
+		<value name="9M" val="29" remark="联通带宽" />
+		<value name="10M" val="30" remark="联通带宽" />
+		<value name="12M" val="31" remark="联通带宽" />
+		<value name="14M" val="32" remark="联通带宽" />
+		<value name="15M" val="33" remark="联通带宽" />
+		<value name="16M" val="34" remark="联通带宽" />
+		<value name="17M" val="35" remark="联通带宽" />
+		<value name="18M" val="36" remark="联通带宽" />
+		<value name="19M" val="37" remark="联通带宽" />
+		<value name="20M" val="38" remark="联通带宽" />
+		<value name="21M" val="39" remark="联通带宽" />
+		<value name="24M" val="40" remark="联通带宽" />
+		<value name="25M" val="41" remark="联通带宽" />
+		<value name="26M" val="42" remark="联通带宽" />
+		<value name="28M" val="43" remark="联通带宽" />
+		<value name="29M" val="44" remark="联通带宽" />
+		<value name="30M" val="45" remark="联通带宽" />
+		<value name="31M" val="46" remark="联通带宽" />
+		<value name="32M" val="47" remark="联通带宽" />
+		<value name="34M" val="48" remark="联通带宽" />
+		<value name="35M" val="49" remark="联通带宽" />
+		<value name="36M" val="50" remark="联通带宽" />
+		<value name="39M" val="51" remark="联通带宽" />
+		<value name="40M" val="52" remark="联通带宽" />
+		<value name="45M" val="53" remark="联通带宽" />
+		<value name="48M" val="54" remark="联通带宽" />
+		<value name="49M" val="55" remark="联通带宽" />
+		<value name="50M" val="56" remark="联通带宽" />
+		<value name="60M" val="57" remark="联通带宽" />
+		<value name="70M" val="58" remark="联通带宽" />
+		<value name="80M" val="59" remark="联通带宽" />
+		<value name="90M" val="60" remark="联通带宽" />
+		<value name="100M" val="61" remark="联通带宽" />
+		<value name="110M" val="62" remark="联通带宽" />
+		<value name="120M" val="63" remark="联通带宽" />
+		<value name="130M" val="64" remark="联通带宽" />
+		<value name="140M" val="65" remark="联通带宽" />
+		<value name="150M" val="66" remark="联通带宽" />
+		<value name="155M" val="67" remark="联通带宽" />
+		<value name="200M" val="68" remark="联通带宽" />
+		<value name="300M" val="69" remark="联通带宽" />
+		<value name="400M" val="70" remark="联通带宽" />
+		<value name="500M" val="71" remark="联通带宽" />
+		<value name="600M" val="72" remark="联通带宽" />
+		<value name="622M" val="73" remark="联通带宽" />
+		<value name="700M" val="74" remark="联通带宽" />
+		<value name="800M" val="75" remark="联通带宽" />
+		<value name="900M" val="76" remark="联通带宽" />
+		<value name="1000M" val="77" remark="联通带宽" />
+		<value name="1G" val="78" remark="联通带宽" />
+		<value name="2.5G" val="79" remark="联通带宽" />
+		<value name="10G" val="17" remark="联通带宽" />
+	</enum>
+	<enum code="NE_TYPE" name="业务网元类型">
+		<value name="CE" val="CE" />
+		<value name="GPRS" val="GPRS" />
+		<value name="无线" val="无线" />
+		<value name="CMNET" val="CMNET" />
+		<value name="城域网" val="城域网" />
+		<value name="核心网" val="核心网" />
+		<value name="IP承载网" val="IP承载网" />
+		<value name="传输" val="传输" />
+	</enum>
+	<enum code="FTTX" name="FTTX模式">
+		<value name="未知" val="0" />
+		<value name="FTTB" val="1" />
+		<value name="FTTH" val="2" />
+		<value name="FTTC" val="3" />
+	</enum>
+	<enum code="TASK_NAME" name="调度环节">
+		<value name="新建派发" val="新建派发" />
+		<value name="电路制作审批" val="电路制作审批" />
+		<value name="调单设计" val="调单设计" />
+		<value name="多级设计" val="多级设计" />
+		<value name="施工" val="施工" />
+		<value name="施工验证" val="施工验证" />
+		<value name="归档" val="归档" />
+	</enum>
+	<enum code="PLAN_CONFIG_TYPE" name="配置服务">
+		<value name="电路" val="T" />
+		<value name="光路" val="O" />
+	</enum>
+	<enum code="ATTEMPT_RESULT_MORE" name="调度结果">
+		<value name="未处理" val="1" />
+		<value name="处理中" val="41" />
+		<value name="已处理" val="42" />
+	</enum>
+	<enum code="LIVE_CYCLE" name="生命周期">
+		<value name="在用" val="1" />
+		<value name="工程" val="2" />
+		<value name="退网" val="3" />
+	</enum>
+	<enum code="OPTICAL_NUM" name="光纤数量">
+		<value name="1芯" val="1" />
+		<value name="2芯" val="2" />
+	</enum>
+	<enum code="PORT_TYPE" name="端口类型">
+		<value name="电口FE" val="1" />
+		<value name="光口FE" val="2" />
+		<value name="电口GE" val="3" />
+		<value name="光口GE" val="4" />
+		<value name="电口2M" val="5" />
+		<value name="电口10GE" val="17" />
+		<value name="电口V.35" val="6" />
+		<value name="光口10GE" val="18" />
+		<value name="光口155M" val="7" />
+		<value name="光口622M" val="8" />
+		<value name="光口2.5G" val="9" />
+		<value name="光口10G" val="10" />
+		<value name="ONU上联口" val="14" />
+		<value name="FE" val="15" />
+		<value name="POTS" val="16" />
+	</enum>
+	<enum code="RANGE_USE_PURROSE" name="子网使用用途">
+		<value name="接入互联" val="1" />
+		<value name="未知" val="3" />
+		<value name="内网互联" val="2" />
+	</enum>
+	<enum code="SHEET_TYPE" name="工单类型">
+		<value name="新增" val="1" />
+		<value name="停闭" val="2" />
+		<value name="调整" val="3" />
+	</enum>
+	<enum code="PATH_TYPE" name="通道类型">
+		<value name="通道" val="1" />
+		<value name="光波道" val="2" />
+		<value name="MSTP通道" val="3" />
+	</enum>
+	<enum code="SERVICE_LEVEL" name="业务级别">
+		<value name="省际" val="1" />
+		<value name="省内" val="2" />
+		<value name="省内+本地" val="3" />
+		<value name="本地骨干" val="4" />
+		<value name="本地汇聚" val="5" />
+		<value name="本地接入" val="6" />
+	</enum>
+	<enum code="BANDWIDTH" name="带宽">
+		<value name="64K" val="64K" />
+		<value name="2M" val="2M" />
+		<value name="8M" val="8M" />
+		<value name="10M/100M（自适应）" val="10M/100M" />
+		<value name="34M" val="34M" />
+		<value name="45M" val="45M" />
+		<value name="68M" val="68M" />
+		<value name="140M" val="140M" />
+		<value name="280M" val="280M" />
+		<value name="310M" val="310M" />
+		<value name="565M" val="565M" />
+		<value name="622M" val="622M" />
+		<value name="1G" val="1G" />
+		<value name="2.5G" val="2.5G" />
+		<value name="10G" val="10G" />
+		<value name="20G" val="20G" />
+		<value name="40G" val="40G" />
+		<value name="80G" val="80G" />
+	</enum>
+	<enum code="VIRTUAL_TYPE" name="虚实性">
+		<value name="无" val="0" />
+		<value name="实" val="1" />
+		<value name="虚" val="2" />
+	</enum>
+	<enum code="U_BUSINESS_LEVEL" name="业务级别">
+		<value name="空白" val="0" />
+		<value name="A级" val="1" />
+		<value name="B级" val="2" />
+		<value name="C级" val="3" />
+	</enum>
+	<enum code="SITE_LINE_POINT_TYPE" name="线路点类型">
+		<value name="无" val="0" />
+		<value name="光纤直放站" val="2" />
+		<value name="广交接箱" val="1" />
+	</enum>
+	<enum code="PROTECTION_TYPE" name="保护方式">
+		<value name="未知" val="0" />
+		<value name="线路保护倒换" val="1" />
+		<value name="二纤单向通道倒换环" val="2" />
+		<value name="二纤双向通道倒换环" val="3" />
+		<value name="二纤单向复用段倒换环" val="4" />
+		<value name="四纤单向保护" val="5" />
+		<value name="四纤双向复用段倒换环" val="6" />
+		<value name="光通路保护倒换" val="7" />
+		<value name="1+1复用段线性保护" val="8" />
+		<value name="混合保护" val="9" />
+	</enum>
+	<enum code="IP_NET_TYPE" name="IP地址类型">
+		<value name="互联地址" val="1" />
+		<value name="业务地址" val="2" />
+		<value name="Loopback地址" val="3" />
+		<value name="网关" val="4" />
+		<value name="VRRPIP" val="5" />
+		<value name="未知" val="6" />
+		<value name="带外网管地址" val="7" />
+	</enum>
+	<enum code="SITE_OLEVEL" name="站点重要性">
+		<value name="三级" val="3" />
+		<value name="二级" val="2" />
+		<value name="一级" val="1" />
+	</enum>
+	<enum code="TRANS_MEDIA" name="传输媒介">
+		<value name="未知" val="0" />
+		<value name="光缆" val="1" />
+		<value name="微波" val="2" />
+		<value name="小微波" val="3" />
+		<value name="卫星" val="4" />
+		<value name="直连电路" val="5" />
+		<value name="电缆" val="6" />
+		<value name="红外" val="7" />
+		<value name="ADSL" val="8" />
+		<value name="HDSL" val="9" />
+		<value name="混合" val="10" />
+	</enum>
+	<enum code="PORJECT_STATE" name="工程状态">
+		<value name="未知" val="1" />
+		<value name="设计" val="2" />
+		<value name="在建" val="3" />
+		<value name="竣工" val="4" />
+		<value name="废弃" val="5" />
+		<value name="维护" val="6" />
+	</enum>
+	<enum code="OWNERSHIP" name="产权">
+		<value name="自建" val="1" />
+		<value name="租用" val="2" />
+		<value name="混合" val="3" />
+		<value name="合建" val="4" />
+	</enum>
+	<enum code="ATTEMPT_RESULT_CLOSE" name="调度结果">
+		<value name="未处理" val="1" />
+		<value name="未停闭" val="21" />
+		<value name="已停闭" val="22" />
+	</enum>
+	<enum code="PROJECT_STATE" name="工程状态">
+		<value name="未知" val="1" />
+		<value name="设计" val="2" />
+		<value name="在建" val="3" />
+		<value name="竣工" val="4" />
+		<value name="废弃" val="5" />
+		<value name="维护" val="6" />
+	</enum>
+	<enum code="OPTICAL_SET_TYPE" name="光纤上架设备类型">
+		<value name="ODF" val="ODF" />
+		<value name="光交接箱" val="FIBER_CAB" />
+		<value name="光分纤箱" val="FIBER_DP" />
+		<value name="光接头盒" val="FIBER_JOINT_BOX" />
+	</enum>
+	<enum code="PROTECT_STATE" name="保护状态">
+		<value name="正常状态" val="1" />
+		<value name="倒换状态" val="2" />
+	</enum>
+	<enum code="LINE_BRANCH_TYPE" name="群支路标识">
+		<value name="群路口" val="1" />
+		<value name="支路口" val="2" />
+		<value name="其它" val="3" />
+	</enum>
+	<enum code="SITE_MAINT_MODE" name="维护方式">
+		<value name="自维" val="1" />
+		<value name="代维" val="2" />
+	</enum>
+	<enum code="IP_NUM_TYPE" name="码号类别">
+		<value name="IP" val="1" />
+		<value name="网络地址" val="2" />
+		<value name="广播地址" val="3" />
+		<value name="主机地址" val="4" />
+	</enum>
+	<enum code="GROUP_NET_TYPE" name="组网类型">
+		<value name="环形" val="1" />
+		<value name="链形" val="2" />
+	</enum>
+	<enum code="OPTICAL_USE_TYPE" name="光路应用类型">
+		<value name="普通光路" val="0" />
+		<value name="PON光路" val="1" />
+	</enum>
+	<enum code="REVERSIONMODE" name="切换方式">
+		<value name="恢复" val="1" />
+		<value name="不恢复" val="2" />
+	</enum>
+	<enum code="U_RELAY_TYPE" name="中继类型">
+		<value name="语音中继" val="0" />
+		<value name="基础数据中继" val="1" />
+		<value name="IP中继" val="2" />
+		<value name="传输通路" val="3" />
+		<value name="其他" val="4" />
+	</enum>
+	<enum code="SEX" name="性别">
+		<value name="男" val="1" />
+		<value name="女" val="2" />
+		<value name="未知" val="3" />
+	</enum>
+	<enum code="VP_TYPE" name="客户类型">
+		<value name="VIP" val="1" />
+	</enum>
+	<enum code="VP_INDUSTRY" name="客户行业">
+		<value name="金融保险" val="1" />
+		<value name="政府机构" val="2" />
+		<value name="邮政通信" val="3" />
+		<value name="能源电力" val="4" />
+		<value name="科学技术" val="5" />
+		<value name="教育文化" val="6" />
+		<value name="房地产" val="7" />
+		<value name="交通运输" val="8" />
+		<value name="制造业" val="9" />
+		<value name="IT服务业" val="10" />
+		<value name="社会服务" val="11" />
+	</enum>
+	<enum code="SITE_STATE" name="设备状态">
+		<value name="废弃" val="4" />
+		<value name="竣工" val="3" />
+		<value name="设计" val="1" />
+		<value name="维护" val="5" />
+		<value name="在建" val="2" />
+	</enum>
+	<enum code="SITE_LEVEL" name="站点级别">
+		<value name="省际" val="1" />
+		<value name="省内" val="2" />
+		<value name="省内+本地" val="3" />
+		<value name="本地骨干" val="4" />
+		<value name="本地汇聚" val="5" />
+		<value name="本地接入" val="6" />
+		<value name="其他" val="6" />
+	</enum>
+	<enum code="USE_STATE" name="使用状态">
+		<value name="服务中" val="1" />
+		<value name="维护中" val="2" />
+		<value name="损坏" val="3" />
+		<value name="未知" val="4" />
+	</enum>
+	<enum code="USE_STATE_TYPE" name="使用状态类型">
+		<value name="空闲" val="1" />
+		<value name="占用" val="2" />
+		<value name="预占" val="3" />
+	</enum>
+	<enum code="ATTEMPT_RESULT_MODIFY" name="调度结果">
+		<value name="未处理" val="1" />
+		<value name="未调整" val="31" />
+		<value name="已调整" val="32" />
+	</enum>
+	<enum code="TRANSPATHUSE_STATE" name="时隙状态">
+		<value name="空闲" val="1" color="green" />
+		<value name="占用" val="2" color="red" />
+	</enum>
+	<enum code="TRANSPATHUSE_MODE" name="时隙显示模式">
+		<value name="顺序" val="1" color="green" />
+		<value name="间插" val="2" color="red" />
+	</enum>
+	<enum code="IP_STATUS" name="IP状态">
+		<value name="空闲" val="1" />
+		<value name="预占" val="2" />
+		<value name="实占" val="3" />
+	</enum>
+	<enum code="ORDER_TYPE" name="方案类型">
+		<value name="业务拆分" val="SEQ" />
+		<value name="业务捆绑" val="MULTI" />
+	</enum>
+	<enum code="CHANGE_SHEET_TYPE" name="变更单类型">
+		<value name="加急" val="08" />
+		<value name="延期" val="09" />
+		<value name="追单" val="14" />
+	</enum>
+	<enum code="NE_STATE" name="网元状态">
+		<value name="在用" val="1" />
+		<value name="空闲" val="2" />
+		<value name="在建" val="3" />
+		<value name="不可用" val="4" />
+	</enum>
+	<enum code="WORK_MODE" name="工作模式">
+		<value name="全双工" val="1" />
+		<value name="半双工" val="2" />
+	</enum>
+	<enum code="TRAPH_LEVEL" name="电路级别">
+		<value name="际中" val="1" />
+		<value name="港澳" val="2" />
+		<value name="际专" val="3" />
+		<value name="省际一级" val="4" />
+		<value name="省际二级" val="5" />
+		<value name="省内二级" val="6" />
+		<value name="本地区间" val="7" />
+		<value name="本地区内" val="8" />
+		<value name="楼内" val="9" />
+	</enum>
+	<enum code="DEVICE_SPECIALTY" name="设备专业">
+		<value name="WLAN" val="WLAN" />
+		<value name="CMNET" val="CMNET" />
+		<value name="网管网" val="NET_WORK" />
+		<value name="接入网" val="ACCESS" />
+		<value name="城域网" val="MAN" />
+		<value name="无线" val="WIRELESS" />
+		<value name="语音" val="VOICE" />
+		<value name="PTN" val="PTN" />
+		<value name="未知" val="UNKNOWN" />
+		<value name="PTN" val="PTN" />
+	</enum>
+	<enum code="MSTP_EXTS" name="MSTP业务类型">
+		<value name="EPL" val="1" />
+		<value name="EVPL" val="2" />
+		<value name="EPLAN" val="3" />
+		<value name="EVPLAN" val="4" />
+	</enum>
+	<enum code="SYSTEM_LEVEL" name="系统级别">
+		<value name="未知" val="0" />
+		<value name="省际" val="1" />
+		<value name="省内" val="2" />
+		<value name="本地骨干" val="3" />
+		<value name="本地汇聚" val="4" />
+		<value name="本地接入" val="5" />
+	</enum>
+	<enum code="CREATE_TYPE" name="通道创建类型">
+		<value name="预配" val="1" />
+		<value name="非预配" val="2" />
+	</enum>
+	<enum code="TRAPH_USE_TYPE" name="电路用途">
+		<value name="自用" val="1" />
+		<value name="出租" val="2" />
+	</enum>
+	<enum code="TRAPH_TYPE" name="电路类型">
+		<value name="传输电路" val="1" />
+		<value name="直连电路" val="2" />
+		<value name="MSTP电路" val="3" />
+	</enum>
+	<enum code="ROOM_MAIN_DEVICE_TYPE" name="传输主设备类型">
+		<value name="未知" val="10" />
+		<value name="光猫" val="7" />
+		<value name="协转" val="8" />
+		<value name="2M直连" val="9" />
+		<value name="混合" val="5" />
+		<value name="HDSL" val="6" />
+		<value name="微波" val="4" />
+		<value name="WDM" val="3" />
+		<value name="PDH" val="2" />
+		<value name="SDH" val="1" />
+	</enum>
+	<enum code="U_PORT_TYPE" name="端口类型">
+		<value name="V.35" val="0" />
+		<value name="CE1" val="1" />
+		<value name="V.24" val="2" />
+		<value name="X.21" val="3" />
+		<value name="E" val="4" />
+		<value name="光口" val="5" />
+		<value name="电口" val="6" />
+		<value name="G.703(75Ω)" val="7" />
+		<value name="G.703(120Ω)" val="8" />
+		<value name="G.703" val="9" />
+		<value name="RJ48" val="10" />
+		<value name="10M以太网" val="11" />
+		<value name="以太网接口" val="12" />
+		<value name="100/10M以太网" val="13" />
+		<value name="GE以太口" val="14" />
+		<value name="GE多模" val="15" />
+		<value name="100M/1000M" val="16" />
+		<value name="10M/100M" val="17" />
+		<value name="RJ48(120Ω)" val="18" />
+		<value name="以太网电口" val="19" />
+		<value name="100M以太网" val="20" />
+		<value name="PCM" val="21" />
+		<value name="STM_1" val="22" />
+		<value name="STM_2" val="23" />
+		<value name="STM_3" val="24" />
+		<value name="STM_4" val="25" />
+		<value name="其它" val="26" />
+	</enum>
+	<enum code="POINT_TYPE" name="终端点类型">
+		<value name="站点" val="SITE" />
+		<value name="机房" val="ROOM" />
+		<value name="接入点" val="ACCESSPOINT" />
+		<value name="光交" val="FIBER_CAB" />
+		<value name="传输网元" val="TRANS_ELEMENT" />
+	</enum>
+	<enum code="PORT_STATE" name="端口状态">
+		<value name="空闲" val="1" color="green" />
+		<value name="占用" val="2" color="red" />
+		<value name="预占" val="3" color="orange" />
+		<value name="坏" val="4" color="#cccccc" />
+	</enum>
+	<enum code="PTP_PORT_TYPE" name="端口子类型">
+		<value name="未知" val="0" />
+		<value name="电口" val="1" />
+		<value name="光口" val="2" />
+		<value name="MSTP口" val="3" />
+		<value name="逻辑口" val="4" />
+		<value name="中频口" val="5" />
+		<value name="射频口" val="6" />
+		<value name="IMA口" val="7" />
+		<value name="LAG口" val="8" />
+		<value name="GPON口" val="9" />
+		<value name="EPON口" val="10" />
+		<value name="OLT上联口" val="11" />
+		<value name="分光器上联口" val="12" />
+		<value name="分光器下联口" val="13" />
+		<value name="ONU上联口" val="14" />
+		<value name="FE" val="15" />
+		<value name="POTS" val="16" />
+		<value name="SDH" val="17" />
+		<value name="PDH" val="18" />
+		<value name="ADSL" val="19" />
+		<value name="ADSL2_PLUS" val="20" />
+		<value name="POS" val="21" />
+		<value name="SHDSL" val="22" />
+		<value name="VDSL2" val="23" />
+		<value name="ATM" val="24" />
+	</enum>
+	<enum code="OPTICAL_ZJ_POINTS" name="光路转接点类型">
+		<value name="站点" val="SITE" />
+		<value name="机房" val="ROOM" />
+		<value name="网元" val="TRANS_ELEMENT" />
+		<value name="光交接箱" val="FIBER_CAB" />
+		<value name="光分纤箱" val="FIBER_DP" />
+	</enum>
+	<enum code="PATH_STATE" name="通道状态">
+		<value name="空闲" val="1" />
+		<value name="已用" val="2" />
+		<value name="预占" val="3" />
+		<value name="冗余" val="4" />
+		<value name="预创建" val="5" />
+		<value name="损坏" val="6" />
+	</enum>
+	<enum code="EMERGENCY_LEVEL" name="紧急程度">
+		<value name="一般" val="一般" />
+		<value name="紧急" val="紧急" />
+	</enum>
+	<enum code="RESOURCE_CATEGORIES" name="资源类别">
+		<value name="站点" val="zhandian" />
+		<value name="资源点" val="ziyuandian" />
+		<value name="机房" val="jifang" />
+	</enum>
+	<!-- 验收流程新增开始 -->
+	<enum code="ACCEPTANCETYPE" name="验收类型">
+		<value name="新建验收" val="xinjian-yanshou" />
+		<value name="平滑升级验收" val="pinghuashengji-yanshou" />
+	</enum>
+	<enum code="ACCEPTANCERESULTS" name="验收结果">
+		<value name="通过" val="yes" />
+		<value name="不通过" val="no" />
+	</enum>
+	<!-- 验收流程新增结束 -->
+	<enum code="HOLDER_STATE" name="容器状态">
+		<value name="EMPTY" val="1" />
+		<value name="INSTALLED_AND_EXPECTED" val="2" />
+		<value name="EXPECTED_AND_NOT_INSTALLED" val="3" />
+		<value name="INSTALLED_AND_NOT_EXPECTED" val="4" />
+		<value name="MISMATCH_OF_INSTALLED_AND_EXPECTED" val="5" />
+		<value name="UNAVAILABLE" val="6" />
+		<value name="UNKNOWN" val="7" />
+	</enum>
+	<enum code="CARD_SERVICE_STATE" name="板卡状态">
+		<value name="IN_SERVICE" val="1" />
+		<value name="OUT_OF_SERVICE" val="2" />
+		<value name="OUT_OF_SERVICE_BY_MAINTENANCE" val="3" />
+		<value name="SERV_NA" val="4" />
+	</enum>
+	<enum code="CARD_SERVICE_STATE2" name="板卡状态">
+		<value name="1" val="服务" />
+		<value name="2" val="未服务" />
+		<value name="3" val="维护中" />
+		<value name="4" val="测试" />
+	</enum>
+	<enum code="MSTP_PORT_TYPE2" name="MSTP端口类型">
+		<value name="PE" val="1" />
+		<value name="P" val="2" />
+	</enum>
+	<enum code="MSTP_TAG_FLAG" name="MAC口TAG标识">
+		<value name="TagAware" val="1" />
+		<value name="Access" val="2" />
+		<value name="Hybrid" val="3" />
+	</enum>
+	<enum code="MSTP_FLOWCTRL" name="MAC口流控使能">
+		<value name="Enabled" val="1" />
+		<value name="Disabled" val="2" />
+	</enum>
+	<enum code="MSTP_PORTENABLE" name="MAC口使能">
+		<value name="Enabled" val="1" />
+		<value name="Disabled" val="2" />
+	</enum>
+	<enum code="MSTP_PPTENABLE" name="MAC口PPT使能">
+		<value name="Enabled" val="1" />
+		<value name="Disabled" val="2" />
+	</enum>
+	<enum code="MSTP_WORKMODE" name="MSTP工作模式">
+		<value name="10MHalfDuplex" val="1" />
+		<value name="10MFullDuplex" val="2" />
+		<value name="100MHalfDuplex" val="3" />
+		<value name="100MFullDuplex" val="4" />
+		<value name="1000MHalfDuplex" val="5" />
+		<value name="1000MFullDuplex" val="6" />
+		<value name="arrange" val="7" />
+	</enum>
+	<enum code="MSTP_PORT_SERVICETYPE" name="MSTP端口业务类型（MAC口、VCTRUNK口）">
+		<value name="SW" val="1" />
+		<value name="PKT" val="2" />
+	</enum>
+	<enum code="MSTP_NANFCMODE" name="非自协商流控方式（MAC口）">
+		<value name="Disabled" val="1" />
+		<value name="SymmetricFlowControl" val="2" />
+		<value name="SendOnly" val="3" />
+		<value name="ReceiveOnly" val="4" />
+	</enum>
+	<enum code="MSTP_ANFCMODE" name="自协商流控方式（MAC口）">
+		<value name="Disabled" val="1" />
+		<value name="NonSymmetricFlowControl" val="2" />
+		<value name="SymmetricFlowControl" val="3" />
+		<value name="SymmetricOrNonSymmetricFlowControl" val="4" />
+	</enum>
+	<enum code="MSTP_BMSGSUPPRESS" name="广播报文抑制功能">
+		<value name="Enabled" val="1" />
+		<value name="Disabled" val="2" />
+	</enum>
+	<enum code="MSTP_EDETECT" name="入口检测">
+		<value name="Enabled" val="1" />
+		<value name="Disabled" val="2" />
+	</enum>
+	<enum code="MSTP_ENCAPPROTOCOL" name="封装协议">
+		<value name="HDLC" val="1" />
+		<value name="LAPS" val="2" />
+		<value name="ATM" val="3" />
+		<value name="PPP" val="4" />
+		<value name="GFP" val="5" />
+	</enum>
+	<enum code="MSTP_ENCAPFORMAT" name="封装格式">
+		<value name="MartinioE" val="1" />
+		<value name="CCCoE" val="2" />
+		<value name="VMANoE" val="3" />
+		<value name="MartinioP" val="4" />
+	</enum>
+	<enum code="MSTP_LCAS_FLAG" name="LCAS使能">
+		<value name="Enabled" val="1" />
+		<value name="Disabled" val="2" />
+	</enum>
+	<enum code="MSTP_SCRAMBEL" name="扰码">
+		<value name="[x43+1]" val="1" />
+		<value name="[x48+1]" val="2" />
+		<value name="Not Scramble" val="3" />
+	</enum>
+	<enum code="MSTP_EXTENDEADER" name="拓展头选项">
+		<value name="No" val="1" />
+		<value name="Yes" val="2" />
+	</enum>
+	<enum code="MSTP_CFLEN" name="检验字段长度">
+		<value name="FCS32" val="1" />
+		<value name="FCS16" val="2" />
+		<value name="No" val="3" />
+	</enum>
+	<enum code="TOPO_DIRECTION" name="拓扑方向">
+		<value name="BI" val="1" />
+		<value name="UNI" val="2" />
+	</enum>
+	<enum code="TP_DIRECTION" name="端口方向">
+		<value name="NA" val="1" />
+		<value name="BI" val="2" />
+		<value name="SOURCE" val="3" />
+		<value name="SINK" val="4" />
+	</enum>
+	<enum code="CHANNEL_TYPE" name="通道类型">
+		<value name="NA" val="1" />
+		<value name="E_LSP" val="2" />
+		<value name="L_LSP" val="3" />
+	</enum>
+	<enum code="ADDITION_STATE" name="ADDITION_STATE">
+		<value name="local" val="1" />
+		<value name="remote" val="2" />
+	</enum>
+	<enum code="IS_SUPERVISE" name="IS_SUPERVISE">
+		<value name="CS_UNAVAILABLE" val="false" />
+		<value name="CS_AVAILABLE" val="true" />
+	</enum>
+	<enum code="INTERFACE_TYPE" name="INTERFACE_TYPE">
+		<value name="C_ODD_BAND" val="1" />
+		<value name="C_EVEN_BAND" val="2" />
+	</enum>
+	<enum code="TERMINATION_MODE" name="终结模式">
+		<value name="TM_NA" val="1" />
+		<value name="TM_TERMINATED_AND_AVAILABLE_FOR_MAPPING" val="3" />
+		<value name="TM_NEITHER_TERMINATED_NOR_AVAILABLE_FOR_MAPPING" val="2" />
+	</enum>
+	<enum code="TDM_TYPE" name="TDM类型">
+		<value name="E1" val="1" />
+		<value name="CHANNEL-STM-1" val="2" />
+		<value name="STRUCTED-STM-1" val="2" />
+		<value name="UNKONW" val="3" />
+	</enum>
+	<enum code="ETH_TYPE" name="Eth业务类型">
+		<value name="E_LINE" val="1" />
+		<value name="E_LAN" val="2" />
+		<value name="E_TREE" val="3" />
+	</enum>
+	<enum code="BOOLEAN_TYPE" name="全局布尔">
+		<value name="否" val="false" />
+		<value name="是" val="true" />
+	</enum>
+	<enum code="HOLDER_TYPE" name="容器类型">
+		<value name="1" val="机架" />
+		<value name="2" val="子架" />
+		<value name="3" val="机框" />
+		<value name="4" val="子框" />
+		<value name="5" val="槽道" />
+		<value name="6" val="子槽" />
+	</enum>
+	<enum code="CC_TYPE" name="交叉类型">
+		<value name="1" val="SIMPLE" />
+		<value name="2" val="ADD_DROP_A" />
+		<value name="3" val="ADD_DROP_Z" />
+		<value name="4" val="DOUBLE_ADD_DROP" />
+		<value name="5" val="INTERCONNECT" />
+		<value name="6" val="DOUBLE_INTERCONNECT" />
+		<value name="7" val="OPEN_ADD_DROP" />
+		<value name="8" val="EXPLICIT" />
+	</enum>
+	<enum code="BANDING_SERVICE_TYPE" name="业务类型">
+		<value name="ETHERNET" val="1" />
+		<value name="ETH" val="1" />
+		<value name="TDM" val="2" />
+		<value name="CES" val="2" />
+		<value name="ATM" val="3" />
+	</enum>
+	<enum code="PTN_ETH_SERVICE_TYPE" name="PTN以太业务类型">
+		<value name="UNKNOW" val="0" />
+		<value name="FDFRT_POINT_TO_POINT" val="1" />
+		<value name="FDFRT_POINT_TO_MULTIPOINT" val="2" />
+		<value name="FDFRT_MULTIPOINT" val="3" />
+	</enum>
+	<enum code="RMUID_PON_NE_STATUE" name="带RMUID的PON网元的连接状态">
+		<value name="Connecting" val="true" />
+		<value name="Disconnecting" val="false" />
+	</enum>
+	<enum code="RMUID_HOLDER_TYPE" name="带RMUID的PTN网元的容器类型">
+		<value name="rack" val="1" />
+		<value name="sub_rack" val="2" />
+		<value name="shelf" val="3" />
+		<value name="sub_shelf" val="4" />
+		<value name="slot" val="5" />
+		<value name="sub_slot" val="6" />
+	</enum>
+	<enum code="RMUID_PON_HOLDER_STATE" name="带RMUID的PON网元的容器状态">
+		<value name="empty" val="1" />
+		<value name="normal" val="2" />
+		<value name="fault" val="3" />
+		<value name="other" val="4" />
+		<value name="discovery" val="5" />
+		<value name="unknown" val="6" />
+	</enum>	
+	<enum code="RMUID_PHY_TYPE" name="带RMUID的PTN-端口的物理类型">
+		<value name="optical" val="2" />
+		<value name="electrical" val="1" />
+		<value name="logical" val="4" />
+		<value name="unknown" val="0" />
+	</enum>
+	<enum code="RMUID_PORT_TYPE" name="带RMUID的PON-端口的类型">
+		<value name="ADSL" val="23" />
+		<value name="VDSL-OFF" val="27" />
+		<value name="SHDSL" val="26" />
+		<value name="ETH" val="29" />
+		<value name="EPON" val="9" />
+		<value name="GPON" val="10" />
+		<value name="ELC_FE" val="37" />
+		<value name="OPT_FE" val="38" />
+		<value name="OPT_GE" val="15" />
+		<value name="ELC_GE" val="26" />
+		<value name="CATV" val="0" />
+		<value name="VOIP" val="0" />
+		<value name="ADSL_VOIP" val="0" />
+		<value name="VDSL_VOIP" val="0" />
+		<value name="GFAST" val="0" />
+	</enum>
+	<enum code="RMUID_PORT_RATE" name="带RMUID的PTN端口的速率">
+		<value name="2M" val="1" />
+		<value name="4M" val="25" /> 
+		<value name="6M" val="22" /> 
+		<value name="10M" val="3" /> 
+		<value name="12M" val="23" /> 
+		<value name="16M" val="24" /> 
+		<value name="32M" val="33" /> 
+		<value name="34M" val="4" />
+		<value name="45M" val="5" /> 
+		<value name="100M" val="7" /> 
+		<value name="155M" val="9" /> 
+		<value name="622M" val="13" /> 
+		<value name="FE" val="34" />
+		<value name="GE" val="35" /> 
+		<value name="10GE" val="36" /> 
+		<value name="40GE" val="41" /> 
+		<value name="100GE" val="44" /> 
+		<value name="2.5G" val="16" /> 
+		<value name="10G" val="17" /> 
+		<value name="20G" val="18" /> 
+		<value name="40G" val="19" /> 
+		<value name="100G" val="47" /> 
+		<value name="614M" val="0" /> 
+		<value name="200M" val="0" /> 
+		<value name="270M" val="0" /> 
+		<value name="1.2G" val="0" /> 
+		<value name="1.5G" val="0" />  
+		<value name="3G" val="0" /> 
+		<value name="3.75G" val="0" /> 
+		<value name="4G" val="42" />  
+		<value name="6G" val="0" /> 
+		<value name="7.5G" val="0" /> 
+		<value name="8.5G" val="0" /> 
+		<value name="8.75G" val="0" /> 
+		<value name="300G" val="0" /> 
+		<value name="400G" val="30" /> 
+		<value name="40M" val="0" /> 
+		<value name="20M" val="3" /> 
+		<value name="NA" val="0" />
+		<value name="200GE" val="49" />
+		<value name="50G" val="50" />  
+		<value name="45G" val="51" /> 
+		<value name="180G" val="52" /> 
+		<value name="200G" val="53" /> 
+		<value name="80G" val="20" /> 
+		<value name="160G" val="55" /> 
+		<value name="5G" val="56" /> 
+    <value name="90G" val="57" /> 
+		<value name="25G" val="54" />
+		<value name="2G" val="59" /> 
+	</enum>
+	<enum code="RMUID_PORT_DIR" name="带RMUID的PTN-端口的方向">
+		<value name="D_BIDIRECTIONAL" val="2" />
+		<value name="D_SOURCE" val="3" />
+		<value name="D_SINK" val="4" />
+		<value name="DIR_NA" val="1" />
+	</enum>
+	<enum code="RMUID_PTN_PORT_PHY_TYPE" name="带RMUID的PTN-端口的物理类型">
+		<value name="electrical" val="1" />
+		<value name="optical" val="2" />
+		<value name="invalid" val="4" />
+	</enum>
+	<enum code="RMUID_PTN_SUBPORT_TYPE" name="带RMUID的PTN端口的端口子类型">
+		<value name="ETH" val="29" />
+		<value name="TDM" val="32" />
+		<value name="LAG" val="8" />
+		<value name="L2VE" val="41" />
+		<value name="L3VE" val="42" />
+		<value name="FlexE" val="43" />
+		<value name="Mtn" val="43" />
+		<value name="other" val="44" />
+	</enum>
+	<enum code="RMUID_PTN_SERV_DIR" name="带RMUID的PTN业务的方向">
+		<value name="CD_BI" val="2" />
+		<value name="CD_UNI" val="1" />
+	</enum>
+	<enum code="RMUID_PTN_SERV_STATUS" name="带RMUID的PTN业务的状态">
+	<!--枚举值包括：ACTIVE：激活；PARTIAL（部分激活）；PENDING（去激活）-->
+		<value name="ACTIVE" val="2" />
+		<value name="PARTIAL" val="4" />
+		<value name="PENDING" val="5" />
+	</enum>
+	<enum code="RMUID_PTN_PROTECT_TYPE" name="带RMUID的PTN保护组模式">
+		<value name="1+1" val="1" />
+		<value name="1:1" val="2" />
+	</enum>
+	<enum code="RMUID_PTN_REVERSION_MODE" name="带RMUID的PTN保护组恢复模式">
+	<!--枚举值包括：RM_REVERTIVE：恢复式；RM_NON_REVERTIVE：非恢复式；RM_UNKNOWN：未知。-->
+	<!--RM_REVERTIVE：恢复式；RM_NON_REVERTIVE：非恢复式；RM_UNKNOWN：未知。-->
+		<value name="RM_UNKNOWN" val="0" />
+		<value name="RM_REVERTIVE" val="1" />
+		<value name="RM_NON_REVERTIVE" val="2" />
+	</enum>
+	<enum code="RMUID_PTN_PROTECT_UNITROLE" name="带RMUID的PTN保护单元角色">
+	<!--Master：主用；Backup：备用。-->
+		<value name="Master" val="1" />
+		<value name="Backup" val="2" />
+	</enum>
+	<enum code="PTN_PG_STATE" name="PTN保护组状态">
+		<value  name="UNKNOWN" val="0" />
+		<value  name="AUTOMATIC" val="1" />
+		<value  name="FORCED_OR_LOCKED_OUT" val="2"/>
+	</enum>
+
+	<enum code="RMUID_PTN_ETH_TYPE" name="带RMUID的PTN-ETH的业务类型">
+	<!--E-LINE、E-LAN、E-TREE。-->
+		<value name="E-LINE" val="1" />
+		<value name="E-LAN" val="2" />
+		<value name="E-TREE" val="3" />
+	</enum>
+	<enum code="RMUID_PTN_PW_ROLE" name="带RMUID的PTN-伪线角色">
+	<!--"枚举值包括：Master：主用；Backup：备用；NA：无主备；IDI：。-->
+		<value name="NA" val="0" />
+		<value name="Master" val="1" />
+		<value name="Backup" val="2" />
+		<value name="IDI" val="3" />
+	</enum>
+	<enum code="RMUID_PG_TYPE" name="带RMUID的保护模式模式">
+		<value name="1+1" val="1" />
+		<value name="1:1" val="2" />
+	</enum>
+	
+	<enum code="RMUID_PTN_SUBTYPENAME" name="中兴子端口类型转换">
+		<value name="1" val="Eth_U"/>
+		<value name="2" val="Eth_N"/>
+		<value name="3" val="RPR"/>
+		<value name="4" val="RPRSpan"/>
+		<value name="5" val="Eth_MPLS"/>
+		<value name="6" val="VCG_Eos"/>
+		<value name="7" val="VCG_RprSpan"/>
+		<value name="8" val="VCG_EthMpls"/>
+		<value name="9" val="VCG_GfpMpls"/>
+		<value name="10" val="VCG_RpsMpls"/>
+		<value name="11" val="Eth_Emu"/>
+		<value name="12" val="VCG"/>
+		<value name="13" val="Eth_Inn"/>
+		<value name="14" val="UNI"/>
+		<value name="15" val="NNI"/>
+		<value name="30" val="SFUsr"/>
+		<value name="31" val="CTUsr"/>
+		<value name="50" val="MBCC"/>
+		<value name="51" val="VC2FTP"/>
+		<value name="52" val="Eth"/>
+		<value name="53" val="VC4FTP"/>
+		<value name="101" val="STM1"/>
+		<value name="102" val="STM4"/>
+		<value name="103" val="STM16"/>
+		<value name="104" val="STM64"/>
+		<value name="105" val="STM256"/>
+		<value name="106" val="STMx"/>
+		<value name="107" val="STM1e"/>
+		<value name="108" val="OTUP"/>
+		<value name="109" val="optE1"/>
+		<value name="120" val="AtmSTM1UNI"/>
+		<value name="121" val="OA"/>
+		<value name="122" val="AtmNNI"/>
+		<value name="123" val="UNKN"/>
+		<value name="124" val="AG"/>
+		<value name="125" val="PW"/>
+		<value name="126" val="TM-UNI"/>
+		<value name="127" val="TM-NNI"/>
+		<value name="128" val="TM-BG"/>
+		<value name="129" val="PBT-BG"/>
+		<value name="131" val="VCGGFP"/>
+		<value name="132" val="WAN"/>
+		<value name="133" val="Tunnel"/>
+		<value name="134" val="GRE"/>
+		<value name="151" val="T1"/>
+		<value name="152" val="E1"/>
+		<value name="153" val="E2"/>
+		<value name="154" val="E3"/>
+		<value name="155" val="T3"/>
+		<value name="156" val="E4"/>
+		<value name="157" val="ETx"/>
+		<value name="158" val="FAN"/>
+		<value name="159" val="InClk"/>
+		<value name="160" val="ExClk"/>
+		<value name="161" val="TrClk"/>
+		<value name="162" val="EpClk"/>
+		<value name="163" val="1588Clk"/>
+		<value name="164" val="utcClk"/>
+		<value name="165" val="ClkOut"/>
+		<value name="166" val="AlmOut"/>
+		<value name="167" val="AlmConcateIn"/>
+		<value name="168" val="AlmExtIn"/>
+		<value name="200" val="SI"/>
+		<value name="201" val="OW"/>
+		<value name="202" val="IP"/>
+		<value name="203" val="F1"/>
+		<value name="204" val="AI"/>
+		<value name="205" val="dPort"/>
+		<value name="250" val="OSC"/>
+		<value name="254" val="ETHPI"/>
+		<value name="255" val="CES"/>
+		<value name="256" val="IMA"/>
+		<value name="257" val="ML-PPP"/>
+		<value name="258" val="CESFTP"/>
+		<value name="259" val="VLAN"/>
+		<value name="261" val="ATnn"/>
+		<value name="262" val="lbPort"/>
+		<value name="263" val="MLPPPPort"/>
+		<value name="300" val="PCMUI"/>
+		<value name="302" val="V35"/>
+		<value name="303" val="DIX"/>
+		<value name="304" val="AIx"/>
+		<value name="305" val="STUC"/>
+		<value name="306" val="Temperature"/>
+		<value name="307" val="BrdV"/>
+		<value name="308" val="GPSAntenna"/>
+		<value name="309" val="STM1Comp"/>
+		<value name="310" val="ATMComp"/>
+		<value name="311" val="FE1588"/>
+		<value name="312" val="GE"/>
+		<value name="313" val="Eth10G"/>
+		<value name="314" val="PosAtmStm1"/>
+		<value name="315" val="EthCIP"/>
+		<value name="316" val="TdmCIP"/>
+		<value name="317" val="AtmCIP"/>
+		<value name="318" val="EthVIP"/>
+		<value name="319" val="TdmVIP"/>
+		<value name="320" val="AtmVIP"/>
+		<value name="321" val="TMS"/>
+		<value name="323" val="STM1PPPPos3"/>
+		<value name="324" val="SuperVlan"/>
+		<value name="325" val="sndClkDm"/>
+		<value name="326" val="L2VETH"/>
+		<value name="327" val="L3VETH"/>
+		<value name="328" val="QinQ"/>
+		<value name="329" val="AtmSTM4UNI"/>
+		<value name="330" val="STM4PPPPos"/>
+		<value name="331" val="STM16PPPPos"/>
+		<value name="332" val="STM64PPPPos"/>
+		<value name="333" val="L3Qx"/>
+		<value name="334" val="L3LCT"/>
+		<value name="335" val="VDSL2"/>
+		<value name="336" val="SHDSL"/>
+		<value name="337" val="RMPort"/>
+		<value name="338" val="TeTrunk"/>
+		<value name="339" val="VDSL2GRP"/>
+		<value name="340" val="SHDSLGRP"/>
+		<value name="341" val="PPPCIP"/>
+		<value name="342" val="FRCIP"/>
+		<value name="343" val="HDLCCIP"/>
+		<value name="344" val="NMulE1"/>
+		<value name="345" val="XPICGrp"/>
+		<value name="346" val="VirtualLinkBindingGrp"/>
+		<value name="347" val="cstm4_cpos12"/>
+		<value name="348" val="OTU3Port"/>
+		<value name="349" val="Eth40G"/>
+		<value name="350" val="TSuperPort"/>
+		<value name="351" val="OSuperPort"/>
+		<value name="352" val="IPv6Tnnl"/>
+		<value name="353" val="sham-linkX"/>
+		<value name="354" val="virtual-linkX"/>
+		<value name="355" val="ServLoopIntf"/>
+		<value name="356" val="GFP_F"/>
+		<value name="357" val="Eth100G"/>
+		<value name="358" val="STM256PPPPos"/>
+		<value name="359" val="POSGroup"/>
+		<value name="360" val="ESI"/>
+		<value name="361" val="SFI"/>
+		<value name="362" val="P2MPTnnl"/>
+		<value name="363" val="MgmtPort"/>
+		<value name="364" val="OMA"/>
+		<value name="365" val="SVI"/>
+		<value name="366" val="IPSEC"/>
+		<value name="367" val="V_TMPLT"/>
+		<value name="368" val="PVCGROUP"/>
+		<value name="369" val="WOSF_LI"/>
+		<value name="370" val="WOST_LI"/>
+		<value name="371" val="BEP"/>
+		<value name="372" val="GFP_E"/>
+		<value name="379" val="ETH25G"/>
+		<value name="381" val="FlexEGroup"/>
+		<value name="382" val="FlexEVEI"/>
+		<value name="383" val="FlexEVCI"/>
+		<value name="385" val="FC"/>
+		<value name="395" val="Eth50G"/>
+		<value name="396" val="Eth200G"/>
+		<value name="397" val="Eth400G"/>
+		<value name="401" val="OTS_TTP_So"/>
+		<value name="402" val="OTS_TTP_Si"/>
+		<value name="403" val="OMS_TTP_So"/>
+		<value name="404" val="OMS_TTP_Si"/>
+		<value name="405" val="OMS_CTP_So"/>
+		<value name="406" val="OMS_CTP_Si"/>
+		<value name="407" val="OCH_TTP_So"/>
+		<value name="408" val="OCH_TTP_Si"/>
+		<value name="409" val="OCH_CTP_So"/>
+		<value name="410" val="OCH_CTP_Si"/>
+		<value name="411" val="OAC_CTP_So"/>
+		<value name="412" val="OAC_CTP_Si"/>
+		<value name="413" val="OSC_SO"/>
+		<value name="414" val="OSC_SI"/>
+		<value name="415" val="Optical_Bi"/>
+		<value name="417" val="SOMS_CTP_So"/>
+		<value name="418" val="SOMS_Out"/>
+		<value name="419" val="SOMS_TTP_So"/>
+		<value name="420" val="SOMS_TTP_Si"/>
+		<value name="423" val="OP_So_in"/>
+		<value name="424" val="OP_Si_in"/>
+		<value name="425" val="OP_So_out"/>
+		<value name="426" val="OP_Si_out"/>
+		<value name="427" val="OCH_CTP_SoOrSi"/>
+		<value name="428" val="OMS_TTP_SoOrSi"/>
+		<value name="429" val="CTP_in"/>
+		<value name="430" val="CTP_out"/>
+		<value name="448" val="OTSi_Bi"/>
+		<value name="449" val="OCH_OMS_So"/>
+		<value name="450" val="OCH_OMS_Si"/>
+		<value name="451" val="Optical_Service_In"/>
+		<value name="452" val="Optical_Service_Out"/>
+		<value name="453" val="OAC_Bi"/>
+		<value name="454" val="OChTTP_Bi"/>
+		<value name="455" val="OChCTP_Bi"/>
+		<value name="456" val="SOMS_Bi"/>
+		<value name="457" val="PTP_Port"/>
+		<value name="458" val="1PPS_TOD_Port"/>
+		<value name="459" val="OMSTTP_Bi"/>
+		<value name="460" val="OMSCTP_Bi"/>
+		<value name="463" val="Clock_So"/>
+		<value name="465" val="EBC_So"/>
+		<value name="466" val="EBC_Si"/>
+		<value name="500" val="Port"/>
+		<value name="501" val="module"/>
+		<value name="502" val="OCH_TTP"/>
+		<value name="503" val="OAC_TTP"/>
+		<value name="504" val="AdmNet"/>
+		<value name="601" val="ATMFTP"/>
+		<value name="602" val="Bundle"/>
+		<value name="603" val="QxPort"/>
+		<value name="604" val="VETH"/>
+		<value name="605" val="VETH"/>
+		<value name="606" val="CCVETH"/>
+		<value name="607" val="UNI_LTE"/>
+		<value name="608" val="UNI_3G"/>
+		<value name="1067" val="Backplane_Bus_In"/>
+		<value name="1068" val="Backplane_Bus_Out"/>
+		<value name="1069" val="IP_Out"/>
+		<value name="1070" val="IP_In"/>
+		<value name="1071" val="DataService_out"/>
+		<value name="1072" val="DataService_in"/>
+		<value name="1073" val="Cross_Signal_Out"/>
+		<value name="1074" val="Cross_Signal_In"/>
+		<value name="1075" val="E1_Bi"/>
+		<value name="1076" val="Backplane_Bus_Bi"/>
+		<value name="1077" val="Backplane_Eth_Bi"/>
+		<value name="1078" val="OPT_Module"/>
+		<value name="1079" val="Inside_EDFA_Out"/>
+		<value name="1081" val="Shell_Out"/>
+		<value name="1082" val="Shell_In"/>
+		<value name="1083" val="Shell_Bi"/>
+		<value name="1096" val="Fan"/>
+		<value name="1097" val="Switch"/>
+		<value name="1098" val="Power"/>
+		<value name="1099" val="MEM"/>
+		<value name="1100" val="Switch-L2"/>
+		<value name="1101" val="Inside_Out"/>
+		<value name="1102" val="Inside_In"/>
+		<value name="1103" val="OCH_Mod_lane_In"/>
+		<value name="1104" val="OCH_Mod_lane_Out"/>
+		<value name="1105" val="OAC_Mod_lane_In"/>
+		<value name="1106" val="OAC_Mod_lane_Out"/>
+		<value name="1107" val="OCH_Mod_lane_Bi"/>
+		<value name="1108" val="OAC_Mod_lane_Bi"/>
+		<value name="1109" val="Inside_EDFA_In"/>
+		<value name="1110" val="Inside_Raman_Out"/>
+		<value name="1111" val="VOA_Module"/>
+		<value name="1112" val="Esc_Bi"/>
+		<value name="1113" val="OSC_So"/>
+		<value name="1114" val="OSC_Si"/>
+		<value name="1115" val="Eth_Bi"/>
+		<value name="1116" val="Comm_Slot"/>
+		<value name="1117" val="Esc_Slot"/>
+		<value name="1118" val="Panel_FE_Bi"/>
+		<value name="1119" val="OW"/>
+		<value name="1120" val="Panel_FE_Obi"/>
+		<value name="1121" val="ESC"/>
+		<value name="1122" val="OSC_Bi"/>
+		<value name="1128" val="OP_AW_in"/>
+		<value name="1129" val="OP_AP_in"/>
+		<value name="1130" val="OP_AW_out"/>
+		<value name="1131" val="OP_AP_out"/>
+		<value name="1132" val="OP_A_in"/>
+		<value name="1133" val="OP_A_out"/>
+		<value name="1136" val="OP_BW_in"/>
+		<value name="1137" val="OP_BP_in"/>
+		<value name="1138" val="OP_BW_out"/>
+		<value name="1139" val="OP_BP_out"/>
+		<value name="1140" val="OP_B_in"/>
+		<value name="1141" val="OP_B_out"/>
+		<value name="1144" val="OP_1_in"/>
+		<value name="1145" val="OP_1W_out"/>
+		<value name="1146" val="OP_1P_out"/>
+		<value name="1147" val="OP_1W_in"/>
+		<value name="1148" val="OP_1P_in"/>
+		<value name="1149" val="OP_1_out"/>
+		<value name="1150" val="OP_Bi"/>
+		<value name="1152" val="OP_2_in"/>
+		<value name="1153" val="OP_2W_out"/>
+		<value name="1154" val="OP_2P_out"/>
+		<value name="1155" val="OP_2W_in"/>
+		<value name="1156" val="OP_2P_in"/>
+		<value name="1157" val="OP_2_out"/>
+		<value name="1158" val="OP_W_Bi"/>
+		<value name="1159" val="OP_P_Bi"/>
+		<value name="1161" val="Mntr_in"/>
+		<value name="1162" val="Mntr_out"/>
+		<value name="1163" val="OLOOP"/>
+		<value name="1164" val="ILOOP"/>
+		<value name="1165" val="Fiber_Monitor"/>
+		<value name="1176" val="Ethernet_Bi"/>
+		<value name="1177" val="Inner_Ethernet_Bi"/>
+		<value name="1192" val="ODU_C_I"/>
+		<value name="1193" val="ODU_C_O"/>
+		<value name="1194" val="EDC_V_I"/>
+		<value name="1195" val="EDC_V_O"/>
+		<value name="1196" val="ODU_Bi"/>
+		<value name="1197" val="HO_ODU_Bi"/>
+		<value name="1198" val="Sub_Serv_In"/>
+		<value name="1199" val="Sub_Serv_Out"/>
+		<value name="1200" val="Inner_SDH_Bi"/>
+		<value name="1201" val="OTU_Bi"/>
+		<value name="1202" val="OTU_In"/>
+		<value name="1203" val="OTU_Out"/>
+		<value name="1206" val="OTUC_Bi"/>
+		<value name="1208" val="ETH_So"/>
+		<value name="1209" val="ETH_Si"/>
+		<value name="1210" val="ETH_TRUNK_So"/>
+		<value name="1211" val="ETH_TRUNK_Si"/>
+		<value name="1212" val="ETH_TRUNK_Bi"/>
+		<value name="1213" val="HO_ODU_Out"/>
+		<value name="1214" val="HO_ODU_In"/>
+		<value name="1215" val="HiODU_Bi"/>
+		<value name="1216" val="HiODU_In"/>
+		<value name="1217" val="HiODU_Out"/>
+		<value name="1255" val="WASON"/>
+		<value name="5141" val="lct_x/y"/>
+	</enum>
+	<enum code="ZTE_PORT_SUB_TYPE" name="中兴port_subtype">
+		<value name="1" val="45"/>
+		<value name="2" val="46"/>
+		<value name="13" val="47"/>
+		<value name="14" val="48"/>
+		<value name="15" val="49"/>
+		<value name="50" val="50"/>
+		<value name="52" val="29"/>
+		<value name="124" val="8"/>
+		<value name="133" val="133"/>
+		<value name="134" val="134"/>
+		<value name="158" val="158"/>
+		<value name="159" val="159"/>
+		<value name="160" val="160"/>
+		<value name="161" val="161"/>
+		<value name="162" val="162"/>
+		<value name="163" val="163"/>
+		<value name="164" val="164"/>
+		<value name="165" val="165"/>
+		<value name="254" val="254"/>
+		<value name="259" val="259"/>
+		<value name="262" val="262"/>
+		<value name="311" val="311"/>
+		<value name="312" val="312"/>
+		<value name="313" val="313"/>
+		<value name="326" val="41"/>
+		<value name="327" val="42"/>
+		<value name="328" val="328"/>
+		<value name="333" val="333"/>
+		<value name="334" val="334"/>
+		<value name="349" val="349"/>
+		<value name="357" val="357"/>
+		<value name="379" val="379"/>
+		<value name="381" val="381"/>
+		<value name="382" val="382"/>
+		<value name="383" val="383"/>
+		<value name="385" val="385"/>
+		<value name="395" val="395"/>
+		<value name="396" val="396"/>
+		<value name="397" val="397"/>
+		<value name="603" val="603"/>
+		<value name="604" val="604"/>
+		<value name="605" val="605"/>
+	</enum>
+	<enum code="HW_PORT_SUB_TYPE" name="华为端口子类型">
+		<value name="FlexE-50G" val="43"/>
+		<value name="ethtrunk" val="1210"/>
+		<value name="tunnelif" val="133"/>
+		<value name="FlexE" val="43"/>
+		<value name="LAG" val="8"/>
+		<value name="loopback" val="262"/>
+		<value name="FlexE-100G" val="43"/>
+		<value name="vlanif" val="259"/>
+		<value name="Universal lnterface" val="0"/>
+		<value name="50GE" val="0"/>
+		<value name="FlexE-200GE" val="43"/>
+		<value name="XGigabitEthernet" val="0"/>
+		<value name="ETH" val="29"/>
+	</enum>
+	
+</tpl>

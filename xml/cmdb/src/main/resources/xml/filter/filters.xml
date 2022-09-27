@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<filters>
+	<filter id="default">
+		<condition columnName="BATCHONO" val="#batchNo#" />
+	</filter>
+	<filter id="all">
+	</filter>
+	<filter id="ems">
+		<condition columnName="EMS" val="#emsid#" />
+		<condition columnName="VENDOR" val="#vendor#" />
+	</filter>
+	<filter id="tunnel">
+		<condition columnName="LAYER_REATE" val="8010"/>
+	</filter>
+	<filter id="virtualLine">
+		<condition columnName="LAYER_REATE" val="8011"/>
+	</filter>
+</filters>

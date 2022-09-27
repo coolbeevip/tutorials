@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_PATH_HOP" labelCn="SR隧道路由" src="COL_PATH_HOP" ignoreError="Y" primaryKey="RELATED_LSP_CUID,HOP_INDEX" cacheId="COL_PATH_HOP" source="source">
+	<table id="PATH_HOP">
+    <attrTemp destColumn="ORIG_PTP_LABEL_CN" srcColumn="LTP_ID" showName="A端端口">
+      <plugin id="relationTransform" resourceId="COL_PTP" resourceKey="RMUID" returnColumn="LABEL_CN" stage="processing"/>
+    </attrTemp>
+		<attr destColumn="RELATED_LSP_CUID" srcColumn="RELATED_LSP_CUID" dataType="string" showName="SR隧道rmUID"/>
+		<attr destColumn="HOP_INDEX" srcColumn="HOP_INDEX" dataType="string" showName="路由序号"/>
+		<attr destColumn="NE_ID" srcColumn="NE_ID" dataType="string" nullable="N">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="LTP_ID" srcColumn="LTP_ID">
+			<plugin id="relationTransform" resourceId="COL_PTP" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="CUID">
+			<plugin id="createCuidTransform" prefix="PATH_HOP"/>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val=" BATCH_NUMBER = #BATCH_NUMBER# " />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="PATH_HOP" writeLog="Y">
+			<compareColumn id="LTP_ID"/>
+			<compareColumn id="NE_ID" /> 
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="Y" createable="Y" updateable="Y" deletable="N" autocreate ="Y" autoupdate="Y" autodelete ="N" writeLog="Y" deleteLimit="101" />
+	</postInspectors>
+</resource>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="PTN_PATH_ROUTE_POINT" labelCn="MTN通道路由" src="PTN_PATH_ROUTE_POINT" ignoreError="Y" primaryKey="RMUID" filterId="" cacheId="COL_PTN_PATH_ROUTE_POINT" source="dest">
+	<table useDboAllAttrs="Y">
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="exists (select 1 from PTN_TUNNEL where PTN_TUNNEL.OMC_CUID = #RELATED_EMS_CUID# and PTN_TUNNEL.RMUID= PTN_PATH_ROUTE_POINT.CHANNEL_RMUID)" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="COL_DEL_PTN_PATH_ROUTE_POINT"/>
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

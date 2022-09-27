@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_EQUIPMENT_HOLDER" labelCn="PTN容器" src="EQUIPMENT_HOLDER" ignoreError="Y" primaryKey="RMUID" deletable="Y" filterId="" cacheId="COL_EQUIPMENT_HOLDER"  source="dest">
+	<table useDboAllAttrs="Y">
+		<attr srcColumn="RMUID"/> 
+		<attr srcColumn="CUID"/> 
+		<attr srcColumn="HOLDER_STATE"/>
+		<attr srcColumn="FDN"/>
+		<attr srcColumn="RELATED_DEVICE_CUID"/>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="exists (select 1 from TRANS_ELEMENT where RELATED_EMS_CUID = #RELATED_EMS_CUID# and CUID = EQUIPMENT_HOLDER.RELATED_DEVICE_CUID)" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="COL_HOLDER_SUB_SLOT" createable="N" updateable="N" deletable="N"/>
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

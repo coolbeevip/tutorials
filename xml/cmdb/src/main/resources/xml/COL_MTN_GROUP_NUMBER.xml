@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_MTN_GROUP_NUMBER" labelCn="MTN群组成员" src="COL_MTN_GROUP_NUMBER" ignoreError="Y" primaryKey="GROUP_RMUID,PORT_RMUID" cacheId="COL_MTN_GROUP_NUMBER" source="source">
+	<table id="MTN_GROUP_NUMBER">
+		<attr destColumn="GROUP_RMUID" srcColumn="GROUP_RMUID" dataType="string" showName="群组唯一标识"/>
+		<attr destColumn="PORT_RMUID" srcColumn="PORT_RMUID" dataType="string" showName="端口唯一标识"/>
+		<attr destColumn="RELATED_GROUP_CUID" srcColumn="GROUP_RMUID" dataType="string" nullable="N">
+			<plugin id="relationTransform" resourceId="COL_MTN_GROUP" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="RELATED_PORT_CUID" srcColumn="PORT_RMUID" dataType="string" nullable="N">
+			<plugin id="relationTransform" resourceId="COL_PTP" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER#" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="MTN_GROUP_NUMBER" writeLog="Y">
+		
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="Y" updateable="Y" deletable="Y" autocreate ="Y" autoupdate="Y" autodelete ="Y" writeLog="Y" deleteLimit="100"/>
+	</postInspectors>
+</resource>

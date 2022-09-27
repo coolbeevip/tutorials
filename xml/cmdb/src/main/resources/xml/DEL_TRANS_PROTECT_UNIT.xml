@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="DEL_TRANS_PROTECT_UNIT" labelCn="MTN保护单元删除" src="TRANS_PROTECT_UNIT" ignoreError="Y" primaryKey="PROTECT_GROUP_UUID,PROTECT_UNIT_UUID" cacheId="COL_DEL_TRANS_PROTECT_UNIT" source="dest">
+	<table useDboAllAttrs="Y">
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="exists (select 1 from TRANS_PROTECT_GROUP where TRANS_PROTECT_GROUP.OMC_UUID = #RELATED_EMS_CUID# and TRANS_PROTECT_GROUP.RMUID= TRANS_PROTECT_UNIT.PROTECT_GROUP_UUID)" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_TOPO_LINK" labelCn="拓扑连接" src="COL_TOPO_LINK" primaryKey="ORIG_PTP_FDN,DEST_PTP_FDN" cacheId="COL_TOPO_LINK" source="source">
+	<table id="TOPO_LINK">
+    <attrTemp destColumn="DIRECTION_SHOW" srcColumn="DIRECTION" nullable="N" showName="方向">
+      <plugin id="enumTransform" enumType="COL_TOPO_DIRECTION_SHOW" enumValueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="ORIG_POINT_FDN" srcColumn="ORIG_PTP_NAME">
+      <plugin id="relationTransform" resourceId="COL_PTP" resourceKey="RMUID" returnColumn="FDN" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="ORIG_PTP_LABEL_CN" srcColumn="ORIG_PTP_NAME" showName="A端端口">
+      <plugin id="relationTransform" resourceId="COL_PTP" resourceKey="RMUID" returnColumn="LABEL_CN" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="DEST_POINT_FDN" srcColumn="DEST_PTP_NAME" dataType="string" nullable="N">
+      <plugin id="relationTransform" resourceId="COL_PTP" resourceKey="RMUID" returnColumn="FDN" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="DEST_PTP_LABEL_CN" srcColumn="DEST_PTP_NAME" showName="Z端端口">
+      <plugin id="relationTransform" resourceId="COL_PTP" resourceKey="RMUID" returnColumn="LABEL_CN" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="IS_VIRTUAL_STR" srcColumn="TOPO_REALITY">
+      <plugin id="mapTransform" typeColumn="TOPO_REALITY">
+        <type>
+          <item mapRegex="virtual" val="true" />
+          <item mapRegex="real" val="false" />
+        </type>
+      </plugin>
+    </attrTemp>
+		<attr destColumn="RMUID" srcColumn="RMUID" dataType="string" showName="唯一标识"/>
+		<attr destColumn="USERLABEL" srcColumn="USERLABEL" dataType="string" showName="友好名称"/>
+		<attr destColumn="NATIVE_NAME" srcColumn="NATIVE_EMS_NAME" dataType="string"/>
+		<attr destColumn="DIRECTION" srcColumn="DIRECTION" dataType="number"> 
+			<plugin id="enumTransform" enumType="RMUID_PTN_SERV_DIR" defaultValue="1" enumValueClass="java.lang.Long"/>
+		</attr>
+		<attr destColumn="LAYER_RATE" srcColumn="LAYER_RATE" dataType="number">
+			<plugin id="enumTransform" enumType="RMUID_PORT_RATE" defaultValue="0" enumValueClass="java.lang.Long"/>
+		</attr>
+		<attr destColumn="REMARK" srcColumn="REMARK" dataType="string"/>
+		<attr destColumn="ORIG_PTP_FDN" srcColumn="ORIG_PTP_NAME" dataType="string">
+			<plugin id="relationTransform" resourceId="COL_PTP" resourceKey="RMUID" returnColumn="FDN" stage="processing"/>
+		</attr>
+		<attr destColumn="ORIG_POINT_CUID" srcColumn="ORIG_PTP_NAME" dataType="string" nullable="N">
+			<plugin id="relationTransform" resourceId="COL_PTP" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="ORIG_NE_CUID" srcColumn="AENDNE_RMUID" dataType="string">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="ORIG_SITE_CUID" srcColumn="AENDNE_RMUID" dataType="string">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="RELATED_SITE_CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="ORIG_ROOM_CUID" srcColumn="AENDNE_RMUID" dataType="string">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="RELATED_ROOM_CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="DEST_PTP_FDN" srcColumn="DEST_PTP_NAME" dataType="string">
+			<plugin id="relationTransform" resourceId="COL_PTP" resourceKey="RMUID" returnColumn="FDN" stage="processing"/>
+		</attr>
+		<attr destColumn="DEST_POINT_CUID" srcColumn="DEST_PTP_NAME" dataType="string">
+			<plugin id="relationTransform" resourceId="COL_PTP" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="DEST_NE_CUID" srcColumn="ZENDNE_RMUID" dataType="string">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="DEST_SITE_CUID" srcColumn="ZENDNE_RMUID" dataType="string">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="RELATED_SITE_CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="DEST_ROOM_CUID" srcColumn="ZENDNE_RMUID" dataType="string">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="RELATED_ROOM_CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="RELATED_EMS_CUID" srcColumn="ZENDNE_RMUID" dataType="string" nullable="N">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="RELATED_EMS_CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="IS_PERMIT_SYS_DEL" dataType="boolean">
+			<plugin id="copyAttrValueTransform" defaultValue="true" valueClass="java.lang.Boolean"/>
+		</attr>
+ 		<attr destColumn="ORIG_NE_RMUID" srcColumn="AENDNE_RMUID" dataType="string"/>
+ 		<attr destColumn="DEST_NE_RMUID" srcColumn="ZENDNE_RMUID" dataType="string"/>
+ 		<attr destColumn="ORIG_PTP_RMUID" srcColumn="ORIG_PTP_NAME" dataType="string"/>
+ 		<attr destColumn="DEST_PTP_RMUID" srcColumn="DEST_PTP_NAME" dataType="string"/>
+ 
+ 		<attr destColumn="IS_INNERTOPO_LINK" dataType="boolean">
+			<plugin id="equalsTransform" compareorig ="AENDNE_RMUID" comparedest="ZENDNE_RMUID" stage="processing"/>
+		</attr>
+		<attr destColumn="IS_VIRTUAL" srcColumn="IS_VIRTUAL_STR" destDataType="boolean">
+			<plugin id="enumTransform" enumType="BOOLEAN_TYPE" defaultValue="false" enumValueClass="java.lang.Boolean"/>
+		</attr>
+	    <attr destColumn="LABEL_CN">
+			<plugin id="concatColumnsTransform" concatenator="-">
+				<concatColumns>ORIG_PTP_LABEL_CN</concatColumns>
+			  <concatColumns>DEST_PTP_LABEL_CN</concatColumns>
+			</plugin>
+		</attr>
+	  <attr destColumn="FDN">
+			<plugin id="concatColumnsTransform" concatenator="--">
+				<concatColumns>ORIG_POINT_FDN</concatColumns>
+				<concatColumns>DEST_POINT_FDN</concatColumns>
+			</plugin>
+		</attr>
+		<attr destColumn="BANDWIDTH" srcColumn="LAYER_RATE" dataType="string" showName="拓扑速率"/>
+		<attr destColumn="CUID">
+			<plugin id="createCuidTransform" prefix="TOPO_LINK"/>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER# and AENDNE_RMUID in (select RMUID from COL_TRANS_ELEMENT where (BATCH_NUMBER=#BATCH_NUMBER# or BATCH_NUMBER = #BATCH_NUMBER_1#) AND MODEL IN ('OptiX PTN 7900E-32','OptiX PTN 7900E-24','OptiX PTN 990','OptiX PTN 980') and ME_REALITY !='virtual') and ZENDNE_RMUID in (select RMUID from COL_TRANS_ELEMENT where (BATCH_NUMBER=#BATCH_NUMBER# or BATCH_NUMBER = #BATCH_NUMBER_1#) AND MODEL IN ('OptiX PTN 7900E-32','OptiX PTN 7900E-24','OptiX PTN 990','OptiX PTN 980') and ME_REALITY !='virtual') " />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="TOPO_LINK" writeLog="Y">
+			<compareColumn id="LABEL_CN"/> 
+			<compareColumn id="FDN"/> 
+			<compareColumn id="ORIG_PTP_FDN"/> 
+			<compareColumn id="DEST_PTP_FDN"/> 
+			<compareColumn id="ORIG_POINT_CUID"/> 
+			<compareColumn id="DEST_POINT_CUID"/> 
+			<compareColumn id="ORIG_SITE_CUID"/> 
+			<compareColumn id="ORIG_ROOM_CUID"/> 
+			<compareColumn id="DEST_SITE_CUID"/> 
+			<compareColumn id="DEST_ROOM_CUID"/> 
+			<compareColumn id="LAYER_RATE"/> 
+			<compareColumn id="NATIVE_NAME"/> 
+			<compareColumn id="DIRECTION"/> 
+			<compareColumn id="RMUID"/> 
+			<compareColumn id="IS_VIRTUAL"/> 
+			<compareColumn id="ORIG_NE_RMUID"/> 
+			<compareColumn id="DEST_NE_RMUID"/> 
+			<compareColumn id="ORIG_PTP_RMUID"/> 
+			<compareColumn id="DEST_PTP_RMUID"/> 
+			<compareColumn id="BANDWIDTH"/> 
+			
+		</inspector>
+		<inspector id="topoLinkPerHandler" batchcreate="N" createable="Y" updateable="Y" deletable="Y" autocreate ="Y" autoupdate="Y" autodelete ="Y" writeLog="Y" deleteLimit="100"/>
+	</postInspectors>
+</resource>

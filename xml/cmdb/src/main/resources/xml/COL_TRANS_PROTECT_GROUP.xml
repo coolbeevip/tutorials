@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_TRANS_PROTECT_GROUP" labelCn="MTN隧道保护组" src="COL_TRANS_PROTECT_GROUP" ignoreError="Y" primaryKey="RMUID" cacheId="COL_TRANS_PROTECT_GROUP" source="source">
+	<table id="TRANS_PROTECT_GROUP">
+    <attrTemp destColumn="EMS_NAME" srcColumn="BATCH_NUMBER" dataType="string" cached="Y">
+      <plugin id="relationTransform" resourceId="COL_NMS_SYSTEM" resourceKey="BATCH_NUMBER" returnColumn="NATIVE_EMS_NAME" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDNHEAD" dataType = "string">
+      <plugin id="copyAttrValueTransform" defaultValue="EMS" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDN" dataType = "string">
+      <plugin id="concatColumnsTransform" concatenator="=">
+        <concatColumns>EMS_FDNHEAD</concatColumns>
+        <concatColumns>EMS_NAME</concatColumns>
+      </plugin>
+    </attrTemp>
+
+		<attr destColumn="RMUID" srcColumn="RMUID" dataType="string" showName="唯一标识"/>
+		<attr destColumn="NAME" srcColumn="NAME" dataType="string" showName="本地名称"/>
+		<attr destColumn="PROTECT_MODE" srcColumn="PROTECT_MODE" dataType="string" showName="保护类型"/>
+		<attr destColumn="RECOVERY_MODE" srcColumn="RECOVERY_MODE" dataType="string" showName="恢复方式"/>
+		<attr destColumn="PROTECT_GROUP_EMS_NAME" srcColumn="NAME" dataType="string"/>
+		<attr destColumn="OMC_UUID" srcColumn="EMS_FDN" dataType="string">
+			<plugin id="relationTransform" resourceId="NMS_SYSTEM" resourceKey="FDN" returnColumn="CUID" stage="processing"/>
+		</attr>		
+		<attr destColumn="UUID">
+			<plugin id="createCuidTransform" prefix="TRANS_PROTECT_GROUP"/>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER#" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="TRANS_PROTECT_GROUP" writeLog="Y">
+			<compareColumn id="NAME" /> 
+			<compareColumn id="PROTECT_MODE" />
+			<compareColumn id="RECOVERY_MODE" />
+			<compareColumn id="PROTECT_GROUP_EMS_NAME" />
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="Y" updateable="Y" deletable="Y" autocreate ="Y" autoupdate="Y" autodelete ="Y" writeLog="Y" deleteLimit="101"/>
+	</postInspectors>
+</resource>

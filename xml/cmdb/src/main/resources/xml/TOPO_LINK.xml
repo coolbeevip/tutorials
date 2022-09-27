@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="TOPO_LINK" labelCn="拓扑连接" src="TOPO_LINK" ignoreError="Y" primaryKey="ORIG_PTP_FDN,DEST_PTP_FDN" cacheId="COL_TOPO_LINK" source="dest">
+	<table useDboAllAttrs="Y">
+		<attrTemp destColumn="DIRECTION_SHOW" srcColumn="DIRECTION">
+			<plugin id="enumTransform" enumType="TOPO_DIRECTION_SHOW" enumValueClass="java.lang.String"/>
+		</attrTemp>
+		<attrTemp destColumn="EMS_FDN_SHOW" srcColumn="ORIG_PTP_FDN" dataType="string">
+			<plugin id="splitEmsFdnTransform" resourceId="COL_PTP"/>
+		</attrTemp>
+		<attrTemp destColumn="ORIG_PTP_LABEL_CN" srcColumn="ORIG_PTP_RMUID" showName="A端端口">
+			<plugin id="relationTransform" resourceId="COL_PTP" resourceKey="RMUID" returnColumn="LABEL_CN" stage="processing"/>
+		</attrTemp>
+		<attrTemp destColumn="DEST_PTP_LABEL_CN" srcColumn="DEST_PTP_RMUID" showName="Z端端口">
+			<plugin id="relationTransform" resourceId="COL_PTP" resourceKey="RMUID" returnColumn="LABEL_CN" stage="processing"/>
+		</attrTemp>
+		<attrTemp destColumn="BANDWIDTH" srcColumn="BANDWIDTH" dataType="string" showName="拓扑速率"/>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="RELATED_EMS_CUID" val="#RELATED_EMS_CUID#" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" resourceId="COL_SPN_NETWORK_ACCESSES" />
+		<inspector id="cachePreInspector" resourceId="COL_PATH_HOP" />
+		<inspector id="cachePreInspector" resourceId="COL_MTN_GROUP_NUMBER" />
+		<inspector id="cachePreInspector" resourceId="COL_TRANS_TOPO_LINK" />
+		<inspector id="cachePreInspector" resourceId="COL_TRANS_PROTECT_UNIT" />
+		<inspector id="cachePreInspector" resourceId="COL_TUNNEL_TRAIL_BINDING" />
+		<inspector id="cachePreInspector" resourceId="COL_PTN_PATH_ROUTE_POINT" />
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

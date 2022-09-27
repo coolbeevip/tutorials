@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_SPN_NETWORK_ACCESSES" labelCn="L3VPN接入点" src="COL_SPN_NETWORK_ACCESSES" ignoreError="Y" primaryKey="RES_ID" cacheId="COL_SPN_NETWORK_ACCESSES" source="source">
+	<table id="SPN_NETWORK_ACCESSES">
+		<attr destColumn="RES_ID" srcColumn="RES_ID" dataType="string" showName="唯一标识"/>
+		<attr destColumn="RELATED_L3VPN_CUID" srcColumn="RELATED_L3VPN_CUID" dataType="string" showName="L3VPN "/>
+		<attr destColumn="DEVICE_ID" srcColumn="DEVICE_ID" dataType="string" showName="接入点网元rmUID" />
+		<attr destColumn="PORT_ID" srcColumn="PORT_ID" dataType="string" showName="接入点端口rmUID"/>
+		<attr destColumn="ADDRESS" srcColumn="ADDRESS" dataType="string" showName="接入点IP地址"/>
+		<attr destColumn="ADDRESS_MASK" srcColumn="ADDRESS_MASK" dataType="string" showName="接入点子网掩码"/>
+		<attr destColumn="CVLANS" srcColumn="CVLANS" dataType="string" showName="CVLANS"/>
+		<attr destColumn="SVLANS" srcColumn="SVLANS" dataType="string" showName="VLAN"/>
+		<attr destColumn="CUID">
+			<plugin id="createCuidTransform" prefix="SPN_NETWORK_ACCESSES"/>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER#" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="SPN_NETWORK_ACCESSES" writeLog="Y">
+			<compareColumn id="ADDRESS" /> 
+			<compareColumn id="ADDRESS_MASK" />
+			<compareColumn id="CVLANS" />
+			<compareColumn id="SVLANS" />
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="Y" updateable="Y" deletable="N" autocreate ="Y" autoupdate="Y" autodelete ="N" writeLog="Y"/>
+	</postInspectors>
+</resource>

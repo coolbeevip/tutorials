@@ -4,7 +4,7 @@
         targetNamespace="http://xml.coolbeevip.com/xsd2java/gen"
         elementFormDefault="qualified">
 
-  <element name="userRequest" type="userns:UserRequest"></element>
+  <element name="userRequest" type="userns:UserRequest"/>
 
   <complexType name="UserRequest">
     <sequence>

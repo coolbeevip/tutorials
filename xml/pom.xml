@@ -14,6 +14,7 @@
 
   <modules>
     <module>xsd2java</module>
+    <module>cmdb</module>
   </modules>
 
 </project>

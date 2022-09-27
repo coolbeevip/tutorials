@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_DEL_PTN_PATH_ROUTE_POINT" labelCn="MTN通道路由删除" src="COL_PTN_PATH_ROUTE_POINT" ignoreError="Y" primaryKey="RMUID" cacheId="COL_DEL_PTN_PATH_ROUTE_POINT" source="source">
+	<table id="PTN_PATH_ROUTE_POINT">
+		<attr destColumn="RMUID" srcColumn="RMUID" dataType="string" showName="唯一标识"/>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER#" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="DEL_PTN_PATH_ROUTE_POINT" writeLog="Y">
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="N" updateable="N" deletable="Y" autocreate ="N" autoupdate="N" autodelete ="Y" writeLog="Y" deleteLimit="100"/>
+	</postInspectors>
+</resource>

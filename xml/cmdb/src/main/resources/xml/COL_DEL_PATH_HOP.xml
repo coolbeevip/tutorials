@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_DEL_PATH_HOP" labelCn="SR隧道路由删除" src="COL_PATH_HOP" ignoreError="Y" primaryKey="RELATED_LSP_CUID,HOP_INDEX" cacheId="COL_DEL_PATH_HOP" source="source">
+	<table id="PATH_HOP">
+		<attr destColumn="RELATED_LSP_CUID" srcColumn="RELATED_LSP_CUID" dataType="string" showName="SR隧道rmUID" />		
+		<attr destColumn="HOP_INDEX" srcColumn="HOP_INDEX" dataType="string" showName="路由序号" />
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER#" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="DEL_PATH_HOP" writeLog="Y">
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="N" updateable="N" deletable="Y" autocreate ="N" autoupdate="N" autodelete ="Y" writeLog="Y"  deleteLimit="101"/>
+	</postInspectors>
+</resource>

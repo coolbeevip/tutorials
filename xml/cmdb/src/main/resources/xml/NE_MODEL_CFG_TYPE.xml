@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="NE_MODEL_CFG_TYPE" labelCn="网元配置类型" src="NE_MODEL_CFG_TYPE" primaryKey="PRODUCT_MODEL" cacheId="NE_MODEL_CFG_TYPE" source="dest">
+	<table>
+		<attr srcColumn="PRODUCT_MODEL" /> 
+		<attr srcColumn="CUID" /> 
+		<attr srcColumn="CFG_TYPE" /> 
+		<attr srcColumn="SIGNAL_TYPE" /> 
+		<attr srcColumn="MAX_RATE" /> 
+	</table>
+	<extractInspector id="tnmsResExtractHandler" />
+	<preInspectors>
+		<inspector id="cachePreInspector" />
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

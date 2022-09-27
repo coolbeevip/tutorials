@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_DEL_TRANS_IGPTOPO" labelCn="IGP拓扑删除" src="COL_TRANS_IGPTOPO" ignoreError="Y" primaryKey="RMUID" cacheId="COL_DEL_TRANS_IGPTOPO" source="source">
+	<table id="TRANS_IGPTOPO">
+		<attr destColumn="RMUID" srcColumn="RMUID" dataType="string" showName="唯一标识"/>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER#" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="DEL_TRANS_IGPTOPO" writeLog="Y">
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="N" updateable="N" deletable="Y" autocreate="N" autoupdate="N" autodelete="Y" writeLog="Y" deleteLimit="101"/>
+	</postInspectors>
+</resource>

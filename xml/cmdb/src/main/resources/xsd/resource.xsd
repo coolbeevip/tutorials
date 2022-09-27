@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns:cmdb="cmdb"
+        xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="cmdb"
+        elementFormDefault="qualified">
+
+  <element name="resource" type="cmdb:Resource"></element>
+
+  <complexType name="Resource">
+    <sequence>
+      <element name="table" type="cmdb:Table"></element>
+      <element name="extractInspector" type="cmdb:ExtractInspector"></element>
+      <element name="preInspectors" type="cmdb:PreInspectors" minOccurs="0"></element>
+      <element name="postInspectors" type="cmdb:PostInspectors"></element>
+    </sequence>
+    <attribute type="string" name="id"/>
+    <attribute type="string" name="labelCn"/>
+    <attribute type="string" name="src"/>
+    <attribute type="string" name="ignoreError"/>
+    <attribute type="string" name="primaryKey"/>
+    <attribute type="string" name="deletable"/>
+    <attribute type="string" name="filterId"/>
+    <attribute type="string" name="cacheId"/>
+    <attribute type="string" name="source"/>
+  </complexType>
+
+  <complexType name="Table">
+    <sequence>
+      <element name="attrTemp" type="cmdb:AttrTemp" maxOccurs="unbounded" minOccurs="0"></element>
+      <element name="attr" type="cmdb:Attr" maxOccurs="unbounded" minOccurs="0"></element>
+    </sequence>
+    <attribute type="string" name="id"/>
+    <attribute type="string" name="useDboAllAttrs"/>
+  </complexType>
+
+  <complexType name="Attr">
+    <sequence>
+      <element name="plugin" minOccurs="0" type="cmdb:Plugin"></element>
+    </sequence>
+    <attribute type="string" name="srcColumn"/>
+    <attribute type="string" name="destColumn"/>
+    <attribute type="string" name="unionColumn"/>
+    <attribute type="string" name="dataType"/>
+    <attribute type="string" name="showName"/>
+    <attribute type="string" name="nullable"/>
+    <attribute type="string" name="destDataType"/>
+  </complexType>
+
+  <complexType name="AttrTemp">
+    <sequence>
+      <element name="plugin" minOccurs="0" type="cmdb:Plugin"></element>
+    </sequence>
+    <attribute type="string" name="destColumn"/>
+    <attribute type="string" name="srcColumn"/>
+    <attribute type="string" name="dataType"/>
+    <attribute type="string" name="cached"/>
+    <attribute type="string" name="showName"/>
+    <attribute type="string" name="nullable"/>
+    <attribute type="string" name="unionColumn"/>
+  </complexType>
+
+  <complexType name="Plugin">
+    <sequence>
+      <element type="string" name="concatColumns" maxOccurs="unbounded" minOccurs="0"/>
+      <element type="string" name="selectColumns" maxOccurs="unbounded" minOccurs="0"/>
+      <element name="type" minOccurs="0" maxOccurs="unbounded">
+        <complexType>
+          <sequence>
+            <element name="item" maxOccurs="unbounded" minOccurs="0">
+              <complexType>
+                <simpleContent>
+                  <extension base="string">
+                    <attribute type="string" name="mapRegex"/>
+                    <attribute type="string" name="val"/>
+                  </extension>
+                </simpleContent>
+              </complexType>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
+    </sequence>
+    <attribute type="string" name="id"/>
+
+    <!-- enumTransform -->
+    <attribute type="string" name="enumType"/>
+    <attribute type="string" name="enumValueClass"/>
+
+    <!-- unionTwoValuesTransform -->
+    <attribute type="string" name="unionColumn"/>
+
+    <!-- relationTransform -->
+    <attribute type="string" name="resourceId"/>
+    <attribute type="string" name="resourceKey"/>
+    <attribute type="string" name="returnColumn"/>
+
+    <!-- unionTwoValuesTransform relationTransform -->
+    <attribute type="string" name="stage"/>
+
+    <!-- copyAttrValueTransform -->
+    <attribute type="string" name="valueClass"/>
+    <attribute type="string" name="defaultValue"/>
+
+    <!-- createCuidTransform -->
+    <attribute type="string" name="prefix"/>
+
+    <!-- concatColumnsTransform equalsTransform -->
+    <attribute type="string" name="concatenator"/>
+
+    <!-- equalsTransform -->
+    <attribute type="string" name="compareorig"/>
+    <attribute type="string" name="comparedest"/>
+
+    <!-- mapTransform -->
+    <attribute type="string" name="typeColumn"/>
+  </complexType>
+
+  <complexType name="ExtractInspector">
+    <sequence>
+      <element name="extractFilter" minOccurs="0">
+        <complexType>
+          <sequence>
+            <element name="filterColumn">
+              <complexType>
+                <simpleContent>
+                  <extension base="string">
+                    <attribute type="string" name="name"/>
+                    <attribute type="string" name="val"/>
+                  </extension>
+                </simpleContent>
+              </complexType>
+            </element>
+          </sequence>
+        </complexType>
+      </element>
+    </sequence>
+    <attribute type="string" name="id"/>
+  </complexType>
+
+  <complexType name="PreInspectors">
+    <sequence>
+      <element name="inspector" type="cmdb:Inspector" minOccurs="0" maxOccurs="unbounded"></element>
+    </sequence>
+  </complexType>
+
+  <complexType name="PostInspectors">
+    <sequence>
+      <element name="recordInspector" type="cmdb:RecordInspector" minOccurs="0" maxOccurs="unbounded"></element>
+      <element name="inspector" type="cmdb:Inspector" minOccurs="0" maxOccurs="unbounded"></element>
+    </sequence>
+  </complexType>
+
+  <complexType name="RecordInspector">
+    <simpleContent>
+      <extension base="string">
+        <attribute type="string" name="id"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+
+  <complexType name="Inspector" mixed="true">
+    <sequence>
+      <element name="compareColumn" type="cmdb:CompareColumn" minOccurs="0" maxOccurs="unbounded"></element>
+    </sequence>
+    <attribute type="string" name="id"/>
+    <attribute type="string" name="resourceId"/>
+    <attribute type="string" name="writeLog"/>
+    <attribute type="string" name="supportbatch"/>
+    <attribute type="string" name="createable"/>
+    <attribute type="string" name="updateable"/>
+    <attribute type="string" name="deletable"/>
+    <attribute type="string" name="autocreate"/>
+    <attribute type="string" name="autoupdate"/>
+    <attribute type="string" name="autodelete"/>
+    <attribute type="string" name="batchcreate"/>
+    <attribute type="string" name="deleteLimit"/>
+    <attribute type="string" name="adduniquecheck"/>
+  </complexType>
+
+  <complexType name="CompareColumn">
+    <simpleContent>
+      <extension base="string">
+        <attribute type="string" name="id"/>
+      </extension>
+    </simpleContent>
+  </complexType>
+</schema>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_HOLDER_SLOT" labelCn="PTN机槽" src="COL_EQUIPMENT_HOLDER" ignoreError="Y" primaryKey="RMUID" cacheId="COL_HOLDER_SLOT" source="source">
+	<table id="EQUIPMENT_HOLDER">
+    <attrTemp destColumn="RELATED_DEVICE_FDN" srcColumn="RELATED_NE_NAME" dataType="string" nullable="Y">
+      <plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="FDN" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="REL_NE_RMUID" srcColumn="RELATED_NE_NAME" >
+      <plugin id="copyAttrValueTransform" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="SLOT_HEAD" dataType = "string">
+      <plugin id="copyAttrValueTransform" defaultValue="slot" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="SLOT_NAME_PART" dataType = "string">
+      <plugin id="concatColumnsTransform" concatenator="=">
+        <concatColumns>SLOT_HEAD</concatColumns>
+        <concatColumns>HOLDER_NUMBER</concatColumns>
+      </plugin>
+    </attrTemp>
+    <attrTemp destColumn="SHELF_CUID" srcColumn="RELATED_UPPER_COMPONENT_NAME" dataType="string" nullable="Y">
+      <plugin id="relationTransform" resourceId="COL_HOLDER_SHELF" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="SUB_SHELF_CUID" srcColumn="RELATED_UPPER_COMPONENT_NAME" dataType="string" nullable="Y">
+      <plugin id="relationTransform" resourceId="COL_HOLDER_SUB_SHELF" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="SHELF_FDN" srcColumn="RELATED_UPPER_COMPONENT_NAME" dataType="string" nullable="Y">
+      <plugin id="relationTransform" resourceId="COL_HOLDER_SHELF" resourceKey="RMUID" returnColumn="FDN" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="SUB_SHELF_FDN" srcColumn="RELATED_UPPER_COMPONENT_NAME" dataType="string" nullable="Y">
+      <plugin id="relationTransform" resourceId="COL_HOLDER_SUB_SHELF" resourceKey="RMUID" returnColumn="FDN" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="UPPER_HOLDE_RFDN" dataType="string">
+      <plugin id="selectNotNullTransform" >
+        <selectColumns>SUB_SHELF_FDN</selectColumns>
+        <selectColumns>SHELF_FDN</selectColumns>
+      </plugin>
+    </attrTemp>
+    <attrTemp destColumn="FDN_TMP"  dataType = "string">
+      <plugin id="concatColumnsTransform" concatenator="/">
+        <concatColumns>UPPER_HOLDE_RFDN</concatColumns>
+        <concatColumns>SLOT_NAME_PART</concatColumns>
+      </plugin>
+    </attrTemp>
+    <attrTemp destColumn="HOLDER_TYPE_NAME" srcColumn="HOLDER_TYPE" dataType="number" showName="容器类型" >
+      <plugin id="copyAttrValueTransform" valueClass="java.lang.String"/>
+    </attrTemp>
+
+		<attr destColumn="RMUID" srcColumn="RMUID" dataType="string"/>
+		<attr destColumn="RELATED_DEVICE_CUID" srcColumn="RELATED_NE_NAME" dataType="string" nullable="Y">
+			<plugin id="relationTransform" resourceId="COL_TRANS_ELEMENT" resourceKey="RMUID" returnColumn="CUID" stage="processing"/>
+		</attr>
+		<attr destColumn="RELATED_NE_FDN" srcColumn="RELATED_DEVICE_FDN" dataType="string" nullable="Y">
+			<plugin id="copyAttrValueTransform"  valueClass="java.lang.String"/>
+		</attr>
+		<attr destColumn="RELATED_UPPER_COMPONENT_CUID" dataType="string">
+			<plugin id="selectNotNullTransform" >
+				<selectColumns>SUB_SHELF_CUID</selectColumns>
+				<selectColumns>SHELF_CUID</selectColumns>
+			</plugin>
+		</attr>
+		<attr destColumn="FDN" srcColumn="FDN_TMP" dataType="string">
+			<plugin id="copyAttrValueTransform" valueClass="java.lang.String"/>
+		</attr>
+		<attr destColumn="NATIVE_EMS_NAME" srcColumn="NATIVE_EMS_NAME" dataType="string"  showName="本地名称"/>
+		<attr destColumn="MODEL" srcColumn="NATIVE_EMS_NAME" dataType="string"/>
+		<attr destColumn="HOLDER_NAME" srcColumn="NATIVE_EMS_NAME" dataType="string"/>
+		<attr destColumn="LABEL_CN" srcColumn="HOLDER_NUMBER" dataType="string"/>
+		<attr destColumn="HOLDER_NO" srcColumn="HOLDER_NUMBER" dataType="number"  showName="容器序号"/>
+		<attr destColumn="HOLDER_TYPE" srcColumn="HOLDER_TYPE" dataType="number">
+			<plugin id="enumTransform" enumType="RMUID_HOLDER_TYPE" enumValueClass="java.lang.Long"/>
+		</attr>
+
+		<attr destColumn="HOLDER_STATE" dataType="number">
+			<plugin id="enumTransform" enumType="HOLDER_STATE" defaultValue="1" enumValueClass="java.lang.Long"/>
+		</attr>
+		<attr destColumn="OWNER_SHIP" dataType="number">
+			<plugin id="copyAttrValueTransform" defaultValue="1" valueClass="java.lang.Long"/>
+		</attr>
+		<attr destColumn="CUID" srcColumn="FDN_TMP" dataType="String">
+			<plugin id="createHolderCuidTransform" prefix="EQUIPMENT_HOLDER" stage="processing"/>
+		</attr>
+		
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="(BATCH_NUMBER = #BATCH_NUMBER# or BATCH_NUMBER = #BATCH_NUMBER_4#) and HOLDER_TYPE='slot' AND RELATED_NE_NAME in (select RMUID from COL_TRANS_ELEMENT where (BATCH_NUMBER=#BATCH_NUMBER# or BATCH_NUMBER = #BATCH_NUMBER_1#) AND MODEL IN ('OptiX PTN 7900E-32','OptiX PTN 7900E-24','OptiX PTN 990','OptiX PTN 980') and ME_REALITY !='virtual')"/>
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="HOLDER_SLOT" createable="Y" updateable="Y" deletable="Y" writeLog="Y">
+			<compareColumn id="HOLDER_NAME" /> 
+			<compareColumn id="MODEL"/> 
+			<compareColumn id="NATIVE_EMS_NAME"/> 
+			<compareColumn id="RELATED_NE_FDN"/> 
+			<compareColumn id="RELATED_UPPER_COMPONENT_CUID"/>
+			<compareColumn id="LABEL_CN"/>
+			<compareColumn id="HOLDER_NO"/>
+		</inspector>
+		<inspector id="holderPerHandler" batchcreate="N" createable="Y" updateable="Y" deletable="Y" autocreate ="Y" autoupdate="Y" autodelete ="Y" deleteLimit="30" writeLog="Y"/>
+	</postInspectors>
+</resource>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="TRANS_ELEMENT_RMUID" labelCn="网元-RMUID" src="TRANS_ELEMENT" ignoreError="Y" primaryKey="NATIVE_EMS_NAME" cacheId="COL_TRANS_ELEMENT_RMUID" source="dest">
+	<table useDboAllAttrs="N">
+		<attr destColumn="CUID" srcColumn="CUID" dataType="string"/>
+		<attr destColumn="RMUID" srcColumn="RMUID" dataType="string"/>
+		<attr destColumn="NATIVE_EMS_NAME" srcColumn="NATIVE_EMS_NAME" dataType="string"/>
+ 		<attr destColumn="OBJECTID" srcColumn="OBJECTID"/>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="RELATED_EMS_CUID" val="#RELATED_EMS_CUID#" />
+		</extractFilter>
+	</extractInspector>
+	<preInspectors>
+		<inspector id="cachePreInspector" />
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>

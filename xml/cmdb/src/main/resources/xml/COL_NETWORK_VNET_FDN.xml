@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_NETWORK_VNET_FDN" labelCn="网络切片FDN" src="COL_NETWORK_VNET" ignoreError="Y" primaryKey="LABEL_CN" cacheId="COL_NETWORK_VNET_FDN" source="source">
+	<table id="NETWORK_VNET">
+		<attr destColumn="RMUID" srcColumn="RMUID" dataType="string" showName="唯一标识RMUID"/>
+		<attr destColumn="LABEL_CN" srcColumn="LABEL_CN" dataType="string" showName="名称"/>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER=#BATCH_NUMBER#" />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="NETWORK_VNET_FDN" writeLog="Y">
+			<compareColumn id="RMUID" /> 
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="N" updateable="Y" deletable="N" autocreate="N" autoupdate="Y" autodelete ="N" writeLog="Y"/>
+	</postInspectors>
+</resource>

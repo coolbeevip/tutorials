@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="COL_PTN_TUNNEL_FDN" labelCn="MTN通道FDN" src="COL_PTN_TUNNEL" ignoreError="Y" primaryKey="FDN,ANE_RMUID,ZNE_RMUID" cacheId="COL_PTN_TUNNEL_FDN" source="source">
+	<table id="PTN_TUNNEL">
+    <attrTemp destColumn="EMS_NAME" srcColumn="BATCH_NUMBER" dataType="string" cached="Y">
+      <plugin id="relationTransform" resourceId="COL_NMS_SYSTEM" resourceKey="BATCH_NUMBER" returnColumn="NATIVE_EMS_NAME" stage="processing"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDNHEAD" dataType = "string">
+      <plugin id="copyAttrValueTransform" defaultValue="EMS" valueClass="java.lang.String"/>
+    </attrTemp>
+    <attrTemp destColumn="EMS_FDN" dataType = "string">
+      <plugin id="concatColumnsTransform" concatenator="=">
+        <concatColumns>EMS_FDNHEAD</concatColumns>
+        <concatColumns>EMS_NAME</concatColumns>
+      </plugin>
+    </attrTemp>
+
+		<attr destColumn="RMUID" srcColumn="RMUID" dataType="string" showName="唯一标识"/>
+		<attr destColumn="NATIVE_NAME" srcColumn="NATIVE_NAME" dataType="string" showName="本地名称"/>
+		<attr destColumn="ANE_RMUID" srcColumn="ANE_RMUID" dataType="string" showName="源端网元rmUID"/>
+		<attr destColumn="ZNE_RMUID" srcColumn="ZNE_RMUID" dataType="string" showName="宿端网元rmUID"/>
+		<attr destColumn="FDN">
+			<plugin id="concatColumnsTransform" concatenator="">
+				<concatColumns>EMS_NAME</concatColumns>
+				<concatColumns>NATIVE_NAME</concatColumns>
+			</plugin>
+		</attr>
+	</table>
+	<extractInspector id="tnmsResExtractHandler">
+		<extractFilter>
+			<filterColumn name="#SQL#" val="BATCH_NUMBER = #BATCH_NUMBER# and not exists (select 1 from PTN_TUNNEL where PTN_TUNNEL.RMUID=COL_PTN_TUNNEL.RMUID and PTN_TUNNEL.STATE=2 and PTN_TUNNEL.OMC_CUID = #RELATED_EMS_CUID#) AND COL_PTN_TUNNEL.ANE_RMUID in (select RMUID from COL_TRANS_ELEMENT where ((BATCH_NUMBER=#BATCH_NUMBER# or BATCH_NUMBER = #BATCH_NUMBER_1#) AND MODEL IN ('OptiX PTN 7900E-32','OptiX PTN 7900E-24','OptiX PTN 990','OptiX PTN 980') and ME_REALITY !='virtual')) AND COL_PTN_TUNNEL.ZNE_RMUID in (select RMUID from COL_TRANS_ELEMENT where ((BATCH_NUMBER=#BATCH_NUMBER# or BATCH_NUMBER = #BATCH_NUMBER_1#) AND MODEL IN ('OptiX PTN 7900E-32','OptiX PTN 7900E-24','OptiX PTN 990','OptiX PTN 980') and ME_REALITY !='virtual')) " />
+		</extractFilter>
+	</extractInspector>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+		<inspector id="compareInspector" resourceId="PTN_TUNNEL_FDN" writeLog="Y">
+			<compareColumn id="RMUID"/>
+		</inspector>
+		<inspector id="defaultPersistenceHandler" batchcreate="N" createable="N" updateable="Y" deletable="N" autocreate ="N" autoupdate="Y" autodelete ="N" writeLog="Y"/>
+	</postInspectors>
+</resource>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resource xmlns="cmdb" id="DISTRICT" labelCn="区域" src="DISTRICT" ignoreError="Y" primaryKey="LABEL_CN" cacheId="DISTRICT" filterId="" source="dest">
+	<table>
+		<attr srcColumn="CUID"/> 
+		<attr srcColumn="LABEL_CN"/>
+	</table>
+	<extractInspector id="tnmsResExtractHandler"/>
+	<preInspectors>
+		<inspector id="cachePreInspector" />
+	</preInspectors>
+	<postInspectors>
+		<recordInspector id="cacheRecordInspector" />
+	</postInspectors>
+</resource>
