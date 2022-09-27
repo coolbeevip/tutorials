@@ -15,10 +15,14 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -80,7 +84,7 @@ public class ResourceTest {
   public void dependencyTreeTest() {
     ResourceNode<Resource> rootNode = new ResourceNode<>(new Resource());
 
-    Map<String, ResourceNode> treeCache = new HashMap<>();
+    Map<String, Resource> treeCache = new HashMap<>();
     Map<String, Resource> unknownCache = new HashMap<>();
     Set<String> treeCacheIds = new HashSet<>();
     Map<String, AtomicInteger> treeCacheIdsRelatedIdCount = new HashMap<>();
@@ -91,12 +95,16 @@ public class ResourceTest {
         JAXBContext ctx = JAXBContext.newInstance(Resource.class);
         Resource resource = (Resource) ctx.createUnmarshaller().unmarshal(new FileReader(xml));
         unknownCache.put(resource.getId(), resource);
+        treeCache.put(resource.getId(), resource);
       }
     }
 
 
     int max_loop = 1000;
     int loop = 0;
+
+    List<ResourceIndexTree> resourceIndexTree = new ArrayList<>();
+
     while (!unknownCache.isEmpty()) {
       Iterator<String> resourceIdIter = unknownCache.keySet().iterator();
       while (resourceIdIter.hasNext()) {
@@ -124,18 +132,18 @@ public class ResourceTest {
         }
 
         Set<String> relatedResourceIds = relatedResourceIdStream.collect(Collectors.toSet());
-        log.info("FIND {} => {}", resource.getId(), relatedResourceIds.stream().collect(Collectors.joining(",")));
+//        log.info("FIND {} => {}", resource.getId(), relatedResourceIds.stream().collect(Collectors.joining(",")));
 
         if (relatedResourceIds.isEmpty()) {
           // 无关联，写入跟节点
-          treeCache.put(resource.getId(), rootNode.addChild(resource));
+          //treeCache.put(resource.getId(), rootNode.addChild(resource));
+          resourceIndexTree.add(new ResourceIndexTree(resource.getId(), ""));
           resourceIdIter.remove();
         } else {
           // 有关联
 
-
-          if(!treeCacheIdsRelatedIdCount.containsKey(resource.getId())){
-            treeCacheIdsRelatedIdCount.put(resource.getId(),new AtomicInteger());
+          if (!treeCacheIdsRelatedIdCount.containsKey(resource.getId())) {
+            treeCacheIdsRelatedIdCount.put(resource.getId(), new AtomicInteger());
           }
 
           for (String relatedId : relatedResourceIds) {
@@ -157,19 +165,20 @@ public class ResourceTest {
 //              treeCacheIdsRelatedIdCount.get(resource.getId()).incrementAndGet();
 //              log.info("PUT {} => {}", relatedId, resource.getId());
 //            }
+            resourceIndexTree.add(new ResourceIndexTree(resource.getId(), relatedId));
 
-            if (treeCache.containsKey(relatedId) && !treeCacheIds.contains(relatedId+"->"+resource.getId())) {
-              treeCache.put(resource.getId(), treeCache.get(relatedId).addChild(resource));
-              log.info("PUT {} => {}", relatedId, resource.getId());
-              treeCacheIds.add(relatedId+"->"+resource.getId());
-              treeCacheIdsRelatedIdCount.get(resource.getId()).incrementAndGet();
-            }
+//            if (treeCache.containsKey(relatedId) && !treeCacheIds.contains(relatedId+"->"+resource.getId())) {
+//              treeCache.put(resource.getId(), treeCache.get(relatedId).addChild(resource));
+//              log.info("PUT {} => {}", relatedId, resource.getId());
+//              treeCacheIds.add(relatedId+"->"+resource.getId());
+//              treeCacheIdsRelatedIdCount.get(resource.getId()).incrementAndGet();
+//            }
           }
 
-          if (relatedResourceIds.size() == treeCacheIdsRelatedIdCount.get(resource.getId()).get() && treeCache.containsKey(resourceId)) {
-         // if (relatedResourceIds.size() == treeCacheIdsRelatedIdCount.get(resource.getId()).get()) {
-            resourceIdIter.remove();
-          }
+          // if (relatedResourceIds.size() == treeCacheIdsRelatedIdCount.get(resource.getId()).get() && treeCache.containsKey(resourceId)) {
+          // if (relatedResourceIds.size() == treeCacheIdsRelatedIdCount.get(resource.getId()).get()) {
+          resourceIdIter.remove();
+          // }
         }
       }
 
@@ -180,16 +189,39 @@ public class ResourceTest {
       loop++;
     }
 
+    resourceIndexTree.stream().forEach(r -> log.info("{} => {}", r.getParentId(), r.getId()));
 
-    for (ResourceNode<Resource> resourceNode : rootNode) {
-      if (resourceNode.getLevel() == 1) {
-        log.info("=> {}", resourceNode.data.getId());
-      } else {
-        log.info("{}{}", createIndent(resourceNode.getLevel()), resourceNode.data.getId());
+    log.info("=========================================================================");
+    deepList(treeCache, rootNode, resourceIndexTree, "", 0);
+
+    try (FileWriter fileWriter = new FileWriter(Paths.get("cmdb.txt").toFile());
+         PrintWriter printWriter = new PrintWriter(fileWriter)) {
+
+      for (ResourceNode<Resource> resourceNode : rootNode) {
+        if (resourceNode.getLevel() == 1) {
+          printWriter.println("=> "+resourceNode.data.getId());
+          //log.info("=> {}", resourceNode.data.getId());
+        } else {
+          printWriter.println(createIndent(resourceNode.getLevel())+resourceNode.data.getId());
+          //log.info("{}{}", createIndent(resourceNode.getLevel()), resourceNode.data.getId());
+        }
       }
     }
 
     assertThat(treeCache.size(), Matchers.is(87));
+  }
+
+  private void deepList(Map<String, Resource> treeCache, ResourceNode<Resource> parentNode, List<ResourceIndexTree> resourceIndexTree, String parentId, int level) {
+    List<ResourceIndexTree> resourceIndexTreeTmp = resourceIndexTree.stream()
+        .filter(r -> r.getParentId().equals(parentId))
+        .collect(Collectors.toList());
+    for (ResourceIndexTree tmp : resourceIndexTreeTmp) {
+      //log.info("{}{}", createIndent(level), tmp.getId());
+      ResourceNode<Resource> tmpParentNode = parentNode.addChild(treeCache.get(tmp.getId()));
+      level++;
+      deepList(treeCache, tmpParentNode, resourceIndexTree, tmp.getId(), level);
+      level--;
+    }
   }
 
   private static String createIndent(int depth) {
