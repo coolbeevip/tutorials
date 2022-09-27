@@ -132,22 +132,24 @@ public class ResourceTest {
           resourceIdIter.remove();
         } else {
           // 有关联
+
+
           if(!treeCacheIdsRelatedIdCount.containsKey(resource.getId())){
             treeCacheIdsRelatedIdCount.put(resource.getId(),new AtomicInteger());
           }
 
           for (String relatedId : relatedResourceIds) {
 
-            Comparable<Resource> searchFCriteria = new Comparable<Resource>() {
-              @Override
-              public int compareTo(Resource o) {
-                if (o == null || o.getId() == null){
-                  return 1;
-                }
-                boolean nodeOk = o.getId().equals(relatedId);
-                return nodeOk ? 0 : 1;
-              }
-            };
+//            Comparable<Resource> searchFCriteria = new Comparable<Resource>() {
+//              @Override
+//              public int compareTo(Resource o) {
+//                if (o == null || o.getId() == null){
+//                  return 1;
+//                }
+//                boolean nodeOk = o.getId().equals(relatedId);
+//                return nodeOk ? 0 : 1;
+//              }
+//            };
 
 //            ResourceNode<Resource> relatedNode = rootNode.findTreeNode(searchFCriteria);
 //            if(relatedNode!=null){
