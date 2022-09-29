@@ -166,6 +166,9 @@ public class ResourceTest {
 
     writeUml(tree, Paths.get("target/cmdb-origin.puml"));
 
+    /**
+     * 压缩处理，相同的节点仅保留最深的节点
+     * */
     tree.breadthFirstTraversal(node -> {
       if (nodeMaxLevels.containsKey(node.data.getId())) {
         int maxLevel = nodeMaxLevels.get(node.data.getId());
@@ -174,12 +177,6 @@ public class ResourceTest {
         }
       }
     });
-
-    tree.depthFirstTraversal(node -> {
-      System.out.println(createIndent(node.getLevel()) + " " + node.data.getId());
-    });
-
-
     writeUml(tree, Paths.get("target/cmdb-activity.puml"));
 
     assertThat(treeCache.size(), Matchers.is(87));
