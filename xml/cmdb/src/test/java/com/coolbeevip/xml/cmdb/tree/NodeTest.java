@@ -1,79 +1,118 @@
 package com.coolbeevip.xml.cmdb.tree;
 
+import com.coolbeevip.xml.cmdb.tree.format.PlantUmlActivityFormatter;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
-import java.util.Iterator;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.nio.file.Paths;
+import java.util.LinkedList;
+import java.util.List;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @Slf4j
 public class NodeTest {
 
   @Test
-  public void initTest() {
-    Node tree = genTree();
-    // 深度优先
-    tree.depthFirstTraversal(node -> {
-      System.out.println(createIndent(node.getLevel()) + " " + node.data);
-    });
-    // 广度优先
-    tree.breadthFirstTraversal(node -> {
-      System.out.println(createIndent(node.getLevel()) + " " + node.data);
-    });
-  }
-
-  @Test
-  public void removeIteratorTest() {
-    Node tree = genTree();
-
-    log.info("=== origin ====");
-    tree.depthFirstTraversal(node -> {
-      System.out.println(createIndent(node.getLevel()) + " " + node.data + " ");
-    });
-
-    Iterator<Node> it = tree.iterator();
-    while (it.hasNext()) {
-      Node node = it.next();
-      if (node.data.equals("B1-1")) {
-        it.remove();
-      }
+  @SneakyThrows
+  public void depthFormatTest() {
+    Node<String> tree = genTree();
+    NodeFormatter formatter = new PlantUmlActivityFormatter(OperateType.DEPTH);
+    String text = tree.writeValueAsString(formatter);
+    log.info("{}", text);
+    try (FileWriter fileWriter = new FileWriter(Paths.get("target/depth-activity.puml").toFile());
+         PrintWriter printWriter = new PrintWriter(fileWriter)) {
+      printWriter.print(text);
     }
-
-    log.info("=== 删除后 ====");
-    tree.depthFirstTraversal(node -> {
-      System.out.println(createIndent(node.getLevel()) + " " + node.data + " ");
-    });
   }
 
   @Test
-  public void removeChildTest() {
-    Node tree = genTree();
-
-    tree.breadthFirstTraversal(node -> {
-      if (node.data.equals("B1-1")) {
-        node.getParent().removeChild(node);
-      }
-    });
-    tree.depthFirstTraversal(node -> {
-      System.out.println(createIndent(node.getLevel()) + " " + node.data + " ");
-    });
+  @SneakyThrows
+  public void breadthFormatTest() {
+    Node<String> tree = genTree();
+    NodeFormatter formatter = new PlantUmlActivityFormatter(OperateType.BREADTH);
+    String text = tree.writeValueAsString(formatter);
+    log.info("{}", text);
+    try (FileWriter fileWriter = new FileWriter(Paths.get("target/breadth-activity.puml").toFile());
+         PrintWriter printWriter = new PrintWriter(fileWriter)) {
+      printWriter.print(text);
+    }
   }
 
-//  @Test
-//  public void removeByIteratorTest() {
-//    Node tree = genTree();
-//    Iterator<Node> it = tree.iterator();
-//    while (it.hasNext()) {
-//      Node node = it.next();
-//      if (node.data.equals("M2-1")) {
-//        it.remove();
-//      }
-//    }
-//    tree.depthFirstTraversal(node -> {
-//      System.out.println(createIndent(node.getLevel()) + " " + node.data + " ");
-//    });
-//  }
+  /**
+   * 深度优先遍历
+   */
+  @Test
+  public void depthFirstTraversalTest() {
+    Node<String> tree = genTree();
+    List<String> list = new LinkedList<>();
+    tree.depthFirstTraversal(node -> list.add(node.data));
+    assertThat(tree.getChildren().size(), Matchers.is(2));
+    log.info("{}", tree.writeDepthFirstTraversalAsString());
+    assertThat(list, Matchers.contains("ROOT",
+        "A", "A1-1", "A1-1-1", "A1-2", "A1-2-1", "A1-3", "A1-3-1",
+        "B", "B1-1", "B1-1-1", "B1-2", "B1-2-1", "B1-3", "B1-3-1"));
+  }
 
-  public Node<String> genTree() {
+  /**
+   * 广度优先遍历
+   */
+  @Test
+  public void breadthFirstTraversalTest() {
+    Node<String> tree = genTree();
+    List<String> list = new LinkedList<>();
+    tree.breadthFirstTraversal(node -> list.add(node.data));
+    assertThat(tree.getChildren().size(), Matchers.is(2));
+    log.info("{}", tree.writeBreadthFirstTraversalAsString());
+    assertThat(list, Matchers.contains("ROOT",
+        "A", "B",
+        "A1-1", "A1-2", "A1-3", "B1-1", "B1-2", "B1-3",
+        "A1-1-1", "A1-2-1", "A1-3-1", "B1-1-1", "B1-2-1", "B1-3-1"));
+  }
+
+  /**
+   * 遍历查找
+   */
+  @Test
+  public void findTest() {
+    Node<String> tree = genTree();
+
+    Node<String> node = tree.find(n -> n.data.equals("B"));
+    assertThat(node.data, Matchers.is("B"));
+    assertThat(node.getChildren().size(), Matchers.is(3));
+
+    node = tree.find(n -> n.data.equals("B1-1"));
+    assertThat(node.data, Matchers.is("B1-1"));
+    assertThat(node.getChildren().size(), Matchers.is(1));
+
+    node = tree.find(n -> n.data.equals("A1-3-1"));
+    assertThat(node.data, Matchers.is("A1-3-1"));
+
+    node = tree.find(n -> n.data.equals("Oops"));
+    assertThat(node, Matchers.is(Matchers.nullValue()));
+  }
+
+  /**
+   * 遍历删除
+   */
+  @Test
+  public void removeTest() {
+    Node<String> tree = genTree();
+    tree.remove(n -> n.data.equals("B1-1"));
+    log.info("{}", tree.writeDepthFirstTraversalAsString());
+
+    List<String> list = new LinkedList<>();
+    tree.depthFirstTraversal(node -> list.add(node.data));
+    assertThat(list, Matchers.contains("ROOT",
+        "A", "A1-1", "A1-1-1", "A1-2", "A1-2-1", "A1-3", "A1-3-1",
+        "B", "B1-2", "B1-2-1", "B1-3", "B1-3-1"));
+  }
+
+  private Node<String> genTree() {
     Node tree = new Node("ROOT");
     Node a = tree.addChild("A");
     a.addChild("A1-1").addChild("A1-1-1");
@@ -84,13 +123,5 @@ public class NodeTest {
     b.addChild("B1-2").addChild("B1-2-1");
     b.addChild("B1-3").addChild("B1-3-1");
     return tree;
-  }
-
-  private String createIndent(int depth) {
-    StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < depth; i++) {
-      sb.append(' ');
-    }
-    return sb.toString();
   }
 }

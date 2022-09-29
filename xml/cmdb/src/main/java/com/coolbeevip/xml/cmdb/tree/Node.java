@@ -8,7 +8,7 @@ import java.util.Queue;
 /**
  * Tree Data Structure
  */
-public class Node<T> implements Iterable<Node<T>> {
+public class Node<T> {
 
   public T data;
   public Node<T> parent;
@@ -60,10 +60,6 @@ public class Node<T> implements Iterable<Node<T>> {
     }
   }
 
-  public void remove() {
-    this.parent.removeChild(this);
-  }
-
   /**
    * 获取当前节点的层
    *
@@ -90,52 +86,73 @@ public class Node<T> implements Iterable<Node<T>> {
   }
 
   /**
-   * 从当前节点及其所有子节点中搜索某节点
-   *
-   * @param cmp
-   * @return
+   * 查找
    */
-  public Node<T> findTreeNode(Comparable<T> cmp) {
+  public Node<T> find(Predicate<T> predicate) {
     for (Node<T> element : this.elementsIndex) {
-      T elData = element.data;
-      if (cmp.compareTo(elData) == 0) return element;
+      if (predicate.test(element)) {
+        return element;
+      }
     }
     return null;
   }
 
-  @Override
-  public java.util.Iterator<Node<T>> iterator() {
-    return new NodeIterator<T>(this);
+  /**
+   * 删除
+   */
+  public void remove(Predicate<T> predicate) {
+    this.breadthFirstTraversal(node -> {
+      if (predicate.test(node)) {
+        node.getParent().removeChild(node);
+      }
+    });
   }
 
   /**
    * 深度优先遍历
-   * */
-  public void depthFirstTraversal(Handler<T> handler) {
+   */
+  public void depthFirstTraversal(Consumer<T> consumer) {
     Node<T> current = this;
-    handler.doHandler(current);
+    consumer.accept(current);
     Iterator<Node<T>> it = current.children.iterator();
-    while (it.hasNext()){
+    while (it.hasNext()) {
       Node<T> child = it.next();
-      child.depthFirstTraversal(handler);
+      child.depthFirstTraversal(consumer);
     }
-//    for (Node<T> child : current.children) {
-//      child.depthFirstTraversal(handler);
-//    }
   }
 
   /**
    * 广度优先遍历
-   * */
-  public void breadthFirstTraversal(Handler<T> handler) {
+   */
+  public void breadthFirstTraversal(Consumer<T> consumer) {
     Node<T> current = this;
     Queue<Node<T>> queue = new LinkedList<>();
     queue.add(current);
     while (!queue.isEmpty()) {
       current = queue.poll();
-      handler.doHandler(current);
+      consumer.accept(current);
       queue.addAll(current.children);
     }
+  }
+
+  public String writeDepthFirstTraversalAsString() {
+    StringBuilder builder = new StringBuilder();
+    this.depthFirstTraversal(n -> {
+      builder.append(createIndent(n.getLevel()) + n.data + "\n");
+    });
+    return builder.toString();
+  }
+
+  public String writeBreadthFirstTraversalAsString() {
+    StringBuilder builder = new StringBuilder();
+    this.breadthFirstTraversal(n -> {
+      builder.append(createIndent(n.getLevel()) + n.data + "\n");
+    });
+    return builder.toString();
+  }
+
+  public String writeValueAsString(NodeFormatter formatter){
+    return formatter.format(this);
   }
 
   private String createIndent(int depth) {

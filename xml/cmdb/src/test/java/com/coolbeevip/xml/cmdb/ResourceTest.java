@@ -163,11 +163,9 @@ public class ResourceTest {
     deepList(nodeMaxLevels, treeCache, tree, resourceIndexTree, "CMDB", 0);
 
     tree.breadthFirstTraversal(node -> {
-      // log.info("{}{} => {}", createIndent(node.getLevel()),node.data.getId(), node.getLevel());
       if (nodeMaxLevels.containsKey(node.data.getId())) {
         int maxLevel = nodeMaxLevels.get(node.data.getId());
         if (maxLevel > node.getLevel()) {
-          // log.info("\t {} => {}", node.data.getId(), node.getLevel());
           node.getParent().removeChild(node);
         }
       }
@@ -181,9 +179,7 @@ public class ResourceTest {
     try (FileWriter fileWriter = new FileWriter(Paths.get("cmdb-activity.puml").toFile());
          PrintWriter printWriter = new PrintWriter(fileWriter)) {
       printWriter.println("@startuml");
-      Iterator<Node<Resource>> it = tree.iterator();
-      while (it.hasNext()) {
-        Node<Resource> node = it.next();
+      tree.depthFirstTraversal(node -> {
         if (node.getParent() == null) {
           printWriter.println("(*) --> " + node.data.getId());
         } else {
@@ -200,7 +196,8 @@ public class ResourceTest {
             }
           }
         }
-      }
+      });
+
       printWriter.println("@enduml");
     }
 
