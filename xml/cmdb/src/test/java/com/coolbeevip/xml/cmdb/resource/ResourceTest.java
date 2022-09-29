@@ -22,7 +22,9 @@ import javax.xml.validation.Validator;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -160,11 +162,9 @@ public class ResourceTest {
       }
       loop++;
     }
-
-
-    log.info("=========================================================================");
-
     deepList(nodeMaxLevels, treeCache, tree, resourceIndexTree, "CMDB", 0);
+
+    writeUml(tree, Paths.get("target/cmdb-origin.puml"));
 
     tree.breadthFirstTraversal(node -> {
       if (nodeMaxLevels.containsKey(node.data.getId())) {
@@ -179,39 +179,8 @@ public class ResourceTest {
       System.out.println(createIndent(node.getLevel()) + " " + node.data.getId());
     });
 
-    NodeFormatter formatter = new ResourcePlantUmlActivityFormatter(OperateType.BREADTH);
-    String text = tree.writeValueAsString(formatter);
-    log.info("{}", text);
-    try (FileWriter fileWriter = new FileWriter(Paths.get("target/cmdb-activity.puml").toFile());
-         PrintWriter printWriter = new PrintWriter(fileWriter)) {
-      printWriter.print(text);
-    }
 
-//    Set<String> cacheSet = new HashSet<>();
-//    try (FileWriter fileWriter = new FileWriter(Paths.get("cmdb-activity.puml").toFile());
-//         PrintWriter printWriter = new PrintWriter(fileWriter)) {
-//      printWriter.println("@startuml");
-//      tree.depthFirstTraversal(node -> {
-//        if (node.getParent() == null) {
-//          printWriter.println("(*) --> " + node.data.getId());
-//        } else {
-//          String line = node.getParent().data.getId() + " --> " + node.data.getId();
-//          if(!cacheSet.contains(line)){
-//            printWriter.println(line);
-//            cacheSet.add(line);
-//            if(node.isLeaf()){
-//              String endLine = node.data.getId()+" --> (*)";
-//              if(!cacheSet.contains(endLine)){
-//                printWriter.println(endLine);
-//                cacheSet.add(endLine);
-//              }
-//            }
-//          }
-//        }
-//      });
-//
-//      printWriter.println("@enduml");
-//    }
+    writeUml(tree, Paths.get("target/cmdb-activity.puml"));
 
     assertThat(treeCache.size(), Matchers.is(87));
   }
@@ -235,6 +204,16 @@ public class ResourceTest {
 
       deepList(nodeMaxLevels, treeCache, tmpParentNode, resourceIndexTree, tmp.getId(), level);
       level--;
+    }
+  }
+
+  private void writeUml(Node node, Path path) throws IOException {
+    NodeFormatter formatter = new ResourcePlantUmlActivityFormatter(OperateType.DEPTH);
+    String text = node.writeValueAsString(formatter);
+    log.info("{}", text);
+    try (FileWriter fileWriter = new FileWriter(path.toFile());
+         PrintWriter printWriter = new PrintWriter(fileWriter)) {
+      printWriter.print(text);
     }
   }
 
