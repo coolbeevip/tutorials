@@ -1,40 +1,40 @@
-package com.coolbeevip.xml.cmdb;
+package com.coolbeevip.xml.cmdb.tree;
 
 import java.util.Iterator;
 
-public class ResourceNodeIterator<T> implements Iterator<ResourceNode<T>> {
+public class NodeIterator<T> implements Iterator<Node<T>> {
   enum ProcessStages {
     ProcessParent, ProcessChildCurNode, ProcessChildSubNode
   }
 
   private ProcessStages doNext;
 
-  private ResourceNode<T> next;
+  private Node<T> next;
 
-  private Iterator<ResourceNode<T>> childrenCurNodeIter;
+  private Iterator<Node<T>> childrenCurNodeIter;
 
-  private Iterator<ResourceNode<T>> childrenSubNodeIter;
+  private Iterator<Node<T>> childrenSubNodeIter;
 
-  private ResourceNode<T> ResourceNode;
+  private Node<T> node;
 
-  public ResourceNodeIterator(ResourceNode<T> ResourceNode) {
-    this.ResourceNode = ResourceNode;
+  public NodeIterator(Node<T> node) {
+    this.node = node;
     this.doNext = ProcessStages.ProcessParent;
-    this.childrenCurNodeIter = ResourceNode.children.iterator();
+    this.childrenCurNodeIter = node.children.iterator();
   }
 
   @Override
   public boolean hasNext() {
 
     if (this.doNext == ProcessStages.ProcessParent) {
-      this.next = this.ResourceNode;
+      this.next = this.node;
       this.doNext = ProcessStages.ProcessChildCurNode;
       return true;
     }
 
     if (this.doNext == ProcessStages.ProcessChildCurNode) {
       if (childrenCurNodeIter.hasNext()) {
-        ResourceNode<T> childDirect = childrenCurNodeIter.next();
+        Node<T> childDirect = childrenCurNodeIter.next();
         childrenSubNodeIter = childDirect.iterator();
         this.doNext = ProcessStages.ProcessChildSubNode;
         return hasNext();
@@ -59,12 +59,18 @@ public class ResourceNodeIterator<T> implements Iterator<ResourceNode<T>> {
   }
 
   @Override
-  public ResourceNode<T> next() {
+  public Node<T> next() {
     return this.next;
   }
 
   @Override
   public void remove() {
-    throw new UnsupportedOperationException();
+    if (this.doNext == ProcessStages.ProcessChildCurNode) {
+      //this.childrenCurNodeIter.remove();
+    } else if (this.doNext == ProcessStages.ProcessChildSubNode) {
+      this.childrenSubNodeIter.remove();
+    }
+
+    // throw new UnsupportedOperationException();
   }
 }
