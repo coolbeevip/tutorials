@@ -1,4 +1,4 @@
-package com.coolbeevip.xml.cmdb;
+package com.coolbeevip.xml.cmdb.resource;
 
 public class ResourceIndexTree {
   private final String id;

@@ -1,6 +1,11 @@
-package com.coolbeevip.xml.cmdb;
+package com.coolbeevip.xml.cmdb.resource;
 
+import com.coolbeevip.xml.cmdb.Resource;
+import com.coolbeevip.xml.cmdb.resource.ResourceIndexTree;
 import com.coolbeevip.xml.cmdb.tree.Node;
+import com.coolbeevip.xml.cmdb.tree.NodeFormatter;
+import com.coolbeevip.xml.cmdb.tree.OperateType;
+import com.coolbeevip.xml.cmdb.tree.format.DefaultPlantUmlActivityFormatter;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
 import lombok.SneakyThrows;
@@ -21,7 +26,6 @@ import java.io.PrintWriter;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -175,31 +179,39 @@ public class ResourceTest {
       System.out.println(createIndent(node.getLevel()) + " " + node.data.getId());
     });
 
-    Set<String> cacheSet = new HashSet<>();
-    try (FileWriter fileWriter = new FileWriter(Paths.get("cmdb-activity.puml").toFile());
+    NodeFormatter formatter = new ResourcePlantUmlActivityFormatter(OperateType.BREADTH);
+    String text = tree.writeValueAsString(formatter);
+    log.info("{}", text);
+    try (FileWriter fileWriter = new FileWriter(Paths.get("target/cmdb-activity.puml").toFile());
          PrintWriter printWriter = new PrintWriter(fileWriter)) {
-      printWriter.println("@startuml");
-      tree.depthFirstTraversal(node -> {
-        if (node.getParent() == null) {
-          printWriter.println("(*) --> " + node.data.getId());
-        } else {
-          String line = node.getParent().data.getId() + " --> " + node.data.getId();
-          if(!cacheSet.contains(line)){
-            printWriter.println(line);
-            cacheSet.add(line);
-            if(node.isLeaf()){
-              String endLine = node.data.getId()+" --> (*)";
-              if(!cacheSet.contains(endLine)){
-                printWriter.println(endLine);
-                cacheSet.add(endLine);
-              }
-            }
-          }
-        }
-      });
-
-      printWriter.println("@enduml");
+      printWriter.print(text);
     }
+
+//    Set<String> cacheSet = new HashSet<>();
+//    try (FileWriter fileWriter = new FileWriter(Paths.get("cmdb-activity.puml").toFile());
+//         PrintWriter printWriter = new PrintWriter(fileWriter)) {
+//      printWriter.println("@startuml");
+//      tree.depthFirstTraversal(node -> {
+//        if (node.getParent() == null) {
+//          printWriter.println("(*) --> " + node.data.getId());
+//        } else {
+//          String line = node.getParent().data.getId() + " --> " + node.data.getId();
+//          if(!cacheSet.contains(line)){
+//            printWriter.println(line);
+//            cacheSet.add(line);
+//            if(node.isLeaf()){
+//              String endLine = node.data.getId()+" --> (*)";
+//              if(!cacheSet.contains(endLine)){
+//                printWriter.println(endLine);
+//                cacheSet.add(endLine);
+//              }
+//            }
+//          }
+//        }
+//      });
+//
+//      printWriter.println("@enduml");
+//    }
 
     assertThat(treeCache.size(), Matchers.is(87));
   }

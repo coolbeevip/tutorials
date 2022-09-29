@@ -1,6 +1,7 @@
 package com.coolbeevip.xml.cmdb.tree;
 
-import com.coolbeevip.xml.cmdb.tree.format.PlantUmlActivityFormatter;
+import com.coolbeevip.xml.cmdb.tree.format.AbstractPlantUmlActivityFormatter;
+import com.coolbeevip.xml.cmdb.tree.format.DefaultPlantUmlActivityFormatter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.hamcrest.Matchers;
@@ -21,7 +22,7 @@ public class NodeTest {
   @SneakyThrows
   public void depthFormatTest() {
     Node<String> tree = genTree();
-    NodeFormatter formatter = new PlantUmlActivityFormatter(OperateType.DEPTH);
+    NodeFormatter formatter = new DefaultPlantUmlActivityFormatter(OperateType.DEPTH);
     String text = tree.writeValueAsString(formatter);
     log.info("{}", text);
     try (FileWriter fileWriter = new FileWriter(Paths.get("target/depth-activity.puml").toFile());
@@ -34,7 +35,7 @@ public class NodeTest {
   @SneakyThrows
   public void breadthFormatTest() {
     Node<String> tree = genTree();
-    NodeFormatter formatter = new PlantUmlActivityFormatter(OperateType.BREADTH);
+    NodeFormatter formatter = new DefaultPlantUmlActivityFormatter(OperateType.BREADTH);
     String text = tree.writeValueAsString(formatter);
     log.info("{}", text);
     try (FileWriter fileWriter = new FileWriter(Paths.get("target/breadth-activity.puml").toFile());
