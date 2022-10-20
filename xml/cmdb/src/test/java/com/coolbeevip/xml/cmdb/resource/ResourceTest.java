@@ -1,11 +1,9 @@
 package com.coolbeevip.xml.cmdb.resource;
 
+import com.coolbeevip.structures.tree.Node;
+import com.coolbeevip.structures.tree.NodeFormatter;
+import com.coolbeevip.structures.tree.OperateType;
 import com.coolbeevip.xml.cmdb.Resource;
-import com.coolbeevip.xml.cmdb.resource.ResourceIndexTree;
-import com.coolbeevip.xml.cmdb.tree.Node;
-import com.coolbeevip.xml.cmdb.tree.NodeFormatter;
-import com.coolbeevip.xml.cmdb.tree.OperateType;
-import com.coolbeevip.xml.cmdb.tree.format.DefaultPlantUmlActivityFormatter;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
 import lombok.SneakyThrows;
@@ -96,7 +94,7 @@ public class ResourceTest {
     Map<String, Resource> treeCache = new HashMap<>();
     Map<String, Resource> unknownCache = new HashMap<>();
     Map<String, Integer> nodeMaxLevels = new HashMap<>();
-    Map<String, AtomicInteger> treeCacheIdsRelatedIdCount = new HashMap<>();
+    //Map<String, AtomicInteger> treeCacheIdsRelatedIdCount = new HashMap<>();
 
     File file = Paths.get("src/main/resources/xml").toFile();
     for (File xml : file.listFiles()) {
@@ -110,7 +108,7 @@ public class ResourceTest {
 
     int max_loop = 1000;
     int loop = 0;
-    List<ResourceIndexTree> resourceIndexTree = new ArrayList<>();
+    List<ResourceRelationship> resourceRelationship = new ArrayList<>();
 
     while (!unknownCache.isEmpty()) {
       Iterator<String> resourceIdIter = unknownCache.keySet().iterator();
@@ -142,15 +140,15 @@ public class ResourceTest {
 
         if (relatedResourceIds.isEmpty()) {
           // 无关联，写入跟节点
-          resourceIndexTree.add(new ResourceIndexTree(resource.getId(), "CMDB"));
+          resourceRelationship.add(new ResourceRelationship(resource.getId(), "CMDB", 0));
           resourceIdIter.remove();
         } else {
           // 有关联
-          if (!treeCacheIdsRelatedIdCount.containsKey(resource.getId())) {
-            treeCacheIdsRelatedIdCount.put(resource.getId(), new AtomicInteger());
-          }
+//          if (!treeCacheIdsRelatedIdCount.containsKey(resource.getId())) {
+//            treeCacheIdsRelatedIdCount.put(resource.getId(), new AtomicInteger());
+//          }
           for (String relatedId : relatedResourceIds) {
-            resourceIndexTree.add(new ResourceIndexTree(resource.getId(), relatedId));
+            resourceRelationship.add(new ResourceRelationship(resource.getId(), relatedId, 0));
           }
           resourceIdIter.remove();
         }
@@ -162,7 +160,7 @@ public class ResourceTest {
       }
       loop++;
     }
-    deepList(nodeMaxLevels, treeCache, tree, resourceIndexTree, "CMDB", 0);
+    deepList(nodeMaxLevels, treeCache, tree, resourceRelationship, "CMDB", 0);
 
     writeUml(tree, Paths.get("target/cmdb-origin.puml"));
 
@@ -182,11 +180,11 @@ public class ResourceTest {
     assertThat(treeCache.size(), Matchers.is(87));
   }
 
-  private void deepList(Map<String, Integer> nodeMaxLevels, Map<String, Resource> treeCache, Node<Resource> parentNode, List<ResourceIndexTree> resourceIndexTree, String parentId, int level) {
-    List<ResourceIndexTree> resourceIndexTreeTmp = resourceIndexTree.stream()
+  private void deepList(Map<String, Integer> nodeMaxLevels, Map<String, Resource> treeCache, Node<Resource> parentNode, List<ResourceRelationship> resourceRelationship, String parentId, int level) {
+    List<ResourceRelationship> resourceRelationshipTmp = resourceRelationship.stream()
         .filter(r -> r.getParentId().equals(parentId))
         .collect(Collectors.toList());
-    for (ResourceIndexTree tmp : resourceIndexTreeTmp) {
+    for (ResourceRelationship tmp : resourceRelationshipTmp) {
       level++;
       Node<Resource> tmpParentNode = parentNode.addChild(treeCache.get(tmp.getId()));
       //log.info("{} -> {}", tmpParentNode.data.getId(), tmpParentNode.getLevel());
@@ -199,7 +197,7 @@ public class ResourceTest {
         nodeMaxLevels.put(tmp.getId(), 1);
       }
 
-      deepList(nodeMaxLevels, treeCache, tmpParentNode, resourceIndexTree, tmp.getId(), level);
+      deepList(nodeMaxLevels, treeCache, tmpParentNode, resourceRelationship, tmp.getId(), level);
       level--;
     }
   }

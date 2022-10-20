@@ -1,9 +1,9 @@
-package com.coolbeevip.xml.cmdb.tree;
+package com.coolbeevip.structures.tree;
 
-import com.coolbeevip.xml.cmdb.tree.format.AbstractPlantUmlActivityFormatter;
-import com.coolbeevip.xml.cmdb.tree.format.DefaultPlantUmlActivityFormatter;
+import com.coolbeevip.structures.tree.format.DefaultPlantUmlActivityFormatter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
@@ -54,7 +54,7 @@ public class NodeTest {
     tree.depthFirstTraversal(node -> list.add(node.data));
     assertThat(tree.getChildren().size(), Matchers.is(2));
     log.info("{}", tree.writeDepthFirstTraversalAsString());
-    assertThat(list, Matchers.contains("ROOT",
+    MatcherAssert.assertThat(list, Matchers.contains("ROOT",
         "A", "A1-1", "A1-1-1", "A1-2", "A1-2-1", "A1-3", "A1-3-1",
         "B", "B1-1", "B1-1-1", "B1-2", "B1-2-1", "B1-3", "B1-3-1"));
   }
@@ -69,7 +69,7 @@ public class NodeTest {
     tree.breadthFirstTraversal(node -> list.add(node.data));
     assertThat(tree.getChildren().size(), Matchers.is(2));
     log.info("{}", tree.writeBreadthFirstTraversalAsString());
-    assertThat(list, Matchers.contains("ROOT",
+    MatcherAssert.assertThat(list, Matchers.contains("ROOT",
         "A", "B",
         "A1-1", "A1-2", "A1-3", "B1-1", "B1-2", "B1-3",
         "A1-1-1", "A1-2-1", "A1-3-1", "B1-1-1", "B1-2-1", "B1-3-1"));
@@ -83,18 +83,18 @@ public class NodeTest {
     Node<String> tree = genTree();
 
     Node<String> node = tree.find(n -> n.data.equals("B"));
-    assertThat(node.data, Matchers.is("B"));
+    MatcherAssert.assertThat(node.data, Matchers.is("B"));
     assertThat(node.getChildren().size(), Matchers.is(3));
 
     node = tree.find(n -> n.data.equals("B1-1"));
-    assertThat(node.data, Matchers.is("B1-1"));
+    MatcherAssert.assertThat(node.data, Matchers.is("B1-1"));
     assertThat(node.getChildren().size(), Matchers.is(1));
 
     node = tree.find(n -> n.data.equals("A1-3-1"));
-    assertThat(node.data, Matchers.is("A1-3-1"));
+    MatcherAssert.assertThat(node.data, Matchers.is("A1-3-1"));
 
     node = tree.find(n -> n.data.equals("Oops"));
-    assertThat(node, Matchers.is(Matchers.nullValue()));
+    MatcherAssert.assertThat(node, Matchers.is(Matchers.nullValue()));
   }
 
   /**
@@ -108,7 +108,7 @@ public class NodeTest {
 
     List<String> list = new LinkedList<>();
     tree.depthFirstTraversal(node -> list.add(node.data));
-    assertThat(list, Matchers.contains("ROOT",
+    MatcherAssert.assertThat(list, Matchers.contains("ROOT",
         "A", "A1-1", "A1-1-1", "A1-2", "A1-2-1", "A1-3", "A1-3-1",
         "B", "B1-2", "B1-2-1", "B1-3", "B1-3-1"));
   }

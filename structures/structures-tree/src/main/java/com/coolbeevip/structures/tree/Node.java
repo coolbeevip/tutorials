@@ -1,4 +1,4 @@
-package com.coolbeevip.xml.cmdb.tree;
+package com.coolbeevip.structures.tree;
 
 import java.util.Iterator;
 import java.util.LinkedList;

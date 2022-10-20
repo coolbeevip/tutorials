@@ -1,8 +1,8 @@
-package com.coolbeevip.xml.cmdb.tree.format;
+package com.coolbeevip.structures.tree.format;
 
-import com.coolbeevip.xml.cmdb.tree.Node;
-import com.coolbeevip.xml.cmdb.tree.NodeFormatter;
-import com.coolbeevip.xml.cmdb.tree.OperateType;
+import com.coolbeevip.structures.tree.Node;
+import com.coolbeevip.structures.tree.NodeFormatter;
+import com.coolbeevip.structures.tree.OperateType;
 
 import java.util.HashSet;
 import java.util.Set;

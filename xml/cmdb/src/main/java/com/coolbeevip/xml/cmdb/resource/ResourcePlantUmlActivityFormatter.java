@@ -1,8 +1,8 @@
 package com.coolbeevip.xml.cmdb.resource;
 
+import com.coolbeevip.structures.tree.OperateType;
+import com.coolbeevip.structures.tree.format.AbstractPlantUmlActivityFormatter;
 import com.coolbeevip.xml.cmdb.Resource;
-import com.coolbeevip.xml.cmdb.tree.OperateType;
-import com.coolbeevip.xml.cmdb.tree.format.AbstractPlantUmlActivityFormatter;
 
 public class ResourcePlantUmlActivityFormatter<T extends Resource> extends AbstractPlantUmlActivityFormatter<T> {
 

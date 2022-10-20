@@ -1,6 +1,6 @@
-package com.coolbeevip.xml.cmdb.tree.format;
+package com.coolbeevip.structures.tree.format;
 
-import com.coolbeevip.xml.cmdb.tree.OperateType;
+import com.coolbeevip.structures.tree.OperateType;
 
 public class DefaultPlantUmlActivityFormatter<T> extends AbstractPlantUmlActivityFormatter<T> {
 
