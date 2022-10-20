@@ -1,6 +1,7 @@
 package com.coolbeevip.java.lock.optimistic;
 
 import com.coolbeevip.java.lock.Counter;
+
 import java.util.concurrent.atomic.AtomicLong;
 
 /**

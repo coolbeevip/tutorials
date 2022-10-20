@@ -1,11 +1,6 @@
 package org.coolbeevip.grpc.labs.demo;
 
 import io.grpc.stub.StreamObserver;
-import java.lang.invoke.MethodHandles;
-import java.util.Iterator;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 import org.coolbeevip.grpc.labs.demo.grpc.RequestMessage;
 import org.coolbeevip.grpc.labs.demo.grpc.ResponseMessage;
 import org.junit.After;
@@ -15,6 +10,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
+import java.util.Iterator;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ClientMainTest {
 

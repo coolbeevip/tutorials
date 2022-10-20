@@ -2,9 +2,6 @@ package com.coolbeevip.ignite.jmh;
 
 import com.coolbeevip.ignite.embedexample.IgniteNode;
 import com.coolbeevip.ignite.embedexample.IgniteNodeFactory;
-import java.util.Arrays;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 import org.apache.ignite.IgniteQueue;
 import org.apache.ignite.cache.CacheMode;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -20,6 +17,10 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.TearDown;
 import org.openjdk.jmh.annotations.Threads;
 import org.openjdk.jmh.annotations.Warmup;
+
+import java.util.Arrays;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @BenchmarkMode(Mode.Throughput)
 @Fork(value = 1, warmups = 2)

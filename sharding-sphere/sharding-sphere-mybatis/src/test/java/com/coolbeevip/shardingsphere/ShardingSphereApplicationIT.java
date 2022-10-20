@@ -1,19 +1,11 @@
 package com.coolbeevip.shardingsphere;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-
 import com.coolbeevip.shardingsphere.configuration.DataSourceConfiguration;
 import com.coolbeevip.shardingsphere.configuration.MybatisConfiguration;
 import com.coolbeevip.shardingsphere.mybatis.entities.CustomerDO;
 import com.coolbeevip.shardingsphere.mybatis.entities.OrderDO;
 import com.coolbeevip.shardingsphere.mybatis.repository.MybatisCustomerRepository;
 import com.coolbeevip.shardingsphere.mybatis.repository.MybatisOrderRepository;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,6 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 @Slf4j
 @SpringBootTest(classes = {ShardingSphereApplication.class,

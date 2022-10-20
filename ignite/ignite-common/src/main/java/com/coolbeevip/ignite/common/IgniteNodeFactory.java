@@ -1,7 +1,8 @@
 package com.coolbeevip.ignite.common;
 
-import java.util.Collection;
 import org.apache.ignite.lifecycle.LifecycleBean;
+
+import java.util.Collection;
 
 public class IgniteNodeFactory {
 

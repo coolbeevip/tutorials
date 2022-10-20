@@ -1,16 +1,17 @@
 package com.coolbeevip.ratis.sequence;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import com.coolbeevip.ratis.sequence.benchmarks.ClusterKit;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.hamcrest.Matchers;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @Slf4j
 public class SequenceClientTest extends ClusterKit {

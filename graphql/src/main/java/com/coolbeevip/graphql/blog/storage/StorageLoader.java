@@ -2,6 +2,7 @@ package com.coolbeevip.graphql.blog.storage;
 
 import com.coolbeevip.graphql.blog.api.bean.Author;
 import com.coolbeevip.graphql.blog.api.bean.Post;
+
 import java.util.UUID;
 
 /**

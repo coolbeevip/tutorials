@@ -1,11 +1,5 @@
 package com.coolbeevip.debezium.binlog;
 
-import static io.debezium.data.Envelope.FieldName.AFTER;
-import static io.debezium.data.Envelope.FieldName.BEFORE;
-import static io.debezium.data.Envelope.FieldName.OPERATION;
-import static io.debezium.data.Envelope.FieldName.SOURCE;
-import static java.util.stream.Collectors.toMap;
-
 import com.coolbeevip.debezium.message.DmlMessage;
 import io.debezium.config.Configuration;
 import io.debezium.data.Envelope.Operation;
@@ -13,18 +7,25 @@ import io.debezium.embedded.Connect;
 import io.debezium.engine.DebeziumEngine;
 import io.debezium.engine.RecordChangeEvent;
 import io.debezium.engine.format.ChangeEventFormat;
-import java.io.IOException;
-import java.lang.invoke.MethodHandles;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.kafka.connect.data.Field;
 import org.apache.kafka.connect.data.Struct;
 import org.apache.kafka.connect.source.SourceRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.lang.invoke.MethodHandles;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
+import static io.debezium.data.Envelope.FieldName.AFTER;
+import static io.debezium.data.Envelope.FieldName.BEFORE;
+import static io.debezium.data.Envelope.FieldName.OPERATION;
+import static io.debezium.data.Envelope.FieldName.SOURCE;
+import static java.util.stream.Collectors.toMap;
 
 public class DebeziumBinlogListener {
 

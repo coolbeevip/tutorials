@@ -1,18 +1,11 @@
 package com.coolbeevip.rocksdb;
 
-import static com.coolbeevip.rocksdb.schema.MessageSchema.HOT_MESSAGE;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import com.coolbeevip.rocksdb.core.RocksDbAccessor;
 import com.coolbeevip.rocksdb.core.RocksDbAccessor.RocksDbTransaction;
 import com.coolbeevip.rocksdb.core.RocksDbFactory;
 import com.coolbeevip.rocksdb.exception.DatabaseStorageException;
 import com.coolbeevip.rocksdb.schema.Message;
 import com.coolbeevip.rocksdb.schema.MessageSchema;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Optional;
-import java.util.UUID;
 import org.hamcrest.Matchers;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -22,6 +15,14 @@ import org.rocksdb.RocksDBException;
 import org.rocksdb.Snapshot;
 import org.rocksdb.Status;
 import org.rocksdb.TransactionOptions;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Optional;
+import java.util.UUID;
+
+import static com.coolbeevip.rocksdb.schema.MessageSchema.HOT_MESSAGE;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * @author zhanglei

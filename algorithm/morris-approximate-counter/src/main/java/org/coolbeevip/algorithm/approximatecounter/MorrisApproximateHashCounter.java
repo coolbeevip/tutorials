@@ -1,10 +1,11 @@
 package org.coolbeevip.algorithm.approximatecounter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.invoke.MethodHandles;
 import java.util.Random;
 import java.util.UUID;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * 使用莫里斯计数实现对输入对象的统计

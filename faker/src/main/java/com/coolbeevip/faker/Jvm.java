@@ -1,13 +1,14 @@
 package com.coolbeevip.faker;
 
+import com.coolbeevip.faker.core.Node;
+
+import java.math.BigInteger;
+
 import static com.coolbeevip.faker.core.Constants.JVM_MEMORY_MAX_KEY;
 import static com.coolbeevip.faker.core.Constants.JVM_MEMORY_USED_KEY;
 import static com.coolbeevip.faker.core.Constants.JVM_THREADS_DAEMON_KEY;
 import static com.coolbeevip.faker.core.Constants.JVM_THREADS_LIVE_KEY;
 import static com.coolbeevip.faker.core.Constants.JVM_THREADS_PEAK_KEY;
-
-import com.coolbeevip.faker.core.Node;
-import java.math.BigInteger;
 
 public class Jvm extends Node {
 

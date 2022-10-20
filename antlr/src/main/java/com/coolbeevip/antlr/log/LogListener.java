@@ -4,6 +4,7 @@ import com.coolbeevip.antlr.LogBaseListener;
 import com.coolbeevip.antlr.LogParser;
 import com.coolbeevip.antlr.log.model.LogEntry;
 import com.coolbeevip.antlr.log.model.LogLevel;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

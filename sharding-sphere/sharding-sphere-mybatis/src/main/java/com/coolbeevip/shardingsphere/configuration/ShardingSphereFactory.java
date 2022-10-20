@@ -1,15 +1,16 @@
 package com.coolbeevip.shardingsphere.configuration;
 
-import java.sql.SQLException;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Properties;
-import javax.sql.DataSource;
 import org.apache.shardingsphere.driver.api.ShardingSphereDataSourceFactory;
 import org.apache.shardingsphere.infra.config.algorithm.ShardingSphereAlgorithmConfiguration;
 import org.apache.shardingsphere.sharding.api.config.ShardingRuleConfiguration;
 import org.apache.shardingsphere.sharding.api.config.rule.ShardingTableRuleConfiguration;
 import org.apache.shardingsphere.sharding.api.config.strategy.sharding.StandardShardingStrategyConfiguration;
+
+import javax.sql.DataSource;
+import java.sql.SQLException;
+import java.util.Collections;
+import java.util.Map;
+import java.util.Properties;
 
 public class ShardingSphereFactory {
 

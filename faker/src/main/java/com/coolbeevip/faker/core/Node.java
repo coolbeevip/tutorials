@@ -1,7 +1,5 @@
 package com.coolbeevip.faker.core;
 
-import static com.coolbeevip.faker.core.Constants.OBJECT_NULL;
-
 import com.coolbeevip.faker.Faker;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Value;
@@ -9,8 +7,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.databind.type.MapType;
+
 import java.util.Map;
 import java.util.UUID;
+
+import static com.coolbeevip.faker.core.Constants.OBJECT_NULL;
 
 public abstract class Node {
 

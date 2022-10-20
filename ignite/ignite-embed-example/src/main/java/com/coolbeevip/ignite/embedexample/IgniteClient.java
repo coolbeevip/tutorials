@@ -1,10 +1,11 @@
 package com.coolbeevip.ignite.embedexample;
 
-import java.util.Arrays;
-import java.util.stream.IntStream;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ignite.IgniteQueue;
 import org.apache.ignite.cache.CacheMode;
+
+import java.util.Arrays;
+import java.util.stream.IntStream;
 
 @Slf4j
 public class IgniteClient {

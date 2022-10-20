@@ -1,14 +1,15 @@
 package com.coolbeevip.iotdb.enties;
 
 import com.coolbeevip.iotdb.core.DeviceEntity;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 import org.apache.iotdb.service.rpc.thrift.TSCreateTimeseriesReq;
 import org.apache.iotdb.session.Session;
 import org.apache.iotdb.tsfile.file.metadata.enums.CompressionType;
 import org.apache.iotdb.tsfile.file.metadata.enums.TSDataType;
 import org.apache.iotdb.tsfile.file.metadata.enums.TSEncoding;
+
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class CardDevice extends DeviceEntity {
 

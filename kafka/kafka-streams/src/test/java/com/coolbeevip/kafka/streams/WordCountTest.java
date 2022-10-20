@@ -1,12 +1,6 @@
 package com.coolbeevip.kafka.streams;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-
 import com.coolbeevip.kafka.streams.base.KafkaStreamsTestKit;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Pattern;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -17,6 +11,13 @@ import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.awaitility.Awaitility;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.regex.Pattern;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * 单词计数器

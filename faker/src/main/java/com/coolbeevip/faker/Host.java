@@ -2,6 +2,7 @@ package com.coolbeevip.faker;
 
 import com.coolbeevip.faker.core.Constants.RiskLevel;
 import com.coolbeevip.faker.core.Node;
+
 import java.util.ArrayList;
 import java.util.List;
 

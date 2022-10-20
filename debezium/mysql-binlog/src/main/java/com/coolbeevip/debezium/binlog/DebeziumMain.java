@@ -1,6 +1,7 @@
 package com.coolbeevip.debezium.binlog;
 
 import io.debezium.config.Configuration;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;

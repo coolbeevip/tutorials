@@ -3,6 +3,7 @@ package com.coolbeevip.faker;
 import com.coolbeevip.faker.core.Constants.RiskLevel;
 import com.coolbeevip.faker.core.Node;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
 import java.math.BigInteger;
 
 public class Proc extends Node {

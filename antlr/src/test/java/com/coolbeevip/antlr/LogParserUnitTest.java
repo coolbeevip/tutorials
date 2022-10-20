@@ -1,16 +1,17 @@
 package com.coolbeevip.antlr;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import com.coolbeevip.antlr.log.LogListener;
 import com.coolbeevip.antlr.log.model.LogEntry;
 import com.coolbeevip.antlr.log.model.LogLevel;
-import java.time.LocalDateTime;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class LogParserUnitTest {

@@ -1,7 +1,5 @@
 package org.coolbeevip.arrow.labs;
 
-import java.lang.invoke.MethodHandles;
-import java.util.List;
 import org.apache.arrow.vector.BigIntVector;
 import org.apache.arrow.vector.FieldVector;
 import org.apache.arrow.vector.Float4Vector;
@@ -13,6 +11,9 @@ import org.apache.arrow.vector.VectorSchemaRoot;
 import org.apache.arrow.vector.types.pojo.Schema;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
+import java.util.List;
 
 public class PersonVectorized {
 

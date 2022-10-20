@@ -1,15 +1,16 @@
 package com.coolbeevip.shardingsphere.configuration;
 
 import com.zaxxer.hikari.HikariDataSource;
-import java.lang.invoke.MethodHandles;
-import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.sql.DataSource;
+import java.lang.invoke.MethodHandles;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Configuration
 public class DataSourceConfiguration {

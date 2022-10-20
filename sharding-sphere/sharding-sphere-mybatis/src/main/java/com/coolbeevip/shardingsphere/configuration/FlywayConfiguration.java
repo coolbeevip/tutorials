@@ -1,7 +1,8 @@
 package com.coolbeevip.shardingsphere.configuration;
 
-import javax.sql.DataSource;
 import org.flywaydb.core.Flyway;
+
+import javax.sql.DataSource;
 
 public class FlywayConfiguration {
 

@@ -1,6 +1,7 @@
 package com.coolbeevip.faker;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 

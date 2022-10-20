@@ -1,15 +1,16 @@
 package org.coolbeevip.grpc.labs.demo;
 
 import io.grpc.stub.StreamObserver;
-import java.lang.invoke.MethodHandles;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import org.coolbeevip.grpc.labs.demo.grpc.ExchangeServiceGrpc.ExchangeServiceImplBase;
 import org.coolbeevip.grpc.labs.demo.grpc.RequestMessage;
 import org.coolbeevip.grpc.labs.demo.grpc.ResponseMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author zhanglei

@@ -1,14 +1,10 @@
 package com.coolbeevip.kafka.streams;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-
 import com.coolbeevip.faker.core.Constants.RiskLevel;
 import com.coolbeevip.faker.playground.WeightedCollection;
 import com.coolbeevip.kafka.streams.base.KafkaStreamsTestKit;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import java.util.HashSet;
-import java.util.Set;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.streams.StreamsBuilder;
@@ -16,6 +12,11 @@ import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.KStream;
 import org.awaitility.Awaitility;
 import org.junit.Test;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * 单事件单指标阀值过滤

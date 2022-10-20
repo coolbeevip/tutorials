@@ -1,10 +1,10 @@
 package com.coolbeevip.java.lock.optimistic.aba;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * 并发编程中 ABA 问题的理论背景

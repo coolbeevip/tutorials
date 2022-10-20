@@ -1,12 +1,5 @@
 package com.coolbeevip.ignite.embedexample;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.stream.IntStream;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ignite.IgniteAtomicLong;
 import org.apache.ignite.IgniteQueue;
@@ -16,6 +9,14 @@ import org.hamcrest.Matchers;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import java.util.stream.IntStream;
+
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @Slf4j
 public class IgniteClientTest {

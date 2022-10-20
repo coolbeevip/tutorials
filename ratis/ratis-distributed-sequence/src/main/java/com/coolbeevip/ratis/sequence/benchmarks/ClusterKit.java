@@ -1,15 +1,15 @@
 package com.coolbeevip.ratis.sequence.benchmarks;
 
 import com.coolbeevip.ratis.sequence.SequenceServer;
-import com.coolbeevip.test.TutorialsTestSuite;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public abstract class ClusterKit {

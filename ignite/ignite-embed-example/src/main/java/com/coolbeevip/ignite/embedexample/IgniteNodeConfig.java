@@ -1,7 +1,5 @@
 package com.coolbeevip.ignite.embedexample;
 
-import java.util.Collection;
-import java.util.UUID;
 import org.apache.ignite.configuration.DataStorageConfiguration;
 import org.apache.ignite.configuration.IgniteConfiguration;
 import org.apache.ignite.lifecycle.LifecycleBean;
@@ -10,6 +8,9 @@ import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi;
 import org.apache.ignite.spi.discovery.tcp.ipfinder.multicast.TcpDiscoveryMulticastIpFinder;
 import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder;
 import org.apache.ignite.ssl.SslContextFactory;
+
+import java.util.Collection;
+import java.util.UUID;
 
 public class IgniteNodeConfig {
 

@@ -1,8 +1,5 @@
 package com.coolbeevip.ignite.mybatis.cache;
 
-import java.io.File;
-import java.io.InputStream;
-import java.util.concurrent.locks.ReadWriteLock;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.cache.Cache;
 import org.apache.ignite.Ignite;
@@ -15,8 +12,10 @@ import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanDefinitionReader;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
+
+import java.io.File;
+import java.util.concurrent.locks.ReadWriteLock;
 
 @Slf4j
 public final class IgniteCacheAdapter implements Cache {

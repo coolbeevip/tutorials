@@ -5,6 +5,7 @@ import com.coolbeevip.graphql.blog.api.bean.Post;
 import com.coolbeevip.graphql.blog.storage.AuthorDao;
 import com.coolbeevip.graphql.blog.storage.PostDao;
 import graphql.kickstart.tools.GraphQLQueryResolver;
+
 import java.util.List;
 
 /**

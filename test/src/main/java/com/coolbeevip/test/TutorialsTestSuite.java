@@ -1,8 +1,9 @@
 package com.coolbeevip.test;
 
-import java.util.LinkedList;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.SocketUtils;
+
+import java.util.LinkedList;
 
 /**
  * @author zhanglei

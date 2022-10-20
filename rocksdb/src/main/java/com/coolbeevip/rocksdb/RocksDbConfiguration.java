@@ -1,7 +1,8 @@
 package com.coolbeevip.rocksdb;
 
-import java.nio.file.Path;
 import org.rocksdb.CompressionType;
+
+import java.nio.file.Path;
 
 /**
  * @author zhanglei

@@ -1,7 +1,5 @@
 package com.coolbeevip.kafka.streams;
 
-import static java.util.concurrent.TimeUnit.SECONDS;
-
 import com.coolbeevip.faker.Host;
 import com.coolbeevip.faker.core.Constants.RiskLevel;
 import com.coolbeevip.faker.playground.Play;
@@ -9,29 +7,24 @@ import com.coolbeevip.faker.playground.WeightedCollection;
 import com.coolbeevip.kafka.streams.base.KafkaStreamsTestKit;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import java.time.Duration;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.TimeUnit;
-import java.util.stream.LongStream;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
-import org.apache.kafka.streams.kstream.Printed;
-import org.apache.kafka.streams.kstream.SlidingWindows;
 import org.apache.kafka.streams.kstream.TimeWindows;
 import org.apache.kafka.streams.kstream.Windowed;
 import org.awaitility.Awaitility;
 import org.junit.Test;
+
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.LongStream;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 /**
  * 翻滚窗口统计每个主机，每5秒的事件数量

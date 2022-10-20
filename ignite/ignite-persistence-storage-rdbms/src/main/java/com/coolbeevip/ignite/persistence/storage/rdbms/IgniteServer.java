@@ -1,15 +1,5 @@
 package com.coolbeevip.ignite.persistence.storage.rdbms;
 
-import static com.coolbeevip.ignite.persistence.storage.rdbms.IgniteConstant.CACHE_NAME;
-import static com.coolbeevip.ignite.persistence.storage.rdbms.IgniteConstant.CACHE_TABLE_NAME;
-import static com.coolbeevip.ignite.persistence.storage.rdbms.IgniteConstant.SQL_SCHEMA;
-
-import java.sql.Types;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteCache;
 import org.apache.ignite.Ignition;
@@ -21,6 +11,17 @@ import org.apache.ignite.cache.store.jdbc.JdbcType;
 import org.apache.ignite.cache.store.jdbc.JdbcTypeField;
 import org.apache.ignite.cache.store.jdbc.dialect.MySQLDialect;
 import org.apache.ignite.configuration.CacheConfiguration;
+
+import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import static com.coolbeevip.ignite.persistence.storage.rdbms.IgniteConstant.CACHE_NAME;
+import static com.coolbeevip.ignite.persistence.storage.rdbms.IgniteConstant.CACHE_TABLE_NAME;
+import static com.coolbeevip.ignite.persistence.storage.rdbms.IgniteConstant.SQL_SCHEMA;
 
 public class IgniteServer {
 

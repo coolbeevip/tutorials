@@ -5,11 +5,12 @@ import com.coolbeevip.faker.core.MetricsClient;
 import com.coolbeevip.faker.core.MetricsClientLog;
 import com.coolbeevip.faker.playground.Play;
 import com.coolbeevip.faker.playground.WeightedCollection;
-import java.math.BigInteger;
-import java.util.concurrent.TimeUnit;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+
+import java.math.BigInteger;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class FakerHostTest {

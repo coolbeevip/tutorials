@@ -1,6 +1,7 @@
 package com.coolbeevip.ddd.framework.domain.entity;
 
 import com.sun.media.sound.InvalidDataException;
+
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.HashSet;

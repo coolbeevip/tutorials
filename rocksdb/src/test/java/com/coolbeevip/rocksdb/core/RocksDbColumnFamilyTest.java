@@ -1,12 +1,13 @@
 package com.coolbeevip.rocksdb.core;
 
-import static com.coolbeevip.rocksdb.schema.MessageSchema.HOT_MESSAGE;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import com.coolbeevip.rocksdb.schema.Message;
-import java.util.UUID;
 import org.hamcrest.Matchers;
 import org.junit.Test;
+
+import java.util.UUID;
+
+import static com.coolbeevip.rocksdb.schema.MessageSchema.HOT_MESSAGE;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * @author zhanglei

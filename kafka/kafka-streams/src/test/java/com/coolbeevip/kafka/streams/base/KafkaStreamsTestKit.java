@@ -10,15 +10,16 @@ import com.coolbeevip.faker.playground.WeightedCollection;
 import com.coolbeevip.kafka.streams.KafkaFactory;
 import com.coolbeevip.kafka.streams.MetricsClientKafka;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
-import java.math.BigInteger;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.utility.DockerImageName;
+
+import java.io.IOException;
+import java.math.BigInteger;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 public class KafkaStreamsTestKit {
   protected static Faker faker = new Faker();

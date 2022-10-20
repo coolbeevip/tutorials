@@ -1,13 +1,7 @@
 package com.coolbeevip.iotdb;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-
 import com.coolbeevip.iotdb.core.MeasurementValue;
 import com.coolbeevip.iotdb.enties.CardDevice;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.SneakyThrows;
 import org.apache.iotdb.session.Session;
 import org.apache.iotdb.tsfile.file.metadata.enums.CompressionType;
@@ -19,6 +13,13 @@ import org.junit.Test;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
 import org.testcontainers.utility.DockerImageName;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CardDeviceTest {
 

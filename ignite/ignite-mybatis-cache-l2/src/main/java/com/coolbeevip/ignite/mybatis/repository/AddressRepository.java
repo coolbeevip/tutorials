@@ -2,13 +2,14 @@ package com.coolbeevip.ignite.mybatis.repository;
 
 import com.coolbeevip.ignite.mybatis.cache.IgniteCacheAdapter;
 import com.coolbeevip.ignite.mybatis.entities.AddressDO;
-import java.util.List;
 import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Property;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 @Mapper
 @CacheNamespace(implementation= IgniteCacheAdapter.class, properties = {

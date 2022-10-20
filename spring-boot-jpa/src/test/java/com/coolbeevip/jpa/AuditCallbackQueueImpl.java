@@ -3,8 +3,9 @@ package com.coolbeevip.jpa;
 import com.coolbeevip.jpa.persistence.audit.AuditEntityCallback;
 import com.coolbeevip.jpa.persistence.audit.AuditEvent;
 import com.coolbeevip.jpa.persistence.audit.AuditEventType;
-import java.util.LinkedList;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.LinkedList;
 
 /**
  * @author zhanglei

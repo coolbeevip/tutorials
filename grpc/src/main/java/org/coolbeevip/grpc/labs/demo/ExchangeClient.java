@@ -3,10 +3,6 @@ package org.coolbeevip.grpc.labs.demo;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
-import java.lang.invoke.MethodHandles;
-import java.util.Iterator;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 import org.coolbeevip.grpc.labs.demo.grpc.ExchangeServiceGrpc;
 import org.coolbeevip.grpc.labs.demo.grpc.ExchangeServiceGrpc.ExchangeServiceBlockingStub;
 import org.coolbeevip.grpc.labs.demo.grpc.ExchangeServiceGrpc.ExchangeServiceStub;
@@ -14,6 +10,11 @@ import org.coolbeevip.grpc.labs.demo.grpc.RequestMessage;
 import org.coolbeevip.grpc.labs.demo.grpc.ResponseMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
+import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ExchangeClient {
 

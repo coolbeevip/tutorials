@@ -8,9 +8,10 @@ import com.coolbeevip.akka.quickstart.protocols.RoomMessage.VisitorLogin;
 import com.coolbeevip.akka.quickstart.protocols.VisitorMessage;
 import com.coolbeevip.akka.quickstart.protocols.entity.Visitor;
 import com.coolbeevip.akka.quickstart.protocols.entity.VisitorGender;
-import java.util.UUID;
 import org.junit.AfterClass;
 import org.junit.Test;
+
+import java.util.UUID;
 
 public class AkkaQuickstartTest {
 

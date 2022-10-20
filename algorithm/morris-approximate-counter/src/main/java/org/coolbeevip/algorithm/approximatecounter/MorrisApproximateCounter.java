@@ -1,9 +1,10 @@
 package org.coolbeevip.algorithm.approximatecounter;
 
-import java.lang.invoke.MethodHandles;
-import java.util.Random;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
+import java.util.Random;
 
 /**
  * 莫里斯近似计数算法

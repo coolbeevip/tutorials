@@ -12,8 +12,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.Calendar;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-
 public class MarshalTest {
 
   @Test

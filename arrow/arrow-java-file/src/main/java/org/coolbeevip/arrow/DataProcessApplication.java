@@ -1,15 +1,6 @@
 package org.coolbeevip.arrow;
 
 import io.netty.util.internal.ThreadLocalRandom;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.lang.invoke.MethodHandles;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 import okio.ByteString;
 import org.apache.arrow.memory.RootAllocator;
 import org.apache.arrow.vector.IntVector;
@@ -27,6 +18,16 @@ import org.coolbeevip.arrow.labs.PersonVectorized;
 import org.coolbeevip.arrow.labs.SchemaRepositories;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.lang.invoke.MethodHandles;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class DataProcessApplication {
 

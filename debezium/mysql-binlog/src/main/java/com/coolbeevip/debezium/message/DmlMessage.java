@@ -4,8 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Map;
 import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.Map;
 
 @JsonInclude(Include.NON_NULL)
 public class DmlMessage {
