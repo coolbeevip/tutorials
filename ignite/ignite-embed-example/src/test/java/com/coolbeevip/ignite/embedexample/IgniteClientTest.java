@@ -20,9 +20,9 @@ import org.junit.Test;
 @Slf4j
 public class IgniteClientTest {
 
-  static String keystoreFile = "/Users/zhanglei/coolbeevip/tutorials/ignite/ignite-embed-example/src/test/resources/keystore/keystore.jks";
+  static String keystoreFile = "/Users/zhanglei/Work/github/tutorials/ignite/ignite-embed-example/src/main/resources/keystore/keystore.jks";
   static String keystorePass = "123456";
-  static String truststoreFile = "/Users/zhanglei/coolbeevip/tutorials/ignite/ignite-embed-example/src/test/resources/keystore/truststore.jks";
+  static String truststoreFile = "/Users/zhanglei/Work/github/tutorials/ignite/ignite-embed-example/src/main/resources/keystore/truststore.jks";
   static String truststorePass = "123456";
   static boolean clientMode = true;
 

@@ -12,6 +12,10 @@
   <artifactId>ignite</artifactId>
   <packaging>pom</packaging>
 
+  <properties>
+    <h2.version>1.4.197</h2.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.apache.ignite</groupId>
@@ -32,6 +36,11 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>${h2.version}</version>
     </dependency>
 
     <dependency>
@@ -70,6 +79,6 @@
     <module>ignite-common</module>
     <module>ignite-persistence-storage-rdbms</module>
     <module>ignite-mybatis-cache-l2</module>
-    <!--    <module>ignite-embed-example</module>-->
+        <module>ignite-embed-example</module>
   </modules>
 </project>

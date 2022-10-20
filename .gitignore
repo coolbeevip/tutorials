@@ -16,3 +16,4 @@ ratis-data/
 jmh-*.json
 *.arrow
 logs/
+ignite/

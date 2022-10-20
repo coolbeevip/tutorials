@@ -17,6 +17,7 @@ public class IgniteNodeConfig {
 
   public IgniteNodeConfig(boolean clientMode, String multicastGroup, LifecycleBean... lifecycleBeans) {
     commonConfig();
+    this.configuration.setIgniteInstanceName(UUID.randomUUID().toString());
     this.configuration.setClientMode(clientMode);
     this.configuration.setLifecycleBeans(lifecycleBeans);
     this.configuration.setDiscoverySpi(discoveryMulticastSpi(multicastGroup));
@@ -26,6 +27,7 @@ public class IgniteNodeConfig {
   public IgniteNodeConfig(boolean clientMode, String localAddress, int localPort, int localPortRange,
       Collection<String> addresses, LifecycleBean... lifecycleBeans) {
     commonConfig();
+    this.configuration.setIgniteInstanceName(UUID.randomUUID().toString());
     this.configuration.setClientMode(clientMode);
     this.configuration.setLifecycleBeans(lifecycleBeans);
     this.configuration
