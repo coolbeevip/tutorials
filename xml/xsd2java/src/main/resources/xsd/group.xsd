@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:user_ns="http://xml.coolbeevip.com/xsd2java/User"
+    targetNamespace="http://xml.coolbeevip.com/xsd2java/Group"
+    xmlns="http://xml.coolbeevip.com/xsd2java/Group"
+    elementFormDefault="qualified">
+  <xs:import schemaLocation="user.xsd" namespace="http://xml.coolbeevip.com/xsd2java/User"/>
+  <xs:element name="group" type="Group"></xs:element>
+  <xs:complexType name="Group">
+    <xs:sequence>
+      <xs:element name="user" type="user_ns:User" minOccurs="0" maxOccurs="unbounded"></xs:element>
+    </xs:sequence>
+    <xs:attribute type="xs:string" name="name"/>
+  </xs:complexType>
+</xs:schema>
