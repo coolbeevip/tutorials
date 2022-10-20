@@ -60,6 +60,14 @@ public class MarshalTest {
     assertThat(group.getUsers().size(), Matchers.is(groupSchema.getUsers().size()));
   }
 
+  @Test
+  @SneakyThrows
+  public void unmarshalTest() {
+    String filePath = "src/test/resources/group.xml";
+    JAXBContext context = JAXBContext.newInstance(Group.class);
+    Group group = (Group) context.createUnmarshaller().unmarshal(new FileReader(filePath));
+  }
+
   private Marshaller getMarshaller(JAXBContext context) throws JAXBException {
     Marshaller jaxbMarshaller = context.createMarshaller();
     jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);

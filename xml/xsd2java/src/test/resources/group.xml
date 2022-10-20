@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<group
+    xmlns="http://xml.coolbeevip.com/xsd2java"
+    name="A组">
+  <user>
+    <id>0</id>
+    <name>Javier Bogisich</name>
+    <created>2022-10-20T13:52:55.808+08:00</created>
+  </user>
+  <user>
+    <id>1</id>
+    <name>Mrs. Micheal Wolff</name>
+    <created>2022-10-20T13:52:55.809+08:00</created>
+  </user>
+</group>
