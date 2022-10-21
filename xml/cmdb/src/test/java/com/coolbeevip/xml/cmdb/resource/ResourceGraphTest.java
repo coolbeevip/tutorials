@@ -44,6 +44,14 @@ public class ResourceGraphTest {
 
   @Test
   @SneakyThrows
+  public void listTables() {
+    Map<String, Resource> resourceMap = loadResourceFromXml();
+    Set<String> resourceSrcSet = resourceMap.entrySet().stream().map(entry -> entry.getValue().getSrc()).collect(Collectors.toSet());
+    resourceSrcSet.forEach(p -> log.info("resource.src {}", p));
+  }
+
+  @Test
+  @SneakyThrows
   public void listPreInspectors() {
     Set<String> inspectors = new HashSet<>();
     Map<String, Resource> resourceMap = loadResourceFromXml();
