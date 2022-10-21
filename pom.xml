@@ -850,6 +850,7 @@
     <module>distributed-transaction</module>
     <module>open-telemetry</module>
     <module>xml</module>
+    <module>expression-language</module>
   </modules>
 
   <profiles>
