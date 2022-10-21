@@ -2,6 +2,7 @@ package org.coolbeevip.arrow.labs.flight;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
+
 import org.apache.arrow.flight.FlightServer;
 import org.apache.arrow.flight.Location;
 import org.apache.arrow.memory.BufferAllocator;
@@ -11,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author zhanglei
- * */
+ */
 public class ExampleFlightServer implements AutoCloseable {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());

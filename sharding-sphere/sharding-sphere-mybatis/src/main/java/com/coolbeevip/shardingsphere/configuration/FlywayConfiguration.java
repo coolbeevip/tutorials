@@ -8,7 +8,7 @@ public class FlywayConfiguration {
 
   private final Flyway flyway;
 
-  public FlywayConfiguration(DataSource dataSource,String location) {
+  public FlywayConfiguration(DataSource dataSource, String location) {
     this.flyway = Flyway.configure()
         .locations(location)
         .baselineOnMigrate(true)
@@ -17,7 +17,7 @@ public class FlywayConfiguration {
         .load();
   }
 
-  public void migrate(){
+  public void migrate() {
     flyway.migrate();
   }
 }

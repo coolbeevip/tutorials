@@ -51,7 +51,7 @@ public class ExchangeClient {
 
   //客户端流数据
   public void sendClientStream(StreamObserver<ResponseMessage> responseStreamObserver,
-      String text) {
+                               String text) {
     StreamObserver<RequestMessage> requestStreamObserver = asyncStub
         .sendClientStream(responseStreamObserver);
     requestStreamObserver

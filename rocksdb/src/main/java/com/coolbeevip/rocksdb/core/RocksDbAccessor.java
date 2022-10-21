@@ -29,9 +29,9 @@ public interface RocksDbAccessor extends AutoCloseable {
    * Returns the last entry with a key less than or equal to the given key.
    *
    * @param column The column we want to query
-   * @param key The requested key
-   * @param <K> The key type of the column
-   * @param <V> The value type of the column
+   * @param key    The requested key
+   * @param <K>    The key type of the column
+   * @param <V>    The value type of the column
    * @return The last entry with a key less than or equal to the given {@code key}
    */
   <K, V> Optional<ColumnEntry<K, V>> getFloorEntry(RocksDbColumnFamily<K, V> column, K key);
@@ -40,8 +40,8 @@ public interface RocksDbAccessor extends AutoCloseable {
    * Returns the first entry in the given column.
    *
    * @param column The column we want to query
-   * @param <K> The key type of the column
-   * @param <V> The value type of the column
+   * @param <K>    The key type of the column
+   * @param <V>    The value type of the column
    * @return The first entry in this column - the entry with the lowest key value
    */
   <K, V> Optional<ColumnEntry<K, V>> getFirstEntry(RocksDbColumnFamily<K, V> column);
@@ -50,8 +50,8 @@ public interface RocksDbAccessor extends AutoCloseable {
    * Returns the last entry in the given column.
    *
    * @param column The column we want to query
-   * @param <K> The key type of the column
-   * @param <V> The value type of the column
+   * @param <K>    The key type of the column
+   * @param <V>    The value type of the column
    * @return The last entry in this column - the entry with the greatest key value
    */
   <K, V> Optional<ColumnEntry<K, V>> getLastEntry(RocksDbColumnFamily<K, V> column);
@@ -60,8 +60,8 @@ public interface RocksDbAccessor extends AutoCloseable {
    * Returns the last key in the given column without loading the associated value.
    *
    * @param column The column we want to query
-   * @param <K> The key type of the column
-   * @param <V> The value type of the column
+   * @param <K>    The key type of the column
+   * @param <V>    The value type of the column
    * @return The last key in this column - the key with the greatest value
    */
   <K, V> Optional<K> getLastKey(RocksDbColumnFamily<K, V> column);
@@ -73,10 +73,10 @@ public interface RocksDbAccessor extends AutoCloseable {
    * Stream entries from a column between keys from and to fully inclusive.
    *
    * @param column the column to stream entries from
-   * @param from the first key to return
-   * @param to the last key to return
-   * @param <K> the key type of the column
-   * @param <V> the value type of the column
+   * @param from   the first key to return
+   * @param to     the last key to return
+   * @param <K>    the key type of the column
+   * @param <V>    the value type of the column
    * @return a Stream of entries between from and to (fully inclusive).
    */
   @MustBeClosed
@@ -98,7 +98,7 @@ public interface RocksDbAccessor extends AutoCloseable {
     <K, V> Optional<V> get(ReadOptions readOptions, RocksDbColumnFamily<K, V> column, K key);
 
     <K, V> Optional<V> getForUpdate(final ReadOptions readOptions,
-        final RocksDbColumnFamily<K, V> column, K key, final boolean exclusive);
+                                    final RocksDbColumnFamily<K, V> column, K key, final boolean exclusive);
 
     Snapshot getSnapshot();
 

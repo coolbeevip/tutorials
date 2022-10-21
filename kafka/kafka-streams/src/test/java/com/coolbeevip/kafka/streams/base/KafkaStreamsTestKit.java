@@ -70,7 +70,7 @@ public class KafkaStreamsTestKit {
     play.go(TimeUnit.SECONDS, 1, TimeUnit.MINUTES, 10);
   }
 
-  protected Play getPlay(String inputTopic, KafkaProducer producer){
+  protected Play getPlay(String inputTopic, KafkaProducer producer) {
     MetricsClient client = new MetricsClientKafka(producer, inputTopic);
     Play play = new Play(client);
     return play;

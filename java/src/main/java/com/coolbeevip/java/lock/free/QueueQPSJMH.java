@@ -31,7 +31,7 @@ public class QueueQPSJMH {
   public void arrayBlockingQueue_1P1C() throws InterruptedException {
     final ArrayBlockingQueue arrayBlockingQueue = new ArrayBlockingQueue(1000);
     Thread thread_push = new Thread(() -> {
-      IntStream.of(NUM_THREADS).forEach(n->{
+      IntStream.of(NUM_THREADS).forEach(n -> {
         try {
           arrayBlockingQueue.put(n);
         } catch (InterruptedException e) {
@@ -41,7 +41,7 @@ public class QueueQPSJMH {
     }, "thread_push");
 
     Thread thread_pop = new Thread(() -> {
-      IntStream.of(NUM_THREADS).forEach(n->{
+      IntStream.of(NUM_THREADS).forEach(n -> {
         try {
           arrayBlockingQueue.take();
         } catch (InterruptedException e) {
@@ -60,7 +60,7 @@ public class QueueQPSJMH {
   public void arrayBlockingQueue_1P4C() throws InterruptedException {
     final ArrayBlockingQueue arrayBlockingQueue = new ArrayBlockingQueue(1000);
     Thread thread_push = new Thread(() -> {
-      IntStream.of(NUM_THREADS).forEach(n->{
+      IntStream.of(NUM_THREADS).forEach(n -> {
         try {
           arrayBlockingQueue.put(n);
         } catch (InterruptedException e) {
@@ -70,7 +70,7 @@ public class QueueQPSJMH {
     }, "thread_push");
 
     Thread thread_pop1 = new Thread(() -> {
-      IntStream.of(NUM_THREADS/4).forEach(n->{
+      IntStream.of(NUM_THREADS / 4).forEach(n -> {
         try {
           arrayBlockingQueue.take();
         } catch (InterruptedException e) {
@@ -80,7 +80,7 @@ public class QueueQPSJMH {
     });
 
     Thread thread_pop2 = new Thread(() -> {
-      IntStream.of(NUM_THREADS/4).forEach(n->{
+      IntStream.of(NUM_THREADS / 4).forEach(n -> {
         try {
           arrayBlockingQueue.take();
         } catch (InterruptedException e) {
@@ -90,7 +90,7 @@ public class QueueQPSJMH {
     });
 
     Thread thread_pop3 = new Thread(() -> {
-      IntStream.of(NUM_THREADS/4).forEach(n->{
+      IntStream.of(NUM_THREADS / 4).forEach(n -> {
         try {
           arrayBlockingQueue.take();
         } catch (InterruptedException e) {
@@ -100,7 +100,7 @@ public class QueueQPSJMH {
     });
 
     Thread thread_pop4 = new Thread(() -> {
-      IntStream.of(NUM_THREADS/4).forEach(n->{
+      IntStream.of(NUM_THREADS / 4).forEach(n -> {
         try {
           arrayBlockingQueue.take();
         } catch (InterruptedException e) {
@@ -125,7 +125,7 @@ public class QueueQPSJMH {
   public void linkedBlockingQueue_1P1C() throws InterruptedException {
     final LinkedBlockingQueue linkedBlockingQueue = new LinkedBlockingQueue();
     Thread thread_push = new Thread(() -> {
-      IntStream.of(NUM_THREADS).forEach(n->{
+      IntStream.of(NUM_THREADS).forEach(n -> {
         try {
           linkedBlockingQueue.put(n);
         } catch (InterruptedException e) {
@@ -135,7 +135,7 @@ public class QueueQPSJMH {
     }, "thread_push");
 
     Thread thread_pop = new Thread(() -> {
-      IntStream.of(NUM_THREADS).forEach(n->{
+      IntStream.of(NUM_THREADS).forEach(n -> {
         try {
           linkedBlockingQueue.take();
         } catch (InterruptedException e) {

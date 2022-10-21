@@ -42,8 +42,8 @@ public class CardDevice extends DeviceEntity {
     }
 
     public Builder addMeasurement(String measurementId, TSDataType type, TSEncoding encoding,
-        CompressionType compressionType, Map<String, String> props, Map<String, String> tags,
-        Map<String, String> attributes, String measurementAlias) {
+                                  CompressionType compressionType, Map<String, String> props, Map<String, String> tags,
+                                  Map<String, String> attributes, String measurementAlias) {
       TSCreateTimeseriesReq request = new TSCreateTimeseriesReq();
       request.setPath(
           this.storageGroup + "." + this.paths.stream().collect(Collectors.joining(".")) + "."

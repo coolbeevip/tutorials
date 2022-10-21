@@ -43,11 +43,11 @@ public class ExactlyOnceProducer {
         producer.send(s);
       });
       producer.commitTransaction();
-    } catch(ProducerFencedException e) {
-      log.error(e.getMessage(),e);
+    } catch (ProducerFencedException e) {
+      log.error(e.getMessage(), e);
       producer.close();
     } catch (KafkaException e) {
-      log.error(e.getMessage(),e);
+      log.error(e.getMessage(), e);
       producer.abortTransaction();
     }
   }

@@ -36,7 +36,7 @@ public class SequenceStateMachine extends BaseStateMachine {
 
   @Override
   public void initialize(RaftServer server, RaftGroupId groupId,
-      RaftStorage raftStorage) throws IOException {
+                         RaftStorage raftStorage) throws IOException {
     super.initialize(server, groupId, raftStorage);
     this.storage.init(raftStorage);
     load(storage.getLatestSnapshot());

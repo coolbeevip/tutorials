@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 
 @Mapper
-@CacheNamespace(implementation= IgniteCacheAdapter.class, properties = {
+@CacheNamespace(implementation = IgniteCacheAdapter.class, properties = {
     @Property(name = "igniteConfigFile", value = "${ignite.config}")
 })
 public interface CountryRepository {

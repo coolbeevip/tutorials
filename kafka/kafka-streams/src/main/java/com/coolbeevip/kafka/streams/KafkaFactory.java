@@ -20,13 +20,13 @@ public class KafkaFactory {
   private final Path stateDirectory;
 
   public KafkaFactory(String bootstrapServers, String appId,
-      String stateDirectory)
+                      String stateDirectory)
       throws IOException {
     this(bootstrapServers, appId, stateDirectory, null);
   }
 
   public KafkaFactory(String bootstrapServers, String appId,
-      String stateDirectory, Properties overrideStreamsConfiguration)
+                      String stateDirectory, Properties overrideStreamsConfiguration)
       throws IOException {
     this.bootstrapServers = bootstrapServers;
     this.streamsConfiguration = new Properties();

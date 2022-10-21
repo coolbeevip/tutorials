@@ -7,6 +7,7 @@ import java.util.Objects;
 
 /**
  * 访客消息协议
+ *
  * @author zhanglei
  */
 public interface VisitorMessage {
@@ -46,7 +47,7 @@ public interface VisitorMessage {
     public final String msg;
 
     public Ask(Visitor visitor,
-        ActorRef<Answer> replyTo, String msg) {
+               ActorRef<Answer> replyTo, String msg) {
       this.visitor = visitor;
       this.replyTo = replyTo;
       this.msg = msg;
@@ -68,8 +69,8 @@ public interface VisitorMessage {
     public final String msg;
 
     public Answer(Visitor visitor,
-        ActorRef<Ask> from,
-        String msg) {
+                  ActorRef<Ask> from,
+                  String msg) {
       this.visitor = visitor;
       this.from = from;
       this.msg = msg;

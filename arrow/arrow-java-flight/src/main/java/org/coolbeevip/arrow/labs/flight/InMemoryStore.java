@@ -2,6 +2,7 @@ package org.coolbeevip.arrow.labs.flight;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+
 import org.apache.arrow.flight.Action;
 import org.apache.arrow.flight.ActionType;
 import org.apache.arrow.flight.CallStatus;
@@ -33,7 +34,7 @@ public class InMemoryStore implements FlightProducer, AutoCloseable {
    * Constructs a new instance.
    *
    * @param allocator The allocator for creating new Arrow buffers.
-   * @param location The location of the storage.
+   * @param location  The location of the storage.
    */
   public InMemoryStore(BufferAllocator allocator, Location location) {
     super();
@@ -43,7 +44,7 @@ public class InMemoryStore implements FlightProducer, AutoCloseable {
 
   @Override
   public void getStream(CallContext context, Ticket ticket,
-      ServerStreamListener listener) {
+                        ServerStreamListener listener) {
     getStream(ticket).sendTo(allocator, listener);
   }
 
@@ -63,7 +64,7 @@ public class InMemoryStore implements FlightProducer, AutoCloseable {
 
   @Override
   public void listFlights(CallContext context, Criteria criteria,
-      StreamListener<FlightInfo> listener) {
+                          StreamListener<FlightInfo> listener) {
     try {
       for (FlightHolder h : holders.values()) {
         listener.onNext(h.getFlightInfo(location));
@@ -86,7 +87,7 @@ public class InMemoryStore implements FlightProducer, AutoCloseable {
 
   @Override
   public Runnable acceptPut(CallContext context,
-      final FlightStream flightStream, final StreamListener<PutResult> ackStream) {
+                            final FlightStream flightStream, final StreamListener<PutResult> ackStream) {
     return () -> {
       StreamCreator creator = null;
       boolean success = false;
@@ -119,7 +120,7 @@ public class InMemoryStore implements FlightProducer, AutoCloseable {
 
   @Override
   public void doAction(CallContext context, Action action,
-      StreamListener<Result> listener) {
+                       StreamListener<Result> listener) {
     switch (action.getType()) {
       case "drop": {
         // not implemented.
@@ -135,7 +136,7 @@ public class InMemoryStore implements FlightProducer, AutoCloseable {
 
   @Override
   public void listActions(CallContext context,
-      StreamListener<ActionType> listener) {
+                          StreamListener<ActionType> listener) {
     listener.onNext(
         new ActionType("get", "pull a stream. Action must be done via standard get mechanism"));
     listener.onNext(

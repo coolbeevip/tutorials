@@ -31,10 +31,10 @@ public class ChunkedWriter<T> {
     DictionaryProvider.MapDictionaryProvider dictProvider = new DictionaryProvider.MapDictionaryProvider();
 
     try (RootAllocator allocator = new RootAllocator();
-        VectorSchemaRoot schemaRoot = VectorSchemaRoot.create(this.schema, allocator);
-        FileOutputStream fd = new FileOutputStream(file);
-        ArrowFileWriter fileWriter = new ArrowFileWriter(schemaRoot, dictProvider,
-            fd.getChannel())) {
+         VectorSchemaRoot schemaRoot = VectorSchemaRoot.create(this.schema, allocator);
+         FileOutputStream fd = new FileOutputStream(file);
+         ArrowFileWriter fileWriter = new ArrowFileWriter(schemaRoot, dictProvider,
+             fd.getChannel())) {
 
       log.info("Start writing");
       fileWriter.start();

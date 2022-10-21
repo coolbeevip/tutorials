@@ -42,7 +42,7 @@ public class SequenceServer {
   private RaftServer server;
 
   public CompletableFuture<Void> start() throws IOException {
-    log.info("Start {}",address);
+    log.info("Start {}", address);
     initRaftProperties();
     initRaftStorageDir();
     return initRaftCurrentPeer();
@@ -67,8 +67,8 @@ public class SequenceServer {
 
     if (Files.notExists(storagePath)) {
       Files.createDirectories(storagePath);
-        log.info("Initialize the raft storage directory {}", storagePath.toAbsolutePath());
-    }else{
+      log.info("Initialize the raft storage directory {}", storagePath.toAbsolutePath());
+    } else {
       log.info("Raft storage directory {} exist", storagePath.toAbsolutePath());
     }
   }
@@ -106,7 +106,7 @@ public class SequenceServer {
     return CompletableFuture.runAsync(() -> {
       while (server.getLifeCycleState() != State.RUNNING) {
         try {
-          log.info("Server state {}",server.getLifeCycleState().name());
+          log.info("Server state {}", server.getLifeCycleState().name());
           TimeUnit.SECONDS.sleep(1);
         } catch (InterruptedException e) {
           log.error("{} was interrupted: {}", this, e);

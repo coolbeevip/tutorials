@@ -6,7 +6,6 @@ import java.util.concurrent.locks.StampedLock;
 
 /**
  * 进一步优化了读操作，支持乐观读锁 tryOptimisticRead
- *
  */
 public class StampedReadWriteLockCounter implements Counter {
 

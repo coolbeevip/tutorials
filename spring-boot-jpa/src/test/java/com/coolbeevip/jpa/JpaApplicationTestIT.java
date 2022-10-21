@@ -286,21 +286,21 @@ public class JpaApplicationTestIT {
   }
 
   @Test
-  public void testPool(){
+  public void testPool() {
     HikariConfigMXBean configMXBean = dataSource.getHikariConfigMXBean();
     HikariPoolMXBean poolMXBean = dataSource.getHikariPoolMXBean();
-    log.info("config poolName {}",configMXBean.getPoolName());
-    log.info("config maximumPoolSize {}",configMXBean.getMaximumPoolSize());
-    log.info("config minimumIdle {}",configMXBean.getMinimumIdle());
-    log.info("config connectionTimeout {}",configMXBean.getConnectionTimeout());
-    log.info("config validationTimeout {}",configMXBean.getValidationTimeout());
-    log.info("config maxLifetime {}",configMXBean.getMaxLifetime());
-    log.info("config idleTimeout {}",configMXBean.getIdleTimeout());
+    log.info("config poolName {}", configMXBean.getPoolName());
+    log.info("config maximumPoolSize {}", configMXBean.getMaximumPoolSize());
+    log.info("config minimumIdle {}", configMXBean.getMinimumIdle());
+    log.info("config connectionTimeout {}", configMXBean.getConnectionTimeout());
+    log.info("config validationTimeout {}", configMXBean.getValidationTimeout());
+    log.info("config maxLifetime {}", configMXBean.getMaxLifetime());
+    log.info("config idleTimeout {}", configMXBean.getIdleTimeout());
 
-    log.info("pool activeConnections {}",poolMXBean.getActiveConnections());
-    log.info("pool totalConnections {}",poolMXBean.getTotalConnections());
-    log.info("pool idleConnections {}",poolMXBean.getIdleConnections());
-    log.info("pool threadsAwaitingConnection {}",poolMXBean.getThreadsAwaitingConnection());
+    log.info("pool activeConnections {}", poolMXBean.getActiveConnections());
+    log.info("pool totalConnections {}", poolMXBean.getTotalConnections());
+    log.info("pool idleConnections {}", poolMXBean.getIdleConnections());
+    log.info("pool threadsAwaitingConnection {}", poolMXBean.getThreadsAwaitingConnection());
 
   }
 

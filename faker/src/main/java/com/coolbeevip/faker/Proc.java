@@ -24,29 +24,29 @@ public class Proc extends Node {
   }
 
   public Proc take(RiskLevel riskLevel) {
-    this.json.put("name",this.name);
-    this.json.put("uptime",System.currentTimeMillis() - this.powerOnTime);
-    this.json.put("files.max",this.filesMax);
+    this.json.put("name", this.name);
+    this.json.put("uptime", System.currentTimeMillis() - this.powerOnTime);
+    this.json.put("files.max", this.filesMax);
     if (riskLevel == RiskLevel.LOW) {
-      this.json.put("usage",faker.randomPercentage(0, 25));
-      this.json.put("files.open",faker.randomLong(5,(long)(this.filesMax*0.25)));
+      this.json.put("usage", faker.randomPercentage(0, 25));
+      this.json.put("files.open", faker.randomLong(5, (long) (this.filesMax * 0.25)));
       this.json.set("jvm", this.jvm.low().getJson());
     } else if (riskLevel == RiskLevel.MID) {
-      this.json.put("usage",faker.randomPercentage(25, 50));
-      this.json.put("files.open",faker.randomLong(5,(long)(this.filesMax*0.5)));
+      this.json.put("usage", faker.randomPercentage(25, 50));
+      this.json.put("files.open", faker.randomLong(5, (long) (this.filesMax * 0.5)));
       this.json.set("jvm", this.jvm.mid().getJson());
     } else if (riskLevel == RiskLevel.NORMAL) {
-      this.json.put("usage",faker.randomPercentage(50, 75));
-      this.json.put("files.open",faker.randomLong(5,(long)(this.filesMax*0.75)));
+      this.json.put("usage", faker.randomPercentage(50, 75));
+      this.json.put("files.open", faker.randomLong(5, (long) (this.filesMax * 0.75)));
       this.json.set("jvm", this.jvm.normal().getJson());
     } else if (riskLevel == RiskLevel.HIGH) {
-      this.json.put("usage",faker.randomPercentage(75, 100));
-      this.json.put("files.open",faker.randomLong(5,(long)(this.filesMax)));
+      this.json.put("usage", faker.randomPercentage(75, 100));
+      this.json.put("files.open", faker.randomLong(5, (long) (this.filesMax)));
       this.json.set("jvm", this.jvm.high().getJson());
     }
     ObjectNode relationships = mapper.createObjectNode();
-    relationships.put("hosted-on",this.host.getId());
-    this.json.set("relationships",relationships);
+    relationships.put("hosted-on", this.host.getId());
+    this.json.set("relationships", relationships);
     return this;
   }
 }

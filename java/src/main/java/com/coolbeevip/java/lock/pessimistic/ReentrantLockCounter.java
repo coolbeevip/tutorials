@@ -15,20 +15,20 @@ public class ReentrantLockCounter implements Counter {
 
   public void increment() {
     lock.lock();
-    try{
+    try {
       counter++;
       mockTime();
-    }finally {
+    } finally {
       lock.unlock();
     }
   }
 
   public long get() {
     lock.lock();
-    try{
+    try {
       mockTime();
       return counter;
-    }finally {
+    } finally {
       lock.unlock();
     }
   }

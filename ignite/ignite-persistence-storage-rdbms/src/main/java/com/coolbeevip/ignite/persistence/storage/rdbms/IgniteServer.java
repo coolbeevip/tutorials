@@ -25,13 +25,13 @@ import static com.coolbeevip.ignite.persistence.storage.rdbms.IgniteConstant.SQL
 
 public class IgniteServer {
 
-  public static void main(String[] args){
+  public static void main(String[] args) {
     destroyCache();
     //createCache();
   }
 
-  private static void createCache(){
-    try(Ignite ignite = Ignition.start("/Users/zhanglei/coolbeevip/tutorials/ignite/ignite-persistence-storage-rdbms/src/main/resources/ignite-config.xml")){
+  private static void createCache() {
+    try (Ignite ignite = Ignition.start("/Users/zhanglei/coolbeevip/tutorials/ignite/ignite-persistence-storage-rdbms/src/main/resources/ignite-config.xml")) {
 
       CacheConfiguration<Integer, Address> cacheConfiguration = new CacheConfiguration<>();
       cacheConfiguration.setName(CACHE_NAME);
@@ -52,13 +52,13 @@ public class IgniteServer {
       jdbcType.setDatabaseTable(CACHE_TABLE_NAME);
 
       // key field
-      JdbcTypeField keyField = new JdbcTypeField(Types.VARCHAR,"uuid",String.class,"uuid");
+      JdbcTypeField keyField = new JdbcTypeField(Types.VARCHAR, "uuid", String.class, "uuid");
       jdbcType.setKeyFields(keyField);
 
       // value field
       List<JdbcTypeField> valuesFields = new ArrayList<>();
-      valuesFields.add(new JdbcTypeField(Types.INTEGER,"address_level",Integer.class,"addressLevel"));
-      valuesFields.add(new JdbcTypeField(Types.VARCHAR,"name",String.class,"name"));
+      valuesFields.add(new JdbcTypeField(Types.INTEGER, "address_level", Integer.class, "addressLevel"));
+      valuesFields.add(new JdbcTypeField(Types.VARCHAR, "name", String.class, "name"));
       jdbcType.setValueFields(valuesFields.toArray(new JdbcTypeField[0]));
 
       cacheStoreFactory.setTypes(jdbcType);
@@ -71,9 +71,9 @@ public class IgniteServer {
       queryEntity.setValueType(Address.class.getName());
       queryEntity.setKeyFieldName("uuid");
       queryEntity.setKeyFields(new HashSet(Arrays.asList("uuid")));
-      queryEntity.addQueryField("uuid",String.class.getName(),null);
-      queryEntity.addQueryField("name",String.class.getName(),null);
-      queryEntity.addQueryField("address_level",Integer.class.getName(),null);
+      queryEntity.addQueryField("uuid", String.class.getName(), null);
+      queryEntity.addQueryField("name", String.class.getName(), null);
+      queryEntity.addQueryField("address_level", Integer.class.getName(), null);
       queryEntities.add(queryEntity);
       cacheConfiguration.setQueryEntities(queryEntities);
 
@@ -85,8 +85,8 @@ public class IgniteServer {
     }
   }
 
-  private static void destroyCache(){
-    try(Ignite ignite = Ignition.start("/Users/zhanglei/coolbeevip/tutorials/ignite/ignite-persistence-storage-rdbms/src/main/resources/ignite-config.xml")){
+  private static void destroyCache() {
+    try (Ignite ignite = Ignition.start("/Users/zhanglei/coolbeevip/tutorials/ignite/ignite-persistence-storage-rdbms/src/main/resources/ignite-config.xml")) {
       ignite.destroyCache(CACHE_NAME);
     }
   }

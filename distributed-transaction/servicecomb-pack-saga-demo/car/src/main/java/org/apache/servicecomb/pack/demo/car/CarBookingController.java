@@ -37,7 +37,8 @@ public class CarBookingController {
   private final AtomicInteger id = new AtomicInteger(0);
 
   @CrossOrigin
-  @GetMapping("/bookings") List<CarBooking> getAll() {
+  @GetMapping("/bookings")
+  List<CarBooking> getAll() {
     return new ArrayList<>(service.getAllBookings());
   }
 

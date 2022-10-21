@@ -116,7 +116,7 @@ public class RocksDbInstance implements RocksDbAccessor {
 
   @Override
   public <K, V> Optional<ColumnEntry<K, V>> getFloorEntry(RocksDbColumnFamily<K, V> column,
-      final K key) {
+                                                          final K key) {
     assertOpen();
     final byte[] keyBytes = column.getKeySerializer().serialize(key);
     final Consumer<RocksIterator> setupIterator = it -> it.seekForPrev(keyBytes);
@@ -129,7 +129,7 @@ public class RocksDbInstance implements RocksDbAccessor {
   public <K, V> Optional<ColumnEntry<K, V>> getFirstEntry(final RocksDbColumnFamily<K, V> column) {
     assertOpen();
     try (final Stream<ColumnEntry<K, V>> stream =
-        createStream(column, AbstractRocksIterator::seekToFirst)) {
+             createStream(column, AbstractRocksIterator::seekToFirst)) {
       return stream.findFirst();
     }
   }
@@ -138,7 +138,7 @@ public class RocksDbInstance implements RocksDbAccessor {
   public <K, V> Optional<ColumnEntry<K, V>> getLastEntry(RocksDbColumnFamily<K, V> column) {
     assertOpen();
     try (final Stream<ColumnEntry<K, V>> stream =
-        createStream(column, AbstractRocksIterator::seekToLast)) {
+             createStream(column, AbstractRocksIterator::seekToLast)) {
       return stream.findFirst();
     }
   }
@@ -301,7 +301,7 @@ public class RocksDbInstance implements RocksDbAccessor {
 
     @Override
     public <K, V> Optional<V> get(ReadOptions readOptions, RocksDbColumnFamily<K, V> variable,
-        K key) {
+                                  K key) {
       final ColumnFamilyHandle handle = columnHandles.get(variable);
       try {
         return Optional.ofNullable(rocksDbTx.get(handle, readOptions, variable.getKey(key)))
@@ -313,11 +313,11 @@ public class RocksDbInstance implements RocksDbAccessor {
 
     @Override
     public <K, V> Optional<V> getForUpdate(final ReadOptions readOptions,
-        final RocksDbColumnFamily<K, V> variable, K key, final boolean exclusive) {
+                                           final RocksDbColumnFamily<K, V> variable, K key, final boolean exclusive) {
       final ColumnFamilyHandle handle = columnHandles.get(variable);
       try {
         return Optional.ofNullable(
-            rocksDbTx.getForUpdate(readOptions, handle, variable.getKey(key), exclusive))
+                rocksDbTx.getForUpdate(readOptions, handle, variable.getKey(key), exclusive))
             .map(data -> variable.getValue(data));
       } catch (RocksDBException e) {
         throw new DatabaseStorageException("Failed to get value", e);

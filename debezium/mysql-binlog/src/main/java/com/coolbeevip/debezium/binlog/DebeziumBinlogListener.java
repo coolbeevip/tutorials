@@ -67,7 +67,7 @@ public class DebeziumBinlogListener {
   }
 
   private void dmlMessage(Operation operation, Struct sourceRecordChangeKey,
-      Struct sourceRecordChangeValue) {
+                          Struct sourceRecordChangeValue) {
 
     Struct sourceStruct = (Struct) sourceRecordChangeValue.get(SOURCE);
     String dbName = sourceStruct.get("db").toString();

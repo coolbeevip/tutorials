@@ -10,8 +10,8 @@ public class RocksDbColumnFamily<K, V> {
   private final RocksDbSerializer<V> valueSerializer;
 
   private RocksDbColumnFamily(final byte[] cfId,
-      final RocksDbSerializer<K> keySerializer,
-      final RocksDbSerializer<V> valueSerializer) {
+                              final RocksDbSerializer<K> keySerializer,
+                              final RocksDbSerializer<V> valueSerializer) {
     this.cfId = new BytesKey(cfId);
     this.keySerializer = keySerializer;
     this.valueSerializer = valueSerializer;

@@ -38,8 +38,8 @@ public class DataSourceConfiguration {
     atomDataSourceMap.put("ds1", dataSource2);
 
     atomDataSourceMap.forEach((k, v) -> {
-      log.info("Flyway init datasource {}",k);
-      FlywayConfiguration flywayConfiguration = new FlywayConfiguration(v, "classpath:/db/mysql/"+k);
+      log.info("Flyway init datasource {}", k);
+      FlywayConfiguration flywayConfiguration = new FlywayConfiguration(v, "classpath:/db/mysql/" + k);
       flywayConfiguration.migrate();
     });
   }

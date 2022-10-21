@@ -94,7 +94,7 @@ public class DeviceEntity {
   }
 
   public void batchInsert(String measurementId, List<MeasurementValue> measurementValues,
-      int batchSize) throws IoTDBConnectionException, StatementExecutionException {
+                          int batchSize) throws IoTDBConnectionException, StatementExecutionException {
     long begin = System.currentTimeMillis();
     List<MeasurementSchema> schemaList = this.getMeasurementSchemas();
     Tablet tablet = new Tablet(this.getDevicePath(), schemaList, batchSize);

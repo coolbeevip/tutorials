@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 /**
- docker run --rm --name es781 -p 9200:9200 -e "discovery.type=single-node" -e "ES_JAVA_OPTS=-Xms2g -Xmx2g -Xss256k" elasticsearch:7.8.1
+ * docker run --rm --name es781 -p 9200:9200 -e "discovery.type=single-node" -e "ES_JAVA_OPTS=-Xms2g -Xmx2g -Xss256k" elasticsearch:7.8.1
  */
 public class EsExample {
 
@@ -33,14 +33,14 @@ public class EsExample {
 
     //  create index
     String indexName = "chats";
-    if(!client.indices().exists(new GetIndexRequest(indexName), RequestOptions.DEFAULT)){
+    if (!client.indices().exists(new GetIndexRequest(indexName), RequestOptions.DEFAULT)) {
       CreateIndexRequest request = new CreateIndexRequest(indexName);
       client.indices().create(request, RequestOptions.DEFAULT);
     }
 
     // terms query
     SearchRequest searchRequest = new SearchRequest();
-    List<String> names = IntStream.range(0,1000000).mapToObj(n -> UUID.randomUUID().toString()).collect(Collectors.toList());
+    List<String> names = IntStream.range(0, 1000000).mapToObj(n -> UUID.randomUUID().toString()).collect(Collectors.toList());
     SearchSourceBuilder builder = new SearchSourceBuilder()
         .postFilter(QueryBuilders.termsQuery("name", names));
     searchRequest.source(builder);
@@ -56,8 +56,8 @@ public class EsExample {
           try {
             long begin = System.currentTimeMillis();
             SearchResponse response = client.search(searchRequest, RequestOptions.DEFAULT);
-            System.out.println(response.status()+ " "+(System.currentTimeMillis()-begin));
-          }catch (Exception e){
+            System.out.println(response.status() + " " + (System.currentTimeMillis() - begin));
+          } catch (Exception e) {
             e.printStackTrace();
           }
         }

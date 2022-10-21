@@ -10,6 +10,7 @@ import com.coolbeevip.akka.quickstart.protocols.VisitorMessage;
 
 /**
  * 访客
+ *
  * @author zhanglei
  */
 public class VisitorActor extends AbstractBehavior<VisitorMessage> {

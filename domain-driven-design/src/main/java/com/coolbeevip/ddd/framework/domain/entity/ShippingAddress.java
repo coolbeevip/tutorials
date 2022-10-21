@@ -1,7 +1,7 @@
 package com.coolbeevip.ddd.framework.domain.entity;
 
 /**
- 订单收获地址
+ * 订单收获地址
  */
 public class ShippingAddress {
 

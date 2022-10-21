@@ -63,7 +63,7 @@ public class SingleEventSingleThresholdTest extends KafkaStreamsTestKit {
    * CPU利用率大于阀值
    */
   private Topology buildSingleEventCpuUsageThresholdTopology(Set<String> filterSet,
-      double threshold) {
+                                                             double threshold) {
     StreamsBuilder builder = new StreamsBuilder();
     KStream<String, String> textLines = builder.stream(inputTopic);
     textLines.filter((k, v) -> {

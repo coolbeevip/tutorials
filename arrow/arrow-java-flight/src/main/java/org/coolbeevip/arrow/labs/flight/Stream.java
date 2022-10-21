@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Consumer;
+
 import org.apache.arrow.flight.FlightProducer.ServerStreamListener;
 import org.apache.arrow.memory.ArrowBuf;
 import org.apache.arrow.memory.BufferAllocator;
@@ -33,8 +34,8 @@ public class Stream implements AutoCloseable, Iterable<ArrowRecordBatch> {
   /**
    * Create a new instance.
    *
-   * @param schema The schema for the record batches.
-   * @param batches The data associated with the stream.
+   * @param schema      The schema for the record batches.
+   * @param batches     The data associated with the stream.
    * @param recordCount The total record count across all batches.
    */
   public Stream(
@@ -117,13 +118,13 @@ public class Stream implements AutoCloseable, Iterable<ArrowRecordBatch> {
     /**
      * Creates a new instance.
      *
-     * @param schema The schema for batches in the stream.
+     * @param schema             The schema for batches in the stream.
      * @param dictionaryProvider The dictionary provider for the stream.
-     * @param allocator  The allocator used to copy data permanently into the stream.
-     * @param committer A callback for when the the stream is ready to be finalized (no more batches).
+     * @param allocator          The allocator used to copy data permanently into the stream.
+     * @param committer          A callback for when the the stream is ready to be finalized (no more batches).
      */
     public StreamCreator(Schema schema, DictionaryProvider dictionaryProvider,
-        BufferAllocator allocator, Consumer<Stream> committer) {
+                         BufferAllocator allocator, Consumer<Stream> committer) {
       this.allocator = allocator;
       this.committer = committer;
       this.schema = schema;

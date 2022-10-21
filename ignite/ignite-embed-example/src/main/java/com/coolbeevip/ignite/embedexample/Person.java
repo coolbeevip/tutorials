@@ -13,7 +13,7 @@ public class Person {
   private final String address;
   private final int salary;
 
-  public Person(String id, String name, int age, String country,String city, String address, int salary) {
+  public Person(String id, String name, int age, String country, String city, String address, int salary) {
     this.id = id;
     this.age = age;
     this.name = name;

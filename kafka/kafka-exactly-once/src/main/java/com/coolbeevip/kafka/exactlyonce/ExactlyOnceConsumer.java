@@ -39,7 +39,7 @@ public class ExactlyOnceConsumer {
   public static List<String> receivedMessage = new ArrayList<>();
 
   public ExactlyOnceConsumer(String bootstrapServers, String groupId,
-      String topic, boolean seekToBeginning) {
+                             String topic, boolean seekToBeginning) {
     this.bootstrapServers = bootstrapServers;
     this.groupId = groupId;
     this.topic = topic;

@@ -52,7 +52,7 @@ public class CacheShardingJMH {
   public void loopWithFalseCacheSharing(BenchmarkState state) {
     for (int x = 0; x < ARRAY_X; x += 1) {
       for (int y = 0; y < ARRAY_Y; y++) {
-        state.array[x][y]=-1;
+        state.array[x][y] = -1;
       }
     }
   }

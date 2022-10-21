@@ -27,7 +27,7 @@ public class SchemaRepositories {
 
   private static final Map<String, Schema> schemas = new ConcurrentHashMap<>();
 
-  public void load(Class dataClass){
+  public void load(Class dataClass) {
     if (!schemas.containsKey(dataClass.getName())) {
       List<Field> fields = Arrays.stream(dataClass.getDeclaredFields())
           .filter(f -> f.getAnnotation(ArrowField.class) != null)
@@ -66,7 +66,7 @@ public class SchemaRepositories {
           // 字节数组
           schemaBuilder.add(new org.apache.arrow.vector.types.pojo.Field(field.getName(),
               FieldType.nullable(Binary.INSTANCE), null));
-        } else if(schemas.containsKey(field.getType().getName())) {
+        } else if (schemas.containsKey(field.getType().getName())) {
           schemaBuilder.add(new org.apache.arrow.vector.types.pojo.Field(field.getName(),
               FieldType.nullable(ArrowType.Struct.INSTANCE), schemas.get(field.getType().getName()).getFields()));
         } else {

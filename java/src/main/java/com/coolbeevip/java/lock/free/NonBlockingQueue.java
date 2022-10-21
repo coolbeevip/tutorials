@@ -29,9 +29,9 @@ public class NonBlockingQueue<T> {
     do {
       currentTail = tail.get();
       node.setPrevious(currentTail);
-    } while(!tail.compareAndSet(currentTail, node));
+    } while (!tail.compareAndSet(currentTail, node));
 
-    if(node.previous != null) {
+    if (node.previous != null) {
       node.previous.next = node;
     }
 
@@ -40,7 +40,7 @@ public class NonBlockingQueue<T> {
   }
 
   public T get() {
-    if(head.get() == null) {
+    if (head.get() == null) {
       throw new NoSuchElementException();
     }
 
@@ -49,7 +49,7 @@ public class NonBlockingQueue<T> {
     do {
       currentHead = head.get();
       nextNode = currentHead.getNext();
-    } while(!head.compareAndSet(currentHead, nextNode));
+    } while (!head.compareAndSet(currentHead, nextNode));
 
     size.decrementAndGet();
     return currentHead.getValue();

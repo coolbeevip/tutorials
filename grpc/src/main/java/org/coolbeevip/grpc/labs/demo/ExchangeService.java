@@ -22,7 +22,7 @@ public class ExchangeService extends ExchangeServiceImplBase {
 
   @Override
   public void sendMessage(RequestMessage request,
-      StreamObserver<ResponseMessage> responseObserver) {
+                          StreamObserver<ResponseMessage> responseObserver) {
     ResponseMessage response = ResponseMessage.newBuilder()
         .setId(id.incrementAndGet())
         .setFromId(request.getId())
@@ -33,7 +33,7 @@ public class ExchangeService extends ExchangeServiceImplBase {
 
   @Override
   public void sendServerStream(RequestMessage request,
-      StreamObserver<ResponseMessage> responseObserver) {
+                               StreamObserver<ResponseMessage> responseObserver) {
     ResponseMessage response = ResponseMessage.newBuilder()
         .setId(id.incrementAndGet())
         .setFromId(request.getId())

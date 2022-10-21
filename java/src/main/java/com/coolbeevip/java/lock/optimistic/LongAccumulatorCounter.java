@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.LongAccumulator;
  */
 public class LongAccumulatorCounter implements Counter {
 
-  private LongAccumulator counter = new LongAccumulator(Long::sum,0);
+  private LongAccumulator counter = new LongAccumulator(Long::sum, 0);
 
   public void increment() {
     mockTime();

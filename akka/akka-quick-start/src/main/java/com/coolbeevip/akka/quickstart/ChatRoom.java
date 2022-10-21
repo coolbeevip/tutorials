@@ -19,6 +19,7 @@ import java.util.UUID;
 
 /**
  * 聊天室 Actor System
+ *
  * @author zhanglei
  */
 public class ChatRoom extends AbstractBehavior<RoomMessage> {

@@ -151,7 +151,7 @@ public class Node<T> {
     return builder.toString();
   }
 
-  public String writeValueAsString(NodeFormatter formatter){
+  public String writeValueAsString(NodeFormatter formatter) {
     return formatter.format(this);
   }
 

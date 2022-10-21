@@ -47,15 +47,15 @@ public class ResourceGraphTest {
   public void listPreInspectors() {
     Set<String> inspectors = new HashSet<>();
     Map<String, Resource> resourceMap = loadResourceFromXml();
-    resourceMap.forEach((k,v) -> {
-      try{
-        if(v.getPreInspectors()!=null){
+    resourceMap.forEach((k, v) -> {
+      try {
+        if (v.getPreInspectors() != null) {
           v.getPreInspectors().getInspectors().forEach(inspector -> {
             inspectors.add(inspector.getId());
           });
         }
-      }catch (Exception e){
-        log.error("{}", k,e);
+      } catch (Exception e) {
+        log.error("{}", k, e);
       }
     });
     inspectors.forEach(p -> log.info("PreInspector.inspector {}", p));
@@ -66,15 +66,15 @@ public class ResourceGraphTest {
   public void listPostInspectorsInspector() {
     Set<String> inspectors = new HashSet<>();
     Map<String, Resource> resourceMap = loadResourceFromXml();
-    resourceMap.forEach((k,v) -> {
-      try{
-        if(v.getPostInspectors()!=null){
+    resourceMap.forEach((k, v) -> {
+      try {
+        if (v.getPostInspectors() != null) {
           v.getPostInspectors().getInspectors().forEach(inspector -> {
             inspectors.add(inspector.getId());
           });
         }
-      }catch (Exception e){
-        log.error("{}", k,e);
+      } catch (Exception e) {
+        log.error("{}", k, e);
       }
     });
     inspectors.forEach(p -> log.info("PostInspectors.inspector {}", p));
@@ -85,15 +85,15 @@ public class ResourceGraphTest {
   public void listPostInspectorsRecordInspector() {
     Set<String> inspectors = new HashSet<>();
     Map<String, Resource> resourceMap = loadResourceFromXml();
-    resourceMap.forEach((k,v) -> {
-      try{
-        if(v.getPostInspectors()!=null){
+    resourceMap.forEach((k, v) -> {
+      try {
+        if (v.getPostInspectors() != null) {
           v.getPostInspectors().getRecordInspectors().forEach(inspector -> {
             inspectors.add(inspector.getId());
           });
         }
-      }catch (Exception e){
-        log.error("{}", k,e);
+      } catch (Exception e) {
+        log.error("{}", k, e);
       }
     });
     inspectors.forEach(p -> log.info("PostInspectors.recordInspector {}", p));
@@ -105,18 +105,18 @@ public class ResourceGraphTest {
   public void listAttrTempPlugin() {
     Set<String> plugins = new HashSet<>();
     Map<String, Resource> resourceMap = loadResourceFromXml();
-    resourceMap.forEach((k,v) -> {
-      try{
-        if(v.getTable().getAttrTemps()!=null){
+    resourceMap.forEach((k, v) -> {
+      try {
+        if (v.getTable().getAttrTemps() != null) {
           v.getTable().getAttrTemps().forEach(attrTemp -> {
-            if(attrTemp.getPlugin()!=null){
+            if (attrTemp.getPlugin() != null) {
               plugins.add(attrTemp.getPlugin().getId());
             }
 
           });
         }
-      }catch (Exception e){
-        log.error("{}", k,e);
+      } catch (Exception e) {
+        log.error("{}", k, e);
       }
 
     });
@@ -131,10 +131,10 @@ public class ResourceGraphTest {
     Map<String, Map<String, Set<String>>> resourceInspectors = new HashMap<>();
     Map<String, Resource> resourceMap = loadResourceFromXml();
     resourceMap.forEach((k, v) -> {
-      if(!v.getId().equals(v.getCacheId())){
+      if (!v.getId().equals(v.getCacheId())) {
         log.info("CACHE {}: id={}, cacheId={}", k, v.getId(), v.getCacheId());
       }
-      if(v.getDeletable()!=null && v.getDeletable().equals("N")){
+      if (v.getDeletable() != null && v.getDeletable().equals("N")) {
         log.info("DELETABLE {}: deletable={}", k, v.getDeletable());
       }
       Map<String, Set<String>> resourceInspector = new HashMap<>();
@@ -147,7 +147,7 @@ public class ResourceGraphTest {
       resourceInspector.put("ExtractInspector", inspectors);
 
       // PreInspectors.inspector
-      Set<String>  preInspectorsInspectors = new HashSet<>();
+      Set<String> preInspectorsInspectors = new HashSet<>();
       if (v.getPreInspectors() != null && v.getPreInspectors().getInspectors() != null && !v.getPreInspectors().getInspectors().isEmpty()) {
         v.getPreInspectors().getInspectors().forEach(inspector -> {
           preInspectorsInspectors.add(inspector.getId());
@@ -156,8 +156,8 @@ public class ResourceGraphTest {
       resourceInspector.put("PreInspectors.inspector", preInspectorsInspectors);
 
 
-      Set<String>  postInspectorsInspectors = new HashSet<>();
-      Set<String>  postInspectorsRecordInspectors = new HashSet<>();
+      Set<String> postInspectorsInspectors = new HashSet<>();
+      Set<String> postInspectorsRecordInspectors = new HashSet<>();
       if (v.getPostInspectors() != null) {
         // PostInspectors.inspector
         if (v.getPostInspectors().getInspectors() != null && !v.getPostInspectors().getInspectors().isEmpty()) {

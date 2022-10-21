@@ -51,7 +51,7 @@ public class IgniteNode implements AutoCloseable {
   }
 
   public IgniteCache createCache(String name, CacheMode cacheMode, int backups,
-      CacheWriteSynchronizationMode writeSync) {
+                                 CacheWriteSynchronizationMode writeSync) {
     CacheConfiguration cacheConfiguration = new CacheConfiguration();
     cacheConfiguration.setName(name);
     cacheConfiguration.setCacheMode(cacheMode);
@@ -78,9 +78,9 @@ public class IgniteNode implements AutoCloseable {
   }
 
   public IgniteQueue getOrCreateQueue(String name, String groupName, int capacity,
-      CacheMode cacheMode, int backups, boolean collocated) {
+                                      CacheMode cacheMode, int backups, boolean collocated) {
     CollectionConfiguration collectionConfiguration = new CollectionConfiguration();
-    if(groupName!=null){
+    if (groupName != null) {
       collectionConfiguration.setGroupName(groupName);
     }
     // 设置底层缓存模式
@@ -97,7 +97,7 @@ public class IgniteNode implements AutoCloseable {
   }
 
   public IgniteSet getOrCreateSet(String name, String groupName, CacheMode cacheMode, int backups,
-      boolean collocated) {
+                                  boolean collocated) {
     CollectionConfiguration collectionConfiguration = new CollectionConfiguration();
     if (groupName != null) {
       collectionConfiguration.setGroupName(groupName);

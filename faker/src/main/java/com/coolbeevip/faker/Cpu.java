@@ -5,6 +5,7 @@ import com.coolbeevip.faker.core.Node;
 public class Cpu extends Node {
 
   private final int count;
+
   public Cpu(Faker faker, int count) {
     super(faker);
     this.count = count;
@@ -31,31 +32,31 @@ public class Cpu extends Node {
     return faker.randomPercentage(min, max);
   }
 
-  public Cpu low(){
-    this.json.put("count",this.count);
-    this.json.put("usage", usage(0,25));
-    this.json.put("loadAverage1m", loadAverage1m(0,25));
+  public Cpu low() {
+    this.json.put("count", this.count);
+    this.json.put("usage", usage(0, 25));
+    this.json.put("loadAverage1m", loadAverage1m(0, 25));
     return this;
   }
 
-  public Cpu mid(){
-    this.json.put("count",this.count);
-    this.json.put("usage", usage(25,50));
-    this.json.put("loadAverage1m", loadAverage1m(25,50));
+  public Cpu mid() {
+    this.json.put("count", this.count);
+    this.json.put("usage", usage(25, 50));
+    this.json.put("loadAverage1m", loadAverage1m(25, 50));
     return this;
   }
 
-  public Cpu normal(){
-    this.json.put("count",this.count);
-    this.json.put("usage", usage(50,75));
-    this.json.put("loadAverage1m", loadAverage1m(50,75));
+  public Cpu normal() {
+    this.json.put("count", this.count);
+    this.json.put("usage", usage(50, 75));
+    this.json.put("loadAverage1m", loadAverage1m(50, 75));
     return this;
   }
 
-  public Cpu high(){
-    this.json.put("count",this.count);
-    this.json.put("usage", usage(75,100));
-    this.json.put("loadAverage1m", loadAverage1m(75,100));
+  public Cpu high() {
+    this.json.put("count", this.count);
+    this.json.put("usage", usage(75, 100));
+    this.json.put("loadAverage1m", loadAverage1m(75, 100));
     return this;
   }
 

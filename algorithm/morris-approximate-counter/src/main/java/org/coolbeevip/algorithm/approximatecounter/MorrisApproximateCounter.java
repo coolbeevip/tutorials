@@ -9,7 +9,7 @@ import java.util.Random;
 /**
  * 莫里斯近似计数算法
  * 使用一个 byte（数据范围 -128～127） 变量，实现千万级计数的近似计算
- *
+ * <p>
  * https://en.wikipedia.org/wiki/Approximate_counting_algorithm
  * https://www.matongxue.com/madocs/12/
  */
@@ -38,10 +38,10 @@ public class MorrisApproximateCounter {
    * 计数值累加
    */
   public byte increment() {
-    double n_next = Math.pow(Math.E, Math.log(2) * counter+1) - 1;
+    double n_next = Math.pow(Math.E, Math.log(2) * counter + 1) - 1;
     double n = Math.pow(Math.E, Math.log(2) * counter) - 1;
     double d = 1 / (n_next - n);
-    if(random.nextDouble() < d){
+    if (random.nextDouble() < d) {
       this.counter++;
     }
     return this.counter;

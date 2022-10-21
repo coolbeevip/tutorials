@@ -6,8 +6,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.google.common.base.Throwables;
+
 import java.io.IOException;
 import java.util.List;
+
 import org.apache.arrow.flight.Ticket;
 import org.apache.arrow.util.Preconditions;
 
@@ -28,14 +30,14 @@ public class ExampleTicket {
   /**
    * Constructs a new instance.
    *
-   * @param path Path to data
+   * @param path    Path to data
    * @param ordinal A counter for the stream.
-   * @param uuid A unique identifier for this particular stream.
+   * @param uuid    A unique identifier for this particular stream.
    */
   @JsonCreator
   public ExampleTicket(@JsonProperty("path") List<String> path,
-      @JsonProperty("ordinal") int ordinal,
-      @JsonProperty("uuid") String uuid) {
+                       @JsonProperty("ordinal") int ordinal,
+                       @JsonProperty("uuid") String uuid) {
     super();
     Preconditions.checkArgument(ordinal >= 0);
     this.path = path;

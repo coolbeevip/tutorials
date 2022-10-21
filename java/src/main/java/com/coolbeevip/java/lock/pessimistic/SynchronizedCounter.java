@@ -5,7 +5,7 @@ import com.coolbeevip.java.lock.Counter;
 /**
  * 悲观锁
  * 适合写操作多的场景，先加锁可以保证写操作时数据正确。
- *
+ * <p>
  * 与 Lock 相比的缺陷
  * - 只能作用在方法级别
  * - 不支持公平性（非公平锁）

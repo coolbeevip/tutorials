@@ -9,7 +9,7 @@ public class IgniteClient {
     ClientConfiguration clientConfiguration = new ClientConfiguration()
         .setUserName("ignite")
         .setUserPassword("ignite")
-        .setAddresses("10.1.207.180:10800","10.1.207.181:10800","10.1.207.182:10800");
+        .setAddresses("10.1.207.180:10800", "10.1.207.181:10800", "10.1.207.182:10800");
     try (org.apache.ignite.client.IgniteClient client = Ignition.startClient(clientConfiguration)) {
 
     }

@@ -83,12 +83,12 @@ public class IgniteQueueJMH {
           Arrays.asList("127.0.0.1:47500", "127.0.0.1:47501", "127.0.0.1:47502"), keystoreFile,
           keystorePass,
           truststoreFile, truststorePass);
-      queue_B0 = node.getOrCreateQueue("queue_B0","group_queue_B0",0, CacheMode.PARTITIONED,0,true);
-      queue_B1 = node.getOrCreateQueue("queue_B1","group_queue_B1",0, CacheMode.PARTITIONED,1,true);
-      queue_B2 = node.getOrCreateQueue("queue_B2","group_queue_B2",0, CacheMode.PARTITIONED,2,true);
-      queue_R_B0 = node.getOrCreateQueue("queue_R_B0","group_queue_R_B0",0, CacheMode.REPLICATED,0,true);
-      queue_R_B1 = node.getOrCreateQueue("queue_R_B1","group_queue_R_B1",0, CacheMode.REPLICATED,1,true);
-      queue_R_B2 = node.getOrCreateQueue("queue_R_B2","group_queue_R_B2",0, CacheMode.REPLICATED,2,true);
+      queue_B0 = node.getOrCreateQueue("queue_B0", "group_queue_B0", 0, CacheMode.PARTITIONED, 0, true);
+      queue_B1 = node.getOrCreateQueue("queue_B1", "group_queue_B1", 0, CacheMode.PARTITIONED, 1, true);
+      queue_B2 = node.getOrCreateQueue("queue_B2", "group_queue_B2", 0, CacheMode.PARTITIONED, 2, true);
+      queue_R_B0 = node.getOrCreateQueue("queue_R_B0", "group_queue_R_B0", 0, CacheMode.REPLICATED, 0, true);
+      queue_R_B1 = node.getOrCreateQueue("queue_R_B1", "group_queue_R_B1", 0, CacheMode.REPLICATED, 1, true);
+      queue_R_B2 = node.getOrCreateQueue("queue_R_B2", "group_queue_R_B2", 0, CacheMode.REPLICATED, 2, true);
     }
 
     @TearDown

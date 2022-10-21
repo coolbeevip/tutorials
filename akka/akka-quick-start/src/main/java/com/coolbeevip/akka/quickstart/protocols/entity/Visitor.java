@@ -4,6 +4,7 @@ import java.util.UUID;
 
 /**
  * 访客
+ *
  * @author zhanglei
  */
 public class Visitor {

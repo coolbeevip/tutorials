@@ -2,12 +2,14 @@ package org.coolbeevip.arrow.labs.flight;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
+
 import org.apache.arrow.flight.FlightDescriptor;
 import org.apache.arrow.flight.FlightEndpoint;
 import org.apache.arrow.flight.FlightInfo;
@@ -32,13 +34,14 @@ public class FlightHolder implements AutoCloseable {
 
   /**
    * Creates a new instance.
-   *  @param allocator The allocator to use for allocating buffers to store data.
-   * @param descriptor The descriptor for the streams.
-   * @param schema  The schema for the stream.
+   *
+   * @param allocator          The allocator to use for allocating buffers to store data.
+   * @param descriptor         The descriptor for the streams.
+   * @param schema             The schema for the stream.
    * @param dictionaryProvider The dictionary provider for the stream.
    */
   public FlightHolder(BufferAllocator allocator, FlightDescriptor descriptor, Schema schema,
-      DictionaryProvider dictionaryProvider) {
+                      DictionaryProvider dictionaryProvider) {
     Preconditions.checkArgument(!descriptor.isCommand());
     this.allocator = allocator.newChildAllocator(descriptor.toString(), 0, Long.MAX_VALUE);
     this.descriptor = descriptor;

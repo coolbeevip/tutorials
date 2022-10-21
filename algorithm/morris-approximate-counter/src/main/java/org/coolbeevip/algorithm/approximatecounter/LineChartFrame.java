@@ -15,7 +15,7 @@ public class LineChartFrame extends JFrame {
   final XYSeriesCollection dataset = new XYSeriesCollection();
 
   public LineChartFrame(String applicationTitle, String chartTitle, String xAxisLabel,
-      String yAxisLabel) {
+                        String yAxisLabel) {
     super(applicationTitle);
     JFreeChart pieChart = ChartFactory
         .createXYLineChart(chartTitle,
@@ -32,7 +32,7 @@ public class LineChartFrame extends JFrame {
   public void addXYSeries(String label, double[][] values) {
     final XYSeries series = new XYSeries(label);
     for (int x = 0; x < values.length; x++) {
-      series.add(values[x][0],values[x][1]);
+      series.add(values[x][0], values[x][1]);
     }
     dataset.addSeries(series);
   }

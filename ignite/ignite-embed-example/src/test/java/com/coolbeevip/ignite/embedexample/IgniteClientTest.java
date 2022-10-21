@@ -30,8 +30,8 @@ public class IgniteClientTest {
   static List<IgniteNode> servers = new ArrayList<>();
 
   static {
-    System.setProperty("java.net.preferIPv4Stack","true");
-    System.setProperty("IGNITE_QUIET","true");
+    System.setProperty("java.net.preferIPv4Stack", "true");
+    System.setProperty("IGNITE_QUIET", "true");
   }
 
   @Test

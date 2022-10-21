@@ -59,7 +59,7 @@ public class TumblingWindowsTest extends KafkaStreamsTestKit {
         play.push(host.take(weightedCollection.next()).id().type().timestamp().version(1).toJSON());
         SECONDS.sleep(1);
       } catch (Exception e) {
-        log.error("",e);
+        log.error("", e);
       }
     });
 

@@ -26,7 +26,7 @@ public class IgniteNodeConfig {
   }
 
   public IgniteNodeConfig(boolean clientMode, String localAddress, int localPort, int localPortRange,
-      Collection<String> addresses, LifecycleBean... lifecycleBeans) {
+                          Collection<String> addresses, LifecycleBean... lifecycleBeans) {
     commonConfig();
     this.configuration.setIgniteInstanceName(UUID.randomUUID().toString());
     this.configuration.setClientMode(clientMode);
@@ -37,8 +37,8 @@ public class IgniteNodeConfig {
   }
 
   public IgniteNodeConfig(boolean clientMode, String localAddress, int localPort, int localPortRange,
-      Collection<String> addresses, String keystoreFile, String keystorePass,
-      String truststoreFile, String truststorePass, LifecycleBean... lifecycleBeans) {
+                          Collection<String> addresses, String keystoreFile, String keystorePass,
+                          String truststoreFile, String truststorePass, LifecycleBean... lifecycleBeans) {
     commonConfig();
     this.configuration.setIgniteInstanceName(UUID.randomUUID().toString());
     this.configuration.setClientMode(clientMode);
@@ -51,11 +51,11 @@ public class IgniteNodeConfig {
 
   /**
    * 设置 KeyStore用于服务器认证服务端（不要泄漏），TrustStore用于客户端认证服务器
-   *
+   * <p>
    * keytool 生成 server.jks 和 trust.jks
    */
   public void setSsl(String keystoreFile, String keystorePass, String truststoreFile,
-      String truststorePass) {
+                     String truststorePass) {
     SslContextFactory factory = new SslContextFactory();
     factory.setKeyStoreFilePath(keystoreFile);
     factory.setKeyStorePassword(keystorePass.toCharArray());
@@ -75,7 +75,7 @@ public class IgniteNodeConfig {
     //this.configuration.setWorkDirectory("logs/ignite");
   }
 
-  private DataStorageConfiguration dataStorageConfiguration(){
+  private DataStorageConfiguration dataStorageConfiguration() {
     DataStorageConfiguration dataStorageConfiguration = new DataStorageConfiguration();
     dataStorageConfiguration.getDefaultDataRegionConfiguration().setPersistenceEnabled(true);
     return dataStorageConfiguration;
@@ -90,7 +90,7 @@ public class IgniteNodeConfig {
   }
 
   private TcpDiscoverySpi discoveryVmIpSpi(String localAddress, int localPort, int localPortRange,
-      Collection<String> addresses) {
+                                           Collection<String> addresses) {
     TcpDiscoverySpi discoverySpi = new TcpDiscoverySpi();
     TcpDiscoveryVmIpFinder ipFinder = new TcpDiscoveryVmIpFinder();
     ipFinder.setAddresses(addresses);

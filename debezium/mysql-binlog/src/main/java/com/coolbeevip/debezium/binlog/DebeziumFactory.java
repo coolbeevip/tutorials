@@ -11,7 +11,7 @@ public class DebeziumFactory {
   private static final Logger log = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   public Configuration configuration(String dbHost, int dbPort, String dbUsername,
-      String dbPassword, String dbName) {
+                                     String dbPassword, String dbName) {
     log.info("dbHost {}, dbPort {}, dbUsername {}, dbName {}", dbHost, dbPort, dbUsername, dbName);
     return Configuration.create()
         .with("name", "customer-mysql-connector")

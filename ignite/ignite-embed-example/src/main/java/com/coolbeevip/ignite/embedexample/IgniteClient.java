@@ -16,6 +16,7 @@ public class IgniteClient {
   static String truststorePass = "123456";
 
   static IgniteNode client;
+
   public static void main(String[] args) {
     client = IgniteNodeFactory.createIgniteNode(true, "127.0.0.1", 47500, 3,
         Arrays.asList("127.0.0.1:47500", "127.0.0.1:47501", "127.0.0.1:47502"), keystoreFile,
@@ -26,16 +27,16 @@ public class IgniteClient {
     client.close();
   }
 
-  public static void put(){
+  public static void put() {
     IgniteQueue queue = client.getOrCreateQueue("queue_test1", null, 0, CacheMode.REPLICATED,
         3, false);
     IntStream.range(0, 10).forEach(n -> queue.put(n));
-    log.info("queue size {}",queue.size());
+    log.info("queue size {}", queue.size());
   }
 
-  public static void get(){
+  public static void get() {
     IgniteQueue queue = client.getOrCreateQueue("queue_test1", null, 0, CacheMode.REPLICATED,
         3, false);
-    log.info("queue size {}",queue.size());
+    log.info("queue size {}", queue.size());
   }
 }

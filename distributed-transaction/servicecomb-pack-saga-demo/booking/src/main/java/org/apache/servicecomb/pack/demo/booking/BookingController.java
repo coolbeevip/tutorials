@@ -55,7 +55,7 @@ public class BookingController {
   @SagaStart
   @PostMapping("/booking/{name}/{rooms}/{cars}")
   public String order(@PathVariable String name, @PathVariable Integer rooms,
-      @PathVariable Integer cars) throws Throwable {
+                      @PathVariable Integer cars) throws Throwable {
 
     if (cars < 0) {
       throw new Exception("The cars order quantity must be greater than 0");

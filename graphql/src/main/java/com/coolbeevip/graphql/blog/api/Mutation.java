@@ -23,7 +23,7 @@ public class Mutation implements GraphQLMutationResolver {
   }
 
   public Post writePost(String title, String text, String category,
-      String authorId) {
+                        String authorId) {
     Post post = Post.builder()
         .id(UUID.randomUUID().toString())
         .title(title)

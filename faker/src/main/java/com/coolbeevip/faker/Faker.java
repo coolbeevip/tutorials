@@ -13,7 +13,7 @@ public class Faker {
   }
 
   public Host host(String ip, int cpuNum, long diskTotalSpace,
-      long memoryTotal) {
+                   long memoryTotal) {
     return new Host(this, ip, cpuNum, diskTotalSpace, memoryTotal);
   }
 

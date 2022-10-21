@@ -16,6 +16,6 @@ public class IgniteNodeLifecycle implements LifecycleBean {
 
   @Override
   public void onLifecycleEvent(LifecycleEventType lifecycleEventType) throws IgniteException {
-    log.debug("lifecycle {}",lifecycleEventType.name());
+    log.debug("lifecycle {}", lifecycleEventType.name());
   }
 }

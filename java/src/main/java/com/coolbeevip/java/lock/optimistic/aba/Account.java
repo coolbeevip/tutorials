@@ -18,10 +18,11 @@ public class Account {
   private ThreadLocal<Integer> currentThreadCASFailureCount;
 
   public Account() {
-    this.balance = new AtomicStampedReference(0,1);
+    this.balance = new AtomicStampedReference(0, 1);
     this.transactionCount = new AtomicInteger(0);
-    this.currentThreadCASFailureCount = new ThreadLocal(){
-      @Override public Integer initialValue() {
+    this.currentThreadCASFailureCount = new ThreadLocal() {
+      @Override
+      public Integer initialValue() {
         return 0;
       }
     };
@@ -43,7 +44,7 @@ public class Account {
     int current = balance.getReference();
     int stamp = balance.getStamp();
     maybeWait();
-    boolean result = balance.compareAndSet(current, current - amount,stamp,stamp+1);
+    boolean result = balance.compareAndSet(current, current - amount, stamp, stamp + 1);
     if (result) {
       transactionCount.incrementAndGet();
     } else {
@@ -66,7 +67,7 @@ public class Account {
   public boolean deposit(int amount) {
     int current = balance.getReference();
     int stamp = balance.getStamp();
-    boolean result = balance.compareAndSet(current, current + amount,stamp,stamp+1);
+    boolean result = balance.compareAndSet(current, current + amount, stamp, stamp + 1);
     if (result) {
       transactionCount.incrementAndGet();
     } else {

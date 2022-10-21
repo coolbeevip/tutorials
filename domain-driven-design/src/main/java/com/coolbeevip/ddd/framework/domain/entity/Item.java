@@ -1,7 +1,7 @@
 package com.coolbeevip.ddd.framework.domain.entity;
 
 /**
- 订单项目
+ * 订单项目
  */
 public class Item {
 

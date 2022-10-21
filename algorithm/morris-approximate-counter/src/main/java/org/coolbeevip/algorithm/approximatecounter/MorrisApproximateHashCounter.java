@@ -9,10 +9,10 @@ import java.util.UUID;
 
 /**
  * 使用莫里斯计数实现对输入对象的统计
- *
+ * <p>
  * 创建 size 大小的 byte 数组，对输入对象哈希后取余，使用余数作为数组索引，在索引位置累加1
  * 输入对象越多，size 越大，概率精度越高
- *
+ * <p>
  * https://en.wikipedia.org/wiki/Approximate_counting_algorithm
  * https://www.matongxue.com/madocs/12/
  */
@@ -46,7 +46,7 @@ public class MorrisApproximateHashCounter {
    */
   public double get(Object value) {
     int index = getIndex(value);
-    return Math.pow(this.radix,this.exponents[index]);
+    return Math.pow(this.radix, this.exponents[index]);
   }
 
   /**
@@ -54,7 +54,7 @@ public class MorrisApproximateHashCounter {
    */
   public void increment(Object value) {
     int index = getIndex(value);
-    if(this.exponents[index] < 255 && random.nextDouble() < Math.pow(this.radix, -this.exponents[index])){
+    if (this.exponents[index] < 255 && random.nextDouble() < Math.pow(this.radix, -this.exponents[index])) {
       this.exponents[index]++;
     }
     //log.debug("index {}, probability counter {}",index,this.exponents[index]);

@@ -19,8 +19,9 @@ public class ProblemAccount {
   public ProblemAccount() {
     this.balance = new AtomicInteger(0);
     this.transactionCount = new AtomicInteger(0);
-    this.currentThreadCASFailureCount = new ThreadLocal(){
-      @Override public Integer initialValue() {
+    this.currentThreadCASFailureCount = new ThreadLocal() {
+      @Override
+      public Integer initialValue() {
         return 0;
       }
     };

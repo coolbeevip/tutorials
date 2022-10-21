@@ -4,6 +4,7 @@ import com.coolbeevip.akka.quickstart.protocols.entity.Visitor;
 
 /**
  * 聊天室消息协议
+ *
  * @author zhanglei
  */
 public interface RoomMessage {

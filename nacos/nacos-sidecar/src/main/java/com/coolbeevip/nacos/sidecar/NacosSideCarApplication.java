@@ -31,7 +31,7 @@ public class NacosSideCarApplication {
     properties.put(PropertyKeyConst.SERVER_ADDR, SERVER_ADDR);
     properties.put(PropertyKeyConst.NAMESPACE, NAMESPACE);
 
-    if(USERNAME!=null && PASSWORD!=null){
+    if (USERNAME != null && PASSWORD != null) {
       properties.put(PropertyKeyConst.USERNAME, USERNAME);
       properties.put(PropertyKeyConst.PASSWORD, PASSWORD);
     }

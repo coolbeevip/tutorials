@@ -17,8 +17,7 @@ import java.net.InetSocketAddress;
  * 主从多线程模型
  *
  * @author zhanglei
- *
- * */
+ */
 public class EchoServer {
 
   private final int port;

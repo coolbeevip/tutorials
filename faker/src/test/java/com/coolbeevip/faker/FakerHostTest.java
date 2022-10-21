@@ -19,10 +19,10 @@ public class FakerHostTest {
   @SneakyThrows
   public void test() {
     WeightedCollection<RiskLevel> weightedCollection = new WeightedCollection();
-    weightedCollection.add(2,RiskLevel.LOW);
-    weightedCollection.add(5,RiskLevel.MID);
-    weightedCollection.add(2,RiskLevel.NORMAL);
-    weightedCollection.add(1,RiskLevel.HIGH);
+    weightedCollection.add(2, RiskLevel.LOW);
+    weightedCollection.add(5, RiskLevel.MID);
+    weightedCollection.add(2, RiskLevel.NORMAL);
+    weightedCollection.add(1, RiskLevel.HIGH);
 
     MetricsClient client = new MetricsClientLog();
     Play play = new Play(client, weightedCollection);

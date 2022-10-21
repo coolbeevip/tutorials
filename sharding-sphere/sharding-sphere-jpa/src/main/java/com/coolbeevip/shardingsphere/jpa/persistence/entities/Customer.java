@@ -58,11 +58,11 @@ public class Customer implements Serializable {
   /**
    * 一对多关系
    * 一个客户有多个订单
-   *
+   * <p>
    * 关联对象加载模式 fetch
    * FetchType.LAZY: 懒加载
    * FetchType.EAGER:急加载
-   *
+   * <p>
    * 级联操作 cascade
    * CascadeType.PERSIST: 级联持久化（保存）操作
    * CascadeType.REMOVE: 级联删除
