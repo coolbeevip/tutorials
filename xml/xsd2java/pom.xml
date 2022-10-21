@@ -61,7 +61,7 @@
           </execution>
         </executions>
         <configuration>
-          <packageName>com.coolbeevip.xml.xsd2java</packageName>
+          <packageName>com.coolbeevip.jaxb.type</packageName>
           <xjbSources>
             <xjbSource>src/main/resources/xjb/binding.xjb</xjbSource>
           </xjbSources>

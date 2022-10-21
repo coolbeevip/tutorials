@@ -1,4 +1,4 @@
-package com.coolbeevip.xml.xsd2java;
+package com.coolbeevip.jaxb.type;
 
 import com.github.javafaker.Faker;
 import jakarta.xml.bind.JAXBContext;

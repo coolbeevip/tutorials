@@ -11,5 +11,6 @@
         <jaxb:javaType name="java.util.Calendar" xmlType="xsd:dateTime"
                        parseMethod="javax.xml.bind.DatatypeConverter.parseDateTime"
                        printMethod="javax.xml.bind.DatatypeConverter.printDateTime"/>
+        <xjc:superClass name="com.coolbeevip.jaxb.Type"/>
     </jaxb:globalBindings>
 </jaxb:bindings>
