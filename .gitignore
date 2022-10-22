@@ -6,6 +6,7 @@
 
 ## Maven
 target/
+dependency-reduced-*.xml
 
 ## macOS
 .DS_Store
