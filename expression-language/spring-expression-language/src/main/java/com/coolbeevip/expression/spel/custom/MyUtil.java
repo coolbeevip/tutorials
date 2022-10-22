@@ -1,4 +1,4 @@
-package com.coolbeevip.expression.spel;
+package com.coolbeevip.expression.spel.custom;
 
 public class MyUtil {
   public static String staticGender(Integer v){
