@@ -1,6 +1,6 @@
 package com.coolbeevip.expression.spel.custom;
 
-public class MyUtil {
+public class MyExpression {
   public static String staticGender(Integer v){
     switch (v){
       case 0:

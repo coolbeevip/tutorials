@@ -132,7 +132,7 @@ public class SpELExpressionEvaluatorTest {
   @Test
   public void staticMethodOfCustomClassTest() {
     ExpressionEvaluator<String> evaluator = new SpELExpressionEvaluator();
-    evaluator.setExpression("T(com.coolbeevip.expression.spel.custom.MyUtil).staticGender(1)");
+    evaluator.setExpression("T(com.coolbeevip.expression.spel.custom.MyExpression).staticGender(1)");
     String result = evaluator.evaluate();
     assertThat(result, Matchers.is("男"));
   }
@@ -140,7 +140,7 @@ public class SpELExpressionEvaluatorTest {
   @Test
   public void methodOfCustomClassTest() {
     ExpressionEvaluator<String> evaluator = new SpELExpressionEvaluator();
-    evaluator.setExpression("new com.coolbeevip.expression.spel.custom.MyUtil().gender(0)");
+    evaluator.setExpression("new com.coolbeevip.expression.spel.custom.MyExpression().gender(0)");
     String result = evaluator.evaluate();
     assertThat(result, Matchers.is("女"));
   }
