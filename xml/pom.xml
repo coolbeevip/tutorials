@@ -13,7 +13,7 @@
   <packaging>pom</packaging>
 
   <modules>
-    <module>xsd2java</module>
+    <module>jaxb</module>
     <module>cmdb</module>
   </modules>
 
