@@ -1,6 +1,7 @@
 package com.coolbeevip.expression.spel;
 
 import com.coolbeevip.expression.Evaluator;
+import com.coolbeevip.expression.janino.JaninoExpressionEvaluator;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 
@@ -8,14 +9,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class SpELExpressionEvaluatorTest {
+public class JaninoExpressionEvaluatorTest {
 
   @Test
   public void arithmeticTest() {
-    Evaluator<Integer> evaluator = new SpELExpressionEvaluator();
+    Evaluator<Integer> evaluator = new JaninoExpressionEvaluator();
     evaluator.setExpression("19 + 1");
     Integer result = evaluator.evaluate();
     assertThat(result, Matchers.is(20));
@@ -23,7 +25,7 @@ public class SpELExpressionEvaluatorTest {
 
   @Test
   public void relationalTest() {
-    Evaluator<Boolean> evaluator = new SpELExpressionEvaluator();
+    Evaluator<Boolean> evaluator = new JaninoExpressionEvaluator();
     evaluator.setExpression("19 > 1");
     Boolean result = evaluator.evaluate();
     assertThat(result, Matchers.is(true));
@@ -31,15 +33,15 @@ public class SpELExpressionEvaluatorTest {
 
   @Test
   public void logicalTest() {
-    Evaluator<Boolean> evaluator = new SpELExpressionEvaluator();
-    evaluator.setExpression("19 > 1 and 19 > 20");
+    Evaluator<Boolean> evaluator = new JaninoExpressionEvaluator();
+    evaluator.setExpression("19 > 1 && 19 > 20");
     Boolean result = evaluator.evaluate();
     assertThat(result, Matchers.is(false));
   }
 
   @Test
   public void conditionalTest() {
-    Evaluator<Integer> evaluator = new SpELExpressionEvaluator();
+    Evaluator<Integer> evaluator = new JaninoExpressionEvaluator();
     evaluator.setExpression("true ? 1 : 2");
     Integer result = evaluator.evaluate();
     assertThat(result, Matchers.is(1));
@@ -47,10 +49,7 @@ public class SpELExpressionEvaluatorTest {
 
   @Test
   public void regexTest() {
-    Evaluator<Boolean> evaluator = new SpELExpressionEvaluator();
-    evaluator.setExpression("'100' matches '\\d+'");
-    Boolean result = evaluator.evaluate();
-    assertThat(result, Matchers.is(true));
+
   }
 
   @Test
@@ -58,8 +57,8 @@ public class SpELExpressionEvaluatorTest {
     Map<String, Object> params = new HashMap<>();
     params.put("name", "Thomas");
     params.put("age", 35);
-    Evaluator<String> evaluator = new SpELExpressionEvaluator();
-    evaluator.setExpression("#name");
+    Evaluator<String> evaluator = new JaninoExpressionEvaluator();
+    evaluator.setExpression("name");
     String result = evaluator.evaluate(params);
     assertThat(result, Matchers.is(params.get("name")));
   }
@@ -68,29 +67,28 @@ public class SpELExpressionEvaluatorTest {
   public void substringTest() {
     Map<String, Object> params = new HashMap<>();
     params.put("name", "Thomas Zhang");
-    Evaluator<String> evaluator = new SpELExpressionEvaluator();
-    evaluator.setExpression("#name.substring(0, 6)");
+    Evaluator<String> evaluator = new JaninoExpressionEvaluator();
+    evaluator.setExpression("name.substring(0, 6)");
     String result = evaluator.evaluate(params);
     assertThat(result, Matchers.is("Thomas"));
   }
 
   @Test
   public void concatTest() {
-    Evaluator<String> evaluator = new SpELExpressionEvaluator();
-    evaluator.setExpression("#name + '#' + #age");
-
     Map<String, Object> params = new HashMap<>();
     params.put("name", "Thomas");
     params.put("age", 35);
-
+    Evaluator<String> evaluator = new JaninoExpressionEvaluator();
+    evaluator.setExpression("name + '#' + age");
     String result = evaluator.evaluate(params);
     assertThat(result, Matchers.is(params.get("name").toString() + '#' + params.get("age").toString()));
   }
 
   @Test
   public void ternaryOperatorTest() {
-    Evaluator<String> evaluator = new SpELExpressionEvaluator();
-    evaluator.setExpression("#full_name != null ? #full_name : #last_name != null ? #last_name : #first_name");
+    Evaluator<String> evaluator = new JaninoExpressionEvaluator();
+    evaluator.setExpression("full_name != null ? full_name : last_name != null ? last_name : first_name");
+    //evaluator.setExpression("first_name !=null ? first_name : first_name");
 
     Map<String, Object> params = new HashMap<>();
     params.put("full_name", null);
@@ -117,31 +115,28 @@ public class SpELExpressionEvaluatorTest {
     Map<String, Object> params = new HashMap<>();
     params.put("myList", values);
 
-    Evaluator<List<Integer>> evaluator = new SpELExpressionEvaluator();
-    evaluator.setExpression("#myList.?[#this > 1]");
-    List<Integer> result = evaluator.evaluate(params);
-    assertThat(result.size(), Matchers.is(2));
+    Evaluator<Integer> evaluator = new JaninoExpressionEvaluator();
+    evaluator.setExpression("myList.size()");
+    Integer result = evaluator.evaluate(params);
+    assertThat(result, Matchers.is(3));
   }
 
   @Test
   public void classTest() {
-    Evaluator<Integer> evaluator = new SpELExpressionEvaluator();
-    evaluator.setExpression("T(Integer).parseInt('1')");
-    Integer result = evaluator.evaluate();
-    assertThat(result, Matchers.is(1));
+
   }
 
   @Test
   public void staticMethodOfCustomClassTest() {
-    Evaluator<String> evaluator = new SpELExpressionEvaluator();
-    evaluator.setExpression("T(com.coolbeevip.expression.spel.custom.MyExpression).staticGender(1)");
+    Evaluator<String> evaluator = new JaninoExpressionEvaluator();
+    evaluator.setExpression("com.coolbeevip.expression.spel.custom.MyExpression.staticGender(1)");
     String result = evaluator.evaluate();
     assertThat(result, Matchers.is("男"));
   }
 
   @Test
   public void methodOfCustomClassTest() {
-    Evaluator<String> evaluator = new SpELExpressionEvaluator();
+    Evaluator<String> evaluator = new JaninoExpressionEvaluator();
     evaluator.setExpression("new com.coolbeevip.expression.spel.custom.MyExpression().gender(0)");
     String result = evaluator.evaluate();
     assertThat(result, Matchers.is("女"));

@@ -1,6 +1,6 @@
 package com.coolbeevip.expression.spel;
 
-import com.coolbeevip.expression.ExpressionEvaluator;
+import com.coolbeevip.expression.Evaluator;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
@@ -9,14 +9,9 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 import java.util.Map;
 
-public class SpELExpressionEvaluator<T> implements ExpressionEvaluator<T> {
+public class SpELExpressionEvaluator<T> implements Evaluator<T> {
   private ExpressionParser expressionParser = new SpelExpressionParser();
   private String expression;
-
-  @Override
-  public void setExpressionType(Class<?> expressionType) {
-
-  }
 
   @Override
   public void setExpression(String expression) {

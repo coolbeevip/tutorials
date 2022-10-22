@@ -2,12 +2,7 @@ package com.coolbeevip.expression;
 
 import java.util.Map;
 
-public interface ExpressionEvaluator<T> {
-  /**
-   * 表达式返回类型
-   */
-  void setExpressionType(Class<?> expressionType);
-
+public interface Evaluator<T> {
   /**
    * 设置表达式
    */
