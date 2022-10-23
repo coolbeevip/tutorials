@@ -18,12 +18,6 @@
     </dependency>
 
     <dependency>
-      <groupId>org.codehaus.janino</groupId>
-      <artifactId>janino</artifactId>
-      <version>3.1.8</version>
-    </dependency>
-
-    <dependency>
       <groupId>com.coolbeevip</groupId>
       <artifactId>test</artifactId>
       <version>${project.version}</version>
@@ -49,17 +43,6 @@
                   <mainClass>com.coolbeevip.expression.BenchmarkRunner</mainClass>
                 </transformer>
               </transformers>
-              <filters>
-                <!-- 排除 janino 中包含的 META，否则执行将提示 java.lang.SecurityException: Invalid signature file digest for Manifest main attributes -->
-                <filter>
-                  <artifact>*:*</artifact>
-                  <excludes>
-                    <exclude>META-INF/*.SF</exclude>
-                    <exclude>META-INF/*.DSA</exclude>
-                    <exclude>META-INF/*.RSA</exclude>
-                  </excludes>
-                </filter>
-              </filters>
             </configuration>
           </execution>
         </executions>

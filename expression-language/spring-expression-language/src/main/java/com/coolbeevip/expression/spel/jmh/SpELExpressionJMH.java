@@ -1,7 +1,6 @@
 package com.coolbeevip.expression.spel.jmh;
 
 import com.coolbeevip.expression.Evaluator;
-import com.coolbeevip.expression.janino.JaninoExpressionEvaluator;
 import com.coolbeevip.expression.spel.SpELExpressionEvaluator;
 import com.coolbeevip.expression.spel.custom.MyExpression;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -32,16 +31,7 @@ import java.util.concurrent.TimeUnit;
 public class SpELExpressionJMH {
   @Benchmark
   public void spelSubstring(BenchmarkState state) {
-    Evaluator<String> evaluator = new SpELExpressionEvaluator();
-    evaluator.setExpression("#full_name.substring(0, 6)");
-    String result = evaluator.evaluate(state.params);
-  }
-
-  @Benchmark
-  public void janinoSubstring(BenchmarkState state) {
-    Evaluator<String> evaluator = new JaninoExpressionEvaluator();
-    evaluator.setExpression("full_name.substring(0, 6)");
-    String result = evaluator.evaluate(state.params);
+    String result = state.evaluator.evaluate("#full_name.substring(0, 6)", state.params);
   }
 
   @Benchmark
@@ -51,16 +41,7 @@ public class SpELExpressionJMH {
 
   @Benchmark
   public void spelConcatString(BenchmarkState state) {
-    Evaluator<String> evaluator = new SpELExpressionEvaluator();
-    evaluator.setExpression("#first_name + ' ' + #last_name");
-    String result = evaluator.evaluate(state.params);
-  }
-
-  @Benchmark
-  public void janinoConcatString(BenchmarkState state) {
-    Evaluator<String> evaluator = new JaninoExpressionEvaluator();
-    evaluator.setExpression("first_name + ' ' + last_name");
-    String result = evaluator.evaluate(state.params);
+    String result = state.evaluator.evaluate("#first_name + ' ' + #last_name", state.params);
   }
 
   @Benchmark
@@ -70,16 +51,7 @@ public class SpELExpressionJMH {
 
   @Benchmark
   public void spelIfElse(BenchmarkState state) {
-    Evaluator<String> evaluator = new SpELExpressionEvaluator();
-    evaluator.setExpression("#full_name != null ? #full_name : #last_name != null ? #last_name : #first_name");
-    String result = evaluator.evaluate(state.params);
-  }
-
-  @Benchmark
-  public void janinoIfElse(BenchmarkState state) {
-    Evaluator<String> evaluator = new JaninoExpressionEvaluator();
-    evaluator.setExpression("full_name != null ? full_name : last_name != null ? last_name : first_name");
-    String result = evaluator.evaluate(state.params);
+    String result = state.evaluator.evaluate("#full_name != null ? #full_name : #last_name != null ? #last_name : #first_name", state.params);
   }
 
   @Benchmark
@@ -89,16 +61,7 @@ public class SpELExpressionJMH {
 
   @Benchmark
   public void spelClass(BenchmarkState state) {
-    Evaluator<String> evaluator = new SpELExpressionEvaluator();
-    evaluator.setExpression("T(com.coolbeevip.expression.spel.custom.MyExpression).staticGender(#gender)");
-    String result = evaluator.evaluate(state.params);
-  }
-
-  @Benchmark
-  public void janinoClass(BenchmarkState state) {
-    Evaluator<String> evaluator = new JaninoExpressionEvaluator();
-    evaluator.setExpression("com.coolbeevip.expression.spel.custom.MyExpression.staticGender(gender)");
-    String result = evaluator.evaluate(state.params);
+    String result = state.evaluator.evaluate("T(com.coolbeevip.expression.spel.custom.MyExpression).staticGender(#gender)", state.params);
   }
 
   @Benchmark
@@ -110,6 +73,7 @@ public class SpELExpressionJMH {
   public static class BenchmarkState {
 
     Map<String, Object> params = new HashMap<>();
+    Evaluator<String> evaluator = new SpELExpressionEvaluator();
 
     @Setup(Level.Trial)
     public void initialize() {
