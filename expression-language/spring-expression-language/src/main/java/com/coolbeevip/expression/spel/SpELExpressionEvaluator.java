@@ -23,7 +23,7 @@ public class SpELExpressionEvaluator<T> implements Evaluator<T> {
 
   public SpELExpressionEvaluator(SpelCompilerMode mode) {
     this.configuration = new SpelParserConfiguration
-        (SpelCompilerMode.IMMEDIATE, this.getClass().getClassLoader());
+        (SpelCompilerMode.IMMEDIATE, Compiler.class.getClassLoader());
     this.expressionParser = new SpelExpressionParser(configuration);
   }
 

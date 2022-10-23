@@ -170,10 +170,10 @@ public class SpELExpressionEvaluatorTest {
 
     int total = 10000000;
     long begin = System.currentTimeMillis();
+    Map<String, Object> params = new HashMap<>();
+    params.put("name", "Thomas");
+    params.put("age", 35);
     for (int i = 0; i < total; i++) {
-      Map<String, Object> params = new HashMap<>();
-      params.put("name", "Thomas");
-      params.put("age", 35);
       String result = evaluator.evaluate("#name + '#' + #age", params);
     }
     long end = System.currentTimeMillis();
