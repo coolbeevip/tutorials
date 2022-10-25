@@ -138,7 +138,7 @@ public class ResourceTest {
         Set<String> relatedResourceIds = relatedResourceIdStream.collect(Collectors.toSet());
 
         if (relatedResourceIds.isEmpty()) {
-          // 无关联，写入跟节点
+          // 无关联，写入根节点
           resourceRelationship.add(new ResourceRelationship(resource.getId(), "CMDB", 0));
           resourceIdIter.remove();
         } else {
