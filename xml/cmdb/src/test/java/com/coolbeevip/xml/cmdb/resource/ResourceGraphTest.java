@@ -52,6 +52,24 @@ public class ResourceGraphTest {
 
   @Test
   @SneakyThrows
+  public void listPrimaryKey() {
+    Map<String,List<String>> primaryKeyResources = new HashMap<>();
+    Map<String, Resource> resourceMap = loadResourceFromXml();
+    resourceMap.forEach((k, v) -> {
+      try {
+        if(!primaryKeyResources.containsKey(v.getPrimaryKey())){
+          primaryKeyResources.put(v.getPrimaryKey(), new ArrayList<>());
+        }
+        primaryKeyResources.get(v.getPrimaryKey()).add(v.getId());
+      } catch (Exception e) {
+        log.error("{}", k, e);
+      }
+    });
+    primaryKeyResources.forEach((k,v) -> log.info("primaryKey {}, resources [{}]", k ,v.stream().collect(Collectors.joining(","))));
+  }
+
+  @Test
+  @SneakyThrows
   public void listPreInspectors() {
     Set<String> inspectors = new HashSet<>();
     Map<String, Resource> resourceMap = loadResourceFromXml();
