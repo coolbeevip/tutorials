@@ -27,5 +27,6 @@
 
   <modules>
     <module>spring-expression-language</module>
+    <module>groovy</module>
   </modules>
 </project>
