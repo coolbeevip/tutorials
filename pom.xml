@@ -135,6 +135,7 @@
     <testcontainers.version>1.17.3</testcontainers.version>
     <cucumber.version>7.5.0</cucumber.version>
     <opentelemetry.version>1.16.0</opentelemetry.version>
+    <lettuce.version>6.1.10.RELEASE</lettuce.version>
   </properties>
 
   <dependencyManagement>
@@ -599,6 +600,13 @@
         <version>${httpcomponents-httpclient.version}</version>
       </dependency>
 
+      <!-- redis -->
+      <dependency>
+        <groupId>io.lettuce</groupId>
+        <artifactId>lettuce-core</artifactId>
+        <version>${lettuce.version}</version>
+      </dependency>
+
       <!-- logging -->
       <dependency>
         <groupId>org.slf4j</groupId>
@@ -864,6 +872,7 @@
     <module>open-telemetry</module>
     <module>xml</module>
     <module>expression-language</module>
+    <module>redis</module>
   </modules>
 
   <profiles>
