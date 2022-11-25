@@ -873,6 +873,7 @@
     <module>xml</module>
     <module>expression-language</module>
     <module>redis</module>
+    <module>design-patterns</module>
   </modules>
 
   <profiles>
