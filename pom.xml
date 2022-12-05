@@ -874,6 +874,7 @@
     <module>expression-language</module>
     <module>redis</module>
     <module>design-patterns</module>
+    <module>http</module>
   </modules>
 
   <profiles>
