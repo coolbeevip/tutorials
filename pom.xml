@@ -136,6 +136,8 @@
     <cucumber.version>7.5.0</cucumber.version>
     <opentelemetry.version>1.16.0</opentelemetry.version>
     <lettuce.version>6.1.10.RELEASE</lettuce.version>
+    <cxf.version>3.5.4</cxf.version>
+    <axis.version>1.4</axis.version>
   </properties>
 
   <dependencyManagement>
@@ -478,6 +480,12 @@
         <version>${protobuf-java.version}</version>
       </dependency>
 
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${commons-io.version}</version>
+      </dependency>
+
       <!-- netty -->
       <dependency>
         <groupId>io.netty</groupId>
@@ -605,6 +613,45 @@
         <groupId>io.lettuce</groupId>
         <artifactId>lettuce-core</artifactId>
         <version>${lettuce.version}</version>
+      </dependency>
+
+      <!-- axis -->
+      <dependency>
+        <groupId>axis</groupId>
+        <artifactId>axis</artifactId>
+        <version>${axis.version}</version>
+      </dependency>
+
+      <!-- cxf -->
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
+        <version>${cxf.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-frontend-jaxws</artifactId>
+        <version>${cxf.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-transports-http</artifactId>
+        <version>${cxf.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-transports-http-undertow</artifactId>
+        <version>${cxf.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-features-metrics</artifactId>
+        <version>${cxf.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-rt-bindings-soap</artifactId>
+        <version>${cxf.version}</version>
       </dependency>
 
       <!-- logging -->
@@ -875,6 +922,7 @@
     <module>redis</module>
     <module>design-patterns</module>
     <module>http</module>
+    <module>webservice</module>
   </modules>
 
   <profiles>
