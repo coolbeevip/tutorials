@@ -12,6 +12,7 @@ import javax.xml.soap.SOAPPart;
 import javax.xml.ws.Dispatch;
 import javax.xml.ws.Service;
 import javax.xml.ws.Service.Mode;
+import java.io.ByteArrayOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -24,7 +25,13 @@ public class JaxwsClientTest {
     Dispatch<SOAPMessage> disp = service
         .createDispatch(new QName("http://api.cxf.webservice.coolbeevip.com/", "HelloService"),
             SOAPMessage.class, Mode.MESSAGE);
-    SOAPMessage responseSOAPMessage = disp.invoke(requestMessage(name));
+
+
+    SOAPMessage requestSOAPMessage = requestMessage(name);
+    System.out.println(getRawXml(requestSOAPMessage));
+    SOAPMessage responseSOAPMessage = disp.invoke(requestSOAPMessage);
+
+    System.out.println(getRawXml(responseSOAPMessage));
     System.out.println(responseSOAPMessage.getSOAPBody().getFirstChild().getTextContent());
   }
 
@@ -39,5 +46,15 @@ public class JaxwsClientTest {
     value.addTextNode(name);
     request.saveChanges();
     return request;
+  }
+
+  private static String getRawXml(SOAPMessage soapMessage) {
+    ByteArrayOutputStream out = new ByteArrayOutputStream();
+    try {
+      soapMessage.writeTo(out);
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
+    return new String(out.toByteArray());
   }
 }
