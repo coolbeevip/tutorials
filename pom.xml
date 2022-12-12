@@ -138,6 +138,7 @@
     <lettuce.version>6.1.10.RELEASE</lettuce.version>
     <cxf.version>3.5.4</cxf.version>
     <axis.version>1.4</axis.version>
+    <axis2.version>1.8.2</axis2.version>
   </properties>
 
   <dependencyManagement>
@@ -620,6 +621,33 @@
         <groupId>axis</groupId>
         <artifactId>axis</artifactId>
         <version>${axis.version}</version>
+      </dependency>
+
+      <!-- axis2 -->
+      <dependency>
+        <groupId>org.apache.axis2</groupId>
+        <artifactId>axis2-kernel</artifactId>
+        <version>${axis2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.axis2</groupId>
+        <artifactId>axis2-adb</artifactId>
+        <version>${axis2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.axis2</groupId>
+        <artifactId>axis2-xmlbeans</artifactId>
+        <version>${axis2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.axis2</groupId>
+        <artifactId>axis2-transport-http</artifactId>
+        <version>${axis2.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.axis2</groupId>
+        <artifactId>axis2-transport-local</artifactId>
+        <version>${axis2.version}</version>
       </dependency>
 
       <!-- cxf -->

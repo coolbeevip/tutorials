@@ -17,6 +17,7 @@
     <module>client-jaxws</module>
     <module>client-wsdl2java</module>
     <module>client-cxf</module>
+    <module>client-axis2</module>
   </modules>
 
 </project>
