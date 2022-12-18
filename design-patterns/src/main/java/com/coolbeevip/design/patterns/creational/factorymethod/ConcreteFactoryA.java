@@ -1,8 +1,8 @@
 package com.coolbeevip.design.patterns.creational.factorymethod;
 
-public class ConcreteCreatorB extends Creator {
+public class ConcreteFactoryA implements Factory {
   @Override
   public Product createProduct() {
-    return new ConcreteProductB();
+    return new ConcreteProductA();
   }
 }
