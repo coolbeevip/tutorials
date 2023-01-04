@@ -1,0 +1,26 @@
+## Usage
+
+Convert the AsciiDoc to HTML5 by invoking the `process-resources` goal (configured as the default goal):
+
+ $ mvn
+
+Open the file _target/generated-docs/OpenSourceManual.html_ in your browser to see the generated HTML file.
+
+## output to pdf
+
+Asciidoc PDF need ruby gem env.
+
+```
+$sudo apt-get install ruby
+$ gem install asciidoctor-pdf
+$ cd src/docs/asciidoc
+$ asciidoctor-pdf -a scripts=cjk -a pdf-theme=default-with-fallback-font OpenSourceManual.adoc
+```
+
+fix chaos Chinese characters.
+
+```
+$ gem install asciidoctor-pdf-cjk-kai_gen_gothic
+$ asciidoctor-pdf-cjk-kai_gen_gothic-install  //download font ttf files, if not work, please download them manual.
+$ asciidoctor-pdf -r asciidoctor-pdf-cjk-kai_gen_gothic -a pdf-style=KaiGenGothicCN OpenSourceManual.asc
+```

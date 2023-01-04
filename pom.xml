@@ -956,6 +956,7 @@
     <module>design-patterns</module>
     <module>http</module>
     <module>webservice</module>
+    <module>asciidoc</module>
   </modules>
 
   <profiles>
