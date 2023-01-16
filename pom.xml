@@ -957,6 +957,7 @@
     <module>http</module>
     <module>webservice</module>
     <module>asciidoc</module>
+    <module>crdts</module>
   </modules>
 
   <profiles>
