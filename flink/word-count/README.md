@@ -44,5 +44,5 @@ docker run -it --rm -v /Users/zhanglei/Work/github/tutorials/flink/word-count/ta
 提交 job 
 
 ```shell
-flink run -m 10.1.75.126:8081 /jobs/flink-job-word-count-1.0.0-SNAPSHOT.jar -host 10.1.75.126 -port 9998
+flink run -m 10.1.75.126:8081 /jobs/flink-job-word-count-1.0.0-SNAPSHOT.jar --host 10.1.75.126 --port 9998
 ```
