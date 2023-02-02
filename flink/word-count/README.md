@@ -17,7 +17,7 @@ nc -lk 9998
 运行
 
 ```shell
-java -jar flink/word-count/target/local-job-word-count-1.0.0-SNAPSHOT.jar -env LOCAL -host localhost -port 9998
+java -jar flink/word-count/target/local-job-word-count-1.0.0-SNAPSHOT.jar --env LOCAL --host localhost --port 9998
 ```
 
 ## 提交到集群运行
