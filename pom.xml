@@ -958,6 +958,7 @@
     <module>webservice</module>
     <module>asciidoc</module>
     <module>crdts</module>
+    <module>flink</module>
   </modules>
 
   <profiles>
