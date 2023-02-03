@@ -12,4 +12,7 @@ public class WindowWordCountArgs {
 
   @Parameter(names = "--port", description = "监听端口")
   public Integer port = 9999;
+
+  @Parameter(names = "--tumbling", description = "窗口")
+  public Integer tumbling = 5;
 }
