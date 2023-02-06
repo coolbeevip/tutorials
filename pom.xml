@@ -959,6 +959,7 @@
     <module>asciidoc</module>
     <module>crdts</module>
     <module>flink</module>
+    <module>maven</module>
   </modules>
 
   <profiles>
