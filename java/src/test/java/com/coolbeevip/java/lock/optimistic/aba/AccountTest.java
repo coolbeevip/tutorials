@@ -24,6 +24,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * <p>
  * https://www.baeldung.com/cs/aba-concurrency
  */
+
 public class AccountTest {
 
   private Account account;
@@ -70,11 +71,7 @@ public class AccountTest {
    */
   @Test
   public void abaProblemTest() throws InterruptedException {
-    final int defaultBalance = 50;
-
-    final int amountToWithdrawByThread1 = 20;
-    final int amountToWithdrawByThread2 = 10;
-    final int amountToDepositByThread2 = 10;
+    final int defaultBalance = 10;
 
     /**
      * 存入 50
@@ -85,28 +82,23 @@ public class AccountTest {
     assertThat(1, Matchers.is(account.getTransactionCount())); // 交易计数器 1
 
     Thread thread1 = new Thread(() -> {
-      // 此取现方法在获取用户余额 20 后将等待线程2先执行完
-      assertThat(account.withdraw(amountToWithdrawByThread1), Matchers.is(true));
+      // 此取现方法会先获取账户余额 10 元，然后等待thread 2 执行完 -10 和 +10 后在执行比较更新
+      // 此时会失败，因为当前账户的 10 元已经不是最初的 10 元了
+      assertThat(account.withdraw(10), Matchers.is(false));
       /**
        * 取现成功，产生 ABA 问题
-       * 此时应该取现失败，因为此时账户余额中的 20 已经并不是最初的 20，而是线程2完成了（20+10-10）后的 20
+       * 此时应该取现失败，因为此时账户余额中的 10 已经并不是最初的 10，而是线程2完成了（10-10+10）后的 10
        */
-      assertThat(1, Matchers.not(account.getCurrentThreadCASFailureCount()));
-      assertThat(4, Matchers.is(account.getTransactionCount())); // 交易计数器 4
+      assertThat(1, Matchers.is(account.getCurrentThreadCASFailureCount()));
+      assertThat(3, Matchers.is(account.getTransactionCount())); // 交易计数器依旧是 3，因为本次支取失败
 
     }, "thread1");
 
     Thread thread2 = new Thread(() -> {
-      // 线程2 存入 10 元后，账户余额等于 30 元
-      assertThat(account.deposit(amountToDepositByThread2), Matchers.is(true));
-      assertThat(defaultBalance + amountToDepositByThread2, Matchers.is(account.getBalance()));
-      assertThat(2, Matchers.is(account.getTransactionCount())); // 交易计数器 2
-
-      // 此处人为控制，线程2此方法先执行，取现 10 元后，账户余额 20 元
-      assertThat(account.withdraw(amountToWithdrawByThread2), Matchers.is(true));
+      // 线程2 取出 10 元后在存入 10 元，账户余额恢复为 10 元
+      assertThat(account.withdraw(10), Matchers.is(true));
+      assertThat(account.deposit(10), Matchers.is(true));
       assertThat(3, Matchers.is(account.getTransactionCount())); // 交易计数器 3
-
-      // 在线程1真正扣除余额前，账户余额又恢复到了 20 元
       assertThat(defaultBalance, Matchers.is(account.getBalance()));
       assertThat(0, Matchers.is(account.getCurrentThreadCASFailureCount()));
     }, "thread2");
@@ -123,9 +115,11 @@ public class AccountTest {
 
     /**
      * 实际交易次数是正确的如下 3 次
-     * 1. 存入 20
-     * 2. 线程2 存入 10
-     * 3. 线程2 取出 10
+     * 1. 初始存储 10，修改交易次数=1
+     * 2. 线程1 获取余额=10，获取交易次数=1
+     * 3. 线程2 取出 10，修改交易次数=2，余额=0
+     * 4. 线程2 存入 10，修改交易次数=3，余额=10
+     * 5. 线程1 取出 10 失败，因为此时的交易次数不等于1，在第2，5步之间线程2修改了账户余额。
      */
     assertThat(3, Matchers.is(account.getTransactionCount()));
   }

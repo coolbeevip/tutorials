@@ -44,6 +44,7 @@ public class Account {
     int current = balance.getReference();
     int stamp = balance.getStamp();
     maybeWait();
+    System.out.println(Thread.currentThread().getName() + " " + current + " => 取出 " + amount);
     boolean result = balance.compareAndSet(current, current - amount, stamp, stamp + 1);
     if (result) {
       transactionCount.incrementAndGet();
@@ -51,13 +52,14 @@ public class Account {
       int currentCASFailureCount = currentThreadCASFailureCount.get();
       currentThreadCASFailureCount.set(currentCASFailureCount + 1);
     }
+    System.out.println("后账户余额: " + balance.getReference());
     return result;
   }
 
   private void maybeWait() {
     if ("thread1".equals(Thread.currentThread().getName())) {
       try {
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(1);
       } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
       }
@@ -67,6 +69,7 @@ public class Account {
   public boolean deposit(int amount) {
     int current = balance.getReference();
     int stamp = balance.getStamp();
+    System.out.println(Thread.currentThread().getName() + " " + current + " => 存入 " + amount);
     boolean result = balance.compareAndSet(current, current + amount, stamp, stamp + 1);
     if (result) {
       transactionCount.incrementAndGet();
@@ -74,6 +77,7 @@ public class Account {
       int currentCASFailureCount = currentThreadCASFailureCount.get();
       currentThreadCASFailureCount.set(currentCASFailureCount + 1);
     }
+    System.out.println("后账户余额: " + balance.getReference());
     return result;
   }
 
