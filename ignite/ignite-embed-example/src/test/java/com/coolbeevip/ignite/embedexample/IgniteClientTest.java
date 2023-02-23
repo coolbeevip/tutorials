@@ -6,7 +6,9 @@ import org.apache.ignite.IgniteQueue;
 import org.apache.ignite.IgniteSet;
 import org.apache.ignite.cache.CacheMode;
 import org.hamcrest.Matchers;
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -27,7 +29,7 @@ public class IgniteClientTest {
   static String truststorePass = "123456";
   static boolean clientMode = true;
 
-  static List<IgniteNode> servers = new ArrayList<>();
+  List<IgniteNode> servers = new ArrayList<>();
 
   static {
     System.setProperty("java.net.preferIPv4Stack", "true");
@@ -185,15 +187,15 @@ public class IgniteClientTest {
         truststoreFile, truststorePass);
   }
 
-  @BeforeClass
-  public static void setup() {
+  @Before
+  public void setup() {
     IntStream.rangeClosed(0, 2).forEach(n -> {
       servers.add(startServer());
     });
   }
 
-  @AfterClass
-  public static void tearDown() {
+  @After
+  public void tearDown() {
     servers.stream().forEach(s -> s.close());
   }
 }
