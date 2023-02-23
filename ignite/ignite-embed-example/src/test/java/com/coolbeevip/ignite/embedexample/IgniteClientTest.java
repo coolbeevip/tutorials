@@ -180,7 +180,7 @@ public class IgniteClientTest {
     }, "chaosThread");
   }
 
-  private static IgniteNode startServer() {
+  private IgniteNode startServer() {
     return IgniteNodeFactory.createIgniteNode(false, "127.0.0.1", 47500, 3,
         Arrays.asList("127.0.0.1:47500", "127.0.0.1:47501", "127.0.0.1:47502"), keystoreFile,
         keystorePass,
