@@ -966,6 +966,7 @@
     <module>crdts</module>
     <module>flink</module>
     <module>maven</module>
+    <module>json</module>
   </modules>
 
   <profiles>
