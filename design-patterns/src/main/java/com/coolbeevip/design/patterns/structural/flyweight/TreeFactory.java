@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * 创建享元对象并缓存
- * */
+ */
 public class TreeFactory {
   private static Map<String, TreeType> treeTypes = new HashMap<>();
 

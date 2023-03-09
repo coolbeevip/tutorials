@@ -200,7 +200,7 @@ public class SpELExpressionEvaluatorTest {
   public void only3Test() {
     SpelParserConfiguration configuration = new SpelParserConfiguration
         (SpelCompilerMode.IMMEDIATE, this.getClass().getClassLoader());
-    ExpressionParser expressionParser  = new SpelExpressionParser(configuration);
+    ExpressionParser expressionParser = new SpelExpressionParser(configuration);
     Expression expression = expressionParser.parseExpression("#name + '#' + #age");
 
     int total = 10000000;
@@ -209,7 +209,7 @@ public class SpELExpressionEvaluatorTest {
       Map<String, Object> params = new HashMap<>();
       params.put("name", "Thomas");
       params.put("age", 35);
-      String result = expression.getValue(params,String.class);
+      String result = expression.getValue(params, String.class);
     }
     long end = System.currentTimeMillis();
     log.info("{} ops/ms", total / (end - begin));

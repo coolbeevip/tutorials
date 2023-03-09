@@ -1,6 +1,5 @@
 package com.coolbeevip.crdts.wurmlouch;
 
-import com.netopyr.wurmloch.crdt.GCounter;
 import com.netopyr.wurmloch.crdt.PNCounter;
 import com.netopyr.wurmloch.store.LocalCrdtStore;
 import org.hamcrest.Matchers;

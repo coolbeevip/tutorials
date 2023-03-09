@@ -14,6 +14,6 @@ public class ConcreteProduct1 implements Product {
 
   @Override
   public void doStuff() {
-    System.out.println("I'm product1 include " +components.stream().collect(Collectors.joining(",")));
+    System.out.println("I'm product1 include " + components.stream().collect(Collectors.joining(",")));
   }
 }

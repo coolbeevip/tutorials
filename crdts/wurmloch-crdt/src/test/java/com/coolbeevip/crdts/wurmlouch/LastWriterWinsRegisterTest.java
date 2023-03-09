@@ -6,8 +6,6 @@ import org.awaitility.Awaitility;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.TimeUnit;
-
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -37,9 +35,9 @@ public class LastWriterWinsRegisterTest {
     // 重新连接连接
     store1.connect(store2);
     Awaitility.await().atMost(10, SECONDS).until(() -> {
-      if(replica1.get() == 4 && replica2.get() == 4){
+      if (replica1.get() == 4 && replica2.get() == 4) {
         return true;
-      }else{
+      } else {
         SECONDS.sleep(1);
         return false;
       }

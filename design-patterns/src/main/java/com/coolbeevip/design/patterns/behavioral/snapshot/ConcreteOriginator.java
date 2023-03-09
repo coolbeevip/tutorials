@@ -2,7 +2,7 @@ package com.coolbeevip.design.patterns.behavioral.snapshot;
 
 /**
  * 状态拥有者作为原发器
- * */
+ */
 public class ConcreteOriginator implements Originator {
   private int state;
 

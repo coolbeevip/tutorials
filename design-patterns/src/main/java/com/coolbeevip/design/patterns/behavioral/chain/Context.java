@@ -4,5 +4,6 @@ import java.util.Set;
 
 public interface Context {
   void addStep(String value);
+
   Set<String> getSteps();
 }

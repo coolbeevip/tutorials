@@ -40,7 +40,7 @@ public class WordGenerator implements DataGenerator<String> {
     }
     log.info("SEND {} {}/{} from {}", s, index, this.words.size(), this);
     index.incrementAndGet();
-    return s+"\n";
+    return s + "\n";
   }
 
   @Override

@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  * It avoids the kind of data loss, that is inherent to any kind of last-writer-wins strategy.
  * Instead if the value of a MV-Register is changed concurrently, it keeps all values.
  * Therefore the result of the get()-method is a collection.
- * */
+ */
 public class MultiValueRegisterTest {
   @Test
   public void test() throws InterruptedException {

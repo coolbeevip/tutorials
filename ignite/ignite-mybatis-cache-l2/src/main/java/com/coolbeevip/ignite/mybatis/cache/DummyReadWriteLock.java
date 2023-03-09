@@ -27,7 +27,9 @@ import java.util.concurrent.locks.ReadWriteLock;
  */
 class DummyReadWriteLock implements ReadWriteLock {
 
-  /** The lock. */
+  /**
+   * The lock.
+   */
   private Lock lock = new DummyLock();
 
   @Override

@@ -2,7 +2,7 @@ package com.coolbeevip.design.patterns.structural.flyweight;
 
 /**
  * 内在状态（享元对象）
- * */
+ */
 public class TreeType {
   private final String name;
   private final String color;

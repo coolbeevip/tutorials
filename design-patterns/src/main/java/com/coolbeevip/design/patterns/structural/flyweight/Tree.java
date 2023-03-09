@@ -2,7 +2,7 @@ package com.coolbeevip.design.patterns.structural.flyweight;
 
 /**
  * 外在状态
- * */
+ */
 public class Tree {
   private final TreeType type;
   private final int x;

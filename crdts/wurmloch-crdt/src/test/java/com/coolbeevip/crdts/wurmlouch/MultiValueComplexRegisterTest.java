@@ -52,7 +52,7 @@ public class MultiValueComplexRegisterTest {
     // 重连 store1 和 store2
     store1.connect(store2);
     assertThat(replica1.get(), Matchers.containsInAnyOrder("strawberry", "pear"));
-    assertThat(replica2.get(), Matchers.containsInAnyOrder("strawberry","pear"));
+    assertThat(replica2.get(), Matchers.containsInAnyOrder("strawberry", "pear"));
     assertThat(replica3.get(), Matchers.containsInAnyOrder("strawberry", "pear"));
 
     replica3.set("mongo");

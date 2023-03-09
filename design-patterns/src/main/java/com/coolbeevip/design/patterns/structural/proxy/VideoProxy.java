@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class VideoProxy implements Video {
   private Video video = new VideoService();
-  private Map<String,String> videoCached = new HashMap<>();
+  private Map<String, String> videoCached = new HashMap<>();
 
   @Override
   public List<String> listVideos() {
@@ -20,7 +20,7 @@ public class VideoProxy implements Video {
 
   @Override
   public String downloadVideo(String id) {
-    if(videoCached.containsKey(id)){
+    if (videoCached.containsKey(id)) {
       return videoCached.get(id) + "...我来自缓存";
     } else {
       String v = video.downloadVideo(id);

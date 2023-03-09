@@ -13,9 +13,9 @@ public class JsonTest {
 
   @Test
   public void beanToMap() {
-    TestBean bean = new TestBean("tom",20);
+    TestBean bean = new TestBean("tom", 20);
     ObjectMapper objectMapper = new ObjectMapper();
-    Map<String,Object> map = objectMapper.convertValue(bean, Map.class);
+    Map<String, Object> map = objectMapper.convertValue(bean, Map.class);
     assertThat(bean.getName(), is(map.get("name")));
     assertThat(bean.getAge(), is(map.get("age")));
   }
@@ -24,7 +24,7 @@ public class JsonTest {
   public void jsonStringToMap() throws JsonProcessingException {
     String json = "{\"name\":\"rack\",\"age\":20}";
     ObjectMapper objectMapper = new ObjectMapper();
-    Map<String,Object> map = objectMapper.readValue(json, Map.class);
+    Map<String, Object> map = objectMapper.readValue(json, Map.class);
     assertThat("rack", is(map.get("name")));
     assertThat(20, is(map.get("age")));
   }

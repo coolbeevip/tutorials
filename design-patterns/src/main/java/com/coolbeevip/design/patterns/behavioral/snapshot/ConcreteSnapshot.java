@@ -2,7 +2,7 @@ package com.coolbeevip.design.patterns.behavioral.snapshot;
 
 /**
  * 状态具体备忘录
- * */
+ */
 public class ConcreteSnapshot implements Snapshot {
   private final ConcreteOriginator originator;
   private final int state;

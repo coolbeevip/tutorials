@@ -53,11 +53,11 @@ public class ResourceGraphTest {
   @Test
   @SneakyThrows
   public void listPrimaryKey() {
-    Map<String,List<String>> primaryKeyResources = new HashMap<>();
+    Map<String, List<String>> primaryKeyResources = new HashMap<>();
     Map<String, Resource> resourceMap = loadResourceFromXml();
     resourceMap.forEach((k, v) -> {
       try {
-        if(!primaryKeyResources.containsKey(v.getPrimaryKey())){
+        if (!primaryKeyResources.containsKey(v.getPrimaryKey())) {
           primaryKeyResources.put(v.getPrimaryKey(), new ArrayList<>());
         }
         primaryKeyResources.get(v.getPrimaryKey()).add(v.getId());
@@ -65,7 +65,7 @@ public class ResourceGraphTest {
         log.error("{}", k, e);
       }
     });
-    primaryKeyResources.forEach((k,v) -> log.info("primaryKey {}, resources [{}]", k ,v.stream().collect(Collectors.joining(","))));
+    primaryKeyResources.forEach((k, v) -> log.info("primaryKey {}, resources [{}]", k, v.stream().collect(Collectors.joining(","))));
   }
 
   @Test
