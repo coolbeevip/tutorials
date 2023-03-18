@@ -90,6 +90,7 @@
     <shardingsphere.version>5.1.0</shardingsphere.version>
 
     <ignite.version>2.14.0</ignite.version>
+    <apache.calcite.version>1.34.0</apache.calcite.version>
 
     <!-- plugins -->
     <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
@@ -227,6 +228,18 @@
             <artifactId>ignite-indexing</artifactId>
           </exclusion>
         </exclusions>
+      </dependency>
+
+      <!-- apache calcite -->
+      <dependency>
+        <groupId>org.apache.calcite</groupId>
+        <artifactId>calcite-core</artifactId>
+        <version>${apache.calcite.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.calcite</groupId>
+        <artifactId>calcite-elasticsearch</artifactId>
+        <version>${apache.calcite.version}</version>
       </dependency>
 
       <!-- servicecomb pack -->
@@ -967,6 +980,7 @@
     <module>flink</module>
     <module>maven</module>
     <module>json</module>
+    <module>calcite</module>
   </modules>
 
   <profiles>
