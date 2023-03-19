@@ -38,6 +38,7 @@
     <!-- logging -->
     <org.slf4j.version>1.7.30</org.slf4j.version>
     <logback.version>1.2.3</logback.version>
+    <log4j.versoin>2.17.2</log4j.versoin>
 
     <!-- akka -->
     <scala.binary.version>2.13</scala.binary.version>
@@ -119,7 +120,7 @@
     <jstl-api.version>1.2</jstl-api.version>
     <javax.servlet.jsp-api.version>2.3.1</javax.servlet.jsp-api.version>
     <jstl.version>1.2</jstl.version>
-    <jackson.version>2.12.7.1</jackson.version>
+    <jackson.version>2.14.1</jackson.version>
     <commons-fileupload.version>1.3</commons-fileupload.version>
     <junit-platform.version>1.2.0</junit-platform.version>
     <junit-jupiter.version>5.7.0</junit-jupiter.version>
@@ -133,6 +134,7 @@
     <lombok.version>1.18.16</lombok.version>
     <h2.version>2.0.206</h2.version>
     <elasticsearch.version>7.11.2</elasticsearch.version>
+    <net.java.dev.jna.version>5.7.0</net.java.dev.jna.version>
     <testcontainers.version>1.17.3</testcontainers.version>
     <cucumber.version>7.5.0</cucumber.version>
     <opentelemetry.version>1.16.0</opentelemetry.version>
@@ -241,6 +243,11 @@
         <artifactId>calcite-elasticsearch</artifactId>
         <version>${apache.calcite.version}</version>
       </dependency>
+      <dependency>
+        <groupId>org.apache.calcite</groupId>
+        <artifactId>calcite-testkit</artifactId>
+        <version>${apache.calcite.version}</version>
+      </dependency>
 
       <!-- servicecomb pack -->
       <dependency>
@@ -274,6 +281,22 @@
         <groupId>org.elasticsearch.client</groupId>
         <artifactId>elasticsearch-rest-high-level-client</artifactId>
         <version>${elasticsearch.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.codelibs.elasticsearch.module</groupId>
+        <artifactId>lang-painless</artifactId>
+        <version>7.10.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.elasticsearch.plugin</groupId>
+        <artifactId>transport-netty4-client</artifactId>
+        <version>${elasticsearch.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>net.java.dev.jna</groupId>
+        <artifactId>jna</artifactId>
+        <version>${net.java.dev.jna.version}</version>
       </dependency>
 
       <!-- groovy -->
@@ -726,6 +749,23 @@
         <groupId>org.slf4j</groupId>
         <artifactId>jcl-over-slf4j</artifactId>
         <version>${org.slf4j.version}</version>
+      </dependency>
+
+      <!-- log4j -->
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-to-slf4j</artifactId>
+        <version>${log4j.versoin}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-slf4j-impl</artifactId>
+        <version>${log4j.versoin}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-core</artifactId>
+        <version>${log4j.versoin}</version>
       </dependency>
 
       <!-- junit 4 -->
