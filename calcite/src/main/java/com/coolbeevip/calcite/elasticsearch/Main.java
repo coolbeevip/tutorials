@@ -13,6 +13,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Properties;
 
+/**
+ * https://www.lixin.help/2021/04/11/Calcite-SQL-ES-Source.html
+ * */
 public class Main {
   public static void main(String[] args) throws Exception {
     RestClient restClient = RestClient.builder(new HttpHost("localhost", 9200)).build();
@@ -43,7 +46,7 @@ public class Main {
     // 统计索引数量
     // String sql = "SELECT count(*) FROM es.books WHERE _MAP['price'] > 50 ";
     // 分页查询
-    String sql = "SELECT * FROM es.ndcp_metrics_collector_status_202303 WHERE _MAP['header.type'] = 'HEARTBEAT' offset 0 fetch next 3 rows only";
+    String sql = "SELECT * FROM es.ndcp_metrics_collector_status WHERE _MAP['header.type'] = 'HEARTBEAT' offset 0 fetch next 3 rows only";
     Statement statement = calciteConnection.createStatement();
     ResultSet resultSet = statement.executeQuery(sql);
 
