@@ -134,7 +134,7 @@
         <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
         <lombok.version>1.18.16</lombok.version>
         <h2.version>2.0.206</h2.version>
-        <elasticsearch.version>7.11.2</elasticsearch.version>
+        <elasticsearch.version>7.13.4</elasticsearch.version>
         <net.java.dev.jna.version>5.7.0</net.java.dev.jna.version>
         <testcontainers.version>1.17.3</testcontainers.version>
         <cucumber.version>7.5.0</cucumber.version>
