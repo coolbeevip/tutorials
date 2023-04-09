@@ -2,1058 +2,1079 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.coolbeevip</groupId>
-  <artifactId>coolbeevip-tutorials</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
-  <packaging>pom</packaging>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.coolbeevip</groupId>
+    <artifactId>coolbeevip-tutorials</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <maven.compiler.source>8</maven.compiler.source>
-    <maven.compiler.target>8</maven.compiler.target>
-    <gib.referenceBranch>refs/remotes/origin/master</gib.referenceBranch>
-    <gib.skipTestsForUpstreamModules>true</gib.skipTestsForUpstreamModules>
-    <gib.buildUpstream>false</gib.buildUpstream>
-    <gib.failOnMissingGitDir>false</gib.failOnMissingGitDir>
-    <gib.failOnError>false</gib.failOnError>
-    <gib.enabled>false</gib.enabled>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <gib.referenceBranch>refs/remotes/origin/master</gib.referenceBranch>
+        <gib.skipTestsForUpstreamModules>true</gib.skipTestsForUpstreamModules>
+        <gib.buildUpstream>false</gib.buildUpstream>
+        <gib.failOnMissingGitDir>false</gib.failOnMissingGitDir>
+        <gib.failOnError>false</gib.failOnError>
+        <gib.enabled>false</gib.enabled>
 
-    <hamcrest.version>2.2</hamcrest.version>
-    <awaitility.version>3.0.0</awaitility.version>
-    <hamcrest-all.version>1.3</hamcrest-all.version>
-    <mockito.version>3.3.0</mockito.version>
-    <byte-buddy.version>1.10.5</byte-buddy.version>
+        <hamcrest.version>2.2</hamcrest.version>
+        <awaitility.version>3.0.0</awaitility.version>
+        <hamcrest-all.version>1.3</hamcrest-all.version>
+        <mockito.version>3.3.0</mockito.version>
+        <byte-buddy.version>1.10.5</byte-buddy.version>
 
-    <!-- flyway -->
-    <flyway.version>7.8.1</flyway.version>
+        <!-- flyway -->
+        <flyway.version>7.8.1</flyway.version>
 
-    <!-- mysql -->
-    <mysql.version>8.0.32</mysql.version>
+        <!-- mysql -->
+        <mysql.version>8.0.32</mysql.version>
 
-    <!-- postgresql -->
-    <postgresql.version>42.5.3</postgresql.version>
+        <!-- postgresql -->
+        <postgresql.version>42.5.3</postgresql.version>
 
-    <!-- logging -->
-    <org.slf4j.version>1.7.30</org.slf4j.version>
-    <logback.version>1.2.3</logback.version>
-    <log4j.versoin>2.17.2</log4j.versoin>
+        <!-- logging -->
+        <org.slf4j.version>1.7.30</org.slf4j.version>
+        <logback.version>1.2.3</logback.version>
+        <log4j.versoin>2.17.2</log4j.versoin>
 
-    <!-- akka -->
-    <scala.binary.version>2.13</scala.binary.version>
-    <akka.version>2.6.14</akka.version>
+        <!-- akka -->
+        <scala.binary.version>2.13</scala.binary.version>
+        <akka.version>2.6.14</akka.version>
 
-    <!-- syslog4j -->
-    <syslog4j.version>0.9.30</syslog4j.version>
+        <!-- syslog4j -->
+        <syslog4j.version>0.9.30</syslog4j.version>
 
-    <!-- antlr -->
-    <antlr.version>4.7.1</antlr.version>
+        <!-- antlr -->
+        <antlr.version>4.7.1</antlr.version>
 
-    <nacos.spring-boot.version>0.2.12</nacos.spring-boot.version>
-    <nacos.version>2.1.0</nacos.version>
+        <nacos.spring-boot.version>0.2.12</nacos.spring-boot.version>
+        <nacos.version>2.1.0</nacos.version>
 
-    <!-- ratis -->
-    <ratis.version>2.3.0</ratis.version>
-    <ratis.thirdparty.version>1.0.0</ratis.thirdparty.version>
+        <!-- ratis -->
+        <ratis.version>2.3.0</ratis.version>
+        <ratis.thirdparty.version>1.0.0</ratis.thirdparty.version>
 
-    <!-- arrow -->
-    <arrow.version>5.0.0</arrow.version>
+        <!-- arrow -->
+        <arrow.version>5.0.0</arrow.version>
 
-    <rocksdb.version>6.29.4.1</rocksdb.version>
+        <rocksdb.version>6.29.4.1</rocksdb.version>
 
-    <debezium.version>1.6.1.Final</debezium.version>
+        <debezium.version>1.6.1.Final</debezium.version>
 
-    <servicecomb.pack.version>0.7.1</servicecomb.pack.version>
+        <servicecomb.pack.version>0.7.1</servicecomb.pack.version>
 
-    <!-- kafka -->
-    <kafka.version>2.8.1</kafka.version>
+        <!-- kafka -->
+        <kafka.version>2.8.1</kafka.version>
 
-    <!-- jfreechart -->
-    <jfreechart.version>1.5.3</jfreechart.version>
+        <!-- jfreechart -->
+        <jfreechart.version>1.5.3</jfreechart.version>
 
-    <!-- grpc -->
-    <grpc.version>1.44.1</grpc.version>
-    <netty.version>4.1.79.Final</netty.version> <!-- compatible gRPC 1.25.0 -->
-    <netty-tcnative-boringssl-static.version>2.0.48.Final</netty-tcnative-boringssl-static.version>
-    <protobuf-java.version>3.19.6</protobuf-java.version>
-    <spring-boot.version>2.6.10</spring-boot.version>
-    <spark.version>2.4.4</spark.version>
-    <scala.version>2.12</scala.version>
+        <!-- grpc -->
+        <grpc.version>1.44.1</grpc.version>
+        <netty.version>4.1.79.Final</netty.version> <!-- compatible gRPC 1.25.0 -->
+        <netty-tcnative-boringssl-static.version>2.0.48.Final</netty-tcnative-boringssl-static.version>
+        <protobuf-java.version>3.19.6</protobuf-java.version>
+        <spring-boot.version>2.6.10</spring-boot.version>
+        <spark.version>2.4.4</spark.version>
+        <scala.version>2.12</scala.version>
 
-    <guava.version>31.1-jre</guava.version>
-    <javax.annotation.version>1.3.2</javax.annotation.version>
+        <guava.version>31.1-jre</guava.version>
+        <javax.annotation.version>1.3.2</javax.annotation.version>
 
-    <mybatis.version>3.5.7</mybatis.version>
-    <mybatis-spring.version>2.0.6</mybatis-spring.version>
-    <mybatis-ignite.version>1.1.0</mybatis-ignite.version>
+        <mybatis.version>3.5.7</mybatis.version>
+        <mybatis-spring.version>2.0.6</mybatis-spring.version>
+        <mybatis-ignite.version>1.1.0</mybatis-ignite.version>
 
-    <shardingsphere.version>5.1.0</shardingsphere.version>
+        <shardingsphere.version>5.1.0</shardingsphere.version>
 
-    <ignite.version>2.14.0</ignite.version>
-    <apache.calcite.version>1.34.0</apache.calcite.version>
+        <ignite.version>2.14.0</ignite.version>
+        <apache.calcite.version>1.34.0</apache.calcite.version>
+        <apache.plc4x.version>0.10.0</apache.plc4x.version>
 
-    <!-- plugins -->
-    <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
-    <maven-failsafe-plugin.version>2.22.0</maven-failsafe-plugin.version>
-    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-    <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
-    <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
-    <protobuf-maven-plugin.version>0.5.1</protobuf-maven-plugin.version>
-    <os-maven-plugin.version>1.5.0.Final</os-maven-plugin.version>
-    <java.version>1.8</java.version>
-    <log4j.version>1.2.17</log4j.version>
-    <esapi.version>2.1.0.1</esapi.version>
-    <jmh.version>1.32</jmh.version>
-    <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
-    <jaxb2-maven-plugin.version>3.1.0</jaxb2-maven-plugin.version>
-    <jakarta.xml.bind-api.version>3.0.1</jakarta.xml.bind-api.version>
-    <groovy.version>2.4.10</groovy.version>
-    <gmavenplus-plugin.version>1.5</gmavenplus-plugin.version>
-    <commons-io.version>2.7</commons-io.version>
-    <commons-lang.version>2.6</commons-lang.version>
-    <commons-lang3.version>3.12.0</commons-lang3.version>
-    <httpcomponents-httpclient.version>4.5.13</httpcomponents-httpclient.version>
-    <commons-cli.version>1.4</commons-cli.version>
-    <maven-war-plugin.version>3.0.0</maven-war-plugin.version>
-    <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
-    <jstl-api.version>1.2</jstl-api.version>
-    <javax.servlet.jsp-api.version>2.3.1</javax.servlet.jsp-api.version>
-    <jstl.version>1.2</jstl.version>
-    <jackson.version>2.14.1</jackson.version>
-    <commons-fileupload.version>1.3</commons-fileupload.version>
-    <junit-platform.version>1.2.0</junit-platform.version>
-    <junit-jupiter.version>5.7.0</junit-jupiter.version>
-    <junit4.version>4.13.1</junit4.version>
-    <directory-maven-plugin.version>0.3.1</directory-maven-plugin.version>
-    <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
-    <custom-pmd.version>0.0.1</custom-pmd.version>
-    <gitflow-incremental-builder.version>3.8</gitflow-incremental-builder.version>
-    <maven-jxr-plugin.version>3.0.0</maven-jxr-plugin.version>
-    <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
-    <lombok.version>1.18.16</lombok.version>
-    <h2.version>2.0.206</h2.version>
-    <elasticsearch.version>7.11.2</elasticsearch.version>
-    <net.java.dev.jna.version>5.7.0</net.java.dev.jna.version>
-    <testcontainers.version>1.17.3</testcontainers.version>
-    <cucumber.version>7.5.0</cucumber.version>
-    <opentelemetry.version>1.16.0</opentelemetry.version>
-    <lettuce.version>6.1.10.RELEASE</lettuce.version>
-    <cxf.version>3.5.4</cxf.version>
-    <axis.version>1.4</axis.version>
-    <axis2.version>1.8.2</axis2.version>
-  </properties>
+        <!-- plugins -->
+        <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>2.22.0</maven-failsafe-plugin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+        <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
+        <protobuf-maven-plugin.version>0.5.1</protobuf-maven-plugin.version>
+        <os-maven-plugin.version>1.5.0.Final</os-maven-plugin.version>
+        <java.version>1.8</java.version>
+        <log4j.version>1.2.17</log4j.version>
+        <esapi.version>2.1.0.1</esapi.version>
+        <jmh.version>1.32</jmh.version>
+        <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+        <jaxb2-maven-plugin.version>3.1.0</jaxb2-maven-plugin.version>
+        <jakarta.xml.bind-api.version>3.0.1</jakarta.xml.bind-api.version>
+        <groovy.version>2.4.10</groovy.version>
+        <gmavenplus-plugin.version>1.5</gmavenplus-plugin.version>
+        <commons-io.version>2.7</commons-io.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <commons-lang3.version>3.12.0</commons-lang3.version>
+        <httpcomponents-httpclient.version>4.5.13</httpcomponents-httpclient.version>
+        <commons-cli.version>1.4</commons-cli.version>
+        <maven-war-plugin.version>3.0.0</maven-war-plugin.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+        <jstl-api.version>1.2</jstl-api.version>
+        <javax.servlet.jsp-api.version>2.3.1</javax.servlet.jsp-api.version>
+        <jstl.version>1.2</jstl.version>
+        <jackson.version>2.14.1</jackson.version>
+        <commons-fileupload.version>1.3</commons-fileupload.version>
+        <junit-platform.version>1.2.0</junit-platform.version>
+        <junit-jupiter.version>5.7.0</junit-jupiter.version>
+        <junit4.version>4.13.1</junit4.version>
+        <directory-maven-plugin.version>0.3.1</directory-maven-plugin.version>
+        <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
+        <custom-pmd.version>0.0.1</custom-pmd.version>
+        <gitflow-incremental-builder.version>3.8</gitflow-incremental-builder.version>
+        <maven-jxr-plugin.version>3.0.0</maven-jxr-plugin.version>
+        <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
+        <lombok.version>1.18.16</lombok.version>
+        <h2.version>2.0.206</h2.version>
+        <elasticsearch.version>7.11.2</elasticsearch.version>
+        <net.java.dev.jna.version>5.7.0</net.java.dev.jna.version>
+        <testcontainers.version>1.17.3</testcontainers.version>
+        <cucumber.version>7.5.0</cucumber.version>
+        <opentelemetry.version>1.16.0</opentelemetry.version>
+        <lettuce.version>6.1.10.RELEASE</lettuce.version>
+        <cxf.version>3.5.4</cxf.version>
+        <axis.version>1.4</axis.version>
+        <axis2.version>1.8.2</axis2.version>
+    </properties>
 
-  <dependencyManagement>
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.coolbeevip</groupId>
+                <artifactId>test</artifactId>
+                <version>1.0.0-SNAPSHOT</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- flyway -->
+            <dependency>
+                <artifactId>flyway-core</artifactId>
+                <groupId>org.flywaydb</groupId>
+                <version>${flyway.version}</version>
+            </dependency>
+
+            <!-- mysql -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!-- postgresql -->
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+
+            <!--sharding sphere-->
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-jdbc-core</artifactId>
+                <version>${shardingsphere.version}</version>
+            </dependency>
+
+            <!-- nacos -->
+            <dependency>
+                <groupId>com.alibaba.nacos</groupId>
+                <artifactId>nacos-client</artifactId>
+                <version>${nacos.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-config-spring-boot-starter</artifactId>
+                <version>${nacos.spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.boot</groupId>
+                <artifactId>nacos-discovery-spring-boot-starter</artifactId>
+                <version>${nacos.spring-boot.version}</version>
+            </dependency>
+
+            <!-- ignite -->
+            <dependency>
+                <groupId>org.apache.ignite</groupId>
+                <artifactId>ignite-core</artifactId>
+                <version>${ignite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.ignite</groupId>
+                <artifactId>ignite-calcite</artifactId>
+                <version>${ignite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.ignite</groupId>
+                <artifactId>ignite-slf4j</artifactId>
+                <version>${ignite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.ignite</groupId>
+                <artifactId>ignite-spring</artifactId>
+                <version>${ignite.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.ignite</groupId>
+                        <artifactId>ignite-indexing</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- apache calcite -->
+            <dependency>
+                <groupId>org.apache.calcite</groupId>
+                <artifactId>calcite-core</artifactId>
+                <version>${apache.calcite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.calcite</groupId>
+                <artifactId>calcite-elasticsearch</artifactId>
+                <version>${apache.calcite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.calcite</groupId>
+                <artifactId>calcite-testkit</artifactId>
+                <version>${apache.calcite.version}</version>
+            </dependency>
+
+            <!-- servicecomb pack -->
+            <dependency>
+                <groupId>org.apache.servicecomb.pack</groupId>
+                <artifactId>omega-spring-starter</artifactId>
+                <version>${servicecomb.pack.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.servicecomb.pack</groupId>
+                <artifactId>omega-transport-resttemplate</artifactId>
+                <version>${servicecomb.pack.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.servicecomb.pack</groupId>
+                <artifactId>omega-spring-cloud-nacos-starter</artifactId>
+                <version>${servicecomb.pack.version}</version>
+            </dependency>
+
+            <!-- elasticsearch -->
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.codelibs.elasticsearch.module</groupId>
+                <artifactId>lang-painless</artifactId>
+                <version>7.10.2</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch.plugin</groupId>
+                <artifactId>transport-netty4-client</artifactId>
+                <version>${elasticsearch.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>net.java.dev.jna</groupId>
+                <artifactId>jna</artifactId>
+                <version>${net.java.dev.jna.version}</version>
+            </dependency>
+
+            <!-- groovy -->
+            <dependency>
+                <groupId>org.codehaus.groovy</groupId>
+                <artifactId>groovy-all</artifactId>
+                <version>${groovy.version}</version>
+            </dependency>
+
+            <!-- mybatis -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis.caches</groupId>
+                <artifactId>mybatis-ignite</artifactId>
+                <version>${mybatis-ignite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>${mybatis-spring.version}</version>
+            </dependency>
+
+            <!-- akka -->
+            <dependency>
+                <groupId>com.typesafe.akka</groupId>
+                <artifactId>akka-bom_${scala.binary.version}</artifactId>
+                <version>${akka.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.typesafe.akka</groupId>
+                <artifactId>akka-actor-testkit-typed_${scala.binary.version}</artifactId>
+                <version>${akka.version}</version>
+            </dependency>
+
+            <!-- arrow -->
+            <dependency>
+                <groupId>org.apache.arrow</groupId>
+                <artifactId>arrow-memory-core</artifactId>
+                <version>${arrow.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.arrow</groupId>
+                <artifactId>arrow-memory-netty</artifactId>
+                <version>${arrow.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.arrow</groupId>
+                <artifactId>arrow-memory-unsafe</artifactId>
+                <version>${arrow.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.arrow</groupId>
+                <artifactId>arrow-vector</artifactId>
+                <version>${arrow.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.arrow</groupId>
+                <artifactId>flight-grpc</artifactId>
+                <version>${arrow.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.arrow</groupId>
+                <artifactId>arrow-format</artifactId>
+                <version>${arrow.version}</version>
+            </dependency>
+
+            <!-- antlr -->
+            <dependency>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-runtime</artifactId>
+                <version>${antlr.version}</version>
+            </dependency>
+
+            <!-- ratis -->
+            <dependency>
+                <groupId>org.apache.ratis</groupId>
+                <artifactId>ratis-thirdparty-misc</artifactId>
+                <version>${ratis.thirdparty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.ratis</groupId>
+                <artifactId>ratis-metrics</artifactId>
+                <version>${ratis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.ratis</groupId>
+                <artifactId>ratis-proto</artifactId>
+                <version>${ratis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.ratis</groupId>
+                <artifactId>ratis-tools</artifactId>
+                <version>${ratis.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>ratis-common</artifactId>
+                <groupId>org.apache.ratis</groupId>
+                <version>${ratis.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>ratis-client</artifactId>
+                <groupId>org.apache.ratis</groupId>
+                <version>${ratis.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>ratis-server</artifactId>
+                <groupId>org.apache.ratis</groupId>
+                <version>${ratis.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>ratis-grpc</artifactId>
+                <groupId>org.apache.ratis</groupId>
+                <version>${ratis.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>ratis-netty</artifactId>
+                <groupId>org.apache.ratis</groupId>
+                <version>${ratis.version}</version>
+            </dependency>
+
+            <!-- spark -->
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-core_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-sql_${scala.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+
+            <!-- rocksdb -->
+            <dependency>
+                <groupId>org.rocksdb</groupId>
+                <artifactId>rocksdbjni</artifactId>
+                <version>${rocksdb.version}</version>
+            </dependency>
+
+            <!-- lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <!-- spring boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-tomcat</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- plc4x -->
+            <dependency>
+                <groupId>org.apache.plc4x</groupId>
+                <artifactId>plc4j-api</artifactId>
+                <version>${apache.plc4x.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.plc4x</groupId>
+                <artifactId>plc4j-driver-s7</artifactId>
+                <version>${apache.plc4x.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.plc4x</groupId>
+                <artifactId>plc4j-driver-modbus</artifactId>
+                <version>${apache.plc4x.version}</version>
+            </dependency>
+
+            <!-- jmh -->
+            <dependency>
+                <groupId>org.openjdk.jmh</groupId>
+                <artifactId>jmh-core</artifactId>
+                <version>1.28</version>
+            </dependency>
+            <dependency>
+                <groupId>org.openjdk.jmh</groupId>
+                <artifactId>jmh-generator-annprocess</artifactId>
+                <version>1.28</version>
+            </dependency>
+
+            <!-- gRPC -->
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-netty</artifactId>
+                <version>${grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-protobuf</artifactId>
+                <version>${grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-stub</artifactId>
+                <version>${grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-context</artifactId>
+                <version>${grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-services</artifactId>
+                <version>${grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-netty-shaded</artifactId>
+                <version>${grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-testing</artifactId>
+                <version>${grpc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf-java.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
+            </dependency>
+
+            <!-- netty -->
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-buffer</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-codec</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-common</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-consumer</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-transport</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-transport-native-unix-common</artifactId>
+                <version>${netty.version}</version>
+                <classifier>${os.detected.name}-${os.detected.arch}</classifier>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-tcnative-boringssl-static</artifactId>
+                <version>${netty-tcnative-boringssl-static.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-transport-native-kqueue</artifactId>
+                <version>${netty.version}</version>
+                <classifier>osx-x86_64</classifier>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-transport-native-epoll</artifactId>
+                <version>${netty.version}</version>
+                <classifier>linux-x86_64</classifier>
+            </dependency>
+
+            <!-- javax annotation-->
+            <dependency>
+                <groupId>javax.annotation</groupId>
+                <artifactId>javax.annotation-api</artifactId>
+                <version>${javax.annotation.version}</version>
+            </dependency>
+
+            <!-- guava -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+
+            <!-- kafka -->
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-streams</artifactId>
+                <version>${kafka.version}</version>
+            </dependency>
+
+            <!-- debezium -->
+            <dependency>
+                <groupId>io.debezium</groupId>
+                <artifactId>debezium-api</artifactId>
+                <version>${debezium.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.debezium</groupId>
+                <artifactId>debezium-embedded</artifactId>
+                <version>${debezium.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>slf4j-log4j12</artifactId>
+                        <groupId>org.slf4j</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>io.debezium</groupId>
+                <artifactId>debezium-connector-mysql</artifactId>
+                <version>${debezium.version}</version>
+            </dependency>
+
+            <!-- jfreechart -->
+            <dependency>
+                <groupId>org.jfree</groupId>
+                <artifactId>jfreechart</artifactId>
+                <version>${jfreechart.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>${httpcomponents-httpclient.version}</version>
+            </dependency>
+
+            <!-- redis -->
+            <dependency>
+                <groupId>io.lettuce</groupId>
+                <artifactId>lettuce-core</artifactId>
+                <version>${lettuce.version}</version>
+            </dependency>
+
+            <!-- axis -->
+            <dependency>
+                <groupId>axis</groupId>
+                <artifactId>axis</artifactId>
+                <version>${axis.version}</version>
+            </dependency>
+
+            <!-- axis2 -->
+            <dependency>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-kernel</artifactId>
+                <version>${axis2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-adb</artifactId>
+                <version>${axis2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-jaxws</artifactId>
+                <version>${axis2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-xmlbeans</artifactId>
+                <version>${axis2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-transport-http</artifactId>
+                <version>${axis2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.axis2</groupId>
+                <artifactId>axis2-transport-local</artifactId>
+                <version>${axis2.version}</version>
+            </dependency>
+
+            <!-- cxf -->
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxws</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-transports-http-undertow</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-features-metrics</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-bindings-soap</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+
+            <!-- logging -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${org.slf4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>jcl-over-slf4j</artifactId>
+                <version>${org.slf4j.version}</version>
+            </dependency>
+
+            <!-- log4j -->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-to-slf4j</artifactId>
+                <version>${log4j.versoin}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j-impl</artifactId>
+                <version>${log4j.versoin}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j.versoin}</version>
+            </dependency>
+
+            <!-- junit 4 -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit4.version}</version>
+            </dependency>
+
+            <!-- junit 5 -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit-jupiter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-params</artifactId>
+                <version>${junit-jupiter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit-jupiter.version}</version>
+            </dependency>
+
+            <!-- testcontainers -->
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers</artifactId>
+                <version>${testcontainers.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>mysql</artifactId>
+                <version>${testcontainers.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>kafka</artifactId>
+                <version>${testcontainers.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-all</artifactId>
+                <version>${hamcrest-all.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.awaitility</groupId>
+                <artifactId>awaitility</artifactId>
+                <version>${awaitility.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-java</artifactId>
+                <version>${cucumber.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-java8</artifactId>
+                <version>${cucumber.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-junit</artifactId>
+                <version>${cucumber.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.maven.surefire</groupId>
+                <artifactId>surefire-logger-api</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <!-- to get around bug https://github.com/junit-team/junit5/issues/801 -->
+                <optional>true</optional>
+            </dependency>
+
+            <!-- open telemetry -->
+            <dependency>
+                <groupId>io.opentelemetry</groupId>
+                <artifactId>opentelemetry-bom</artifactId>
+                <version>${opentelemetry.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jakarta.xml.bind</groupId>
+                <artifactId>jakarta.xml.bind-api</artifactId>
+                <version>${jakarta.xml.bind-api.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.antlr</groupId>
+                    <artifactId>antlr4-maven-plugin</artifactId>
+                    <version>${antlr.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>${build-helper-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.xolstice.maven.plugins</groupId>
+                    <artifactId>protobuf-maven-plugin</artifactId>
+                    <version>${protobuf-maven-plugin.version}</version>
+                    <configuration>
+                        <protocArtifact>
+                            com.google.protobuf:protoc:${protobuf-java.version}:exe:${os.detected.classifier}
+                        </protocArtifact>
+                        <pluginId>grpc-java</pluginId>
+                        <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}
+                        </pluginArtifact>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>compile</goal>
+                                <goal>compile-custom</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                            <configuration>
+                                <classifier>exec</classifier>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>jaxb2-maven-plugin</artifactId>
+                    <version>${jaxb2-maven-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.gmavenplus</groupId>
+                    <artifactId>gmavenplus-plugin</artifactId>
+                    <version>${gmavenplus-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
     <dependencies>
 
-      <dependency>
-        <groupId>com.coolbeevip</groupId>
-        <artifactId>test</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
-      </dependency>
-
-      <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
-        <version>${jackson.version}</version>
-      </dependency>
-
-      <!-- flyway -->
-      <dependency>
-        <artifactId>flyway-core</artifactId>
-        <groupId>org.flywaydb</groupId>
-        <version>${flyway.version}</version>
-      </dependency>
-
-      <!-- mysql -->
-      <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-        <version>${mysql.version}</version>
-      </dependency>
-
-      <!-- postgresql -->
-      <dependency>
-        <groupId>org.postgresql</groupId>
-        <artifactId>postgresql</artifactId>
-        <version>${postgresql.version}</version>
-      </dependency>
-
-      <!--sharding sphere-->
-      <dependency>
-        <groupId>org.apache.shardingsphere</groupId>
-        <artifactId>shardingsphere-jdbc-core</artifactId>
-        <version>${shardingsphere.version}</version>
-      </dependency>
-
-      <!-- nacos -->
-      <dependency>
-        <groupId>com.alibaba.nacos</groupId>
-        <artifactId>nacos-client</artifactId>
-        <version>${nacos.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.alibaba.boot</groupId>
-        <artifactId>nacos-config-spring-boot-starter</artifactId>
-        <version>${nacos.spring-boot.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.alibaba.boot</groupId>
-        <artifactId>nacos-discovery-spring-boot-starter</artifactId>
-        <version>${nacos.spring-boot.version}</version>
-      </dependency>
-
-      <!-- ignite -->
-      <dependency>
-        <groupId>org.apache.ignite</groupId>
-        <artifactId>ignite-core</artifactId>
-        <version>${ignite.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.ignite</groupId>
-        <artifactId>ignite-calcite</artifactId>
-        <version>${ignite.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.ignite</groupId>
-        <artifactId>ignite-slf4j</artifactId>
-        <version>${ignite.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.ignite</groupId>
-        <artifactId>ignite-spring</artifactId>
-        <version>${ignite.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.apache.ignite</groupId>
-            <artifactId>ignite-indexing</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-
-      <!-- apache calcite -->
-      <dependency>
-        <groupId>org.apache.calcite</groupId>
-        <artifactId>calcite-core</artifactId>
-        <version>${apache.calcite.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.calcite</groupId>
-        <artifactId>calcite-elasticsearch</artifactId>
-        <version>${apache.calcite.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.calcite</groupId>
-        <artifactId>calcite-testkit</artifactId>
-        <version>${apache.calcite.version}</version>
-      </dependency>
-
-      <!-- servicecomb pack -->
-      <dependency>
-        <groupId>org.apache.servicecomb.pack</groupId>
-        <artifactId>omega-spring-starter</artifactId>
-        <version>${servicecomb.pack.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.servicecomb.pack</groupId>
-        <artifactId>omega-transport-resttemplate</artifactId>
-        <version>${servicecomb.pack.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.servicecomb.pack</groupId>
-        <artifactId>omega-spring-cloud-nacos-starter</artifactId>
-        <version>${servicecomb.pack.version}</version>
-      </dependency>
-
-      <!-- elasticsearch -->
-      <dependency>
-        <groupId>org.elasticsearch</groupId>
-        <artifactId>elasticsearch</artifactId>
-        <version>${elasticsearch.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.elasticsearch.client</groupId>
-        <artifactId>elasticsearch-rest-client</artifactId>
-        <version>${elasticsearch.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.elasticsearch.client</groupId>
-        <artifactId>elasticsearch-rest-high-level-client</artifactId>
-        <version>${elasticsearch.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.codelibs.elasticsearch.module</groupId>
-        <artifactId>lang-painless</artifactId>
-        <version>7.10.2</version>
-      </dependency>
-      <dependency>
-        <groupId>org.elasticsearch.plugin</groupId>
-        <artifactId>transport-netty4-client</artifactId>
-        <version>${elasticsearch.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>net.java.dev.jna</groupId>
-        <artifactId>jna</artifactId>
-        <version>${net.java.dev.jna.version}</version>
-      </dependency>
-
-      <!-- groovy -->
-      <dependency>
-        <groupId>org.codehaus.groovy</groupId>
-        <artifactId>groovy-all</artifactId>
-        <version>${groovy.version}</version>
-      </dependency>
-
-      <!-- mybatis -->
-      <dependency>
-        <groupId>org.mybatis</groupId>
-        <artifactId>mybatis</artifactId>
-        <version>${mybatis.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mybatis.caches</groupId>
-        <artifactId>mybatis-ignite</artifactId>
-        <version>${mybatis-ignite.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mybatis</groupId>
-        <artifactId>mybatis-spring</artifactId>
-        <version>${mybatis-spring.version}</version>
-      </dependency>
-
-      <!-- akka -->
-      <dependency>
-        <groupId>com.typesafe.akka</groupId>
-        <artifactId>akka-bom_${scala.binary.version}</artifactId>
-        <version>${akka.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>com.typesafe.akka</groupId>
-        <artifactId>akka-actor-testkit-typed_${scala.binary.version}</artifactId>
-        <version>${akka.version}</version>
-      </dependency>
-
-      <!-- arrow -->
-      <dependency>
-        <groupId>org.apache.arrow</groupId>
-        <artifactId>arrow-memory-core</artifactId>
-        <version>${arrow.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.arrow</groupId>
-        <artifactId>arrow-memory-netty</artifactId>
-        <version>${arrow.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.arrow</groupId>
-        <artifactId>arrow-memory-unsafe</artifactId>
-        <version>${arrow.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.arrow</groupId>
-        <artifactId>arrow-vector</artifactId>
-        <version>${arrow.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.arrow</groupId>
-        <artifactId>flight-grpc</artifactId>
-        <version>${arrow.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.arrow</groupId>
-        <artifactId>arrow-format</artifactId>
-        <version>${arrow.version}</version>
-      </dependency>
-
-      <!-- antlr -->
-      <dependency>
-        <groupId>org.antlr</groupId>
-        <artifactId>antlr4-runtime</artifactId>
-        <version>${antlr.version}</version>
-      </dependency>
-
-      <!-- ratis -->
-      <dependency>
-        <groupId>org.apache.ratis</groupId>
-        <artifactId>ratis-thirdparty-misc</artifactId>
-        <version>${ratis.thirdparty.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.ratis</groupId>
-        <artifactId>ratis-metrics</artifactId>
-        <version>${ratis.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.ratis</groupId>
-        <artifactId>ratis-proto</artifactId>
-        <version>${ratis.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.ratis</groupId>
-        <artifactId>ratis-tools</artifactId>
-        <version>${ratis.version}</version>
-      </dependency>
-      <dependency>
-        <artifactId>ratis-common</artifactId>
-        <groupId>org.apache.ratis</groupId>
-        <version>${ratis.version}</version>
-      </dependency>
-      <dependency>
-        <artifactId>ratis-client</artifactId>
-        <groupId>org.apache.ratis</groupId>
-        <version>${ratis.version}</version>
-      </dependency>
-      <dependency>
-        <artifactId>ratis-server</artifactId>
-        <groupId>org.apache.ratis</groupId>
-        <version>${ratis.version}</version>
-      </dependency>
-      <dependency>
-        <artifactId>ratis-grpc</artifactId>
-        <groupId>org.apache.ratis</groupId>
-        <version>${ratis.version}</version>
-      </dependency>
-      <dependency>
-        <artifactId>ratis-netty</artifactId>
-        <groupId>org.apache.ratis</groupId>
-        <version>${ratis.version}</version>
-      </dependency>
-
-      <!-- spark -->
-      <dependency>
-        <groupId>org.apache.spark</groupId>
-        <artifactId>spark-core_${scala.version}</artifactId>
-        <version>${spark.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.spark</groupId>
-        <artifactId>spark-sql_${scala.version}</artifactId>
-        <version>${spark.version}</version>
-      </dependency>
-
-      <!-- rocksdb -->
-      <dependency>
-        <groupId>org.rocksdb</groupId>
-        <artifactId>rocksdbjni</artifactId>
-        <version>${rocksdb.version}</version>
-      </dependency>
-
-      <!-- lombok -->
-      <dependency>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok</artifactId>
-        <version>${lombok.version}</version>
-      </dependency>
-
-      <!-- spring boot -->
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>${spring-boot.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-web</artifactId>
-        <version>${spring-boot.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-
-      <!-- jmh -->
-      <dependency>
-        <groupId>org.openjdk.jmh</groupId>
-        <artifactId>jmh-core</artifactId>
-        <version>1.28</version>
-      </dependency>
-      <dependency>
-        <groupId>org.openjdk.jmh</groupId>
-        <artifactId>jmh-generator-annprocess</artifactId>
-        <version>1.28</version>
-      </dependency>
-
-      <!-- gRPC -->
-      <dependency>
-        <groupId>io.grpc</groupId>
-        <artifactId>grpc-netty</artifactId>
-        <version>${grpc.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.grpc</groupId>
-        <artifactId>grpc-protobuf</artifactId>
-        <version>${grpc.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.grpc</groupId>
-        <artifactId>grpc-stub</artifactId>
-        <version>${grpc.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.grpc</groupId>
-        <artifactId>grpc-context</artifactId>
-        <version>${grpc.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.grpc</groupId>
-        <artifactId>grpc-services</artifactId>
-        <version>${grpc.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.grpc</groupId>
-        <artifactId>grpc-netty-shaded</artifactId>
-        <version>${grpc.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.grpc</groupId>
-        <artifactId>grpc-testing</artifactId>
-        <version>${grpc.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.protobuf</groupId>
-        <artifactId>protobuf-java</artifactId>
-        <version>${protobuf-java.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-        <version>${commons-io.version}</version>
-      </dependency>
-
-      <!-- netty -->
-      <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-all</artifactId>
-        <version>${netty.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-buffer</artifactId>
-        <version>${netty.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-codec</artifactId>
-        <version>${netty.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-common</artifactId>
-        <version>${netty.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-consumer</artifactId>
-        <version>${netty.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-transport</artifactId>
-        <version>${netty.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-transport-native-unix-common</artifactId>
-        <version>${netty.version}</version>
-        <classifier>${os.detected.name}-${os.detected.arch}</classifier>
-      </dependency>
-      <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-tcnative-boringssl-static</artifactId>
-        <version>${netty-tcnative-boringssl-static.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-transport-native-kqueue</artifactId>
-        <version>${netty.version}</version>
-        <classifier>osx-x86_64</classifier>
-      </dependency>
-      <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-transport-native-epoll</artifactId>
-        <version>${netty.version}</version>
-        <classifier>linux-x86_64</classifier>
-      </dependency>
-
-      <!-- javax annotation-->
-      <dependency>
-        <groupId>javax.annotation</groupId>
-        <artifactId>javax.annotation-api</artifactId>
-        <version>${javax.annotation.version}</version>
-      </dependency>
-
-      <!-- guava -->
-      <dependency>
-        <groupId>com.google.guava</groupId>
-        <artifactId>guava</artifactId>
-        <version>${guava.version}</version>
-      </dependency>
-
-      <!-- kafka -->
-      <dependency>
-        <groupId>org.apache.kafka</groupId>
-        <artifactId>kafka-clients</artifactId>
-        <version>${kafka.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.kafka</groupId>
-        <artifactId>kafka-streams</artifactId>
-        <version>${kafka.version}</version>
-      </dependency>
-
-      <!-- debezium -->
-      <dependency>
-        <groupId>io.debezium</groupId>
-        <artifactId>debezium-api</artifactId>
-        <version>${debezium.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.debezium</groupId>
-        <artifactId>debezium-embedded</artifactId>
-        <version>${debezium.version}</version>
-        <exclusions>
-          <exclusion>
-            <artifactId>slf4j-log4j12</artifactId>
+        <!-- logging -->
+        <dependency>
             <groupId>org.slf4j</groupId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>io.debezium</groupId>
-        <artifactId>debezium-connector-mysql</artifactId>
-        <version>${debezium.version}</version>
-      </dependency>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+        </dependency>
 
-      <!-- jfreechart -->
-      <dependency>
-        <groupId>org.jfree</groupId>
-        <artifactId>jfreechart</artifactId>
-        <version>${jfreechart.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>${commons-lang3.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.httpcomponents</groupId>
-        <artifactId>httpclient</artifactId>
-        <version>${httpcomponents-httpclient.version}</version>
-      </dependency>
-
-      <!-- redis -->
-      <dependency>
-        <groupId>io.lettuce</groupId>
-        <artifactId>lettuce-core</artifactId>
-        <version>${lettuce.version}</version>
-      </dependency>
-
-      <!-- axis -->
-      <dependency>
-        <groupId>axis</groupId>
-        <artifactId>axis</artifactId>
-        <version>${axis.version}</version>
-      </dependency>
-
-      <!-- axis2 -->
-      <dependency>
-        <groupId>org.apache.axis2</groupId>
-        <artifactId>axis2-kernel</artifactId>
-        <version>${axis2.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.axis2</groupId>
-        <artifactId>axis2-adb</artifactId>
-        <version>${axis2.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.axis2</groupId>
-        <artifactId>axis2-jaxws</artifactId>
-        <version>${axis2.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.axis2</groupId>
-        <artifactId>axis2-xmlbeans</artifactId>
-        <version>${axis2.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.axis2</groupId>
-        <artifactId>axis2-transport-http</artifactId>
-        <version>${axis2.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.axis2</groupId>
-        <artifactId>axis2-transport-local</artifactId>
-        <version>${axis2.version}</version>
-      </dependency>
-
-      <!-- cxf -->
-      <dependency>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-spring-boot-starter-jaxws</artifactId>
-        <version>${cxf.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-rt-frontend-jaxws</artifactId>
-        <version>${cxf.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-rt-transports-http</artifactId>
-        <version>${cxf.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-rt-transports-http-undertow</artifactId>
-        <version>${cxf.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-rt-features-metrics</artifactId>
-        <version>${cxf.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-rt-bindings-soap</artifactId>
-        <version>${cxf.version}</version>
-      </dependency>
-
-      <!-- logging -->
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>${org.slf4j.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>ch.qos.logback</groupId>
-        <artifactId>logback-classic</artifactId>
-        <version>${logback.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>ch.qos.logback</groupId>
-        <artifactId>logback-core</artifactId>
-        <version>${logback.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>jcl-over-slf4j</artifactId>
-        <version>${org.slf4j.version}</version>
-      </dependency>
-
-      <!-- log4j -->
-      <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-to-slf4j</artifactId>
-        <version>${log4j.versoin}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-slf4j-impl</artifactId>
-        <version>${log4j.versoin}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.logging.log4j</groupId>
-        <artifactId>log4j-core</artifactId>
-        <version>${log4j.versoin}</version>
-      </dependency>
-
-      <!-- junit 4 -->
-      <dependency>
-        <groupId>junit</groupId>
-        <artifactId>junit</artifactId>
-        <version>${junit4.version}</version>
-      </dependency>
-
-      <!-- junit 5 -->
-      <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-engine</artifactId>
-        <version>${junit-jupiter.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-params</artifactId>
-        <version>${junit-jupiter.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter-api</artifactId>
-        <version>${junit-jupiter.version}</version>
-      </dependency>
-
-      <!-- testcontainers -->
-      <dependency>
-        <groupId>org.testcontainers</groupId>
-        <artifactId>testcontainers</artifactId>
-        <version>${testcontainers.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.testcontainers</groupId>
-        <artifactId>mysql</artifactId>
-        <version>${testcontainers.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.testcontainers</groupId>
-        <artifactId>kafka</artifactId>
-        <version>${testcontainers.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.hamcrest</groupId>
-        <artifactId>hamcrest-all</artifactId>
-        <version>${hamcrest-all.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.awaitility</groupId>
-        <artifactId>awaitility</artifactId>
-        <version>${awaitility.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-core</artifactId>
-        <version>${mockito.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>io.cucumber</groupId>
-        <artifactId>cucumber-java</artifactId>
-        <version>${cucumber.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.cucumber</groupId>
-        <artifactId>cucumber-java8</artifactId>
-        <version>${cucumber.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.cucumber</groupId>
-        <artifactId>cucumber-junit</artifactId>
-        <version>${cucumber.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.apache.maven.surefire</groupId>
-        <artifactId>surefire-logger-api</artifactId>
-        <version>${maven-surefire-plugin.version}</version>
-        <!-- to get around bug https://github.com/junit-team/junit5/issues/801 -->
-        <optional>true</optional>
-      </dependency>
-
-      <!-- open telemetry -->
-      <dependency>
-        <groupId>io.opentelemetry</groupId>
-        <artifactId>opentelemetry-bom</artifactId>
-        <version>${opentelemetry.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-
-      <dependency>
-        <groupId>jakarta.xml.bind</groupId>
-        <artifactId>jakarta.xml.bind-api</artifactId>
-        <version>${jakarta.xml.bind-api.version}</version>
-      </dependency>
-
+        <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-logger-api</artifactId>
+            <scope>test</scope>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
-  </dependencyManagement>
 
-  <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>${maven-compiler-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>${maven-surefire-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.antlr</groupId>
-          <artifactId>antlr4-maven-plugin</artifactId>
-          <version>${antlr.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>build-helper-maven-plugin</artifactId>
-          <version>${build-helper-maven-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.xolstice.maven.plugins</groupId>
-          <artifactId>protobuf-maven-plugin</artifactId>
-          <version>${protobuf-maven-plugin.version}</version>
-          <configuration>
-            <protocArtifact>com.google.protobuf:protoc:${protobuf-java.version}:exe:${os.detected.classifier}
-            </protocArtifact>
-            <pluginId>grpc-java</pluginId>
-            <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
-          </configuration>
-          <executions>
-            <execution>
-              <goals>
-                <goal>compile</goal>
-                <goal>compile-custom</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.springframework.boot</groupId>
-          <artifactId>spring-boot-maven-plugin</artifactId>
-          <executions>
-            <execution>
-              <goals>
-                <goal>repackage</goal>
-              </goals>
-              <configuration>
-                <classifier>exec</classifier>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>jaxb2-maven-plugin</artifactId>
-          <version>${jaxb2-maven-plugin.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.gmavenplus</groupId>
-          <artifactId>gmavenplus-plugin</artifactId>
-          <version>${gmavenplus-plugin.version}</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
+    <repositories>
+        <repository>
+            <id>apache.snapshots</id>
+            <name>Apache Development Snapshot Repository</name>
+            <url>https://repository.apache.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
-  <dependencies>
+    <modules>
+        <module>structures</module>
+        <module>faker</module>
+        <module>parent-spring-boot-2</module>
+        <module>test</module>
+        <module>antlr</module>
+        <module>graphql</module>
+        <module>ratis</module>
+        <module>spring-boot-jpa</module>
+        <module>domain-driven-design</module>
+        <module>akka</module>
+        <module>flyway</module>
+        <module>grpc</module>
+        <module>netty</module>
+        <module>rocksdb</module>
+        <module>arrow</module>
+        <module>kafka</module>
+        <module>debezium</module>
+        <module>algorithm</module>
+        <module>sharding-sphere</module>
+        <module>cpu</module>
+        <module>java</module>
+        <module>ignite</module>
+        <module>elasticsearch</module>
+        <module>iotdb</module>
+        <module>syslog</module>
+        <module>cucumber</module>
+        <module>nacos</module>
+        <module>distributed-transaction</module>
+        <module>open-telemetry</module>
+        <module>xml</module>
+        <module>expression-language</module>
+        <module>redis</module>
+        <module>design-patterns</module>
+        <module>http</module>
+        <module>webservice</module>
+        <module>asciidoc</module>
+        <module>crdts</module>
+        <module>flink</module>
+        <module>maven</module>
+        <module>json</module>
+        <module>calcite</module>
+        <module>plc4x</module>
+    </modules>
 
-    <!-- logging -->
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-classic</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>ch.qos.logback</groupId>
-      <artifactId>logback-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>jcl-over-slf4j</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.maven.surefire</groupId>
-      <artifactId>surefire-logger-api</artifactId>
-      <scope>test</scope>
-      <optional>true</optional>
-    </dependency>
-  </dependencies>
-
-  <repositories>
-    <repository>
-      <id>apache.snapshots</id>
-      <name>Apache Development Snapshot Repository</name>
-      <url>https://repository.apache.org/content/repositories/snapshots/</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-
-  <modules>
-    <module>structures</module>
-    <module>faker</module>
-    <module>parent-spring-boot-2</module>
-    <module>test</module>
-    <module>antlr</module>
-    <module>graphql</module>
-    <module>ratis</module>
-    <module>spring-boot-jpa</module>
-    <module>domain-driven-design</module>
-    <module>akka</module>
-    <module>flyway</module>
-    <module>grpc</module>
-    <module>netty</module>
-    <module>rocksdb</module>
-    <module>arrow</module>
-    <module>kafka</module>
-    <module>debezium</module>
-    <module>algorithm</module>
-    <module>sharding-sphere</module>
-    <module>cpu</module>
-    <module>java</module>
-    <module>ignite</module>
-    <module>elasticsearch</module>
-    <module>iotdb</module>
-    <module>syslog</module>
-    <module>cucumber</module>
-    <module>nacos</module>
-    <module>distributed-transaction</module>
-    <module>open-telemetry</module>
-    <module>xml</module>
-    <module>expression-language</module>
-    <module>redis</module>
-    <module>design-patterns</module>
-    <module>http</module>
-    <module>webservice</module>
-    <module>asciidoc</module>
-    <module>crdts</module>
-    <module>flink</module>
-    <module>maven</module>
-    <module>json</module>
-    <module>calcite</module>
-  </modules>
-
-  <profiles>
-    <profile>
-      <!-- https://github.com/grpc/grpc-java/issues/7690 -->
-      <id>macos-m1</id>
-      <build>
-        <pluginManagement>
-          <plugins>
-            <plugin>
-              <groupId>org.xolstice.maven.plugins</groupId>
-              <artifactId>protobuf-maven-plugin</artifactId>
-              <version>${protobuf-maven-plugin.version}</version>
-              <configuration>
-                <protocArtifact>com.google.protobuf:protoc:${protobuf-java.version}:exe:osx-x86_64
-                </protocArtifact>
-                <pluginId>grpc-java</pluginId>
-                <pluginArtifact>
-                  io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:osx-x86_64
-                </pluginArtifact>
-              </configuration>
-              <executions>
-                <execution>
-                  <goals>
-                    <goal>compile</goal>
-                    <goal>compile-custom</goal>
-                  </goals>
-                </execution>
-              </executions>
-            </plugin>
-          </plugins>
-        </pluginManagement>
-      </build>
-    </profile>
-  </profiles>
+    <profiles>
+        <profile>
+            <!-- https://github.com/grpc/grpc-java/issues/7690 -->
+            <id>macos-m1</id>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.xolstice.maven.plugins</groupId>
+                            <artifactId>protobuf-maven-plugin</artifactId>
+                            <version>${protobuf-maven-plugin.version}</version>
+                            <configuration>
+                                <protocArtifact>com.google.protobuf:protoc:${protobuf-java.version}:exe:osx-x86_64
+                                </protocArtifact>
+                                <pluginId>grpc-java</pluginId>
+                                <pluginArtifact>
+                                    io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:osx-x86_64
+                                </pluginArtifact>
+                            </configuration>
+                            <executions>
+                                <execution>
+                                    <goals>
+                                        <goal>compile</goal>
+                                        <goal>compile-custom</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
+    </profiles>
 </project>
