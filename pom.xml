@@ -486,6 +486,16 @@
                 <artifactId>plc4j-driver-modbus</artifactId>
                 <version>${apache.plc4x.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.plc4x</groupId>
+                <artifactId>plc4j-driver-opcua</artifactId>
+                <version>${apache.plc4x.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.plc4x</groupId>
+                <artifactId>plc4j-transport-test</artifactId>
+                <version>${apache.plc4x.version}</version>
+            </dependency>
 
             <!-- jmh -->
             <dependency>

@@ -18,12 +18,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 @Slf4j
-public class ModbusConnection implements AutoCloseable {
+public class ModbusClient implements AutoCloseable {
 
   private final PlcConnection plcConnection;
   private final String connectionString;
 
-  public ModbusConnection(String connectionString) throws PlcConnectionException {
+  public ModbusClient(String connectionString) throws PlcConnectionException {
     this.connectionString = connectionString;
     this.plcConnection = new PlcDriverManager().getConnection(connectionString);
   }
