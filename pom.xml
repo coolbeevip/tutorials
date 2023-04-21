@@ -78,7 +78,7 @@
         <netty-tcnative-boringssl-static.version>2.0.48.Final</netty-tcnative-boringssl-static.version>
         <protobuf-java.version>3.19.6</protobuf-java.version>
         <spring-boot.version>2.6.10</spring-boot.version>
-        <spark.version>2.4.4</spark.version>
+        <spark.version>3.4.0</spark.version>
         <scala.version>2.12</scala.version>
 
         <guava.version>31.1-jre</guava.version>
