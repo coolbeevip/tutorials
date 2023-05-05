@@ -17,8 +17,15 @@
     <asciidoctorj.version>2.5.7</asciidoctorj.version>
     <jruby.version>9.3.9.0</jruby.version>
   </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml</groupId>
+            <artifactId>jackson-xml-databind</artifactId>
+            <version>0.6.2</version>
+        </dependency>
+    </dependencies>
 
-  <build>
+    <build>
     <defaultGoal>process-resources</defaultGoal>
     <plugins>
       <plugin>

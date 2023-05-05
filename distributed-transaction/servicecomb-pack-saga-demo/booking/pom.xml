@@ -48,6 +48,11 @@
       <groupId>org.apache.servicecomb.pack</groupId>
       <artifactId>omega-transport-resttemplate</artifactId>
     </dependency>
+      <dependency>
+          <groupId>com.fasterxml</groupId>
+          <artifactId>jackson-xml-databind</artifactId>
+          <version>0.6.2</version>
+      </dependency>
   </dependencies>
 
   <build>

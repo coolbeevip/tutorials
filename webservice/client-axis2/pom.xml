@@ -24,5 +24,10 @@
       <groupId>org.apache.axis2</groupId>
       <artifactId>axis2-transport-local</artifactId>
     </dependency>
+      <dependency>
+          <groupId>com.fasterxml</groupId>
+          <artifactId>jackson-xml-databind</artifactId>
+          <version>0.6.2</version>
+      </dependency>
   </dependencies>
 </project>

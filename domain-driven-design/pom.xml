@@ -11,5 +11,12 @@
   </parent>
 
   <artifactId>domain-driven-design</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml</groupId>
+            <artifactId>jackson-xml-databind</artifactId>
+            <version>0.6.2</version>
+        </dependency>
+    </dependencies>
 
 </project>

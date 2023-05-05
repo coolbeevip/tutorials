@@ -65,6 +65,11 @@
       <artifactId>grpc-testing</artifactId>
       <scope>test</scope>
     </dependency>
+      <dependency>
+          <groupId>com.fasterxml</groupId>
+          <artifactId>jackson-xml-databind</artifactId>
+          <version>0.6.2</version>
+      </dependency>
   </dependencies>
 
   <build>

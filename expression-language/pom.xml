@@ -22,6 +22,11 @@
       <groupId>org.openjdk.jmh</groupId>
       <artifactId>jmh-generator-annprocess</artifactId>
     </dependency>
+      <dependency>
+          <groupId>com.fasterxml</groupId>
+          <artifactId>jackson-xml-databind</artifactId>
+          <version>0.6.2</version>
+      </dependency>
   </dependencies>
 
 

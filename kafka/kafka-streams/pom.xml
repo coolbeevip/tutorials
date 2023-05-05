@@ -22,6 +22,11 @@
       <groupId>com.coolbeevip</groupId>
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
+      <dependency>
+          <groupId>com.fasterxml</groupId>
+          <artifactId>jackson-xml-databind</artifactId>
+          <version>0.6.2</version>
+      </dependency>
   </dependencies>
 
   <build>

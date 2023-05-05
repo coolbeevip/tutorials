@@ -15,5 +15,12 @@
         <module>modbus</module>
         <module>opcua</module>
     </modules>
+    <dependencies>
+        <dependency>
+            <groupId>com.fasterxml</groupId>
+            <artifactId>jackson-xml-databind</artifactId>
+            <version>0.6.2</version>
+        </dependency>
+    </dependencies>
 
 </project>
