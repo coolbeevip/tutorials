@@ -54,7 +54,6 @@ public class MsWordValidation {
         } else if (xwpfStyle.getName().getVal().equals(MsWordStyles.CODE_DESC)) {
           MsWordStyles.STYLE_IDS.put(MsWordStyles.CODE_DESC, xwpfStyle.getStyleId());
         }
-        // System.out.println(String.format("> style [%s] id [%s]", xwpfStyle.getName().getVal(), xwpfStyle.getStyleId()));
         check(!MsWordStyles.DEPRECATED.contains(xwpfStyle.getName().getVal()), "样式 [" + xwpfStyle.getName().getVal() + "] 已经废弃", errors);
       });
 
@@ -69,29 +68,23 @@ public class MsWordValidation {
       int tocLevel = -1;
       for (XWPFParagraph paragraph : paragraphs) {
         if (paragraph.getText().trim().length() > 0) {
-          // System.out.println(String.format("> paragraph [%s] style [%s]", paragraph.getText(), paragraph.getCTP().getPPr().getPStyle() != null ? paragraph.getCTP().getPPr().getPStyle().getVal() : "null"));
           if (MsWordStyles.TOC_NAMES.contains(paragraph.getText())) {
             // toc style check
             check(MsWordStyles.STYLE_IDS.get(MsWordStyles.TOC_TITLE_DESC).equals(paragraph.getCTP().getPPr().getPStyle().getVal()), "目录样式必须为 " + MsWordStyles.TOC_TITLE_DESC, errors);
           } else if (MsWordStyles.TOC_TABLE_TITLE_PATTERN.matcher(paragraph.getText()).find()) {
-            //System.out.println(String.format("table title [%s]", paragraph.getText()));
             tableNameIndexes.put(tocTableCount.get(), paragraph.getText());
             tocTableCount.incrementAndGet();
           } else if (MsWordStyles.TOC_PICTURE_TITLE_PATTERN.matcher(paragraph.getText()).find()) {
-            // System.out.println(String.format("picture title [%s]", paragraph.getText()));
             tocPictureCount.incrementAndGet();
           } else if (MsWordStyles.TOC_TITLE_PATTERN.matcher(paragraph.getText()).find()) {
-            // title structure check
             String[] titleParts = paragraph.getText().split(" ");
             String num = titleParts[0];
             if (paragraph.getText().indexOf("附录") == -1) {
               String name = titleParts[1].split("\t")[0];
               titleIndexAndNames.put(num, name);
-              String page = titleParts[1].split("\t")[1];
             } else {
               String name = titleParts[1] + titleParts[2].split("\t")[0];
               titleIndexAndNames.put(num, name);
-              String page = titleParts[2].split("\t")[1];
             }
 
             check(num.split(".").length < 5, "标题 [" + paragraph.getText() + "] 不允许超过四级", errors);
@@ -103,12 +96,10 @@ public class MsWordValidation {
             }
             tocLevel = num.split(".").length;
             tocTitleCount.incrementAndGet();
-            // System.out.println(String.format("toc title [%s]", paragraph.getText()));
           } else if (paragraph.getCTP().getPPr().getPStyle() != null && (
               MsWordStyles.STYLE_IDS.get(MsWordStyles.TITLE_1_DESC).equals(paragraph.getCTP().getPPr().getPStyle().getVal()) ||
                   MsWordStyles.STYLE_IDS.get(MsWordStyles.TITLE_2_DESC).equals(paragraph.getCTP().getPPr().getPStyle().getVal()) ||
                   MsWordStyles.STYLE_IDS.get(MsWordStyles.TITLE_3_DESC).equals(paragraph.getCTP().getPPr().getPStyle().getVal()))) {
-            // System.out.println(String.format("real title [%s]", paragraph.getText()));
             realTitleCount.incrementAndGet();
           } else {
             // check paragraph length
@@ -120,13 +111,11 @@ public class MsWordValidation {
                   if (ctFonts.getHint() != null) {
                     if (ctFonts.getHint().toString().equals("eastAsia")) {
                       try {
-                        // 34 gbk word in line to 68 bytes
                         paragraphWordLength.addAndGet(run.getText(0).getBytes("GBK").length);
                       } catch (UnsupportedEncodingException e) {
                         throw new RuntimeException(e);
                       }
                     } else {
-                      // 62 us ascii word in line to 62 bytes
                       paragraphWordLength.addAndGet(run.getText(0).getBytes(StandardCharsets.US_ASCII).length);
                     }
                   } else if (ctFonts.getAscii() != null && ctFonts.getAscii().equals("Cambria")) {
@@ -148,10 +137,8 @@ public class MsWordValidation {
                 e.printStackTrace();
               }
             });
-            // 62 * 7 = 434
+
             check(paragraphWordLength.get() <= 434, "疑似超过段落最大行数 7 行 [" + paragraph.getText() + "]", errors);
-            // System.out.println(paragraph.getText());
-            // System.out.println(paragraph.getCTP().getPPr().getPStyle() != null ? paragraph.getCTP().getPPr().getPStyle().getVal() : null);
             if (paragraph.getCTP().getPPr().getPStyle() != null &&
                 MsWordStyles.STYLE_IDS.get(MsWordStyles.MAIN_BODY_DESC).equals(paragraph.getCTP().getPPr().getPStyle().getVal())) {
               if (paragraph.getCTP().getPPr().getNumPr() == null) {
@@ -163,7 +150,6 @@ public class MsWordValidation {
           }
           XWPFParagraphJson xwpfParagraphJson = new XWPFParagraphJson(paragraph);
           xwpfParagraphJson.getRunJsonList().forEach(runJson -> {
-            // fuzzy word check
             if (runJson.getText() != null) {
               MsWordStyles.FUZZY_WORDS.stream().forEach(word -> {
                 check(!runJson.getText().contains(word), "找到模糊表达用词: " + word, errors);
@@ -185,7 +171,6 @@ public class MsWordValidation {
           ctRow.getTcList().forEach(cttc -> {
             cttc.getPList().forEach(ctp -> {
               ctp.getRList().stream().flatMap(r -> Arrays.stream(r.getTArray())).forEach(t -> {
-                // System.out.println(String.format("table row[%d] cell [%s] style: [%s]", row.get(), t.getStringValue(), ctp.getPPr().getPStyle() != null ? ctp.getPPr().getPStyle().getVal() : "null"));
                 check(ctp.getPPr().getPStyle() != null && ctp.getPPr().getPStyle().getVal().equals(MsWordStyles.STYLE_IDS.get(MsWordStyles.TABLE_FIVE_DESC)), "table cell [" + t.getStringValue() + "] style must be " + MsWordStyles.TABLE_FIVE_DESC, errors);
                 long styleBoldPartCount = ctp.getRList().stream().filter(ctr -> ctr.getRPr() != null)
                     .map(ctr -> ctr.getRPr())
