@@ -11,7 +11,7 @@
   <artifactId>ms-office</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>word-validation</module>
+    <module>ppt-validation</module>
   </modules>
   <dependencies>
     <dependency>
