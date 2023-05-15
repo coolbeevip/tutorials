@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <artifactId>coolbeevip-tutorials</artifactId>
     <groupId>com.coolbeevip</groupId>
@@ -13,8 +13,18 @@
   <packaging>pom</packaging>
 
   <properties>
-    <h2.version>1.4.197</h2.version>
+    <apache.calcite.version>1.32.0</apache.calcite.version>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.apache.calcite</groupId>
+        <artifactId>calcite-core</artifactId>
+        <version>${apache.calcite.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <dependencies>
     <dependency>
@@ -67,17 +77,17 @@
       <artifactId>test</artifactId>
       <version>${project.version}</version>
     </dependency>
-      <dependency>
-          <groupId>com.fasterxml</groupId>
-          <artifactId>jackson-xml-databind</artifactId>
-          <version>0.6.2</version>
-      </dependency>
+    <dependency>
+      <groupId>com.fasterxml</groupId>
+      <artifactId>jackson-xml-databind</artifactId>
+      <version>0.6.2</version>
+    </dependency>
   </dependencies>
 
   <modules>
     <module>ignite-common</module>
     <module>ignite-persistence-storage-rdbms</module>
     <module>ignite-mybatis-cache-l2</module>
-        <module>ignite-embed-example</module>
+    <module>ignite-embed-example</module>
   </modules>
 </project>

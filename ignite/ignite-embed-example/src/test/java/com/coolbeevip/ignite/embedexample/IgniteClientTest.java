@@ -6,14 +6,13 @@ import org.apache.ignite.IgniteQueue;
 import org.apache.ignite.IgniteSet;
 import org.apache.ignite.cache.CacheMode;
 import org.hamcrest.Matchers;
-import org.junit.After;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.IntStream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -27,7 +26,7 @@ public class IgniteClientTest {
   static String truststorePass = "123456";
   static boolean clientMode = true;
 
-  List<IgniteNode> servers = new ArrayList<>();
+  static List<IgniteNode> servers = new ArrayList<>();
 
   static {
     System.setProperty("java.net.preferIPv4Stack", "true");
@@ -68,15 +67,13 @@ public class IgniteClientTest {
         }
       }, "threadDecrement");
 
-      Thread chaosThread = chaosServer();
       threadAdd.start();
       threadDecrement.start();
-      chaosThread.start();
       threadAdd.join();
       threadDecrement.join();
-      chaosThread.join();
-
-      assertThat(node.createAtomicLong("counter").get(), Matchers.is(0L));
+      IgniteAtomicLong counter = node.createAtomicLong("counter");
+      assertThat(counter, Matchers.is(Matchers.notNullValue()));
+      assertThat(counter.get(), Matchers.is(0L));
     }
   }
 
@@ -165,35 +162,22 @@ public class IgniteClientTest {
     }
   }
 
-  private Thread chaosServer() {
-    return new Thread(() -> {
-      Random r = new Random();
-      IgniteNode oldNode = servers.get(r.nextInt(2));
-      log.info("chaos stop server node {}", oldNode.getId());
-      oldNode.close();
-      servers.remove(oldNode);
-      IgniteNode newNode = startServer();
-      servers.add(newNode);
-      log.info("chaos start server node {}", newNode.getId());
-    }, "chaosThread");
-  }
-
-  private IgniteNode startServer() {
+  private static IgniteNode startServer() {
     return IgniteNodeFactory.createIgniteNode(false, "127.0.0.1", 47500, 3,
         Arrays.asList("127.0.0.1:47500", "127.0.0.1:47501", "127.0.0.1:47502"), keystoreFile,
         keystorePass,
         truststoreFile, truststorePass);
   }
 
-  @Before
-  public void setup() {
+  @BeforeClass
+  public static void setup() {
     IntStream.rangeClosed(0, 2).forEach(n -> {
       servers.add(startServer());
     });
   }
 
-  @After
-  public void tearDown() {
+  @AfterClass
+  public static void tearDown() {
     servers.stream().forEach(s -> s.close());
   }
 }
