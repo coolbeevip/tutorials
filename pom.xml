@@ -140,7 +140,7 @@
     <testcontainers.version>1.17.3</testcontainers.version>
     <cucumber.version>7.5.0</cucumber.version>
     <opentelemetry.version>1.16.0</opentelemetry.version>
-    <lettuce.version>6.1.10.RELEASE</lettuce.version>
+    <lettuce.version>6.2.2.RELEASE</lettuce.version>
     <cxf.version>3.5.4</cxf.version>
     <axis.version>1.4</axis.version>
     <axis2.version>1.8.2</axis2.version>

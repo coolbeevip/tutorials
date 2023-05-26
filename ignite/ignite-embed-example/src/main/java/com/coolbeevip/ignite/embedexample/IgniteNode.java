@@ -3,6 +3,7 @@ package com.coolbeevip.ignite.embedexample;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.IgniteAtomicLong;
 import org.apache.ignite.IgniteCache;
+import org.apache.ignite.IgniteDataStreamer;
 import org.apache.ignite.IgniteQueue;
 import org.apache.ignite.IgniteSet;
 import org.apache.ignite.Ignition;
@@ -61,12 +62,16 @@ public class IgniteNode implements AutoCloseable {
     return ignite.getOrCreateCache(cacheConfiguration);
   }
 
-  public IgniteAtomicLong createAtomicLong(String name) {
-    return this.createAtomicLong(name, 0);
+  public IgniteAtomicLong createOrGetAtomicLong(String name) {
+    return this.createOrGetAtomicLong(name, 0);
   }
 
-  public IgniteAtomicLong createAtomicLong(String name, long initialValue) {
+  public IgniteAtomicLong createOrGetAtomicLong(String name, long initialValue) {
     return ignite.atomicLong(name, initialValue, true);
+  }
+
+  public <K, V> IgniteDataStreamer<K, V> dataStreamer(String name) {
+    return ignite.dataStreamer(name);
   }
 
   public IgniteCache getCache(String name) {
