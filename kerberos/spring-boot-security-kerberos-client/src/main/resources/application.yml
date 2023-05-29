@@ -2,6 +2,6 @@ server:
   port: 0
 
 app:
-  user-principal: client/localhost
+  user-principal: client/localhost@EXAMPLE.COM
   keytab-location: /Users/zhanglei/Work/github/tutorials/kerberos/krb-workdir/example.keytab
   access-url: http://localhost:8080/endpoint

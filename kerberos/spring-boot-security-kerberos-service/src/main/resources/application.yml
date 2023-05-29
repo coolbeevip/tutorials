@@ -2,5 +2,13 @@ server:
   port: 8080
 
 app:
-  service-principal: HTTP/localhost
+  service-principal: HTTP/localhost@EXAMPLE.COM
   keytab-location: /Users/zhanglei/Work/github/tutorials/kerberos/krb-workdir/example.keytab
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+logging:
+  level:
+    org.springframework.security: debug
