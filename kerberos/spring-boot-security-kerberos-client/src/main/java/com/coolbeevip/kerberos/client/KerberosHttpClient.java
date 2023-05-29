@@ -8,8 +8,12 @@ import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
 import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.http.HttpHost;
 import org.apache.hc.core5.http.config.Lookup;
 import org.apache.hc.core5.http.config.RegistryBuilder;
+import org.apache.hc.core5.http.io.HttpClientResponseHandler;
+import org.apache.hc.core5.http.protocol.HttpContext;
+import org.apache.hc.core5.io.CloseMode;
 import org.springframework.util.StringUtils;
 
 import javax.security.auth.Subject;
@@ -27,37 +31,20 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class KerberosHttpClient implements AutoCloseable {
+
+public class KerberosHttpClient extends CloseableHttpClient {
   private static final Credentials credentials = new NullCredentials();
+  private final String userPrincipal;
+  private final String keyTabLocation;
   private final CloseableHttpClient httpClient;
-  final String krb5Conf;
-  final String userPrincipal;
-  final String keyTabLocation;
 
   public KerberosHttpClient(String krb5Conf, String userPrincipal, String keyTabLocation, boolean debug) {
-    this.krb5Conf = krb5Conf;
     this.userPrincipal = userPrincipal;
     this.keyTabLocation = keyTabLocation;
     System.setProperty("java.security.krb5.conf", Paths.get(krb5Conf).normalize().toAbsolutePath().toString());
     System.setProperty("sun.security.krb5.debug", debug ? "true" : "false");
     System.setProperty("http.use.global.creds", "false");
-    this.httpClient = buildHttpClient();
-  }
 
-  public CloseableHttpResponse execute(ClassicHttpRequest request) throws LoginException {
-    LoginContext lc = buildLoginContext();
-    lc.login();
-    Subject serviceSubject = lc.getSubject();
-    return Subject.doAs(serviceSubject, (PrivilegedAction<CloseableHttpResponse>) () -> {
-      try {
-        return this.httpClient.execute(request);
-      } catch (IOException e) {
-        throw new RuntimeException(e);
-      }
-    });
-  }
-
-  private CloseableHttpClient buildHttpClient() {
     HttpClientBuilder builder = HttpClientBuilder.create();
     Lookup<AuthSchemeFactory> authSchemeRegistry = RegistryBuilder.<AuthSchemeFactory>create()
         .register(StandardAuthScheme.SPNEGO, new SPNegoSchemeFactory(
@@ -71,8 +58,100 @@ public class KerberosHttpClient implements AutoCloseable {
     BasicCredentialsProvider credentialsProvider = new BasicCredentialsProvider();
     credentialsProvider.setCredentials(new AuthScope(null, -1), credentials);
     builder.setDefaultCredentialsProvider(credentialsProvider);
-    CloseableHttpClient httpClient = builder.build();
-    return httpClient;
+    this.httpClient = builder.build();
+  }
+
+  @Override
+  protected CloseableHttpResponse doExecute(HttpHost target, ClassicHttpRequest request, HttpContext context) throws IOException {
+    try {
+      LoginContext lc = buildLoginContext();
+      lc.login();
+      Subject serviceSubject = lc.getSubject();
+      return Subject.doAs(serviceSubject, (PrivilegedAction<CloseableHttpResponse>) () -> {
+        try {
+          return httpClient.execute(target, request, context);
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      });
+    } catch (LoginException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public <T> T execute(ClassicHttpRequest request, HttpClientResponseHandler<? extends T> responseHandler) throws IOException {
+    try {
+      LoginContext lc = buildLoginContext();
+      lc.login();
+      Subject serviceSubject = lc.getSubject();
+      return Subject.doAs(serviceSubject, (PrivilegedAction<T>) () -> {
+        try {
+          return httpClient.execute(request, responseHandler);
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      });
+    } catch (LoginException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public <T> T execute(ClassicHttpRequest request, HttpContext context,
+                       HttpClientResponseHandler<? extends T> responseHandler) throws IOException {
+    try {
+      LoginContext lc = buildLoginContext();
+      lc.login();
+      Subject serviceSubject = lc.getSubject();
+      return Subject.doAs(serviceSubject, (PrivilegedAction<T>) () -> {
+        try {
+          return httpClient.execute(request, context, responseHandler);
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      });
+    } catch (LoginException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public <T> T execute(HttpHost target, ClassicHttpRequest request,
+                       HttpClientResponseHandler<? extends T> responseHandler) throws IOException {
+    try {
+      LoginContext lc = buildLoginContext();
+      lc.login();
+      Subject serviceSubject = lc.getSubject();
+      return Subject.doAs(serviceSubject, (PrivilegedAction<T>) () -> {
+        try {
+          return httpClient.execute(target, request, responseHandler);
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      });
+    } catch (LoginException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override
+  public <T> T execute(HttpHost target, ClassicHttpRequest request, HttpContext context, HttpClientResponseHandler<?
+      extends T> responseHandler) throws IOException {
+    try {
+      LoginContext lc = buildLoginContext();
+      lc.login();
+      Subject serviceSubject = lc.getSubject();
+      return Subject.doAs(serviceSubject, (PrivilegedAction<T>) () -> {
+        try {
+          return httpClient.execute(target, request, context, responseHandler);
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      });
+    } catch (LoginException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   private LoginContext buildLoginContext() throws LoginException {
@@ -85,22 +164,18 @@ public class KerberosHttpClient implements AutoCloseable {
   }
 
   @Override
-  public void close() throws Exception {
-    if (this.httpClient != null) {
-      this.httpClient.close();
-    }
+  public void close() throws IOException {
+    if(this.httpClient!=null) this.httpClient.close();
   }
 
-  private static class NullCredentials implements Credentials {
-
-    @Override
-    public Principal getUserPrincipal() {
-      return null;
-    }
-
-    @Override
-    public char[] getPassword() {
-      return null;
+  @Override
+  public void close(CloseMode closeMode) {
+    if(this.httpClient!=null) {
+      try {
+        this.httpClient.close();
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
     }
   }
 
@@ -136,6 +211,19 @@ public class KerberosHttpClient implements AutoCloseable {
       return new AppConfigurationEntry[]{new AppConfigurationEntry(
           "com.sun.security.auth.module.Krb5LoginModule",
           AppConfigurationEntry.LoginModuleControlFlag.REQUIRED, options)};
+    }
+  }
+
+  private static class NullCredentials implements Credentials {
+
+    @Override
+    public Principal getUserPrincipal() {
+      return null;
+    }
+
+    @Override
+    public char[] getPassword() {
+      return new char[0];
     }
   }
 }

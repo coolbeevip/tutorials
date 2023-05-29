@@ -18,7 +18,7 @@ public class HttpClient5ManualTest {
   static String keyTabLocation = "/Users/zhanglei/Work/github/tutorials/kerberos/krb-workdir/example.keytab";
 
   @Test
-  public void test2() throws LoginException, IOException {
+  public void test2() throws IOException {
     KerberosHttpClient client = new KerberosHttpClient(krb5Conf, userPrincipal, keyTabLocation, true);
     try (CloseableHttpResponse response = client.execute(new HttpGet("http://localhost:8080/endpoint"))) {
       assertThat(response.getCode(), Matchers.is(200));
