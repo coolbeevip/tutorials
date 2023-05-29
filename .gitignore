@@ -18,3 +18,4 @@ jmh-*.json
 *.arrow
 logs/
 ignite/
+krb-workdir/
