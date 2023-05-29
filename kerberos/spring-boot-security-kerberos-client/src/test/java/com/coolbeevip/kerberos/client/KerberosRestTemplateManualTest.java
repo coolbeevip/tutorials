@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SampleClientManualTest {
+public class KerberosRestTemplateManualTest {
 
   @Autowired
   private SampleClient sampleClient;
