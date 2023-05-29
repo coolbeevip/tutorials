@@ -1015,6 +1015,19 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
+    <repository>
+      <id>spring-snapshot</id>
+      <name>Spring Snapshot Repository</name>
+      <url>https://repo.spring.io/snapshot</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>spring-milestone</id>
+      <name>Spring Milestone Repository</name>
+      <url>https://repo.spring.io/milestone</url>
+    </repository>
   </repositories>
 
   <modules>
@@ -1061,6 +1074,7 @@
     <module>calcite</module>
     <module>plc4x</module>
     <module>ms-office</module>
+    <module>kerberos</module>
   </modules>
 
   <profiles>
