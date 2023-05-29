@@ -1,0 +1,6 @@
+server:
+  port: 8080
+
+app:
+  service-principal: HTTP/localhost
+  keytab-location: /Users/zhanglei/Work/github/tutorials/kerberos/krb-workdir/example.keytab
