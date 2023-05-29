@@ -14,7 +14,6 @@ import org.apache.hc.core5.http.config.RegistryBuilder;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.springframework.security.kerberos.client.KerberosRestTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 
