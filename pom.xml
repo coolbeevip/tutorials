@@ -135,6 +135,7 @@
     <maven-pmd-plugin.version>3.13.0</maven-pmd-plugin.version>
     <lombok.version>1.18.16</lombok.version>
     <h2.version>2.0.206</h2.version>
+    <hive.version>3.1.3</hive.version>
     <elasticsearch.version>7.11.2</elasticsearch.version>
     <net.java.dev.jna.version>5.7.0</net.java.dev.jna.version>
     <testcontainers.version>1.17.3</testcontainers.version>
@@ -694,6 +695,43 @@
         <version>${lettuce.version}</version>
       </dependency>
 
+      <!-- hive -->
+      <dependency>
+        <groupId>org.apache.hive.hcatalog</groupId>
+        <artifactId>hive-hcatalog-streaming</artifactId>
+        <version>${hive.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.hive.hcatalog</groupId>
+        <artifactId>hive-hcatalog-core</artifactId>
+        <version>${hive.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.hive</groupId>
+        <artifactId>hive-jdbc</artifactId>
+        <version>${hive.version}</version>
+      </dependency>
+
       <!-- axis -->
       <dependency>
         <groupId>axis</groupId>
@@ -1075,6 +1113,7 @@
     <module>plc4x</module>
     <module>ms-office</module>
     <module>kerberos</module>
+    <module>hive</module>
   </modules>
 
   <profiles>
