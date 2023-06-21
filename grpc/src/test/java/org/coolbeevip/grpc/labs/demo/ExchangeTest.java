@@ -17,10 +17,10 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ClientMainTest {
+public class ExchangeTest {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-  private static ExchangeServer server;
+  private static GrpcServer server;
   private static int port = 58084;
   ExchangeClient client;
   StreamObserver<RequestMessage> requestStreamObserver;
@@ -29,7 +29,7 @@ public class ClientMainTest {
 
   @BeforeClass
   public static void before() {
-    server = new ExchangeServer(port);
+    server = new GrpcServer(port);
     server.start();
   }
 

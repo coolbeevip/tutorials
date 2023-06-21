@@ -21,16 +21,17 @@ import java.util.concurrent.Future;
  * @author zhanglei
  */
 
-public class ExchangeServer {
+public class GrpcServer {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   private final int port;
   private final Server server;
 
-  public ExchangeServer(int port) {
+  public GrpcServer(int port) {
     this.port = port;
     this.server = NettyServerBuilder.forPort(port)
         .addService(new ExchangeService())
+        .addService(new FileTransferService())
 //        .channelType(selectorServerChannel())
 //        .bossEventLoopGroup(selectorEventLoopGroup(1))
 //        .workerEventLoopGroup(selectorEventLoopGroup(0))
