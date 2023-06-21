@@ -47,6 +47,9 @@
     <!-- syslog4j -->
     <syslog4j.version>0.9.30</syslog4j.version>
 
+    <!-- deeplearning4j -->
+    <deeplearning4j.version>1.0.0-M1</deeplearning4j.version>
+
     <!-- antlr -->
     <antlr.version>4.7.1</antlr.version>
 
@@ -843,6 +846,33 @@
         <version>${log4j.versoin}</version>
       </dependency>
 
+      <!-- deeplearning4j -->
+      <dependency>
+        <groupId>org.deeplearning4j</groupId>
+        <artifactId>deeplearning4j-core</artifactId>
+        <version>${deeplearning4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.deeplearning4j</groupId>
+        <artifactId>deeplearning4j-nlp</artifactId>
+        <version>${deeplearning4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.datavec</groupId>
+        <artifactId>datavec-api</artifactId>
+        <version>${deeplearning4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.datavec</groupId>
+        <artifactId>datavec-data-image</artifactId>
+        <version>${deeplearning4j.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.datavec</groupId>
+        <artifactId>datavec-local</artifactId>
+        <version>${deeplearning4j.version}</version>
+      </dependency>
+
       <!-- junit 4 -->
       <dependency>
         <groupId>junit</groupId>
@@ -1116,6 +1146,7 @@
     <module>ms-office</module>
     <module>kerberos</module>
     <module>hive</module>
+    <module>deeplearning4j</module>
   </modules>
 
   <profiles>
