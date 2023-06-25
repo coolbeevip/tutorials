@@ -11,20 +11,9 @@
 
   <groupId>org.example</groupId>
   <artifactId>hive</artifactId>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.hive.hcatalog</groupId>
-      <artifactId>hive-hcatalog-streaming</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.hive.hcatalog</groupId>
-      <artifactId>hive-hcatalog-core</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.hive</groupId>
-      <artifactId>hive-jdbc</artifactId>
-    </dependency>
-  </dependencies>
-
+  <packaging>pom</packaging>
+  <modules>
+    <module>hive-streaming</module>
+    <module>hive-jdbc</module>
+  </modules>
 </project>

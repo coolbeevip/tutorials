@@ -1,4 +1,4 @@
-package com.coolbeevip.hive;
+package com.coolbeevip.hive.streaming;
 
 import org.apache.hadoop.hive.conf.HiveConf;
 import org.apache.hadoop.hive.metastore.HiveMetaStoreClient;
@@ -7,7 +7,7 @@ import org.apache.hadoop.hive.metastore.api.MetaException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HiveManagement {
+public class HiveStreamingManagement {
   private static Map<String, HiveMetaStoreClient> hiveClients = new HashMap<>();
   private static Map<String, HiveConf> hiveConfs = new HashMap<>();
 

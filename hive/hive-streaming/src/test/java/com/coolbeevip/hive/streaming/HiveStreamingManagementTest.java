@@ -1,4 +1,4 @@
-package com.coolbeevip.hive;
+package com.coolbeevip.hive.streaming;
 
 
 import org.apache.hadoop.hive.metastore.ColumnType;
@@ -23,7 +23,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
-public class HiveManagementTest {
+public class HiveStreamingManagementTest {
 
   private static final String HIVE_NAME = "myHive";
   private static final String HIVE_DATABASE = "testdb";
@@ -35,7 +35,7 @@ public class HiveManagementTest {
 
   @Test
   public void createTableTest() throws TException {
-    HiveMetaStoreClient client = HiveManagement.getHiveClient(HIVE_NAME);
+    HiveMetaStoreClient client = HiveStreamingManagement.getHiveClient(HIVE_NAME);
     Table existTable = null;
     try {
       existTable = client.getTable(HIVE_DATABASE, HIVE_TABLE);
@@ -63,7 +63,7 @@ public class HiveManagementTest {
 
   @Test
   public void insertTransactionTableTest() throws TException {
-    HiveMetaStoreClient client = HiveManagement.getHiveClient(HIVE_NAME);
+    HiveMetaStoreClient client = HiveStreamingManagement.getHiveClient(HIVE_NAME);
     client.createTable(getTableDesc(true));
 
     int txnsPerBatch = 10;
@@ -118,8 +118,8 @@ public class HiveManagementTest {
 
   @BeforeClass
   public static void setup() throws TException {
-    HiveManagement.addHiveClient(HIVE_NAME, METASTORE_URI);
-    HiveMetaStoreClient client = HiveManagement.getHiveClient(HIVE_NAME);
+    HiveStreamingManagement.addHiveClient(HIVE_NAME, METASTORE_URI);
+    HiveMetaStoreClient client = HiveStreamingManagement.getHiveClient(HIVE_NAME);
     Database database = null;
     try {
       database = client.getDatabase(HIVE_DATABASE);
@@ -137,8 +137,8 @@ public class HiveManagementTest {
 
   @AfterClass
   public static void tearDown() throws TException {
-    HiveManagement.addHiveClient(HIVE_NAME, METASTORE_URI);
-    HiveMetaStoreClient client = HiveManagement.getHiveClient(HIVE_NAME);
+    HiveStreamingManagement.addHiveClient(HIVE_NAME, METASTORE_URI);
+    HiveMetaStoreClient client = HiveStreamingManagement.getHiveClient(HIVE_NAME);
     Database database = client.getDatabase(HIVE_DATABASE);
     if (database != null) {
       client.dropDatabase(HIVE_DATABASE, true, true, true);
