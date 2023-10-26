@@ -9,7 +9,7 @@ import java.nio.file.Paths;
 
 public class MsPPTValidationTest {
 
-  @Test
+  //@Test
   public void test() throws IOException, XmlException {
     String path = "/Users/zhanglei/Desktop/misc/p0-word/ppt.pptx";
     MsPPTValidation validation = new MsPPTValidation();

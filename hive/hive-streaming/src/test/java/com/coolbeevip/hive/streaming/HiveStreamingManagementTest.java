@@ -33,7 +33,7 @@ public class HiveStreamingManagementTest {
   private static final String METASTORE_URI = "thrift://10.19.83.185:9083";
   private static final String JDBC_URI = "jdbc:hive2://10.19.83.185:10000";
 
-  @Test
+  //@Test
   public void createTableTest() throws TException {
     HiveMetaStoreClient client = HiveStreamingManagement.getHiveClient(HIVE_NAME);
     Table existTable = null;
@@ -61,7 +61,7 @@ public class HiveStreamingManagementTest {
     }
   }
 
-  @Test
+  //@Test
   public void insertTransactionTableTest() throws TException {
     HiveMetaStoreClient client = HiveStreamingManagement.getHiveClient(HIVE_NAME);
     client.createTable(getTableDesc(true));

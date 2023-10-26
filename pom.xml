@@ -57,7 +57,7 @@
     <nacos.version>2.1.0</nacos.version>
 
     <!-- ratis -->
-    <ratis.version>2.3.0</ratis.version>
+    <ratis.version>2.5.1</ratis.version>
     <ratis.thirdparty.version>1.0.0</ratis.thirdparty.version>
 
     <!-- arrow -->

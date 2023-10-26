@@ -25,7 +25,7 @@ public class LettuceTest {
     assertThat(String.valueOf(redisURI.getPassword()), Matchers.is("abc@#123"));
   }
 
-  @Test
+  //@Test
   public void connectTestWithProtocolVersion() throws UnsupportedEncodingException {
     String password = URLEncoder.encode("fs-sat-ctgcache-01#SSew1_DHwe23r", "UTF-8");
     ClientOptions options = ClientOptions.builder()
