@@ -97,6 +97,7 @@
     <apache.calcite.version>1.34.0</apache.calcite.version>
     <apache.plc4x.version>0.10.0</apache.plc4x.version>
     <apache.poi.version>5.2.3</apache.poi.version>
+    <pdfbox.version>3.0.1</pdfbox.version>
 
     <!-- plugins -->
     <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
@@ -254,6 +255,13 @@
         <groupId>org.apache.calcite</groupId>
         <artifactId>calcite-testkit</artifactId>
         <version>${apache.calcite.version}</version>
+      </dependency>
+
+      <!-- apache pdf -->
+      <dependency>
+        <groupId>org.apache.pdfbox</groupId>
+        <artifactId>pdfbox</artifactId>
+        <version>${pdfbox.version}</version>
       </dependency>
 
       <!-- servicecomb pack -->
@@ -1074,6 +1082,16 @@
   </dependencies>
 
   <repositories>
+<!--    <repository>-->
+<!--      <id>spring</id>-->
+<!--      <url>https://maven.aliyun.com/repository/spring</url>-->
+<!--      <releases>-->
+<!--        <enabled>true</enabled>-->
+<!--      </releases>-->
+<!--      <snapshots>-->
+<!--        <enabled>true</enabled>-->
+<!--      </snapshots>-->
+<!--    </repository>-->
     <repository>
       <id>apache.snapshots</id>
       <name>Apache Development Snapshot Repository</name>
@@ -1147,6 +1165,7 @@
     <module>kerberos</module>
     <module>hive</module>
     <module>deeplearning4j</module>
+    <module>pdf</module>
   </modules>
 
   <profiles>
